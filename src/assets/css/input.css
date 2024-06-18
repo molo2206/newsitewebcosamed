@@ -1,0 +1,6 @@
+.form-input{
+    @apply border border-gray-300 text-gray-900 text-sm rounded focus:ring-0 focus:border-gray-400 block w-full
+     p-3 dark:bg-zinc-700/20 dark:border-zinc-700/50
+   dark:placeholder:text-gray-300/50 dark:text-gray-300/50"
+    placeholder="Enter your name
+}

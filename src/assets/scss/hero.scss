@@ -1,0 +1,58 @@
+@use './breakpoints' as *;
+@at-root{
+    div.blog__breadcrumb-slider{
+
+        div.blog-slider-dot-breadcrumb{
+            position: absolute;
+            bottom: 30px;
+            right: 19%;
+            z-index: 1;
+            width: auto;
+            left: auto;
+    
+            // @include rtl{
+            //     right: auto;
+            //     left: 19%;
+            // }
+    
+            @media #{$md}{
+                right: 6%;
+                // @include rtl{
+                //     right: auto;
+                //     left: 6%;
+                // }
+            }
+    
+            @media #{$sm}{
+                right: 4%;
+                bottom: 20px;
+    
+                // @include rtl{
+                //     right: auto;
+                //     left: 4%;
+                // }
+            }
+    
+            @media #{$xs}{
+                bottom: 10px;
+                right: 3%;
+    
+                // @include rtl{
+                //     right: auto;
+                //     left: 3%;
+                // }
+            }
+            .swiper-pagination-bullet{
+                background-color: #FFFFFF4D;
+                margin: 0 4px;
+                &::after{
+                    display: none;
+                }
+              
+                &.swiper-pagination-bullet-active{
+                    background-color: var(--tp-common-white);
+                }
+            }
+        }
+    }
+}
