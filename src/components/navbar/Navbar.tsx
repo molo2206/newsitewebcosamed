@@ -196,7 +196,7 @@ function Navbar() {
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link
                               className="space-y-2"
-                              to=""
+                              to="/load-data/communicated"
                               onClick={() => window.scroll(0, 0)}
                             >
                               <PiNewspaperClippingFill size={25} />
@@ -294,9 +294,10 @@ function Navbar() {
                           </div>
                           <div>
                             <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold ">
-                              <Link to="" onClick={() => window.scroll(0, 0)}>
+                              <Link to={`#`}  onClick={notify}>
                                 <CiMoneyCheck1 size={25} />
                                 {t("Funding")}
+                                <ToastContainer />
                               </Link>
                             </h1>
                           </div>

@@ -8,7 +8,7 @@ interface props {
 const BreadCumb = ({ title, second, secondTitle }: props) => {
   const { t } = useTranslation();
   return (
-    <nav className="breadcrumbs border-[#cbd2d9] border-[0.5px] rounded-lg line-clamp " style={{ marginTop: 10, marginBottom: 10 }}>
+    <nav className="breadcrumbs border-[#cbd2d9] border-[0.5px] rounded-lg line-clamp text-sm " style={{ marginTop: 10, marginBottom: 10 }}>
       <Link to="/" className="breadcrumbs__item text-slate-800 dark:text-slate-300">
         {t("Home")}
       </Link>

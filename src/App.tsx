@@ -30,6 +30,8 @@ import Team from "./pages/Team";
 import Error404 from "./pages/Error404";
 import Thematiqueblog from "./pages/Thematiqueblog";
 import DetailOffre from "./pages/DetailOffre";
+import Communicates from "./pages/Communicates";
+import CommunicateDetail from "./pages/CommunicateDetail";
 
 function App() {
   return (
@@ -56,6 +58,8 @@ function App() {
           <Route path="/partners" element={<Partners />}></Route>
           <Route path="/team" element={<Team />}></Route>
           <Route path="/blog/category/:id" element={<Thematiqueblog />}></Route>
+          <Route path="/load-data/communicated" element={<Communicates/>}></Route>
+          <Route path="/communicated/:id" element={<CommunicateDetail />}></Route>
           <Route path="*" element={<Error404 />}></Route>
           {/* <Route path="/videos" element={<Videos/>}></Route>
             <Route path="/evenement" element={<Evenement/>}></Route>

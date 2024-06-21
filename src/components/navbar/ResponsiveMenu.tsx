@@ -21,7 +21,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
   ];
 
   const newsroom = [
-    { name: "Press", link: "/#deskenfant" },
+    { name: "Press", link: "/load-data/communicated" },
     { name: "Videos", link: "/data-loading/videos" },
     { name: "Podcast", link: "/data-loading/podcast" },
     { name: "Blog", link: "/data-loading/blogs" },

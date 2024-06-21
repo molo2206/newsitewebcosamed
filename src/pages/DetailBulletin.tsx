@@ -17,7 +17,6 @@ import {
 } from "react-share";
 import { useTranslation } from "react-i18next";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
-import Bulletin from "../components/blogs/Bulletin";
 
 const DetailBulletin = () => {
   const { t } = useTranslation();
@@ -210,8 +209,8 @@ const DetailBulletin = () => {
             </div>
           </div>
 
-          <p className=" border-t-2 border-gray-300/50 py-4 text-center"></p>
-          <Bulletin />
+          {/* <p className=" border-t-2 border-gray-300/50 py-4 text-center"></p>
+          <Bulletin /> */}
         </div>
       )}
     </>

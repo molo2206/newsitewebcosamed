@@ -7,7 +7,7 @@ const PartnerCard = ({partners}:props) => {
   return (
     <>
       <Link target="_black" to={partners?.url} onClick={() => window.scroll}>
-        <div className="container p-1 shadow-2xl">
+        <div className="container p-1 shadow-2xl rounded-md">
           <div className="overflow-hidden py-4">
             <img
               src={partners?.image}

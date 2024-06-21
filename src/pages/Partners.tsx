@@ -12,6 +12,16 @@ const Partners = () => {
       <div>
         <BreadCumb title={"Partners"} />
         <section className="mb-10 ">
+          <div className=" h-20">
+            <h1 className=" font-semibold text-center dark:bg-slate-900 dark:text-slate-200 sm:text-sm md:text-3xl">
+              {t("How_collaborate")}
+            </h1>
+          </div>
+          <div className=" bg-slate-400">
+            <h1 className=" font-semibold text-center dark:bg-slate-900 dark:text-slate-200 sm:text-sm md:text-md">
+              {t("Data_how_collaborate")}
+            </h1>
+          </div>
           <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
             {t("Partners")}
           </h1>

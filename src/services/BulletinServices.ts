@@ -10,6 +10,9 @@ const BulletinServices = {
     oneBulletin: async (id: any) => {
         return requests.get(`/public/bulletins/detail/${id}`)
     },
+    lastBulletin: async () => {
+		return requests.get(`/public/lastbulletin`)
+	}
 }
 
 export default BulletinServices

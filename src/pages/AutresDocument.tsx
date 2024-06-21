@@ -1,6 +1,4 @@
-import Img1 from "../assets/blogs/r1.jpeg";
 
-import SimpleBannerBulletin from "../components/simpleBanner/SimpleBannerBulletin";
 
 const AutresDocument = () => {
   return (
@@ -8,7 +6,7 @@ const AutresDocument = () => {
       <div>
         <div className="container py-2 font-semibold">Rapport/Accueil</div>
         <section className="mb-10 ">
-          <SimpleBannerBulletin img={Img1} />
+          {/* <SimpleBannerBulletin img={Img1} /> */}
           <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
             Others documents
           </h1>

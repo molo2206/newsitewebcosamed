@@ -56,19 +56,23 @@ export const En = {
 	History: "History",
 	News: "News",
 	OurWork: "Our Work",
-	Partners: "Partners",
+	Partners: "The people and organizations we work with",
 	Download: "Download PDF",
 	PressButton: "Click the button below to download the newsletter",
 	Condition: "CONDITION OF MEMBERSHIP WITHIN",
 	Apply: "To apply",
-	Job_off: "This opening is not available anymore. Do not try to apply for this job."
+	Job_off: "This opening is not available anymore. Do not try to apply for this job.",
+	More: "Read more",
+	How_collaborate: "How we collaborate",
+	Data_how_collaborate: "Collaboration is at the heart of everything we do. Every day, we connect with nations, partners and experts to be able to go further, together. Our partners help support WHO's scientific work and field programs, provide funds and resources, participate in our campaigns and programs, and advocate with us for policy and behavior change to support of better health.Partnerships help us deliver critical vaccines and supplies, raise funds for Triple Billion targets, build consensus among leading scientists, and much more. World leaders, international organizations, civil society, foundations, researchers and health workers, we are mobilizing society as a whole to guarantee the health and safety of all.",
+	team_info: "Cosamed is aware that it must have a solid workforce if it wants to improve the health and well-being of people in areas in need. Every day, our teams tackle new challenges encountered in the Organization's areas of intervention, whether senior managers or administrative staff for emergency situations, health specialists or data managers."
 }
 
 export const FR = {
 	Home: 'Accueil',
 	AboutUs: 'A propos de nous',
 	Themes: 'Thèmes',
-	Emergency: 'Urgences',
+	Emergency: 'Urgences sanitaires',
 	Newsroom: 'Centre des medias',
 	Ouractions: "Notre action",
 	Donate: "FAITES UN DON",
@@ -121,10 +125,14 @@ export const FR = {
 	History: "Historique",
 	News: "Actualités",
 	OurWork: "Notre travail",
-	Partners: "Partenaires",
+	Partners: "Les personnes et organisations avec lesquelles nous travaillons",
 	Download: "Télécharger le PDF",
 	PressButton: "Cliquez sur le bouton ci-dessous pour télécharger le bulletin",
 	Condition: "CONDITION D’ADHESION AU SEIN DE",
 	Apply: "Postuler",
-	Job_off: "Cette ouverture n'est plus disponible. N'essayez pas de postuler pour cet emploi."
+	Job_off: "Cette ouverture n'est plus disponible. N'essayez pas de postuler pour cet emploi.",
+	More: "Lire plus",
+	How_collaborate: "Comment nous collaborons",
+	Data_how_collaborate: "La collaboration est au cœur de tout ce que nous faisons. Chaque jour, nous nous connectons avec les partenaires et les experts pour pouvoir aller plus loin, ensemble. Nos partenaires aident à soutenir les travaux scientifiques et les programmes de terrain de COSAMED, fournissent des fonds et des ressources, participent à nos campagnes et programmes et plaident avec nous en faveur d'un changement de politique et de comportement en faveur d'une meilleure santé.Les partenariats nous aident à fournir des fournitures essentielles, à collecter des fonds pour atteindre les objectifs, à établir un consensus entre les principaux scientifiques, et bien plus encore. ",
+	team_info: "Cosamed a conscience qu’elle doit disposer d’un effectif solide si elle veut améliorer la santé et le bien-être des personnes dans les milieux en besoin. Chaque jour, nos équipes s’attaquent aux difficultés nouvelles rencontrées dans les domaines d’intervention de l’Organisation, qu’il s’agisse de hauts responsables ou de personnel administratif pour les situations d’urgence, de spécialistes de la santé ou de gestionnaires de données."
 }

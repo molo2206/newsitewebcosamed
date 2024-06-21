@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
 import useAsync from "../hooks/useAsync";
+import CommunicatedServices from "../services/CommunicatedServices";
 import BlogServices from "../services/BlogsServices";
-import CategoryServices from "../services/CategoryServices";
 import { showingTranslateValue } from "../utils/heleprs";
 import { useAuthContext } from "../context";
 import { useTranslation } from "react-i18next";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
+
 import {
   TwitterShareButton,
   LinkedinShareButton,
@@ -18,21 +19,19 @@ import {
 } from "react-share";
 import BreadCumb from "../components/navbar/BreadCumb";
 import Error404 from "./Error404";
-import CategoryCard from "../components/blogs/CategoryCard";
 import BlogLastCard from "../components/blogs/BlogLastCard";
 import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 
-const DetailBlog = () => {
+const CommunicateDetail = () => {
   const { t } = useTranslation();
-  const { slug } = useParams();
+  const { id } = useParams();
   const { lang } = useAuthContext();
   const { data, error, loading } = useAsync(
-    () => BlogServices.oneBlogs(slug),
-    slug
+    () => CommunicatedServices.oneCommunicate(id),
+    id
   );
   const { data: blog } = useAsync(() => BlogServices.getBlogHome());
-  const { data: cat } = useAsync(() => CategoryServices.getCategory());
   const urlShare = window.location.href;
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(2);
@@ -40,8 +39,6 @@ const DetailBlog = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentBlog = blog.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
-
-  console.log(data);
   return error ? (
     <Error404 />
   ) : (
@@ -50,29 +47,15 @@ const DetailBlog = () => {
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
         <div className="container dark:bg-slate-900 w-full dark:text-white py-1 ">
-          {/* <Seo
-            title={showingTranslateValue(data?.translations, lang)?.title}
-            image={data?.image}
-            description={
-              showingTranslateValue(data?.translations, lang)?.description
-            }
-          /> */}
-          {/* <HelmetMetaData></HelmetMetaData> */}
           <div className="container">
             <div className=" pb-14 py-1">
               <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
                 <div className="col-span-2 col-lg-8 col-md-8 px-4">
                   <div className="overflow-hidden">
                     <BreadCumb
-                      title="Detail blog"
-                      second={"/data-loading/blogs"}
-                      secondTitle={"Blog"}
-                    />
-                    <img
-                      src={data?.image}
-                      alt=""
-                      className="mx-auto w-full 
-            object-cover transition duration-700 rounded-2xl"
+                      title="Detail"
+                      second={"/load-data/communicated"}
+                      secondTitle={"Communicated"}
                     />
                   </div>
                   <p
@@ -145,25 +128,7 @@ const DetailBlog = () => {
                   <div className="p-4 shadow-2xl rounded-2xl">
                     <div className="overflow-hidden">
                       <h1 className="text-principal text-2xl font-montserrat font-semibold items-center justify-center">
-                        Categories
-                      </h1>
-                      <div className="right-bar">
-                        <div className="right-bar-item category">
-                          <div className="right-item-content text-slate-600 dark:text-slate-700  ">
-                            {cat.map((item: any, index: number) => (
-                              <a className="text-sm font-semibold ">
-                                <CategoryCard cat={item} key={index} />
-                              </a>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 shadow-2xl rounded-2xl">
-                    <div className="overflow-hidden">
-                      <h1 className="text-principal text-2xl font-montserrat font-semibold items-center justify-center">
-                        Popular Posts
+                        Actualités
                       </h1>
                       <div className="right-bar">
                         {currentBlog.map((item: any, index: number) => (
@@ -184,10 +149,11 @@ const DetailBlog = () => {
             </div>
           </div>
           {/* <p className=" border-t-2 border-gray-300/50 py-4 text-center"></p> */}
+          {/* <Blogs /> */}
         </div>
       )}
     </>
   );
 };
 
-export default DetailBlog;
+export default CommunicateDetail;

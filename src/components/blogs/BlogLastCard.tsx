@@ -18,14 +18,14 @@ const BlogLastCard = ({ blog }: props) => {
         <div className="right-item-content text-slate-600 dark:text-slate-700">
           <img className="right-bar-image" src={blog?.image} />
           <a
-            href="#"
-            className="right-item-title line-clamp-2"
+           
+            className="right-item-title line-clamp-2 font-semibold hover:text-orange-300"
             dangerouslySetInnerHTML={{
               __html: showingTranslateValue(blog?.translations, lang)?.title,
             }}
           ></a>
           <p
-            className="text-slate-500 dark:text-slate-700 line-clamp-2"
+            className="text-slate-500 dark:text-white line-clamp-2"
             dangerouslySetInnerHTML={{
               __html: showingTranslateValue(blog?.translations, lang)
                 ?.description,

@@ -3,41 +3,39 @@ import { useAuthContext } from "../../context";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 interface props {
-  blog?: any;
+  commun?: any;
 }
-const SimpleBannerBlog = ({ blog }: props) => {
+const SimpleBannerCommunicated = ({ commun }: props) => {
   const { lang } = useAuthContext();
   const { t } = useTranslation();
   return (
     <>
       <div className=" bg-principal ">
         <div className="container py-8 md:py-12">
-          <Link
-            to={
-              `/blog/detail/` +
-              showingTranslateValue(blog?.translations, lang)?.slug
-            }
-          >
+          <Link to={`/communicated/` + commun?.id}>
             <div className="grid grid-cols-1 items-center md:grid-cols-3 gap-4 md:gap-8">
               <div className="px-2">
                 <img
-                  src={blog?.image}
+                  src={commun?.file}
                   alt="not found"
-                  className="mx-auto h-[250px] w-full rounded-md
-            object-cover transition duration-700 hover:skew-x-2 hover:scale-110"
+                  className="mx-auto h-[250px] w-full  rounded-md
+              object-cover transition duration-700 hover:skew-x-2 hover:scale-110"
                 />
               </div>
               <div
                 className="flex flex-col items-center
-       gap-4 text-center text-white dark:text-white md:col-span-2 md:items-start md:text-left"
+         gap-4 text-center text-white dark:text-white md:col-span-2 md:items-start md:text-left"
               >
-                <h1 className="font-bold md:text-xl sm:text-sm">
-                  {showingTranslateValue(blog?.translations, lang)?.title}
+                <h1 className=" md:text-2xl sm:text-sm hover:text-orange-300 font-semibold">
+                  Annonce :
+                </h1>
+                <h1 className="font-bold md:text-2xl sm:text-sm">
+                  {showingTranslateValue(commun?.translations, lang)?.title}
                 </h1>
                 <p
                   className=" line-clamp-2"
                   dangerouslySetInnerHTML={{
-                    __html: showingTranslateValue(blog?.translations, lang)
+                    __html: showingTranslateValue(commun?.translations, lang)
                       ?.description,
                   }}
                 ></p>
@@ -57,4 +55,4 @@ const SimpleBannerBlog = ({ blog }: props) => {
   );
 };
 
-export default SimpleBannerBlog;
+export default SimpleBannerCommunicated;

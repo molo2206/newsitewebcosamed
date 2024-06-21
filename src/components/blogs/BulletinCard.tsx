@@ -14,7 +14,7 @@ const BulletinCard = ({ bulletin }: props) => {
         to={`/bulletin/detail/` + bulletin?.id}
         onClick={() => window.scroll}
       >
-        <div className="p-4 shadow-lg py-2">
+        <div className="p-4 shadow-lg py-2 rounded-md">
           <div className=" overflow-hidden">
             <img
               src={bulletin?.image}

@@ -14,7 +14,7 @@ const CategoryCard = ({ cat }: props) => {
           showingTranslateValue(cat?.translations, lang)?.category_id
         }`}
       >
-        <div>{showingTranslateValue(cat?.translations, lang)?.name}</div>
+        <div className=" hover:text-orange-400">{showingTranslateValue(cat?.translations, lang)?.name}</div>
       </Link>
     </>
   );

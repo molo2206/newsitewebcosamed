@@ -12,5 +12,8 @@ const BlogServices = {
 	oneBlogs: async (slug: any) => {
 		return requests.get(`/public/blogs/details/${slug}`)
 	},
+	lastBlog: async () => {
+		return requests.get(`/public/lastblog`)
+	}
 }
 export default BlogServices

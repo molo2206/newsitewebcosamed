@@ -9,13 +9,14 @@ interface props {
 const TeamCard = ({ team }: props) => {
   return (
     <>
-      <div className="contain p-4 shadow-lg">
+    
+      <div className="contain p-4 shadow-lg py-4 bg-transparent">
         <div className="overflow-hidden">
           <img
             src={team?.image}
             alt="not found"
-            className="mx-auto h-[150px] w-[150px] 
-            object-cover transition duration-700 hover:skew-x-2 hover:scale-110"
+            className="mx-auto h-[300px] w-[300px] 
+            object-cover "
           />
         </div>
         <div className=" flex justify-center py-2 text-slate-600">

@@ -8,6 +8,7 @@ interface props {
 
 const BlogCard = ({ blog }: props) => {
   const { lang } = useAuthContext();
+
   return (
     <>
       <Link
@@ -17,12 +18,12 @@ const BlogCard = ({ blog }: props) => {
         }
         onClick={() => window.scroll(0, 0)}
       >
-        <div className="p-4 shadow-lg">
+        <div className="p-4 shadow-lg ">
           <div className="overflow-hidden">
             <img
               src={blog?.image}
               alt="not found"
-              className="mx-auto h-[250px] w-full 
+              className="mx-auto h-[250px] w-full
             object-cover transition duration-700 hover:skew-x-2 hover:scale-110"
             />
           </div>

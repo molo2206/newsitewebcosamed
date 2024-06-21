@@ -1,5 +1,3 @@
-import Img1 from "../assets/blogs/img1.jpeg";
-import SimpleBannerBlog from "../components/simpleBanner/SimpleBannerBlog";
 import CategoryServices from "../services/CategoryServices";
 import useAsync from "../hooks/useAsync";
 import BlogCardLoand from "../components/blogs/BlogCardLoad";
@@ -25,7 +23,7 @@ const Thematiqueblog = () => {
           <div>
             <BreadCumb title={"Category"} />
             <section className="mb-10 ">
-              <SimpleBannerBlog img={Img1} />
+              {/* <SimpleBannerBlog img={Img1} /> */}
               <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
                 {showingTranslateValue(cat?.translations, lang)?.name}
               </h1>
