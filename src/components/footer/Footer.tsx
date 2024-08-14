@@ -135,7 +135,7 @@ const Footer = () => {
           <div className=" bottom-footer">
             <div className="md:inline-flex my-10 md:ml-10 zrounded-sm w-full  justify-center">
               <img
-                src={Logo}
+                 src={data?.logo1}
                 alt="Logo"
                 className=" object-center sticky-logo  sm:w-60 "
               />

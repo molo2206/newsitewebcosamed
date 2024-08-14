@@ -10,7 +10,7 @@ const SimpleBannerBlog = ({ blog }: props) => {
   const { t } = useTranslation();
   return (
     <>
-      <div className=" bg-principal ">
+      <div className=" bg-principal rounded-lg">
         <div className="container py-8 md:py-12">
           <Link
             to={
@@ -18,7 +18,7 @@ const SimpleBannerBlog = ({ blog }: props) => {
               showingTranslateValue(blog?.translations, lang)?.slug
             }
           >
-            <div className="grid grid-cols-1 items-center md:grid-cols-3 gap-4 md:gap-8">
+            <div className="grid grid-cols-1 items-center md:grid-cols-3 gap-4 md:gap-8 ">
               <div className="px-2">
                 <img
                   src={blog?.image}

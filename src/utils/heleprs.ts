@@ -25,3 +25,7 @@ export const date_format = (data:any) => {
 }
 //export const BASE_URL = 'http://localhost:8000/api'
 export const BASE_URL = "https://apicosamed.cosamed.org/api";
+export const API = "AIzaSyD4ofAA19WpGyRC-H66XciyINOfz4R_kNs"
+export const channelId = "UCUVOlOlQKPihQHJ_EPcVbdQ";
+export const BASE_YOUTUBE = `https://www.googleapis.com/youtube/v3/search?key=${API}&channelId=${channelId}&part=snippet,id&order=date&maxResults=1000`;
+

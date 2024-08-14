@@ -1,25 +1,58 @@
-
 import SimpleBannerVideo from "../components/simpleBanner/SimpleBannerVideo";
+import { useEffect, useState } from "react";
+import { BASE_YOUTUBE } from "../utils/heleprs";
+import CardVideo from "../components/cards/CardVideo";
+import Pagination from "../components/Pagination/Pagination";
+import SimpleBannerBlog from "../components/simpleBanner/SimpleBannerBlog";
+import BlogServices from "../services/BlogsServices";
+import useAsync from "../hooks/useAsync";
+import BreadCumb from "../components/navbar/BreadCumb";
 const Videos = () => {
+  const [allvideos, setAllvideos] = useState([]);
+  const { data: lastblog } = useAsync(() => BlogServices.lastBlog());
+  useEffect(() => {
+    fetch(BASE_YOUTUBE)
+      .then((response) => response.json())
+      .then((resJson) => {
+        const result = resJson.items.map((doc: any) => ({
+          ...doc,
+          VideoLink: "https://www.youtube.com/embed/" + doc.id.videoId,
+        }));
+        setAllvideos(result);
+      });
+  }, []);
+
+  //Get current blog
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(15);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentVideos = allvideos.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
   return (
-    <div className=" dark:bg-slate-900 w-full">
-      <div className=" dark:bg-gray-900 dark:text-white">
-        <div className="container py-2 font-semibold">Rapport/Accueil</div>
-        <section className="mb-10 ">
-          <SimpleBannerVideo video="https://www.youtube.com/embed/gRWMen27Uio?si=VtHMh9xCxQ6ccFh8" />
-          <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
-            Our Latest Videos
-          </h1>
-          <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {/* <VideoCard video="https://www.youtube.com/embed/gRWMen27Uio?si=VtHMh9xCxQ6ccFh8" />
-            <VideoCard video="https://www.youtube.com/embed/gRWMen27Uio?si=VtHMh9xCxQ6ccFh8" />
-            <VideoCard video="https://www.youtube.com/embed/gRWMen27Uio?si=VtHMh9xCxQ6ccFh8" />
-            <VideoCard video="https://www.youtube.com/embed/gRWMen27Uio?si=VtHMh9xCxQ6ccFh8" />
-            <VideoCard video="https://www.youtube.com/embed/gRWMen27Uio?si=VtHMh9xCxQ6ccFh8" /> */}
-          </div>
-        </section>
+    <>
+      <div className="container dark:bg-slate-900 w-full dark:text-white ">
+        <div>
+          <BreadCumb title={"Vidéos"} />
+          <section className="mb-10 ">
+            <SimpleBannerBlog blog={lastblog} />
+            <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
+              Nos actualités
+            </h1>
+            <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+              {currentVideos.map((item: any, index: number) => (
+                <CardVideo items={item} key={index} />
+              ))}
+            </div>
+          </section>
+          <Pagination
+           postsPerPage={postsPerPage}
+           totalPasts={allvideos.length}
+           paginate={paginate}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

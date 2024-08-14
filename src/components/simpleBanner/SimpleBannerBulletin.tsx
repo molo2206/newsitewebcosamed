@@ -11,7 +11,7 @@ const SimpleBannerBulletin = ({ bulletin }: props) => {
   const { t } = useTranslation();
   return (
     <>
-      <div className=" bg-principal ">
+      <div className=" bg-principal rounded-lg ">
         <div className="container py-8 md:py-12 ">
           <Link
             to={

@@ -24,7 +24,7 @@ import DonateTrue from "./pages/DonateTrue";
 import DetailBlog from "./pages/DetailBlog";
 import DetailBulletin from "./pages/DetailBulletin";
 import "react-toastify/dist/ReactToastify.css";
-import About from "./pages/About";
+import About from "./pages/About"; 
 import Partners from "./pages/Partners";
 import Team from "./pages/Team";
 import Error404 from "./pages/Error404";
@@ -32,10 +32,12 @@ import Thematiqueblog from "./pages/Thematiqueblog";
 import DetailOffre from "./pages/DetailOffre";
 import Communicates from "./pages/Communicates";
 import CommunicateDetail from "./pages/CommunicateDetail";
+import Project from "./pages/Project";
+import AboutMedia from "./pages/AboutMedia";
 
 function App() {
   return (
-    <>
+    <div className="bg-slate-100  dark:bg-slate-900 dark:text-white">
       <ScrollToTop />
       <ToastContainer position="bottom-right" style={{ zIndex: 99999 }} />
       <Routes>
@@ -61,16 +63,18 @@ function App() {
           <Route path="/load-data/communicated" element={<Communicates/>}></Route>
           <Route path="/communicated/:id" element={<CommunicateDetail />}></Route>
           <Route path="*" element={<Error404 />}></Route>
-          {/* <Route path="/videos" element={<Videos/>}></Route>
+          <Route path="/projects" element={<Project />} /> 
+          <Route path="/aboutmedia" element={<AboutMedia/>}></Route>
+          {/* 
             <Route path="/evenement" element={<Evenement/>}></Route>
             <Route path="/galery" element={<Photos/>}></Route>
             <Route path="/contact" element={<Contact />} />
             <Route path="/places" element={<PlacesRoute />} />
            
-            <Route path="/blogs/:id" element={<BlogsDetails />} />  */}
+            // <Route path="/blogs/:id" element={<BlogsDetails />} />  */}
         </Route>
       </Routes>
-    </>
+    </div>
   );
 }
 

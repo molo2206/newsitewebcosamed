@@ -24,8 +24,8 @@ const Team = () => {
               <SimpleBannerBlog blog={lastblog} />
               <br />
               <br />
-              <div className=" bg-slate-400 py-2">
-                <h1 className=" font-semibold text-center dark:bg-slate-900 dark:text-slate-200 sm:text-sm md:text-md">
+              <div className="dark:shadow-xl dark:shadow-slate-600 shadow-xl rounded-lg">
+                <h1 className=" font-semibold text-center dark:bg-slate-900 font-montserrat dark:text-slate-200 lg:text-xl sm:text-sm md:text-md">
                  {t("team_info")}
                 </h1>
               </div>

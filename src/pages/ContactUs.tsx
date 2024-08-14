@@ -1,21 +1,16 @@
 import { Link } from "react-router-dom";
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
-// import { useTranslation } from "react-i18next";
-// import useAsync from "../hooks/useAsync";
 import useValidation from "../hooks/useValidation";
-// import { showingTranslateValue } from "../utils/heleprs";
 import TextArea from "../components/form/TextArea";
-// import { useAuthContext } from "../context";
 import Contact from "../hooks/Contact";
 import Location from "../components/blogs/Location";
 import { FaFacebook, FaWhatsapp } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
-import BreadCumb from "../components/navbar/BreadCumb";
+import BreadCumb from "../components/navbar/BreadCumb"
+
 
 const ContactUs = () => {
-  // const { t } = useTranslation();
-  // const { lang } = useAuthContext();
   const { createContact, loading: loadingForm } = Contact();
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
@@ -59,6 +54,7 @@ const ContactUs = () => {
   };
   return (
     <div className="container dark:bg-slate-900 w-full dark:text-white ">
+     
       <div className=" grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
         <div className=" col-span-2 col-lg-8 col-md-8 px-2">
           <BreadCumb title={"Contact"}/>

@@ -4,17 +4,9 @@ import { FaCaretDown, FaHome } from "react-icons/fa";
 import { HiMenuAlt1, HiMenuAlt3 } from "react-icons/hi";
 import ResponsiveMenu from "./ResponsiveMenu";
 import useSticky from "../../hooks/useSticky";
-import Logo from "../../assets/logo1.png";
+import SettingsServices from "../../services/SettingsServices";
 import { Link } from "react-router-dom";
-import { MdContactMail, MdPerson2 } from "react-icons/md";
-import { BiDonateHeart } from "react-icons/bi";
-import { CiMoneyCheck1 } from "react-icons/ci";
-import { MdManageAccounts } from "react-icons/md";
-import { PiNewspaperClippingFill } from "react-icons/pi";
-import { CiVideoOn } from "react-icons/ci";
-import { FaPodcast } from "react-icons/fa6";
-import { FaBlog } from "react-icons/fa";
-import { BsCalendar2Event } from "react-icons/bs";
+
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";
 import { useAuthContext } from "../../context";
@@ -22,6 +14,7 @@ import { ToastContainer, toast } from "react-toastify";
 import CategoryServices from "../../services/CategoryServices";
 import useAsync from "../../hooks/useAsync";
 import CategoryCard from "../blogs/CategoryCard";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const { handleLanguageChange, lang } = useAuthContext();
@@ -31,12 +24,19 @@ function Navbar() {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
   const { data: cat } = useAsync(() => CategoryServices.getCategory());
+  const { data } = useAsync(() => SettingsServices.getSettings());
 
   const [showMenu, setShowMenu] = useState(false);
   const element = document.documentElement;
 
   const notify = () =>
     toast("Cette fonctionnalité est encours de développement!");
+
+  const navigate = useNavigate();
+ 
+  const handleGoBack = () => {
+    navigate("/aboutmedia"); // new line
+  };
 
   useEffect(() => {
     if (theme === "dark") {
@@ -56,7 +56,7 @@ function Navbar() {
         style={{ zIndex: 2 }}
         className={`header__sticky ${
           sticky ? "header-sticky" : ""
-        } left-0 right-0 bg-navbar text-white border-b-[1px] border-primary/50`}
+        } left-0 right-0 bg-navbar font-montserrat text-white border-b-[1px] border-primary/50`}
       >
         <nav className="container flex items-center justify-between h-[50px]">
           {/* Logo selection */}
@@ -64,9 +64,9 @@ function Navbar() {
             <a className={`${sticky ? "block" : "hidden"}`}>
               <Link to="/" onClick={() => window.scrollTo}>
                 <img
-                  src={Logo}
+                  src={data?.logo1}
                   alt=""
-                  className="sticky-logo sm:w-60   sm:h-70"
+                  className="sticky-logo max-w-60 h-full"
                 />
               </Link>
             </a>
@@ -128,7 +128,7 @@ function Navbar() {
                 >
                   <div className="grid grid-cols-4 gap-5 px-40">
                     <div className="col-span-4">
-                      <div className=" grid grid-cols-4 mt-6">
+                      <div className=" grid grid-cols-5 mt-6">
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link
@@ -169,6 +169,13 @@ function Navbar() {
                             </Link>
                           </h1>
                         </div>
+                        <div>
+                          <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
+                            <Link to="/projects" onClick={() => window.scroll}>
+                              {t("Project")}
+                            </Link>
+                          </h1>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -186,12 +193,16 @@ function Navbar() {
                 </a>
                 {/* dropdown full width section */}
                 <div
-                  className="dropdown absolute left-0 z-[99999] hidden w-full rounded-b-3xl bg-white text-black
+                  className="dropdown icon  absolute left-0 z-[99999] hidden w-full rounded-b-3xl bg-white text-black
                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                 >
-                  <div className="grid grid-cols-4 gap-5 ">
+                  <div className="grid grid-cols-3 gap-5 ">
+                    {/* <div>
+                    <img  src={data?.logo2} className="sticky-logo max-w-60 h-full"/>
+                  </div> */}
+
                     <div className="col-span-4">
-                      <div className="grid grid-cols-5 mt-6 px-40">
+                      <div className="grid grid-cols-6 mt-6 px-40">
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link
@@ -199,7 +210,6 @@ function Navbar() {
                               to="/load-data/communicated"
                               onClick={() => window.scroll(0, 0)}
                             >
-                              <PiNewspaperClippingFill size={25} />
                               {t("Press")}
                             </Link>
                           </h1>
@@ -210,7 +220,6 @@ function Navbar() {
                               to="/data-loading/videos"
                               onClick={() => window.scroll}
                             >
-                              <CiVideoOn size={25} />
                               {t("Videos")}
                             </Link>
                           </h1>
@@ -221,7 +230,6 @@ function Navbar() {
                               to="/data-loading/podcast"
                               onClick={() => window.scroll}
                             >
-                              <FaPodcast size={25} />
                               {t("Podcast")}
                             </Link>
                           </h1>
@@ -232,7 +240,6 @@ function Navbar() {
                               to="/data-loading/blogs"
                               onClick={() => window.scroll}
                             >
-                              <FaBlog size={25} />
                               {t("Blog")}
                             </Link>
                           </h1>
@@ -240,11 +247,27 @@ function Navbar() {
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link to="" onClick={() => window.scroll(0, 0)}>
-                              <BsCalendar2Event size={25} />
                               {t("Events")}
                             </Link>
                           </h1>
                         </div>
+                        <div>
+                          <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
+                            <Link to="" onClick={() => window.scroll(0, 0)}>
+                              {t("testimony")}
+                            </Link>
+                          </h1>
+                        </div>
+                      </div>
+                      <div className=" flex items-center justify-center py-12">
+                        <button
+                          onClick={handleGoBack}
+                          className="h-[60px] w-[200px] rounded-lg 
+                              bg-principal  text-white  hover:text-white font-bold text-center"
+                        >
+                          {t("Find_More")}
+                          <ToastContainer />
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -262,7 +285,7 @@ function Navbar() {
                 </a>
                 {/* dropdown full width section */}
                 <div
-                  className="dropdown absolute left-0 z-[99999] hidden w-full rounded-b-3xl
+                  className="dropdown icon absolute left-0 z-[99999] hidden w-full rounded-b-3xl
                   bg-white text-black
                   dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                 >
@@ -276,7 +299,6 @@ function Navbar() {
                                 to="/contact"
                                 onClick={() => window.scrollTo(0, 0)}
                               >
-                                <MdContactMail size={25} />
                                 {t("Contact")}
                               </Link>
                             </h1>
@@ -287,15 +309,13 @@ function Navbar() {
                                 to="/partners"
                                 onClick={() => window.scroll(0, 0)}
                               >
-                                <BiDonateHeart size={25} />
                                 {t("Partnerships")}
                               </Link>
                             </h1>
                           </div>
                           <div>
                             <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold ">
-                              <Link to={`#`}  onClick={notify}>
-                                <CiMoneyCheck1 size={25} />
+                              <Link to={`#`} onClick={notify}>
                                 {t("Funding")}
                                 <ToastContainer />
                               </Link>
@@ -307,7 +327,6 @@ function Navbar() {
                                 to="/team"
                                 onClick={() => window.scroll(0, 0)}
                               >
-                                <MdManageAccounts size={25} />
                                 {t("Governance")}
                               </Link>
                             </h1>
@@ -318,7 +337,6 @@ function Navbar() {
                                 to="/community/join"
                                 onClick={() => window.scroll()}
                               >
-                                <MdPerson2 size={25} />
                                 {t("Becom_member")}
                               </Link>
                             </h1>
@@ -334,7 +352,7 @@ function Navbar() {
                 <button
                   onClick={notify}
                   className="h-[40px] w-[180px] rounded-lg 
-                              bg-white text-principal hover:bg-orange-300 hover:text-white font-semibold text-center"
+                              bg-white text-principal hover:bg-orange-500 hover:text-white font-extrabold text-center"
                 >
                   {t("Donate")}
                   <ToastContainer />

@@ -3,21 +3,22 @@ import SettingsServices from "../../services/SettingsServices";
 import { useAuthContext } from "../../context";
 import useAsync from "../../hooks/useAsync";
 import { showingTranslateValue } from "../../utils/heleprs";
-
 const BannerMission = () => {
   const { lang } = useAuthContext();
   const { t } = useTranslation();
   const { data } = useAsync(() => SettingsServices.getSettings());
-
-  return (
-    <section className=" bg-slate-100  dark:bg-slate-900 dark:text-white py-2">
-      <p className="border-t-2"></p>
-      <div className=" container flex flex-col items-center justify-center py-10 md:h-[500px]">
+  return ( 
+    <section className=" bg-slate-100  dark:bg-slate-900 dark:text-white py-8 ">
+      
+      <p className="border-t-2">
+        {/* <BannerSearch /> */}
+      </p>
+      <div className=" container flex flex-col items-center justify-center  md:h-[500px]">
         <div className=" grid grid-cols-1 items-center gap-4 md:grid-cols-2">
           <div className={"order-1"}>
             <h1 className="text-2xl md:text-4xl  p-4  ">{t("Mission")}</h1>
             <p
-              className="text-lg text-slate-600 dark:text-slate-200 font-montserrat mx-auto w-full p-4  "
+              className="text-slate-600 dark:text-slate-200 font-montserrat mx-auto w-full p-4 text-sm"
               dangerouslySetInnerHTML={{
                 __html: showingTranslateValue(data?.translations, lang)
                   ?.mission,
@@ -30,7 +31,7 @@ const BannerMission = () => {
           >
             <h1 className="text-2xl md:text-4xl p-4">{t("Vision")}</h1>
             <p
-              className="text-lg text-slate-600 dark:text-slate-200 font-montserrat mx-auto w-full p-4"
+              className="text-sm text-slate-600 dark:text-slate-200 font-montserrat mx-auto w-full p-4"
               dangerouslySetInnerHTML={{
                 __html: showingTranslateValue(data?.translations, lang)?.vision,
               }}

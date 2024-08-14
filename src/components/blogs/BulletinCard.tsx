@@ -14,8 +14,8 @@ const BulletinCard = ({ bulletin }: props) => {
         to={`/bulletin/detail/` + bulletin?.id}
         onClick={() => window.scroll}
       >
-        <div className="p-4 shadow-lg py-2 rounded-md">
-          <div className=" overflow-hidden">
+        <div className="p-4 shadow-lg py-2  relative overflow-hidden rounded-lg text-sm">
+          <div className=" overflow-hidden rounded-t-lg hovering">
             <img
               src={bulletin?.image}
               alt="not found"
@@ -24,19 +24,19 @@ const BulletinCard = ({ bulletin }: props) => {
             />
           </div>
           <div className=" flex justify-between py-2 text-slate-600">
-            <p>{bulletin?.created}</p>
+            <p >{bulletin?.created}</p>
             <p className=" line-clamp-1">{}</p>
           </div>
           <div className="space-y-2 py3">
             <h1
-              className="font-montserrat line-clamp-1 font-bold"
+              className="font-montserrat line-clamp-1 font-bold text-sm"
               dangerouslySetInnerHTML={{
                 __html: showingTranslateValue(bulletin?.translations, bulletin)
                   ?.title,
               }}
             ></h1>
             <p
-              className="font-montserrat line-clamp-2"
+              className="font-montserrat line-clamp-2 text-sm"
               dangerouslySetInnerHTML={{
                 __html: showingTranslateValue(bulletin?.translations, lang)
                   ?.description,

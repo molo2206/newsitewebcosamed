@@ -8,7 +8,7 @@ const Work = () => {
     <section className=" bg-slate-100  dark:bg-slate-900 dark:text-white">
       <div className=" container flex flex-col items-center justify-center py-2 md:h-[300px]">
         <div className={"order-1"}>
-          <h1 className="text-2xl md:text-4xl  p-4 ">{t('OurWork')}</h1>
+          <h1 className="text-xl md:text-2xl font-semibold p-4 ">{t('OurWork')}</h1>
           <p className="text-lg text-slate-600 dark:text-slate-200 font-montserrat mx-auto w-full p-4  ">
             Constituer une équipe multidisciplinaire disponible et efficace pour
             l’éducation sanitaire des populations, la recherche sur les

@@ -4,27 +4,17 @@ import BlogServices from "../services/BlogsServices";
 import CategoryServices from "../services/CategoryServices";
 import { showingTranslateValue } from "../utils/heleprs";
 import { useAuthContext } from "../context";
-import { useTranslation } from "react-i18next";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
-import {
-  TwitterShareButton,
-  LinkedinShareButton,
-  TelegramShareButton,
-  FacebookIcon,
-  TwitterIcon,
-  LinkedinIcon,
-  TelegramIcon,
-  FacebookShareButton,
-} from "react-share";
+import usePageSEO from "../components/Seo/usePageSEO";
 import BreadCumb from "../components/navbar/BreadCumb";
 import Error404 from "./Error404";
 import CategoryCard from "../components/blogs/CategoryCard";
 import BlogLastCard from "../components/blogs/BlogLastCard";
 import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
+import { ImageBlogs } from "../components/blogs/ImageBlogs";
 
 const DetailBlog = () => {
-  const { t } = useTranslation();
   const { slug } = useParams();
   const { lang } = useAuthContext();
   const { data, error, loading } = useAsync(
@@ -33,15 +23,21 @@ const DetailBlog = () => {
   );
   const { data: blog } = useAsync(() => BlogServices.getBlogHome());
   const { data: cat } = useAsync(() => CategoryServices.getCategory());
-  const urlShare = window.location.href;
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(2);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentBlog = blog.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
-
-  console.log(data);
+  usePageSEO({
+    title: showingTranslateValue(data?.translations, lang)?.title,
+    keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
+    ogTitle: "Detail blog",
+    ogDescription:
+      "Est une association sans but lucratif reconnue par le gouvernement congolais constituée des prestataires de santé allant de l’agent de santé communautaire au médecin.",
+    ogImage: data?.image,
+    ogUrl: window.location.href,
+  });
   return error ? (
     <Error404 />
   ) : (
@@ -50,14 +46,6 @@ const DetailBlog = () => {
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
         <div className="container dark:bg-slate-900 w-full dark:text-white py-1 ">
-          {/* <Seo
-            title={showingTranslateValue(data?.translations, lang)?.title}
-            image={data?.image}
-            description={
-              showingTranslateValue(data?.translations, lang)?.description
-            }
-          /> */}
-          {/* <HelmetMetaData></HelmetMetaData> */}
           <div className="container">
             <div className=" pb-14 py-1">
               <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
@@ -82,7 +70,9 @@ const DetailBlog = () => {
                         ?.documentation,
                     }}
                   ></p>
+                  <ImageBlogs data={data?.allimages} />
                   <br />
+
                   <h1 className=" text-2xl font-semibold mb-10 ">
                     {showingTranslateValue(data?.translations, lang)?.title}
                     <p className="border border-t-2 border-principal"></p>
@@ -103,41 +93,16 @@ const DetailBlog = () => {
                       {data?.author?.full_name}
                     </p>
                   </div>
-                  <div className="px-4 py-1  rounded-2xl">
-                    <h1 className=" mb-3 text-justify text-1xl font-bold sm:text-left sm:text-2xl">
-                      {t("Share_on")}
-                    </h1>
-                    <div className=" flex flex-col gap-3 ">
-                      <div className="flex gap-3 mr-6 items-center">
-                        <FacebookShareButton
-                          url={"https://www.cosamed.org"}
-                          title={data?.title}
-                          hashtag="#camperstribe"
-                        >
-                          <FacebookIcon size={32} round={true} />
-                        </FacebookShareButton>
-                        <TwitterShareButton url={urlShare}>
-                          <TwitterIcon size={32} round={true} />
-                        </TwitterShareButton>
-                        <LinkedinShareButton url={urlShare}>
-                          <LinkedinIcon size={32} round={true} />
-                        </LinkedinShareButton>
-                        <TelegramShareButton url={urlShare}>
-                          <TelegramIcon size={32} round={true} />
-                        </TelegramShareButton>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div className="col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 ">
                   <form className="mt-8 space-y-6 mb-8">
                     <div className="space-y-px rounded-md items-center">
                       <div className="blog-search-content">
-                        <div className="border-slate-300 border border-sm dark:border-slate-700 search-box">
-                          <input placeholder="Search" type="search" />
+                        <div className=" border border-sm  search-box">
+                          {/* <input placeholder="Search" type="search" />
                           <button>
                             <i className="fa fa-search"></i>
-                          </button>
+                          </button> */}
                         </div>
                       </div>
                     </div>
@@ -163,7 +128,7 @@ const DetailBlog = () => {
                   <div className="p-4 shadow-2xl rounded-2xl">
                     <div className="overflow-hidden">
                       <h1 className="text-principal text-2xl font-montserrat font-semibold items-center justify-center">
-                        Popular Posts
+                        Publications recentes
                       </h1>
                       <div className="right-bar">
                         {currentBlog.map((item: any, index: number) => (

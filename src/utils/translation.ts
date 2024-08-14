@@ -34,7 +34,7 @@ export const En = {
 	Funding: "Funding",
 	Governance: "Governance",
 	Partnerships: "Partnerships",
-
+	Project:"Projects",
 	get_in_touch: "GET IN TOUCH",
 	Who_are_we: "Who are we",
 	Where_to_find_us: "Where to find us",
@@ -64,8 +64,10 @@ export const En = {
 	Job_off: "This opening is not available anymore. Do not try to apply for this job.",
 	More: "Read more",
 	How_collaborate: "How we collaborate",
-	Data_how_collaborate: "Collaboration is at the heart of everything we do. Every day, we connect with nations, partners and experts to be able to go further, together. Our partners help support WHO's scientific work and field programs, provide funds and resources, participate in our campaigns and programs, and advocate with us for policy and behavior change to support of better health.Partnerships help us deliver critical vaccines and supplies, raise funds for Triple Billion targets, build consensus among leading scientists, and much more. World leaders, international organizations, civil society, foundations, researchers and health workers, we are mobilizing society as a whole to guarantee the health and safety of all.",
-	team_info: "Cosamed is aware that it must have a solid workforce if it wants to improve the health and well-being of people in areas in need. Every day, our teams tackle new challenges encountered in the Organization's areas of intervention, whether senior managers or administrative staff for emergency situations, health specialists or data managers."
+	Data_how_collaborate: "Collaboration is at the heart of everything we do. Every day, we connect with partners and experts to be able to go further, together. Our partners help support COSAMED's scientific work and field programs, provide funds and resources, participate in our campaigns and programs, and advocate with us for policy and behavior change toward better health.Partnerships help us deliver critical supplies, raise funds to meet goals, build consensus among leading scientists, and much more.",
+	team_info: "Cosamed is aware that it must have a solid workforce if it wants to improve the health and well-being of people in areas in need. Every day, our teams tackle new challenges encountered in the Organization's areas of intervention, whether senior managers or administrative staff for emergency situations, health specialists or data managers.",
+    testimony: "Testimony",
+	Find_More: "To find out more about the media",
 }
 
 export const FR = {
@@ -97,6 +99,7 @@ export const FR = {
 	Videos: "Nos vidéos",
 	Podcast: "Podcast",
 	Blog: "Blog",
+	Project:"Projets",
 	Events: "Evénements",
 	Ongoing: "Projet en cours",
 	Completed: "Projet déjà terminé",
@@ -134,5 +137,7 @@ export const FR = {
 	More: "Lire plus",
 	How_collaborate: "Comment nous collaborons",
 	Data_how_collaborate: "La collaboration est au cœur de tout ce que nous faisons. Chaque jour, nous nous connectons avec les partenaires et les experts pour pouvoir aller plus loin, ensemble. Nos partenaires aident à soutenir les travaux scientifiques et les programmes de terrain de COSAMED, fournissent des fonds et des ressources, participent à nos campagnes et programmes et plaident avec nous en faveur d'un changement de politique et de comportement en faveur d'une meilleure santé.Les partenariats nous aident à fournir des fournitures essentielles, à collecter des fonds pour atteindre les objectifs, à établir un consensus entre les principaux scientifiques, et bien plus encore. ",
-	team_info: "Cosamed a conscience qu’elle doit disposer d’un effectif solide si elle veut améliorer la santé et le bien-être des personnes dans les milieux en besoin. Chaque jour, nos équipes s’attaquent aux difficultés nouvelles rencontrées dans les domaines d’intervention de l’Organisation, qu’il s’agisse de hauts responsables ou de personnel administratif pour les situations d’urgence, de spécialistes de la santé ou de gestionnaires de données."
+	team_info: "Cosamed a conscience qu’elle doit disposer d’un effectif solide si elle veut améliorer la santé et le bien-être des personnes dans les milieux en besoin. Chaque jour, nos équipes s’attaquent aux difficultés nouvelles rencontrées dans les domaines d’intervention de l’Organisation, qu’il s’agisse de hauts responsables ou de personnel administratif pour les situations d’urgence, de spécialistes de la santé ou de gestionnaires de données.",
+	testimony: "Temoignage",
+	Find_More: "Pour en savoir plus sur le media",
 }

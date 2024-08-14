@@ -12,11 +12,12 @@ const SimpleBanner = () => {
   return (
     <>
       <div className=" bg-principal">
-        <div className="container md:py-12">
+        <div className="container md:py-12 ">
+          
           <div className="grid grid-cols-1 items-center md:grid-cols-3 gap-4 md:gap-8">
             <div className="px-2">
               <iframe
-                className="aspect-video w-full"
+                className="aspect-video w-full rounded-md object-cover"
                 src="https://www.youtube.com/embed/DRvuXn94OjM?si=8VJviOo3HlwA2jwp"
                 title="Youtube video player"
                 allow="accelerometer: autoplay; clipboard-write;encrypted-media;
@@ -26,11 +27,11 @@ const SimpleBanner = () => {
             </div>
             <div
               className="flex flex-col items-center
-           gap-4 text-center text-white dark:text-white md:col-span-2 md:items-start md:text-left"
+           gap-4 text-center text-white dark:text-white md:col-span-2 md:items-start md:text-left" 
             >
-              <h1 className="text-3xl font-bold">{t("AboutUs")}</h1>
+              <h1 className="text-3xl font-bold md:text-xl">{t("AboutUs")}</h1>
               <p
-                className=" text-lg font-montserrat"
+                className=" text-lg font-montserrat md:text-sm"
                 dangerouslySetInnerHTML={{
                   __html: showingTranslateValue(data?.translations, lang)
                     ?.about_us,

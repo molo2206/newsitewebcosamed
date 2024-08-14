@@ -229,7 +229,7 @@ header .dropdown a {
 }
 
 header .dropdown a:hover {
-  color: orange;
+  color: orangered;
 }
 header .dropdown-lg a {
   display: flex;

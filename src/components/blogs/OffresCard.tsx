@@ -11,10 +11,9 @@ const OffresCard = ({ offre }: props) => {
       <div className="p-4 shadow-lg border border-slate-300">
         <div className=" container overflow-hidden">
           <img
-            src="https://apicosamed.cosamed.org/uploads/logo/fh.png"
+            src={offre?.image}
             alt="not found"
-            className="mx-auto h-[100px] w-full 
-          object-contain transition duration-700"
+            className="mx-auto h-[100px] w-full object-contain transition duration-700"
           />
         </div>
         <div className=" container flex justify-between py-2 bg-principal text-slate-100">

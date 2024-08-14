@@ -26,13 +26,14 @@ const DetailBulletin = () => {
     () => BulletinServices.oneBulletin(id),
     id
   );
+
   const urlShare = window.location.href;
   return (
     <>
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white py-1 ">
+        <div className="container dark:bg-slate-900 w-full dark:text-white py-1 sm:text-sm">
           {/* <p className="text-md py-3 font-semibold px-4">
             Page d'accueil/blog/detail/
             {showingTranslateValue(data?.translations, lang)?.title}
@@ -54,11 +55,13 @@ const DetailBulletin = () => {
                 <br />
               </div>
               <h3 className="font-montserrat text-lg">{t("PressButton")}</h3>
+
               <a
-                target="_blank"
-                className="py-2 text-lg rounded-md w-full text-white
+                className="py-2 text-lg rounded-md w-full text-white cursor-pointer
                bg-principal px-3"
-                href={data?.file}
+               href={data?.file} target="_blank" role="noreferrer"
+                
+                download={data?.file?.split("https://apicosamed.cosamed.org/")[1]?.split("/")[3]}
               >
                 {t("Download")}
               </a>

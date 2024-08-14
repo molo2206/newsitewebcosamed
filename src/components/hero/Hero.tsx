@@ -8,10 +8,13 @@ import { showingTranslateValue } from "../../utils/heleprs";
 import { useAuthContext } from "../../context";
 import HomeLoad from "../blogs/HomeLoad";
 import { Link } from "react-router-dom";
+import "react-multi-carousel/lib/styles.css";
+
 
 const Hero = () => {
   const { data, loading } = useAsync(() => BlogServices.getBlog());
   const { lang } = useAuthContext();
+  
   return (
     <>
       {loading ? (
@@ -39,9 +42,11 @@ const Hero = () => {
                 >
                   <div className="container">
                     <div className="col-xxl-8 col-xl-8 col-lg-10">
-                      <div className="blog__breadcrumb-thumb"></div>
+                      <div className="blog__breadcrumb-thumb">
+                        
+                      </div>
                       <div className="blog__breadcrumb-content">
-                        <div className="blog__breadcrumb-tag">
+                        <div className="blog__breadcrumb-tag text-sm">
                           <a
                             href="#"
                             dangerouslySetInnerHTML={{
@@ -87,6 +92,7 @@ const Hero = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+          
         </div>
       )}
     </>

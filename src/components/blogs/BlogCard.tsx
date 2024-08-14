@@ -18,17 +18,18 @@ const BlogCard = ({ blog }: props) => {
         }
         onClick={() => window.scroll(0, 0)}
       >
-        <div className="p-4 shadow-lg ">
-          <div className="overflow-hidden">
+        <div className="p-4 shadow-lg  relative overflow-hidden rounded-lg text-sm">
+          <div className="overflow-hidden rounded-t-lg hovering">
             <img
               src={blog?.image}
               alt="not found"
               className="mx-auto h-[250px] w-full
             object-cover transition duration-700 hover:skew-x-2 hover:scale-110"
             />
+            
           </div>
           <div className=" flex justify-between py-2 text-slate-600">
-            <p>{blog?.publication_date}</p>
+            <p className="bg-orange-500 rounded-md px-4 py-1 text-white ">{blog?.publication_date}</p>
             <div className=" flex justify-between">
               <img
                 src={blog?.author?.image}
