@@ -32,8 +32,11 @@ function Navbar() {
   const notify = () =>
     toast("Cette fonctionnalité est encours de développement!");
 
+  const donatelink = () => {
+    navigate("/donation"); // new line
+  };
   const navigate = useNavigate();
- 
+
   const handleGoBack = () => {
     navigate("/aboutmedia"); // new line
   };
@@ -95,7 +98,7 @@ function Navbar() {
                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                 >
                   <div className="grid grid-cols-2 gap-5 px-40 ">
-                    <div className="col-span-2">
+                    <div className="col-span-2 hover:text-hover">
                       <p className=" text-xs">
                         <div className=" grid grid-cols-4 mt-6">
                           {cat.map((item: any, index: number) => (
@@ -127,7 +130,7 @@ function Navbar() {
                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                 >
                   <div className="grid grid-cols-4 gap-5 px-40">
-                    <div className="col-span-4">
+                    <div className="col-span-4 hover:text-hover">
                       <div className=" grid grid-cols-5 mt-6">
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
@@ -206,7 +209,7 @@ function Navbar() {
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link
-                              className="space-y-2"
+                              className="space-y-2 "
                               to="/load-data/communicated"
                               onClick={() => window.scroll(0, 0)}
                             >
@@ -259,11 +262,11 @@ function Navbar() {
                           </h1>
                         </div>
                       </div>
-                      <div className=" flex items-center justify-center py-12">
+                      <div className=" flex items-center justify-center py-2">
                         <button
                           onClick={handleGoBack}
-                          className="h-[60px] w-[200px] rounded-lg 
-                              bg-principal  text-white  hover:text-white font-bold text-center"
+                          className="h-[60px] w-full rounded-lg 
+                              bg-principal  text-white  hover:text-white hover:bg-hover font-bold text-center"
                         >
                           {t("Find_More")}
                           <ToastContainer />
@@ -350,9 +353,9 @@ function Navbar() {
               <li>
                 {/* <Link to="/community/donate" onClick={() => window.scroll}> */}
                 <button
-                  onClick={notify}
+                  onClick={donatelink}
                   className="h-[40px] w-[180px] rounded-lg 
-                              bg-white text-principal hover:bg-orange-500 hover:text-white font-extrabold text-center"
+                              bg-white text-principal hover:bg-hover hover:text-white font-extrabold text-center"
                 >
                   {t("Donate")}
                   <ToastContainer />

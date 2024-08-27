@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import useAsync from "../hooks/useAsync";
-import CommunicatedServices from "../services/CommunicatedServices";
+import RapportServices from "../services/RapportServices";
 import BlogServices from "../services/BlogsServices";
 import { showingTranslateValue } from "../utils/heleprs";
 import { useAuthContext } from "../context";
@@ -23,12 +23,12 @@ import BlogLastCard from "../components/blogs/BlogLastCard";
 import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 
-const CommunicateDetail = () => {
+const DetailRapport = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const { lang } = useAuthContext();
   const { data, error, loading } = useAsync(
-    () => CommunicatedServices.oneCommunicate(id),
+    () => RapportServices.oneRapport(id),
     id
   );
   const { data: blog } = useAsync(() => BlogServices.getBlogHome());
@@ -55,18 +55,20 @@ const CommunicateDetail = () => {
                     <BreadCumb
                       title="Detail"
                       second={"/load-data/communicated"}
-                      secondTitle={"Communicated"}
+                      secondTitle={t("Reports")}
                     />
                     <h1 className=" text-2xl font-semibold mb-10 ">
                       {showingTranslateValue(data?.translations, lang)?.title}
                       <p className="border border-t-2 border-principal"></p>
                     </h1>
+                    <div className=" object-contain bg-slate-200 items-stretch justify-items-stretch">
                     <img
-                      src={data?.file}
+                      src={data?.image}
                       alt=""
-                      className="mx-auto w-full max-h-full
+                      className="mx-auto w-full h-[460px]
             object-contain transition duration-700 rounded-2xl"
                     />
+                    </div>
                   </div>
                   <br />
 
@@ -77,7 +79,28 @@ const CommunicateDetail = () => {
                         ?.description,
                     }}
                   ></div>
-                  <div className="">
+                  <div>
+                    <h3 className="font-montserrat text-lg">
+                      {t("PressButton")}
+                    </h3>
+
+                    <a
+                      className="py-2 text-lg rounded-md w-full text-white cursor-pointer
+ bg-principal px-3"
+                      href={data?.file}
+                      target="_blank"
+                      role="noreferrer"
+                      download={
+                        data?.file
+                          ?.split("https://apicosamed.cosamed.org/")[1]
+                          ?.split("/")[3]
+                      }
+                    >
+                      {t("Download")}
+                    </a>
+                  </div>
+                  
+                  <div className="py-8">
                     <img
                       src={data?.author?.image}
                       className=" h-[70px] px-30 rounded-full duration-200 hover:scale-105"
@@ -156,4 +179,4 @@ const CommunicateDetail = () => {
   );
 };
 
-export default CommunicateDetail;
+export default DetailRapport;

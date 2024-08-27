@@ -1,6 +1,6 @@
 import { FaCaretDown } from "react-icons/fa";
 import Logo from "../../assets/logo1.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import CategoryServices from "../../services/CategoryServices";
 import useAsync from "../../hooks/useAsync";
@@ -37,6 +37,11 @@ const ResponsiveMenu = ({ showMenu }: props) => {
   ];
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate("/aboutmedia"); // new line
+  };
   return (
     <div
       className={`${
@@ -56,7 +61,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
         <div className=" text-white font-montserrat mt-5 ml-2 ">
           <ul className="space-y-4  text-sm ">
             <li>
-              <a href="/" >{t("Home")}</a>
+              <a href="/">{t("Home")}</a>
             </li>
             <li className="py-4 relative group cursor-pointer  group-hover:block  text-center ">
               <div className="dropdown  flex items-center">
@@ -144,12 +149,21 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                       </li>
                     );
                   })}
+                  <li>
+                    <button
+                      onClick={handleGoBack}
+                      className="h-[60px] w-full rounded-lg 
+                              bg-principal  text-white  hover:text-white hover:bg-hover font-bold text-center"
+                    >
+                      {t("Find_More")}
+                    </button>
+                  </li>
                 </ul>
               </div>
             </li>
             <li className="relative group cursor-pointer  group-hover:block  text-center">
               <div className="dropdown  flex items- center">
-                <a  className="flex items-center gap-[2px] h-[50px] ">
+                <a className="flex items-center gap-[2px] h-[50px] ">
                   {t("AboutUs")}
                   <span>
                     <FaCaretDown

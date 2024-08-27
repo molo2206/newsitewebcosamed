@@ -68,6 +68,17 @@ export const En = {
 	team_info: "Cosamed is aware that it must have a solid workforce if it wants to improve the health and well-being of people in areas in need. Every day, our teams tackle new challenges encountered in the Organization's areas of intervention, whether senior managers or administrative staff for emergency situations, health specialists or data managers.",
     testimony: "Testimony",
 	Find_More: "To find out more about the media",
+	chanel_youtube:"Discover our YouTube channel",
+	media:"Media & resources",
+	about_media:"News, videos, stories, data and publications for media professionals, researchers and all those who want to know more about health emergencies.",
+	Contact_us:"Contact us",
+	Send_message: "Send a message via the form indicated. If your request is urgent, please use the contact details below.",
+	Phone:"PHONE",
+	Name:"NAME",
+	Prename:"PRENAME",
+	Message:"MESSAGE",
+	SendMessage: "Send",
+	Location: "Location",
 }
 
 export const FR = {
@@ -140,4 +151,15 @@ export const FR = {
 	team_info: "Cosamed a conscience qu’elle doit disposer d’un effectif solide si elle veut améliorer la santé et le bien-être des personnes dans les milieux en besoin. Chaque jour, nos équipes s’attaquent aux difficultés nouvelles rencontrées dans les domaines d’intervention de l’Organisation, qu’il s’agisse de hauts responsables ou de personnel administratif pour les situations d’urgence, de spécialistes de la santé ou de gestionnaires de données.",
 	testimony: "Temoignage",
 	Find_More: "Pour en savoir plus sur le media",
+	chanel_youtube:"Découvrez notre chaîne YouTube",
+	media:"Médias & ressources",
+	about_media:" Actualités, vidéos, histoires, données et publications pour les professionnels des médias, les chercheurs et tous ceux qui souhaitent en savoir plus sur les urgences sanitaires.",
+	Contact_us:"Nous Contactez",
+	Send_message:"Envoyez un message via le formulaire indiqué. Si votre demande est urgente, veuillez utiliser les coordonnées ci-dessous.",
+	Phone:"TELEPHONE",
+	Name:"VOTRE NOM",
+	Prename:"VOTRE PRENOM",
+	Message:"VOTRE MESSAGE",
+	SendMessage: "Envoyer",
+	Location: "Emplacement",
 }

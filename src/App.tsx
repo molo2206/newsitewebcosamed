@@ -24,7 +24,7 @@ import DonateTrue from "./pages/DonateTrue";
 import DetailBlog from "./pages/DetailBlog";
 import DetailBulletin from "./pages/DetailBulletin";
 import "react-toastify/dist/ReactToastify.css";
-import About from "./pages/About"; 
+import About from "./pages/About";
 import Partners from "./pages/Partners";
 import Team from "./pages/Team";
 import Error404 from "./pages/Error404";
@@ -34,6 +34,7 @@ import Communicates from "./pages/Communicates";
 import CommunicateDetail from "./pages/CommunicateDetail";
 import Project from "./pages/Project";
 import AboutMedia from "./pages/AboutMedia";
+import DetailRapport from "./pages/DetailRapport";
 
 function App() {
   return (
@@ -60,11 +61,19 @@ function App() {
           <Route path="/partners" element={<Partners />}></Route>
           <Route path="/team" element={<Team />}></Route>
           <Route path="/blog/category/:id" element={<Thematiqueblog />}></Route>
-          <Route path="/load-data/communicated" element={<Communicates/>}></Route>
-          <Route path="/communicated/:id" element={<CommunicateDetail />}></Route>
+          <Route
+            path="/load-data/communicated"
+            element={<Communicates />}
+          ></Route>
+          <Route
+            path="/communicated/:id"
+            element={<CommunicateDetail />}
+          ></Route>
           <Route path="*" element={<Error404 />}></Route>
-          <Route path="/projects" element={<Project />} /> 
-          <Route path="/aboutmedia" element={<AboutMedia/>}></Route>
+          <Route path="/projects" element={<Project />} />
+          <Route path="/aboutmedia" element={<AboutMedia />}></Route>
+          <Route path="/report/detail/:id" element={<DetailRapport />}></Route>
+          <Route path="/donation" element={<DonateTrue />}></Route>
           {/* 
             <Route path="/evenement" element={<Evenement/>}></Route>
             <Route path="/galery" element={<Photos/>}></Route>

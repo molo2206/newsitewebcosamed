@@ -1,4 +1,6 @@
+import { useTranslation } from "react-i18next";
 const Location = () => {
+  const { t } = useTranslation();
   return (
     <div>
       <div>
@@ -7,7 +9,7 @@ const Location = () => {
             className=" inline-block border-l-8 border-primary/50 py-2
                  pl-2 mb-4 text-xl font-bold sm:text-3xl"
           >
-            Notre localisation
+            {t('Location')}
           </h1>
           <div className="">
             <div className="">

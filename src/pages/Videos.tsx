@@ -1,4 +1,3 @@
-import SimpleBannerVideo from "../components/simpleBanner/SimpleBannerVideo";
 import { useEffect, useState } from "react";
 import { BASE_YOUTUBE } from "../utils/heleprs";
 import CardVideo from "../components/cards/CardVideo";
@@ -7,9 +6,10 @@ import SimpleBannerBlog from "../components/simpleBanner/SimpleBannerBlog";
 import BlogServices from "../services/BlogsServices";
 import useAsync from "../hooks/useAsync";
 import BreadCumb from "../components/navbar/BreadCumb";
+import BlogCardLoand from "../components/blogs/BlogCardLoad";
 const Videos = () => {
   const [allvideos, setAllvideos] = useState([]);
-  const { data: lastblog } = useAsync(() => BlogServices.lastBlog());
+  const { data: lastblog, loading } = useAsync(() => BlogServices.lastBlog());
   useEffect(() => {
     fetch(BASE_YOUTUBE)
       .then((response) => response.json())
@@ -35,20 +35,26 @@ const Videos = () => {
         <div>
           <BreadCumb title={"Vidéos"} />
           <section className="mb-10 ">
-            <SimpleBannerBlog blog={lastblog} />
+            {loading ? (
+              Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
+            ) : (
+              <SimpleBannerBlog blog={lastblog} />
+            )}
             <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
               Nos actualités
             </h1>
             <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {currentVideos.map((item: any, index: number) => (
-                <CardVideo items={item} key={index} />
-              ))}
+              {loading
+                ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
+                : currentVideos.map((item: any, index: number) => (
+                    <CardVideo items={item} key={index} />
+                  ))}
             </div>
           </section>
           <Pagination
-           postsPerPage={postsPerPage}
-           totalPasts={allvideos.length}
-           paginate={paginate}
+            postsPerPage={postsPerPage}
+            totalPasts={allvideos.length}
+            paginate={paginate}
           />
         </div>
       </div>

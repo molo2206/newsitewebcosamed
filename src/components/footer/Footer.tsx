@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Logo from "../../assets/logo1.png";
 import { useTranslation } from "react-i18next";
 import useAsync from "../../hooks/useAsync";
 import SettingsServices from "../../services/SettingsServices";
@@ -43,7 +42,7 @@ const Footer = () => {
   ];
   return (
     <>
-      <footer className="text-white rounded-t-3xl bg-gradient-to-r bg-principal font-montserrat">
+      <footer className="text-white  bg-gradient-to-r bg-principal font-montserrat">
         <div className=" container mx-auto  p-4">
           {/* Footer Contain section */}
           <div className="grid py-2 md:grid-cols-3 header__sticky text-sm font-montserrat">

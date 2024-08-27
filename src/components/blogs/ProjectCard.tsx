@@ -1,7 +1,5 @@
-interface props {
-    partners?: any;
-  }
-const ProjectCard = ({ partners }: props) => {
+
+const ProjectCard = () => {
   return (
     <div>ProjectCard</div>
   )

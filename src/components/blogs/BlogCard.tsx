@@ -29,7 +29,7 @@ const BlogCard = ({ blog }: props) => {
             
           </div>
           <div className=" flex justify-between py-2 text-slate-600">
-            <p className="bg-orange-500 rounded-md px-4 py-1 text-white ">{blog?.publication_date}</p>
+            <p className="bg-principal hover:bg-hover rounded-md px-4 py-1 text-white ">{blog?.publication_date}</p>
             <div className=" flex justify-between">
               <img
                 src={blog?.author?.image}

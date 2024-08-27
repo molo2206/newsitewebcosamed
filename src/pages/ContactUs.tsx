@@ -7,10 +7,11 @@ import Contact from "../hooks/Contact";
 import Location from "../components/blogs/Location";
 import { FaFacebook, FaWhatsapp } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
-import BreadCumb from "../components/navbar/BreadCumb"
-
+import BreadCumb from "../components/navbar/BreadCumb";
+import { useTranslation } from "react-i18next";
 
 const ContactUs = () => {
+  const { t } = useTranslation();
   const { createContact, loading: loadingForm } = Contact();
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
@@ -54,21 +55,19 @@ const ContactUs = () => {
   };
   return (
     <div className="container dark:bg-slate-900 w-full dark:text-white ">
-     
       <div className=" grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
         <div className=" col-span-2 col-lg-8 col-md-8 px-2">
-          <BreadCumb title={"Contact"}/>
+          <BreadCumb title={"Contact"} />
           <Location />
         </div>
         <div className=" col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 ">
           <div className="m-x-auto py-10">
             <div>
               <h2 className="font-montserrat mb-2 text-center text-xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Nous Contactez
+                {t("Contact_us")}
               </h2>
               <p className="text-sm font-montserrat mb-2 font-base capitalize font-light font-font1 text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
-                Envoyez un message via le formulaire indiqué. Si votre demande
-                est urgente, veuillez utiliser les coordonnées ci-dessous.
+                {t("Send_message")}
               </p>
               <div className="px-4 ">
                 <div className=" flex flex-col gap-3">
@@ -94,7 +93,7 @@ const ContactUs = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                   <Input
                     name="first_name"
-                    label="VOTRE NOM"
+                    label={t('Name')}
                     placeholder=""
                     type="text"
                     errors={errors.first_name}
@@ -105,7 +104,7 @@ const ContactUs = () => {
                   />
                   <Input
                     name="last_name"
-                    label="VOTRE PRENOM"
+                    label={t('Prename')}
                     placeholder=""
                     type="text"
                     errors={errors.last_name}
@@ -131,7 +130,7 @@ const ContactUs = () => {
                 <div className="grid grid-cols-1 gap-4">
                   <Input
                     name="phone"
-                    label="TELEPHONE"
+                    label={t('Phone')}
                     placeholder=""
                     type="phone"
                     errors={errors.phone}
@@ -144,17 +143,17 @@ const ContactUs = () => {
                 <div className="grid grid-cols-1 gap-4">
                   <TextArea
                     name="message"
-                    placeholder="VOTRE MESSAGE"
+                    placeholder={t('Message')}
                     type="text"
                     value={inputs.message}
                     onChange={(e: any) =>
                       handleOnChange(e.target.value, "message")
                     }
-                    label={"VOTRE MESSAGE"}
+                    label={t('Message')}
                   />
                 </div>
               </div>
-              <Button label={"Envoyer"} loading={loadingForm} />
+              <Button label={t('Send')} loading={loadingForm} />
               <div className="justify-center items-center">
                 <div className="mb-2">
                   <p className="text-sm font-montserrat text-slate-700 dark:text-slate-600 text-justify">

@@ -41,7 +41,7 @@ const SimpleBannerCommunicated = ({ commun }: props) => {
                 ></p>
                 <a
                   target="_blank"
-                  className="py-2 font-montserrat font-semibold flex items-center justify-center hover:text-white hover:bg-orange-300 rounded-md w-52 text-principal
+                  className="py-2 font-montserrat font-semibold flex items-center justify-center hover:text-white hover:bg-hover rounded-md w-52 text-principal
                bg-white text-sm"
                 >
                   {t("More")}

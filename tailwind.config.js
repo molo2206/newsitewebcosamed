@@ -11,7 +11,7 @@ export default {
         primary: "#002349",
         menu: "#00000",
         principal: "#0266C6",
-        hover:"#EF4135",
+        hover:"#2b8fff",
         rido:"#2C87F3"
         // secondary: {
         //   DEFAULT: "#000000",

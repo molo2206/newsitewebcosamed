@@ -11,7 +11,7 @@ const PartnerCard = ({ partners }: props) => {
           <img
             src={partners?.image}
             alt="not found"
-            className="rounded-full max-w-40 max-h-40 p-4 bg-[#26B2EC24] text-[#06aff6] hover:bg-orange-500 hover:text-white"
+            className=" object-cover rounded-full max-w-40 max-h-40 p-4 bg-[#26B2EC24] text-[#06aff6] hover:bg-hover hover:text-white"
           />
           <p className=" font-bold font-montserrat dark:text-slate-600">{partners?.full_name}</p>
         </div>

@@ -1,7 +1,10 @@
 import { useTranslation } from "react-i18next";
 import BannerMedia from "../components/simpleBanner/BannerMedia";
-
+import SettingsServices from "../services/SettingsServices";
+import useAsync from "../hooks/useAsync";
+import BlogCardLoand from "../components/blogs/BlogCardLoad";
 const AboutMedia = () => {
+  const { data, loading } = useAsync(() => SettingsServices.getSettings());
   const { t } = useTranslation();
   return (
     <div className="container  dark:bg-slate-900 w-full dark:text-white">
@@ -9,28 +12,31 @@ const AboutMedia = () => {
         <div className=" md:w-12/12 mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="  ">
             <h2 className=" text-5xl text-principal text-neutralDGray font-bold mb-4 ">
-              Médias & ressources
+              {t("media")}
             </h2>
           </div>
           <div className="">
             <p className=" text-3xl">
-              Actualités, vidéos, histoires, données et publications pour les
-              professionnels des médias, les chercheurs et tous ceux qui
-              souhaitent en savoir plus sur les urgences sanitaires.
+             {
+              t('about_media')
+             }
             </p>
           </div>
         </div>
         <div className=" py-6">
-          <img
-            src="../../src/assets/blogs/j3.webp"
-            alt=""
-            className="mx-auto w-full h-full
+          {loading ? (
+            Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
+          ) : (
+            <img
+              src={data?.img_media}
+              alt=""
+              className="mx-auto w-full h-full
             object-cover transition duration-700 "
-          />
+            />
+          )}
         </div>
         <BannerMedia />
       </div>
-      
     </div>
   );
 };
