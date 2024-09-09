@@ -1,4 +1,5 @@
 import moment from "moment"
+import { loadStripe } from "@stripe/stripe-js";
 
 export const showingTranslateValue = (data: any, lang: any) => {
 	let langue = lang == 'fr-FR' ? 'fr' : lang
@@ -20,7 +21,15 @@ export function checkPermission(ressource: any, access: string) {
 	}
 }
 
-export const date_format = (data:any) => {
+export const getstripe = () => {
+	let stripePromise;
+	if (!stripePromise) {
+		stripePromise = loadStripe("pk_test_51PslbcEp3ffZfHqCjBmHPg5RI2ZOc53upbCt0LlQpJWtkqu7iwo9DwbCd0lF72mfXs1iJ5z04FZLPha7wttePe6C00URHbiuBK");
+	}
+	return stripePromise;
+};
+
+export const date_format = (data: any) => {
 	return moment(data).format('DD/MM/YYYY')
 }
 //export const BASE_URL = 'http://localhost:8000/api'

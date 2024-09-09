@@ -65,7 +65,7 @@ const CommunicateDetail = () => {
                       src={data?.file}
                       alt=""
                       className="mx-auto w-full max-h-full
-            object-contain transition duration-700 rounded-2xl"
+            object-contain transition duration-700 rounded-md"
                     />
                   </div>
                   <br />

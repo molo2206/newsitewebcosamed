@@ -32,16 +32,9 @@ const SimpleBannerBulletin = ({ bulletin }: props) => {
                 className="flex flex-col items-center
        gap-4 text-center text-white dark:text-white md:col-span-2 md:items-start md:text-left"
               >
-                <h1 className="text-3xl font-bold">
+                <h1 className="text-2xl font-bold">
                   {showingTranslateValue(bulletin?.translations, lang)?.title}
                 </h1>
-                <p
-                  className=" line-clamp-2"
-                  dangerouslySetInnerHTML={{
-                    __html: showingTranslateValue(bulletin?.translations, lang)
-                      ?.description,
-                  }}
-                ></p>
                 <a
                   target="_blank"
                   className="py-2 font-montserrat font-semibold flex items-center justify-center hover:text-white hover:bg-orange-300 text-lg rounded-md w-52 text-principal

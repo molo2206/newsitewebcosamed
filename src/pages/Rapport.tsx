@@ -1,17 +1,18 @@
-import BulletinCard from "../components/blogs/BulletinCard";
+
 import BulletinLoad from "../components/blogs/BulletinLoad";
 import RapportServices from "../services/RapportServices";
-import SimpleBannerBulletin from "../components/simpleBanner/SimpleBannerBulletin";
+import BlogsServices from "../services/BlogsServices";
 import useAsync from "../hooks/useAsync";
 import BreadCumb from "../components/navbar/BreadCumb";
 import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 import { useTranslation } from "react-i18next";
 import RepportCard from "../components/blogs/RepportCard";
+import SimpleBannerBlog from "../components/simpleBanner/SimpleBannerBlog";
 const Rapport = () => {
 
   const { data, loading } = useAsync(() => RapportServices.getRapport());
-  const { data: bulletin } = useAsync(() => RapportServices.lastRapport());
+  const { data: bulletin } = useAsync(() => BlogsServices.lastBlog());
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
@@ -28,9 +29,9 @@ const Rapport = () => {
         <div className="container dark:bg-slate-900 w-full dark:text-white ">
           <BreadCumb title={t('Reports')} />
           <section className="mb-10">
-            <SimpleBannerBulletin bulletin={bulletin} />
+            <SimpleBannerBlog blog={bulletin} />
             <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
-              {t('')}
+              {t('How_report')}
             </h1>
             <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {loading

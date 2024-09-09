@@ -18,3 +18,14 @@ export const contactForm: any = {
     phone: "",
     message: ""
 }
+
+export const donateForm: any = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    amount: "",
+    custom_amount: "",
+    country: "",
+    currency: ""
+}

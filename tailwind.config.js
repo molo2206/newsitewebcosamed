@@ -12,7 +12,8 @@ export default {
         menu: "#00000",
         principal: "#0266C6",
         hover:"#2b8fff",
-        rido:"#2C87F3"
+        rido:"#2C87F3",
+        stripe:"#635BFF"
         // secondary: {
         //   DEFAULT: "#000000",
         // }, 

@@ -8,6 +8,7 @@ import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 import CommunicateCard from "../components/blogs/CommunicateCard";
 import SimpleBannerCommunicated from "../components/simpleBanner/SimpleBannerCommunicated";
+import { useTranslation } from "react-i18next";
 
 
 const Communicates = () => {
@@ -21,7 +22,7 @@ const Communicates = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentBlogs = data.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber:any) => setCurrentPage(pageNumber);
-
+  const { t } = useTranslation();
   return (
     <>
       {loading ? (
@@ -33,7 +34,7 @@ const Communicates = () => {
             <section className="mb-10 ">
               <SimpleBannerCommunicated commun={lastCom} />
               <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
-                Nos communiqués de presse
+                {t('How_comminicate')}
               </h1>
               <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {loading

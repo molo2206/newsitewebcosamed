@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
-import { FaCaretDown, FaHome } from "react-icons/fa";
-import { HiMenuAlt1, HiMenuAlt3 } from "react-icons/hi";
+import { FaBars, FaCaretDown, FaHome } from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
 import useSticky from "../../hooks/useSticky";
 import SettingsServices from "../../services/SettingsServices";
@@ -15,6 +14,7 @@ import CategoryServices from "../../services/CategoryServices";
 import useAsync from "../../hooks/useAsync";
 import CategoryCard from "../blogs/CategoryCard";
 import { useNavigate } from "react-router-dom";
+import { FaXmark } from "react-icons/fa6";
 
 function Navbar() {
   const { handleLanguageChange, lang } = useAuthContext();
@@ -61,7 +61,7 @@ function Navbar() {
           sticky ? "header-sticky" : ""
         } left-0 right-0 bg-navbar font-montserrat text-white border-b-[1px] border-primary/50`}
       >
-        <nav className="container flex items-center justify-between h-[50px]">
+        <nav className="container flex items-center justify-between h-20">
           {/* Logo selection */}
           <div className=" text-white ">
             <a className={`${sticky ? "block" : "hidden"}`}>
@@ -69,13 +69,13 @@ function Navbar() {
                 <img
                   src={data?.logo1}
                   alt=""
-                  className="sticky-logo max-w-60 h-full"
+                  className="sticky-logo w-full h-full"
                 />
               </Link>
             </a>
             <a className={`${!sticky ? "block" : "hidden"}`}>
               <Link to="/" onClick={() => window.scrollTo}>
-                <FaHome size={20} />
+                <FaHome size={30} />
               </Link>
             </a>
           </div>
@@ -131,7 +131,7 @@ function Navbar() {
                 >
                   <div className="grid grid-cols-4 gap-5 px-40">
                     <div className="col-span-4 hover:text-hover">
-                      <div className=" grid grid-cols-5 mt-6">
+                      <div className=" grid grid-cols-4 mt-6">
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link
@@ -162,7 +162,7 @@ function Navbar() {
                             </Link>
                           </h1>
                         </div>
-                        <div>
+                        {/* <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link
                               to="/data-loading/othersdoc"
@@ -171,7 +171,7 @@ function Navbar() {
                               {t("Other")}
                             </Link>
                           </h1>
-                        </div>
+                        </div> */}
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link to="/projects" onClick={() => window.scroll}>
@@ -427,84 +427,17 @@ function Navbar() {
             </ul>
           </div>
           {/* Mobile menu header */}
-          <div className="flex items-center gap-4 md:hidden">
-            {theme === "dark" ? (
-              <BiSolidSun
-                className="text-xl"
-                onClick={() => setTheme("light")}
-              />
-            ) : (
-              <BiSolidMoon
-                className="text-xl"
-                onClick={() => setTheme("dark")}
-              />
-            )}
-            {showMenu ? (
-              <HiMenuAlt1
-                onClick={toggleMe}
-                className=" cursor-pointer transition-all"
-                size={20}
-              />
-            ) : (
-              <HiMenuAlt3
-                onClick={toggleMe}
-                className=" cursor-pointer transition-all"
-                size={20}
-              />
-            )}
-            {/* Lang mobile */}
-            <div>
-              <div className=" group relative cursor-pointer  md:hidden text-sm">
-                <a className="flex items-center gap-[40px] h-[30px] text-white font-bold ">
-                  {lang === "en" ? "Anglais" : "Français"}
-                  <span>
-                    <FaCaretDown
-                      className=" transition-all 
-                      duration-200 group-hover:rotate-180"
-                    />
-                  </span>
-                </a>
-                {/* dropdown section */}
-                <div className="dropdown-lg absolute -center-9 z-[9999] hidden w-[150px] rounded-lg bg-white p-2 shadow-md text-black  group-hover:block">
-                  <ul className="">
-                    <li
-                      role="button"
-                      onClick={() => handleLanguageChange("fr")}
-                      className="p-2  hover:text-principal cursor-pointer"
-                    >
-                      <a>
-                        <ReactCountryFlag
-                          className="emojiFlag mr-2"
-                          countryCode="FR"
-                          svg
-                          cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                          cdnSuffix="svg"
-                          title="FR"
-                        />
-                        Français
-                      </a>
-                    </li>
-                    <li
-                      role="button"
-                      onClick={() => handleLanguageChange("en")}
-                      className="p-2  hover:text-principal cursor-pointer"
-                    >
-                      <a>
-                        <ReactCountryFlag
-                          className="emojiFlag mr-2"
-                          countryCode="US"
-                          svg
-                          cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                          cdnSuffix="svg"
-                          title="US"
-                        />
-                        Anglais
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+          <div className="md:hidden flex items gap-4">
+            <button
+              onClick={toggleMe} 
+              className="text-gray-400 focus:outline-none focus:text-gray-200"
+            >
+              {showMenu ? (
+                <FaXmark className=" h-6 w-6 " />
+              ) : (
+                <FaBars className=" h-6 w-6 " />
+              )}
+            </button>
           </div>
         </nav>
       </header>

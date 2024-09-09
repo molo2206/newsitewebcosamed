@@ -37,7 +37,20 @@ const Footer = () => {
   ];
   const Links = [
     {
-      name: "République démocratique du congo(Nord-kivu et Sud-kivu)",
+      id : 1,
+      name: "Transparence financière",
+    },
+    {
+      id : 2,
+      name: "A quoi servent vos dons",
+    },
+    {
+      id : 3,
+      name: "Tout savoir sur le don régulier",
+    },
+    {
+      id : 4,
+      name: "Toutes les questions sur le don",
     },
   ];
   return (
@@ -48,44 +61,46 @@ const Footer = () => {
           <div className="grid py-2 md:grid-cols-3 header__sticky text-sm font-montserrat">
             <div className="px-2 py-4">
               <p
-                className="font-montserrat"
+                className="text-lg"
                 dangerouslySetInnerHTML={{
                   __html: showingTranslateValue(data?.translations, lang)
                     ?.about_us,
                 }}
               ></p>
               <br />
-              <div className=" flex items-center gap-3">
+              <div className=" flex items-center gap-3 ">
                 <FaLocationArrow />
-                <p>{dataadress?.adresse}</p>
+                <p className="font-montserrat text-sm font-semibold">
+                  {dataadress?.adresse}
+                </p>
               </div>
               <div className=" flex items-center gap-3 mt-3">
                 <FaMobileAlt />
-                <p>
+                <p className=" font-montserrat text-sm font-semibold">
                   <a href={"tel:" + dataadress?.phones}>{dataadress?.phones}</a>
                 </p>
               </div>
             </div>
             <div className=" grid grid-cols-2 sm:grid-cols-3 md:pl-10 col-span-2">
               <div className="px-4 py-8">
-                <h1 className=" mb-3 text-justify text-1xl font-bold ">
+                <h1 className=" mb-3 text-justify font-montserrat text-2xl font-semibold ">
                   {t("Who_are_we")}
                 </h1>
-                <ul className=" flex flex-col gap-3">
+                <ul className=" flex flex-col gap-3 font-montserrat text-sm font-semibold">
                   <FooterLinks links={importantLinks} />
                 </ul>
               </div>
               <div className="px-4 py-8">
-                <h1 className=" mb-3 text-justify text-1xl font-bold">
-                  {t("Where_to_find_us")}
+                <h1 className=" mb-3 text-justify font-montserrat text-2xl font-semibold ">
+                  Le don et vous
                 </h1>
-                <ul className=" flex flex-col gap-3">
+                <ul className=" flex flex-col gap-3 ">
                   <FooterLinks links={Links} />
                 </ul>
               </div>
 
               <div className="px-4 py-8">
-                <h1 className=" mb-3 text-justify text-1xl font-bold">
+                <h1 className=" mb-3 text-justify font-montserrat text-2xl font-semibold ">
                   {t("Social")}
                 </h1>
                 <div className=" flex flex-col gap-3">
@@ -134,7 +149,7 @@ const Footer = () => {
           <div className=" bottom-footer">
             <div className="md:inline-flex my-10 md:ml-10 zrounded-sm w-full  justify-center">
               <img
-                 src={data?.logo1}
+                src={data?.logo1}
                 alt="Logo"
                 className=" object-center sticky-logo  sm:w-60 "
               />

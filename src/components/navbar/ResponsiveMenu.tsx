@@ -46,7 +46,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
     <div
       className={`${
         showMenu ? "left-0" : "-left-[100%]"
-      } fixed bottom-0 top-0 z-20 flex h-screen w-[55%]
+      } fixed bottom-0 top-0 z-20 flex h-screen w-80
         flex-col justify-between bg-principal
         dark:text-white  transition-all
         duration-200 md:hidden rounded-r-xl shadow-md  
@@ -55,7 +55,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
       <div className="relative mt-5 px-5  text-sm">
         <div>
           <Link to="/" onClick={() => window.scrollTo}>
-            <img src={Logo} alt="" className="h-16" />
+            <img src={Logo} alt="" className="h-20" />
           </Link>
         </div>
         <div className=" text-white font-montserrat mt-5 ml-2 ">

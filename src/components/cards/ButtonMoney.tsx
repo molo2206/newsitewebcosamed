@@ -8,7 +8,7 @@ interface props {
 export const ButtonMoney = ({ value,label,onchange,id }: props) => {
   return (
     <div>
-      <div className="relative">
+      <div className="relative ">
         <input
           className="text-white  peer hidden focus:ring-blue-300 border-gray-800 peer rounded-lg w-6 h-6 absolute top-7 left-4 "
            id={id}
@@ -22,7 +22,7 @@ export const ButtonMoney = ({ value,label,onchange,id }: props) => {
   active:bg-hover 
   peer-focus:outline-none peer-focus:ring ring-blue-100 
   border-principal peer-checked:bg-principal peer-checked:text-white
-  bg-blue-100"
+  bg-blue-100z"
           htmlFor={id}
         >
           <div className="flex flex-row justify-center items-center w-[380px] ml-10 mr-4">

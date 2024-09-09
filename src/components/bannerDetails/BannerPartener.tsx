@@ -26,15 +26,7 @@ function BannerPartener() {
     },
   };
   return (
-    <div className="container dark:bg-slate-900 w-full dark:text-white  h-[750px] py-4">
-      <h1 className="mb-8 border-l-8 py-2 pl-2 text-left text-2xl font-bold">
-        {t("Partners")}
-      </h1>
-      <div className=" h-20">
-        <h1 className=" font-semibold text-center font-montserrat dark:bg-slate-900 dark:text-slate-200 sm:text-sm md:text-4xl">
-          {t("How_collaborate")}
-        </h1>
-      </div>
+    <div className="container dark:bg-slate-900 w-full dark:text-white  h-[750px] py-8">
       <div className="rounded-lg">
         <h1 className=" font-semibold text-center font-montserrat text-slate-600 dark:text-slate-200 sm:text-sm md:text-md">
           {t("Data_how_collaborate")}
