@@ -18,7 +18,6 @@ import {
 import { useTranslation } from "react-i18next";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
-import { FaFacebook, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const DetailBulletin = () => {
   const { t } = useTranslation();

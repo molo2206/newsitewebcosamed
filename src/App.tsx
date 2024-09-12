@@ -37,12 +37,14 @@ import AboutMedia from "./pages/AboutMedia";
 import DetailRapport from "./pages/DetailRapport";
 import { getstripe } from "./utils/heleprs";
 import { Elements } from "@stripe/react-stripe-js";
+import Vision from "./pages/Vision";
+import DetailProject from "./pages/DetailProject";
 
 function App() {
   const stripe = getstripe();
 
   return (
-    <div className="bg-slate-100  dark:bg-slate-900 dark:text-white ">
+    <div className="bg-slate-100 dark:bg-slate-900  dark:text-white ">
       <Elements stripe={stripe}>
         <ScrollToTop />
         <ToastContainer position="bottom-right" style={{ zIndex: 99999 }} />
@@ -81,11 +83,16 @@ function App() {
             <Route path="/projects" element={<Project />} />
             <Route path="/aboutmedia" element={<AboutMedia />}></Route>
             <Route
-              path="/report/detail/:id"
+              path="/project/detail/:id"
               element={<DetailRapport />}
             ></Route>
+             <Route
+              path="/report/detail/:id"
+              element={<DetailProject />}
+            ></Route>
             <Route path="/donation" element={<DonateTrue />}></Route>
-            {/* <Route path="/projet/detail/" element={Detailpro} ></Route> */}
+            <Route path="/vision" element={<Vision />} ></Route>
+            <Route path="/about" element={<About />} ></Route>
             {/* 
             <Route path="/evenement" element={<Evenement/>}></Route>
             <Route path="/galery" element={<Photos/>}></Route>

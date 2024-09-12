@@ -49,7 +49,7 @@ const Input = ({
           value={value}
           autoComplete="off"
           type={type || "text"}
-          className="w-full bg-transparent  font-montserrat  rounded-md text-slate-800 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
+          className="w-full bg-transparent  font-montserrat  rounded-md text-slate-800 border py-3 px-4 dark:text-white border-slate-400 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
           //placeholder={placeholder}
           onChange={onChange}
         />

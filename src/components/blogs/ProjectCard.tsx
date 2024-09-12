@@ -9,13 +9,7 @@ const ProjectCard = ({ projet }: props) => {
   const { lang } = useAuthContext();
   return (
     <>
-      <Link
-        to={
-          `/projet/detail/` +
-          showingTranslateValue(projet?.translations, lang)?.slug
-        }
-        onClick={() => window.scroll(0, 0)}
-      >
+      <Link to={`/report/detail/` + projet?.id} onClick={() => window.scroll}>
         <div className="p-4 shadow-lg  relative overflow-hidden rounded-lg text-sm">
           <div className="overflow-hidden rounded-t-lg hovering">
             <img
@@ -27,10 +21,10 @@ const ProjectCard = ({ projet }: props) => {
           </div>
           <div className=" flex justify-between space-x-4 py-2 text-slate-600">
             <p className="bg-principal hover:bg-hover rounded-md px-4 py-1 text-white ">
-             Début projet: {projet?.datestarted}
+              Début projet: {projet?.datestarted}
             </p>
             <p className="bg-principal hover:bg-hover rounded-md px-4 py-1 text-white ">
-             Fin projet {projet?.dateend}
+              Fin projet {projet?.dateend}
             </p>
             <div className=" flex justify-between">
               {/* <img

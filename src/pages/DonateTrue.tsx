@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Contact from "../hooks/Contact";
 import { useTranslation } from "react-i18next";
 import useValidation from "../hooks/useValidation";
 import Input from "../components/form/Input";
@@ -437,7 +436,7 @@ const DonateTrue = () => {
                   </div>
                   <div>
                     <h2 className="font-montserrat mb-2 text-left text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      Faites un don mensuel de
+                      Faites un don ponctuel de
                     </h2>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">

@@ -82,8 +82,12 @@ export const En = {
 	How_news_letters: "Latest official reports from COSAMED on emergency situations",
 	How_blogs: "Latest official news from COSAMED on emergency situations",
 	How_comminicate: "Official press releases from COSAMED",
-	How_report : "Our reports on health emergencies",
-	How_project: "Our projects on health emergencies"
+	How_report: "Our reports on health emergencies",
+	How_project: "Our projects on health emergencies",
+	Search: "Search the site!",
+	Erreur_404: "Error 404",
+	It_looks_404: "It appears that this URL does not exist.",
+	Do_not_worry: "Please check your URL before updating the page."
 }
 
 export const FR = {
@@ -170,6 +174,10 @@ export const FR = {
 	How_news_letters: "Derniers rapports officiels de COSAMED sur les situations d’urgence",
 	How_blogs: "Dernières nouvelles officielles du COSAMED sur les situations d'urgence",
 	How_comminicate: "Communiqués officiels de COSAMED",
-	How_report : "Nos rapports sur les situations d'urgence sanitaire",
-	How_project : "Nos projets sur les urgences sanitaires"
+	How_report: "Nos rapports sur les situations d'urgence sanitaire",
+	How_project: "Nos projets sur les urgences sanitaires",
+	Search: "Rechercher sur le site!",
+	Erreur_404: "Erreur 404",
+	It_looks_404: "Il semble que cette URL n'existe pas.",
+	Do_not_worry: "Veuillez vérifier votre URL avant de mettre à jour la page."
 }

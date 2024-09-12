@@ -29,10 +29,12 @@ const Footer = () => {
 
   const importantLinks = [
     {
-      name: "Mission",
+      name: "About",
+      path: "/about"
     },
     {
       name: "Vision",
+      path: "/vision"
     },
   ];
   const Links = [

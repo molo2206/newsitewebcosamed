@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import CategoryServices from "../../services/CategoryServices";
 import useAsync from "../../hooks/useAsync";
 import CategoryCard from "../blogs/CategoryCard";
+import ReactCountryFlag from "react-country-flag";
 
 interface props {
   showMenu?: any;
@@ -46,7 +47,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
     <div
       className={`${
         showMenu ? "left-0" : "-left-[100%]"
-      } fixed bottom-0 top-0 z-20 flex h-screen w-80
+      } fixed bottom-0 top-0 z-20 flex h-full w-80
         flex-col justify-between bg-principal
         dark:text-white  transition-all
         duration-200 md:hidden rounded-r-xl shadow-md  

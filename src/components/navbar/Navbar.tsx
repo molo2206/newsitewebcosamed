@@ -59,7 +59,7 @@ function Navbar() {
         style={{ zIndex: 2 }}
         className={`header__sticky ${
           sticky ? "header-sticky" : ""
-        } left-0 right-0 bg-navbar font-montserrat text-white border-b-[1px] border-primary/50`}
+        } left-0 right-0 bg-navbar font-montserrat text-white border-b-[1px] border-primary/50 mt-4`}
       >
         <nav className="container flex items-center justify-between h-20">
           {/* Logo selection */}
