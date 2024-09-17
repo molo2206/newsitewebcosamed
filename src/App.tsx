@@ -39,6 +39,7 @@ import { getstripe } from "./utils/heleprs";
 import { Elements } from "@stripe/react-stripe-js";
 import Vision from "./pages/Vision";
 import DetailProject from "./pages/DetailProject";
+import PageSearch from "./pages/PageSearch";
 
 function App() {
   const stripe = getstripe();
@@ -71,6 +72,7 @@ function App() {
               path="/blog/category/:id"
               element={<Thematiqueblog />}
             ></Route>
+            <Route path="/search" element={<PageSearch />}></Route>
             <Route
               path="/load-data/communicated"
               element={<Communicates />}
@@ -86,13 +88,13 @@ function App() {
               path="/project/detail/:id"
               element={<DetailRapport />}
             ></Route>
-             <Route
+            <Route
               path="/report/detail/:id"
               element={<DetailProject />}
             ></Route>
             <Route path="/donation" element={<DonateTrue />}></Route>
-            <Route path="/vision" element={<Vision />} ></Route>
-            <Route path="/about" element={<About />} ></Route>
+            <Route path="/vision" element={<Vision />}></Route>
+            <Route path="/about" element={<About />}></Route>
             {/* 
             <Route path="/evenement" element={<Evenement/>}></Route>
             <Route path="/galery" element={<Photos/>}></Route>

@@ -11,7 +11,7 @@ const AboutMedia = () => {
       <div className=" px-4 lg:px-14 max-w-screen-2xl mx-auto my-8  py-20">
         <div className=" md:w-12/12 mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="  ">
-            <h2 className=" text-5xl text-principal text-neutralDGray font-bold mb-4 ">
+            <h2 className=" md:text-5xl sm:text-2xl text-principal text-neutralDGray font-bold mb-4 ">
               {t("media")}
             </h2>
           </div>

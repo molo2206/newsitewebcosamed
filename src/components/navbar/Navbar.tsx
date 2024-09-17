@@ -59,17 +59,17 @@ function Navbar() {
         style={{ zIndex: 2 }}
         className={`header__sticky ${
           sticky ? "header-sticky" : ""
-        } left-0 right-0 bg-navbar font-montserrat text-white border-b-[1px] border-primary/50 mt-4`}
+        } left-0 right-0 bg-navbar font-montserrat bg-slate-200 dark:bg-slate-800  text-white border-b-[1px] border-primary/50 `}
       >
-        <nav className="container flex items-center justify-between h-20">
+        <nav className="container flex items-center justify-between  md:h-20 sm:10">
           {/* Logo selection */}
-          <div className=" text-white ">
+          <div className=" text-white px-4 ">
             <a className={`${sticky ? "block" : "hidden"}`}>
               <Link to="/" onClick={() => window.scrollTo}>
                 <img
                   src={data?.logo1}
                   alt=""
-                  className="sticky-logo w-full h-full"
+                  className="sticky-logo  w-full h-full"
                 />
               </Link>
             </a>
@@ -80,7 +80,7 @@ function Navbar() {
             </a>
           </div>
           {/* Desktop menu selection */}
-          <div className="hidden md:block font-bold font-montserrat">
+          <div className="hidden md:block font-bold font-montserrat  ">
             <ul className="flex top-12 left-0 right-0  items-center gap-10 font-montserrat">
               <li className="group cursor-pointer ">
                 <a className="flex items-center gap-[2px] h-[50px] ">
@@ -103,7 +103,7 @@ function Navbar() {
                         <div className=" grid grid-cols-4 mt-6">
                           {cat.map((item: any, index: number) => (
                             <div>
-                              <h1 className=" pb-1 hover:text-gray-700 text-principal text-md font-semibold ">
+                              <h1 className=" pb-1  text-principal text-md font-semibold ">
                                 <CategoryCard cat={item} key={index} />
                               </h1>
                             </div>
@@ -292,7 +292,7 @@ function Navbar() {
                   bg-white text-black
                   dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                 >
-                  <div className="grid grid-cols-3 gap-5">
+                  <div className="grid grid-cols-4 gap-4">
                     <div className="col-span-5 ">
                       <p className=" text-sm ">
                         <div className=" grid grid-cols-5 mt-4 px-40">
@@ -316,14 +316,14 @@ function Navbar() {
                               </Link>
                             </h1>
                           </div>
-                          <div>
+                          {/* <div>
                             <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold ">
                               <Link to={`#`} onClick={notify}>
                                 {t("Funding")}
                                 <ToastContainer />
                               </Link>
                             </h1>
-                          </div>
+                          </div> */}
                           <div>
                             <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold ">
                               <Link
@@ -363,7 +363,7 @@ function Navbar() {
                 {/* </Link> */}
               </li>
               <li className=" group relative cursor-pointer ">
-                <a className="flex items-center gap-[20px] h-[50px] text-white font-bold ">
+                <a className="flex items-center gap-[20px] h-[50px]  text-white font-bold ">
                   {lang === "en" ? "Anglais" : "Français"}
                   <span>
                     <FaCaretDown
@@ -373,7 +373,7 @@ function Navbar() {
                   </span>
                 </a>
                 {/* dropdown section */}
-                <div className="dropdown-lg absolute -center-9 z-[99999] hidden w-[150px] rounded-lg bg-white p-2 shadow-md text-black  group-hover:block">
+                <div className="dropdown-lg absolute -center-9 z-[99999] hidden w-[150px] rounded-lg bg-white dark:bg-slate-900 text-principal dark:text-white p-2 shadow-md   group-hover:block">
                   <ul className="">
                     <li
                       role="button"
@@ -427,10 +427,10 @@ function Navbar() {
             </ul>
           </div>
           {/* Mobile menu header */}
-          <div className="md:hidden flex items gap-4">
+          <div className="md:hidden flex items gap-4 p-4">
             <button
               onClick={toggleMe} 
-              className="text-gray-400 focus:outline-none focus:text-gray-200"
+              className=" focus:outline-none focus:text-gray-200"
             >
               {showMenu ? (
                 <FaXmark className=" h-6 w-6 " />

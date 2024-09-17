@@ -1,12 +1,11 @@
 import "react-multi-carousel/lib/styles.css";
-
 import Carousel from "react-multi-carousel";
-
 import BlogCardLoand from "../../components/blogs/BlogCardLoad";
 import useAsync from "../../hooks/useAsync";
 import PartenersServices from "../../services/PartenersServices";
 import { useTranslation } from "react-i18next";
 import PartnerCard from "../../components/blogs/PartnerCard";
+
 
 function BannerPartener() {
   const { t } = useTranslation();
@@ -26,14 +25,17 @@ function BannerPartener() {
     },
   };
   return (
-    <div className="container dark:bg-slate-900 w-full dark:text-white  h-[750px] py-8">
+    <div className="container dark:bg-slate-900 w-full dark:text-white  h-full md:py-8 sm:py-4">
+      <h1 className="py-2 pl-2 text-left md:text-3xl sm:text-2xl font-bold">
+        {t("Partnerships")}
+      </h1>
       <div className="rounded-lg">
-        <h1 className=" font-semibold text-center font-montserrat text-slate-600 dark:text-slate-200 sm:text-sm md:text-md">
+        <p className="text-lg text-slate-600 dark:text-slate-200 font-montserrat mx-auto w-full p-4 ">
           {t("Data_how_collaborate")}
-        </h1>
+        </p>
       </div>
       <div
-        className="relative  lg:h-[80vh] "
+        className="relative  lg:h-[80vh] py-10"
         data-aos="fade-down"
         data-aos-delay="300"
         data-aos-duration="300"

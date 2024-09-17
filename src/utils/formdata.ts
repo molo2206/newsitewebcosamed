@@ -1,3 +1,5 @@
+import { locale } from "moment"
+
 export const rejoindreForm: any = {
     name: "",
     prename: "",
@@ -28,4 +30,14 @@ export const donateForm: any = {
     custom_amount: "",
     country: "",
     currency: ""
+}
+
+export const SearchForm: any =
+{
+    search: "",
+    local: ""
+}
+
+export const Sendnewsletters: any = {
+    email: "",
 }

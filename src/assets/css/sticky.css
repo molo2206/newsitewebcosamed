@@ -229,7 +229,9 @@ header .dropdown a {
 }
 
 header .dropdown a:hover {
-  color: orangered;
+  background-color: #0266c6;
+  color: var(--tp-common-white);
+  color: white;
 }
 header .dropdown-lg a {
   display: flex;
@@ -348,4 +350,8 @@ a {
 }
 
 .right-bar .right-bar-item.category::before {
+}
+a.disabled {
+  pointer-events: none;
+  cursor: default;
 }

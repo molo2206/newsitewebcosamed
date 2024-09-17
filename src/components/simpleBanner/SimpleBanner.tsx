@@ -29,9 +29,9 @@ const SimpleBanner = () => {
               className="flex flex-col items-center
            gap-4 text-center text-white dark:text-white md:col-span-2 md:items-start md:text-left" 
             >
-              <h1 className="text-3xl font-bold md:text-xl">{t("AboutUs")}</h1>
+              <h1 className="font-bold md:text-2xl">{t("AboutUs")}</h1>
               <p
-                className=" text-lg font-montserrat md:text-sm"
+                className="font-montserrat md:text-xl"
                 dangerouslySetInnerHTML={{
                   __html: showingTranslateValue(data?.translations, lang)
                     ?.about_us,

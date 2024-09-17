@@ -4,7 +4,7 @@ const BannerMedia = () => {
   const { t } = useTranslation();
   return (
     <div className=" bg-principal rounded-lg">
-      <div className="container py-8 md:py-20">
+      <div className="container  md:py-20">
         <Link to="https://www.youtube.com/@MediaCOSAMED" target="_blank">
           <div className="grid grid-cols-1 items-center justify-center md:grid-cols-3 gap-4 md:gap-8 ">
             <div

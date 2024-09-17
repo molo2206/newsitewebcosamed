@@ -34,6 +34,7 @@ const Home = () => {
       <Work />
       <SimpleBannerCommunicated commun={lastCom} />
       <BannerPartener />
+      
     </div>
   );
 };
