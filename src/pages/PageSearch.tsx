@@ -1,14 +1,10 @@
-import { useTranslation } from "react-i18next";
 import useAsync from "../hooks/useAsync";
 import SearchServices from "../services/SearchServices";
 import { useAuthContext } from "../context";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import { showingTranslateValue } from "../utils/heleprs";
 import CardSearch from "../components/cards/CardSearch";
-import { count } from "console";
-import CategoryServices from "../services/CategoryServices";
-import CategoryCard from "../components/blogs/CategoryCard";
+import BlogCardLoand from "../components/blogs/BlogCardLoad";
 
 const PageSearch = () => {
   const [searchParams] = useSearchParams();
@@ -16,11 +12,10 @@ const PageSearch = () => {
   const [currentPage, setCurrentPage] = useState<any>(
     searchParams.get("page") || 1
   );
-  const { t } = useTranslation();
   const { lang } = useAuthContext();
 
   const location = useLocation();
-  const { data, loading } = useAsync(
+  const { data , loading} = useAsync(
     () =>
       SearchServices.create(
         {
@@ -31,7 +26,6 @@ const PageSearch = () => {
       ),
     [location.key, currentPage]
   );
-  const { data: cat } = useAsync(() => CategoryServices.getCategory());
   const fetchNextPrevTasks = (link: any) => {
     const url = new URL(link);
     navigation(
@@ -88,15 +82,17 @@ const PageSearch = () => {
           <div className="">
             <p className=" md:text-3xl sm:text-xl">
               Votre recherche a généré
-              <span className=" px-2 text-principal">{data?.total} résultat(s).</span>
+              <span className=" px-2 text-principal">
+                {data?.total} résultat(s).
+              </span>
             </p>
           </div>
         </div>
         <div className=" py-6">
           <div>
-            {data?.data?.map((items: any) => (
-              <CardSearch blog={items} />
-            ))}
+            {loading
+              ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
+              : data?.data?.map((items: any) => <CardSearch blog={items} />)}
             <div className=" flex relative justify-center items-center">
               {renderPaginationLinks()}
             </div>

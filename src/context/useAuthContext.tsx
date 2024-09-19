@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	const [logo2, setLogo2] = useState(null)
 	const [selectedRole, setSelectedRole] = useState<any>(null)
 	const [selectedType, setSelectedType] = useState<any>(null)
-	const [lang, setLang] = useState<any | null>('en')
+	const [lang, setLang] = useState<any | null>('fr')
 	const [image, setImage] = useState(null)
 	const [image1, setImage1] = useState(null)
 	const [image2, setImage2] = useState(null)

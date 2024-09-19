@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";
 import { useAuthContext } from "../../context";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import CategoryServices from "../../services/CategoryServices";
 import useAsync from "../../hooks/useAsync";
 import CategoryCard from "../blogs/CategoryCard";
@@ -29,8 +29,6 @@ function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const element = document.documentElement;
 
-  const notify = () =>
-    toast("Cette fonctionnalité est encours de développement!");
 
   const donatelink = () => {
     navigate("/donation"); // new line

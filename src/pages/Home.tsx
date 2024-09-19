@@ -17,11 +17,11 @@ const Home = () => {
   );
   usePageSEO({
     title: "Acceuil",
-    description: "Page 1",
-    keywords: ["Keyword 1", "Keyword 2", "Keyword 3"],
-    ogTitle: "Acceuil",
-    ogDescription: "Page 1",
-    ogImage: "http://exemple.com/image.jpg",
+    description: "Acceuil",
+    keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
+    ogTitle: "Cosamed asbl",
+    ogDescription: "Est une association à but non lucratif reconnue par le gouvernement congolais et composée de prestataires de santé allant des agents de santé communautaires aux médecins.",
+    ogImage: "https://www.cosamed.org/",
     ogUrl: window.location.href,
   });
   return (

@@ -1,4 +1,3 @@
-import { locale } from "moment"
 
 export const rejoindreForm: any = {
     name: "",

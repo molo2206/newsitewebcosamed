@@ -2,17 +2,15 @@ import SettingsServices from "../../services/SettingsServices";
 import useAsync from "../../hooks/useAsync";
 // import { useTranslation } from "react-i18next";
 import InputSearch from "../form/InputSearch";
-import Search from "../../hooks/Search";
 import useValidation from "../../hooks/useValidation";
-import Button from "../form/Button";
 import ButtonSearch from "../form/ButtonSearch";
 import { useNavigate } from "react-router-dom";
 
 const NavbarFirst = () => {
   const navigation= useNavigate()
   const { data } = useAsync(() => SettingsServices.getSettings());
-  const { createSearch, loading } = Search();
-  const { inputs, errors, handleOnChange, hanldeError, setInputs } =
+
+  const { inputs, errors, handleOnChange, hanldeError } =
     useValidation({
       keyword: "",
     });
@@ -43,7 +41,7 @@ const NavbarFirst = () => {
               <div className="blog-search-content">
                 <div className="border-slate-300 border border-sm dark:border-slate-700 search-box">
                   <InputSearch
-                    name="first_name"
+                    name="keyword"
                     placeholder="Rechercher sur le site!"
                     type="text"
                     errors={errors.keyword}
@@ -52,7 +50,7 @@ const NavbarFirst = () => {
                       handleOnChange(e.target.value, "keyword")
                     }
                   />
-                  <ButtonSearch loading={loading} />
+                  <ButtonSearch loading="" />
                 </div>
               </div>
             </div>

@@ -13,6 +13,9 @@ import BlogLastCard from "../components/blogs/BlogLastCard";
 import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 import { ImageBlogs } from "../components/blogs/ImageBlogs";
+import { getShareUrl, SocialPlatforms } from "@phntms/react-share";
+import Seo from "../components/Seo/Seo";
+import { useTranslation } from "react-i18next";
 
 const DetailBlog = () => {
   const { slug } = useParams();
@@ -33,11 +36,14 @@ const DetailBlog = () => {
     title: showingTranslateValue(data?.translations, lang)?.title,
     keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
     ogTitle: "Detail blog",
-    ogDescription:
-      "Est une association sans but lucratif reconnue par le gouvernement congolais constituée des prestataires de santé allant de l’agent de santé communautaire au médecin.",
+    ogDescription: showingTranslateValue(data?.translations, lang)?.description,
     ogImage: data?.image,
     ogUrl: window.location.href,
   });
+  Seo({
+    title: data,
+  });
+  const { t } = useTranslation();
   return error ? (
     <Error404 />
   ) : (
@@ -92,6 +98,16 @@ const DetailBlog = () => {
                     <p className="text-xl font-bold ">
                       {data?.author?.full_name}
                     </p>
+                    <a className="bg-principal text-white w-[200px] flex justify-center items-center rounded-lg h-[40px]"
+                          href={getShareUrl(SocialPlatforms.Facebook, {
+                            url:
+                              "https://www.cosamed.org/" +
+                              showingTranslateValue(data?.translations, lang)
+                                ?.slug,
+                          })}
+                        >
+                          {t('Share_on')}
+                        </a>
                   </div>
                 </div>
                 <div className="col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 ">
