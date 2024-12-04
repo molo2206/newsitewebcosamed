@@ -22,6 +22,8 @@ import Error404 from "./Error404";
 import BlogLastCard from "../components/blogs/BlogLastCard";
 import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
+import CategoryCard from "../components/blogs/CategoryCard";
+import CategoryServices from "../services/CategoryServices";
 
 const CommunicateDetail = () => {
   const { t } = useTranslation();
@@ -31,6 +33,7 @@ const CommunicateDetail = () => {
     () => CommunicatedServices.oneCommunicate(id),
     id
   );
+  const { data: cat } = useAsync(() => CategoryServices.getCategory());
   const { data: blog } = useAsync(() => BlogServices.getBlogHome());
   const urlShare = window.location.href;
   const [currentPage, setCurrentPage] = useState(1);
@@ -112,27 +115,33 @@ const CommunicateDetail = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 ">
-                  <form className="mt-8 space-y-6 mb-8">
-                    <div className="space-y-px rounded-md items-center">
-                      <div className="blog-search-content">
-                        <div className="border-slate-300 border border-sm dark:border-slate-700 search-box">
-                          <input placeholder="Search" type="search" />
-                          <button>
-                            <i className="fa fa-search"></i>
-                          </button>
+                <div className="col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 mt-16 ">
+                  <div className="p-4 shadow-2xl rounded-2xl border ">
+                    <div className="overflow-hidden ">
+                      <h1 className="text-principal text-2xl font-montserrat font-semibold items-center justify-center">
+                        Categories
+                      </h1>
+                      <div className="right-bar">
+                        <div className="right-bar-item category">
+                          <div className="right-item-content text-slate-600 dark:text-slate-700  ">
+                            {cat.map((item: any, index: number) => (
+                              <a className="text-sm font-semibold ">
+                                <CategoryCard cat={item} key={index} />
+                              </a>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </form>
-                  <div className="p-4 shadow-2xl rounded-2xl">
-                    <div className="overflow-hidden">
+                  </div>
+                  <div className="p-4 shadow-2xl rounded-lg border mt-10">
+                    <div className="overflow-hidden ">
                       <h1 className="text-principal text-2xl font-montserrat font-semibold items-center justify-center">
-                        Actualités
+                        Publications recentes
                       </h1>
-                      <div className="right-bar">
+                      <div className="right-bar ">
                         {currentBlog.map((item: any, index: number) => (
-                          <div className=" text-sm ">
+                          <div className=" text-sm mt-10  ">
                             <BlogLastCard blog={item} key={index} />
                           </div>
                         ))}

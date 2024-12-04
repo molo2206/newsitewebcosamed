@@ -34,7 +34,7 @@ const DetailBulletin = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white py-1 ">
+        <div className="container dark:bg-slate-800 w-full dark:text-white py-1 ">
           <div className="container">
             <div className=" pb-14 py-1">
               <div className="grid  row">

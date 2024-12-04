@@ -11,4 +11,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+  server: {
+    proxy: {
+      '/uploads': {
+        target: 'https://apicosamed.cosamed.org',
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });

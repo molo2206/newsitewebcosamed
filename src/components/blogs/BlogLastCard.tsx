@@ -15,11 +15,11 @@ const BlogLastCard = ({ blog }: props) => {
           showingTranslateValue(blog?.translations, lang)?.slug
         }
       >
-        <div className="right-item-content text-slate-600 dark:text-slate-700">
-          <img className="right-bar-image" src={blog?.image} />
+        <div className="right-item-content text-slate-600 dark:bg-slate-800 dark:text-white" >
+          <img className="right-bar-image w-full" src={blog?.image} />
           <a
            
-            className="right-item-title line-clamp-2 font-semibold hover:text-orange-300"
+            className="right-item-title line-clamp-2 font-semibold hover:text-hover"
             dangerouslySetInnerHTML={{
               __html: showingTranslateValue(blog?.translations, lang)?.title,
             }}

@@ -19,14 +19,14 @@ const NavbarFirst = () => {
 
     let valide = true;
     if (!inputs.keyword) {
-      hanldeError("First name us is required", "first_name");
+      hanldeError("keyword is required", "keyword");
       valide = false;
     }
 
     if (valide) {
        navigation("/search?q="+inputs.keyword)
-       
     }
+
   };
   return (
     <div className="px-4 lg:px-14 mx-auto bg-white dark:bg-slate-800 dark:text-slate-200 ">

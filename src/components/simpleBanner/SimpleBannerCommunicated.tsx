@@ -1,6 +1,6 @@
 import { showingTranslateValue } from "../../utils/heleprs";
 import { useAuthContext } from "../../context";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 interface props {
   commun?: any;
@@ -8,47 +8,39 @@ interface props {
 const SimpleBannerCommunicated = ({ commun }: props) => {
   const { lang } = useAuthContext();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const goToAbout = () => {
+    navigate("/communicated/" + commun?.id); // Remplace "/about" par la route cible
+  };
   return (
     <>
-      <div className=" bg-principal rounded-lg">
-        <div className="container py-8 md:py-12">
-          <Link to={`/communicated/` + commun?.id}>
-            <div className="grid grid-cols-1 items-center md:grid-cols-3 gap-4 md:gap-8">
-              <div className="px-2">
-                <img
-                  src={commun?.file}
-                  alt="not found"
-                  className="mx-auto h-[250px] w-full  rounded-md
-              object-cover transition duration-700 hover:skew-x-2 hover:scale-110"
-                />
-              </div>
-              <div
-                className="flex flex-col items-center
-         gap-4 text-center text-white dark:text-white md:col-span-2 md:items-start md:text-left"
-              >
-                <h1 className=" md:text-lg sm:text-sm hover:text-orange-300 font-semibold">
-                  Annonce :
-                </h1>
-                <h1 className="font-bold md:text-sm sm:text-sm">
-                  {showingTranslateValue(commun?.translations, lang)?.title}
-                </h1>
-                <p
-                  className=" line-clamp-2 "
-                  dangerouslySetInnerHTML={{
-                    __html: showingTranslateValue(commun?.translations, lang)
-                      ?.description,
-                  }}
-                ></p>
-                <a
-                  target="_blank"
-                  className="py-2 font-montserrat font-semibold flex items-center justify-center hover:text-white hover:bg-hover rounded-md w-52 text-principal
-               bg-white text-sm"
-                >
-                  {t("More")}
-                </a>
-              </div>
-            </div>
-          </Link>
+      <div className="container dark:bg-slate-900 w-full dark:text-white py-4">
+        <h1 className="pl-2 text-left text-3xl font-bold">
+          Annonce Importante
+        </h1>
+        <div className=" py-8 ">
+          {/* Section Annonce */}
+          <section className="bg-white dark:bg-slate-800  border p-8 rounded-lg shadow-md mb-12">
+            <h2 className="text-3xl font-semibold dark:text-white text-gray-800 mb-6 underline decoration-blue">
+              {showingTranslateValue(commun?.translations, lang)?.title}
+            </h2>
+            <p
+              className="text-lg text-gray-700 mb-4 line-clamp-6 dark:text-white "
+              dangerouslySetInnerHTML={{
+                __html: showingTranslateValue(commun?.translations, lang)
+                  ?.description,
+              }}
+            ></p>
+            <button
+              onClick={goToAbout}
+              className="mt-4 px-6 py-2 bg-principal text-white rounded-md hover:bg-hover"
+            >
+              {t("More")}
+            </button>
+          </section>
+
+          {/* Section À Propos de l'Entreprise */}
         </div>
       </div>
     </>

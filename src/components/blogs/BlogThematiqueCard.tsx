@@ -16,7 +16,7 @@ const BlogThematiqueCard = ({ cat }: props) => {
         }
         onClick={() => window.scroll(0, 0)}
       >
-        <div className="p-4 shadow-lg">
+        <div className="p-4 shadow-lg border rounded-lg dark:bg-slate-800">
           <div className="overflow-hidden">
             <img
               src={cat?.image}
@@ -26,8 +26,10 @@ const BlogThematiqueCard = ({ cat }: props) => {
             />
           </div>
           <div className=" flex justify-between py-2 text-slate-600">
-            <p>{cat?.publication_date}</p>
-            <p className=" line-clamp-1">{cat?.author.full_name}</p>
+            <p className=" dark:text-white">{cat?.publication_date}</p>
+            <p className="dark:text-white line-clamp-1">
+              {cat?.author.full_name}
+            </p>
           </div>
           <div className="space-y-2 py3">
             <h1

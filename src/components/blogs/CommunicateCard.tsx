@@ -15,7 +15,7 @@ const CommunicateCard = ({communicate}:props) => {
       }
       onClick={() => window.scroll(0, 0)}
     >
-      <div className="p-4 shadow-lg">
+      <div className="p-4 shadow-lg border rounded-lg">
         <div className="overflow-hidden">
           <img
             src={communicate?.file}
@@ -25,13 +25,13 @@ const CommunicateCard = ({communicate}:props) => {
           />
         </div>
         <div className=" flex justify-between py-2 text-slate-600">
-          <p>{communicate?.created}</p>
+          <p className=" dark:text-white">{communicate?.created}</p>
           <div className=" flex justify-between">
             <img
               src={communicate?.author?.image}
               className=" h-[30px] px-30 rounded-full duration-200 hover:scale-105"
             />
-            <p className=" line-clamp-1 mt-1">{communicate?.author.full_name}</p>
+            <p className=" line-clamp-1 mt-1  dark:text-white">{communicate?.author.full_name}</p>
           </div>
         </div>
         <div className="space-y-2 py3">

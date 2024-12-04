@@ -11,7 +11,7 @@ const BannerMedia = () => {
               className="flex flex-col items-center  justify-center
    gap-4 text-center text-white dark:text-white md:col-span-2 md:items-start md:text-center"
             >
-              <h1 className="font-bold md:text-3xl sm:text-sm">
+              <h1 className="font-semibold md:text-3xl sm:text-sm">
                 {t("chanel_youtube")}
               </h1>
               <a

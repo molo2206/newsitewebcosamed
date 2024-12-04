@@ -1,27 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAsync from "../hooks/useAsync";
 import RapportServices from "../services/RapportServices";
-import BlogServices from "../services/BlogsServices";
 import { showingTranslateValue } from "../utils/heleprs";
 import { useAuthContext } from "../context";
 import { useTranslation } from "react-i18next";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
-
-import {
-  TwitterShareButton,
-  LinkedinShareButton,
-  TelegramShareButton,
-  FacebookIcon,
-  TwitterIcon,
-  LinkedinIcon,
-  TelegramIcon,
-  FacebookShareButton,
-} from "react-share";
 import BreadCumb from "../components/navbar/BreadCumb";
 import Error404 from "./Error404";
-import BlogLastCard from "../components/blogs/BlogLastCard";
-import { useState } from "react";
-import Pagination from "../components/Pagination/Pagination";
 
 const DetailRapport = () => {
   const { t } = useTranslation();
@@ -31,14 +16,28 @@ const DetailRapport = () => {
     () => RapportServices.oneRapport(id),
     id
   );
-  const { data: blog } = useAsync(() => BlogServices.getBlogHome());
-  const urlShare = window.location.href;
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(2);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentBlog = blog.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+  const navigate = useNavigate();
+  const goToAbout = () => {
+    navigate("/data-loading/reports");
+  };
+  const handleDownload = () => {
+    // Contenu du fichier simulé (peut être une réponse API ou un fichier local)
+    const fichierTexte = data?.file;
+    const blob = new Blob([fichierTexte], { type: "text/plain" });
+
+    // Créez une URL pour le blob
+    const url = window.URL.createObjectURL(blob);
+
+    // Créez un élément <a> pour initier le téléchargement
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "fichier-exemple.pdf"; // Nom du fichier
+    document.body.appendChild(a);
+    a.click(); // Déclenche le téléchargement
+    document.body.removeChild(a); // Nettoie l'élément
+    window.URL.revokeObjectURL(url); // Libère la mémoire
+  };
+
   return error ? (
     <Error404 />
   ) : (
@@ -48,131 +47,77 @@ const DetailRapport = () => {
       ) : (
         <div className="container dark:bg-slate-900 w-full dark:text-white py-1 ">
           <div className="container">
-            <div className=" pb-14 py-1">
-              <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
-                <div className="col-span-2 col-lg-8 col-md-8 px-4">
-                  <div className="overflow-hidden">
-                    <BreadCumb
-                      title="Detail"
-                      second={"/load-data/communicated"}
-                      secondTitle={t("Reports")}
-                    />
-                    <h1 className=" text-2xl font-semibold mb-10 ">
-                      {showingTranslateValue(data?.translations, lang)?.title}
-                      <p className="border border-t-2 border-principal"></p>
-                    </h1>
-                    <div className=" object-contain bg-slate-200 items-stretch justify-items-stretch">
-                    <img
-                      src={data?.image}
-                      alt=""
-                      className="mx-auto w-full h-[460px]
-            object-contain transition duration-700 rounded-2xl"
-                    />
-                    </div>
-                  </div>
-                  <br />
-
-                  <div
-                    className="text-lg font-montserrat"
-                    dangerouslySetInnerHTML={{
-                      __html: showingTranslateValue(data?.translations, lang)
-                        ?.description,
-                    }}
-                  ></div>
-                  <div>
-                    <h3 className="font-montserrat text-lg">
-                      {t("PressButton")}
-                    </h3>
-
-                    <a
-                      className="py-2 text-lg rounded-md w-full text-white cursor-pointer
- bg-principal px-3"
-                      href={data?.file}
-                      target="_blank"
-                      role="noreferrer"
-                      download={
-                        data?.file
-                          ?.split("https://apicosamed.cosamed.org/")[1]
-                          ?.split("/")[3]
-                      }
+            <BreadCumb
+              title="Detail"
+              second={"/load-data/communicated"}
+              secondTitle={t("Reports")}
+            />
+            <section className="mb-10">
+              <header className="bg-principal dark:bg-slate-800 w-full dark:text-white rounded-lg text-white py-10">
+                <div className="max-w-6xl mx-auto px-4 text-center">
+                  <h1 className="text-4xl font-bold text-white">
+                    {showingTranslateValue(data?.translations, lang)?.title}
+                  </h1>
+                </div>
+              </header>
+              <header className="border-b pb-6 mb-6 mt-4">
+                <div className="mt-2 text-gray-500 dark:text-white">
+                  <p>
+                    <span className="font-medium dark:text-white">Date : </span>
+                    {data?.created}
+                  </p>
+                  <p>
+                    <span className="font-medium dark:text-white">
+                      Auteur :{" "}
+                    </span>
+                    {data?.author?.full_name}
+                  </p>
+                  <p>
+                    <span className="font-medium dark:text-white">
+                      Statut :{" "}
+                    </span>
+                    <span
+                      className={`px-2 py-1 rounded ${
+                        data?.status === 1
+                          ? "bg-green-100 text-green-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
                     >
-                      {t("Download")}
-                    </a>
-                  </div>
-                  
-                  <div className="py-8">
-                    <img
-                      src={data?.author?.image}
-                      className=" h-[70px] px-30 rounded-full duration-200 hover:scale-105"
-                    />
-                    <p className="text-xl font-bold ">
-                      {data?.author?.full_name}
-                    </p>
-                  </div>
-                  <div className="px-4 py-1  rounded-2xl">
-                    <h1 className=" mb-3 text-justify text-1xl font-bold sm:text-left sm:text-2xl">
-                      {t("Share_on")}
-                    </h1>
-                    <div className=" flex flex-col gap-3 ">
-                      <div className="flex gap-3 mr-6 items-center">
-                        <FacebookShareButton
-                          url={"https://www.cosamed.org"}
-                          title={data?.title}
-                          hashtag="#camperstribe"
-                        >
-                          <FacebookIcon size={32} round={true} />
-                        </FacebookShareButton>
-                        <TwitterShareButton url={urlShare}>
-                          <TwitterIcon size={32} round={true} />
-                        </TwitterShareButton>
-                        <LinkedinShareButton url={urlShare}>
-                          <LinkedinIcon size={32} round={true} />
-                        </LinkedinShareButton>
-                        <TelegramShareButton url={urlShare}>
-                          <TelegramIcon size={32} round={true} />
-                        </TelegramShareButton>
-                      </div>
-                    </div>
-                  </div>
+                      Approuvé
+                    </span>
+                  </p>
                 </div>
-                <div className="col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 ">
-                  <form className="mt-8 space-y-6 mb-8">
-                    <div className="space-y-px rounded-md items-center">
-                      <div className="blog-search-content">
-                        <div className="border-slate-300 border border-sm dark:border-slate-700 search-box">
-                          <input placeholder="Search" type="search" />
-                          <button>
-                            <i className="fa fa-search"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                  <div className="p-4 shadow-2xl rounded-2xl">
-                    <div className="overflow-hidden">
-                      <h1 className="text-principal text-2xl font-montserrat font-semibold items-center justify-center">
-                        Actualités
-                      </h1>
-                      <div className="right-bar">
-                        {currentBlog.map((item: any, index: number) => (
-                          <div className=" text-sm ">
-                            <BlogLastCard blog={item} key={index} />
-                          </div>
-                        ))}
-                      </div>
-                      <Pagination
-                        postsPerPage={postsPerPage}
-                        totalPasts={blog.length}
-                        paginate={paginate}
-                      />
-                    </div>
-                  </div>
-                </div>
+              </header>
+              {/* Description */}
+              <section className="mb-8">
+                <h2 className="text-2xl font-semibold text-gray-800 mb-2 dark:text-white">
+                  Description
+                </h2>
+                <p
+                  className="text-gray-600 leading-relaxed dark:text-white"
+                  dangerouslySetInnerHTML={{
+                    __html: showingTranslateValue(data?.translations, lang)
+                      ?.description,
+                  }}
+                ></p>
+              </section>
+
+              <div className="mt-8 flex justify-between">
+                <button
+                  className="px-6 py-2 bg-blue-600 dark:bg-slate-800 text-white dark:text-white rounded-md hover:bg-blue-700"
+                  onClick={handleDownload}
+                >
+                  Télécharger le rapport
+                </button>
+                <button
+                  className="px-6 py-2 bg-gray-300 dark:bg-slate-800 dark:text-white text-gray-700 rounded-md hover:bg-gray-400"
+                  onClick={goToAbout}
+                >
+                  Retour à la liste
+                </button>
               </div>
-            </div>
+            </section>
           </div>
-          {/* <p className=" border-t-2 border-gray-300/50 py-4 text-center"></p> */}
-          {/* <Blogs /> */}
         </div>
       )}
     </>

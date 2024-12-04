@@ -1,16 +1,18 @@
 
 interface props {
   blogImage?: any;
+  onClick?: any;
 }
-const ImagesBlog = ({ blogImage }: props) => {
+const ImagesBlog = ({ blogImage,onClick }: props) => {
   return (
-      <div className="p-4 shadow-lg  relative overflow-hidden  text-sm">
+      <div className="p-4 shadow-lg  relative overflow-hidden  text-sm " onClick={onClick} role="button">
         <div className="overflow-hidden  hovering">
           <img
             src={blogImage?.image}
+            
             alt="not found"
-            className="mx-auto h-[150px] w-full
-            object-cover transition duration-700 hover:skew-x-2 hover:scale-110"
+            className="mx-auto h-[200px] w-full
+            object-cover "
           />
         </div>
     </div>

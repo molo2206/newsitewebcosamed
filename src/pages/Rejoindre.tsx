@@ -4,6 +4,7 @@ import Button from "../components/form/Button";
 import { useTranslation } from "react-i18next";
 import useAsync from "../hooks/useAsync";
 import ThematiquesServices from "../services/ThematiquesServices";
+import TypeMemberService from "../services/TypeMemberService";
 import CountryService from "../services/CountryServices";
 import useValidation from "../hooks/useValidation";
 import { showingTranslateValue } from "../utils/heleprs";
@@ -11,11 +12,13 @@ import TextArea from "../components/form/TextArea";
 import { useAuthContext } from "../context";
 import Members from "../hooks/Members";
 import BreadCumb from "../components/navbar/BreadCumb";
+import usePageSEO from "../components/Seo/usePageSEO";
 
 const Rejoindre = () => {
   const { t } = useTranslation();
   const { lang } = useAuthContext();
   const { data } = useAsync(() => ThematiquesServices.getThematiques());
+  const { data: Type } = useAsync(() => TypeMemberService.getTypMember());
   const { data: country } = useAsync(() => CountryService.getCountry());
   const { createMember, loading: loadingForm } = Members();
   const genres = [
@@ -28,21 +31,16 @@ const Rejoindre = () => {
       label: "Feminin",
     },
   ];
+  usePageSEO({
+    title: "Nous rejoindre",
+    description: "Nous rejoindre",
+    keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
+    ogTitle: "Cosamed asbl",
+    ogDescription: "Est une association à but non lucratif reconnue par le gouvernement congolais et composée de prestataires de santé allant des agents de santé communautaires aux médecins.",
+    ogImage: "https://www.cosamed.org/",
+    ogUrl: window.location.href,
+  });
 
-  const Type = [
-    {
-      value: "Bailleur",
-      label: "Bailleur",
-    },
-    {
-      value: "Membre actif",
-      label: "Membre actif",
-    },
-    {
-      value: "Autre",
-      label: "Autre",
-    },
-  ];
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
     useValidation({
       name: "",
@@ -202,11 +200,10 @@ const Rejoindre = () => {
                   <div className="m-x-auto">
                     <div>
                       <h2 className="font-montserrat mb-2 text-center text-xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        Devenir membre
+                        {t("Becom_member")}
                       </h2>
                       <p className="text-sm font-montserrat mb-2 font-base capitalize font-light font-font1 text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
-                        COMPLÉTER LES INFORMATIONS CI-DESSOUS SI VOUS DÉSIREZ
-                        DEVENIR MEMBRE DE COSAMED
+                        {t("complete_info")}
                       </p>
                     </div>
                     <form className="mt-8 space-y-6 mb-8" onSubmit={validation}>
@@ -214,7 +211,7 @@ const Rejoindre = () => {
                         <div className="grid grid-cols-1 gap-4">
                           <Input
                             required
-                            label="Select Thematique"
+                            label={t("Select_thematic")}
                             type="select"
                             errors={errors.thematique}
                             value={inputs.thematique}
@@ -228,11 +225,10 @@ const Rejoindre = () => {
                               )?.value,
                               value: item.id,
                             }))}
-                            placeholder={"Entrez votre thematique"}
                           />
                           <Input
                             required
-                            label="Select Type membre"
+                            label={t("Select_typemember")}
                             type="select"
                             errors={errors.typemembre}
                             value={inputs.typemembre}
@@ -240,17 +236,19 @@ const Rejoindre = () => {
                               handleOnChange(e.target.value, "typemembre")
                             }
                             options={Type?.map((item: any) => ({
-                              label: item.label,
-                              value: item.value,
+                              label: showingTranslateValue(
+                                item?.translations,
+                                lang
+                              )?.name,
+                              value: item.id,
                             }))}
-                            placeholder={"Selectionner un type"}
                           />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                           <Input
                             required
                             name="name"
-                            label="name"
+                            label={t("Name")}
                             placeholder=""
                             type="text"
                             errors={errors.name}
@@ -262,7 +260,7 @@ const Rejoindre = () => {
                           <Input
                             required
                             name="prename"
-                            label="Prename"
+                            label={t("Prename")}
                             placeholder=""
                             type="text"
                             errors={errors.prename}
@@ -274,7 +272,7 @@ const Rejoindre = () => {
                           <Input
                             required
                             name="select"
-                            label="Select Sexe"
+                            label={t("Select_Sexe")}
                             type="select"
                             value={inputs.sexe}
                             errors={errors.sexe}
@@ -285,12 +283,11 @@ const Rejoindre = () => {
                               label: item.label,
                               value: item.value,
                             }))}
-                            placeholder={"Selectionner un genre"}
                           />
                           <Input
                             required
                             name="phone"
-                            label="Téléphone"
+                            label={t("Phone")}
                             type="phone"
                             errors={errors.phone}
                             value={inputs.phone}
@@ -313,7 +310,7 @@ const Rejoindre = () => {
                           <Input
                             required
                             name="select"
-                            label="Select Pays"
+                            label={t("Select_country")}
                             type="select"
                             value={inputs.country}
                             errors={errors.country}
@@ -324,12 +321,11 @@ const Rejoindre = () => {
                               label: item.name,
                               value: item.id,
                             }))}
-                            placeholder={"Selectionner votre pays"}
                           />
                           <Input
                             required
                             name="ville"
-                            label="Ville"
+                            label={t("City")}
                             type="text"
                             errors={errors.ville}
                             value={inputs.ville}
@@ -341,7 +337,7 @@ const Rejoindre = () => {
                             required
                             type={"text"}
                             name="profession"
-                            label="profession"
+                            label={t("Proffession")}
                             placeholder=""
                             errors={errors.profession}
                             value={inputs.profession}
@@ -351,7 +347,7 @@ const Rejoindre = () => {
                           />
                           <Input
                             name="num_ordre"
-                            label="Numèro d'ordre(Facultatif)"
+                            label={t("Order_number")}
                             placeholder=""
                             type="text"
                             errors={errors.num_ordre}
@@ -363,7 +359,7 @@ const Rejoindre = () => {
                           <Input
                             type={"text"}
                             name="corporation"
-                            label="corporation(Facultatif)"
+                            label={t("Corporation")}
                             placeholder=""
                             errors={errors.corporation}
                             value={inputs.corporation}
@@ -381,13 +377,11 @@ const Rejoindre = () => {
                             onChange={(e: any) =>
                               handleOnChange(e.target.value, "motif")
                             }
-                            label={
-                              "Quelle est la motivation derrière votre adhésion?"
-                            }
+                            label={t("What_is_the_motivation")}
                           />
                         </div>
                       </div>
-                      <Button loading={loadingForm} label={"Soumettre"} />
+                      <Button loading={loadingForm} label={t("Soumettre")} />
                       <div className="justify-center items-center">
                         <div className="mb-2">
                           <p className="text-sm font-montserrat text-slate-700 dark:text-slate-600 text-justify">

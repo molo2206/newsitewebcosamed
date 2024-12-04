@@ -4,15 +4,36 @@ import Button from "../components/form/Button";
 import useValidation from "../hooks/useValidation";
 import TextArea from "../components/form/TextArea";
 import Contact from "../hooks/Contact";
-import Location from "../components/blogs/Location";
-import { FaFacebook, FaWhatsapp } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaFacebook,
+  FaLinkedin,
+  FaMapMarkerAlt,
+  FaPhone,
+} from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa6";
 import BreadCumb from "../components/navbar/BreadCumb";
 import { useTranslation } from "react-i18next";
+import usePageSEO from "../components/Seo/usePageSEO";
+import SettingsServices from "../services/SettingsServices";
+import useAsync from "../hooks/useAsync";
 
 const ContactUs = () => {
   const { t } = useTranslation();
   const { createContact, loading: loadingForm } = Contact();
+  const { data } = useAsync(() => SettingsServices.getSettings());
+  const { data: dataadress } = useAsync(() => SettingsServices.getAdresse());
+  // console.log(data);
+  usePageSEO({
+    title: "Contact-nous",
+    description: "Contact-nous",
+    keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
+    ogTitle: "Cosamed asbl",
+    ogDescription:
+      "Est une association à but non lucratif reconnue par le gouvernement congolais et composée de prestataires de santé allant des agents de santé communautaires aux médecins.",
+    ogImage: "https://www.cosamed.org/",
+    ogUrl: window.location.href,
+  });
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
     useValidation({
@@ -27,25 +48,25 @@ const ContactUs = () => {
 
     let valide = true;
     if (!inputs.first_name) {
-      hanldeError("First name us is required", "first_name");
+      hanldeError(t("Error_First_name"), "first_name");
       valide = false;
     }
     if (!inputs.last_name) {
-      hanldeError("Last name is required", "last_name");
+      hanldeError(t("Error_Last_name"), "last_name");
       valide = false;
     }
     if (!inputs.email) {
-      hanldeError("Email is required", "email");
+      hanldeError(t("Error_Email"), "email");
       valide = false;
     }
 
     if (!inputs.phone) {
-      hanldeError("Phone is required", "phone");
+      hanldeError(t("Error_Phone"), "phone");
       valide = false;
     }
 
     if (!inputs.message) {
-      hanldeError("Message is required", "message");
+      hanldeError(t("Error_Message"), "message");
       valide = false;
     }
 
@@ -55,125 +76,182 @@ const ContactUs = () => {
   };
   return (
     <div className="container dark:bg-slate-900 w-full dark:text-white ">
-      <div className=" grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
-        <div className=" col-span-2 col-lg-8 col-md-8 px-2">
-          <BreadCumb title={"Contact"} />
-          <Location />
-        </div>
-        <div className=" col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 ">
-          <div className="m-x-auto py-10">
-            <div>
-              <h2 className="font-montserrat mb-2 text-center text-xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {t("Contact_us")}
-              </h2>
-              <p className="text-sm font-montserrat mb-2 font-base capitalize font-light font-font1 text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
-                {t("Send_message")}
+      <div>
+        <BreadCumb title={"Blog"} />
+        <section className="mb-10 ">
+          <header className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg text-white py-10">
+            <div className="max-w-6xl mx-auto px-4 text-center">
+              <h1 className="text-4xl font-bold">{t("Contact_us")}</h1>
+            </div>
+          </header>
+          <div className=" grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 ">
+            {/* Left Section: Contact Information */}
+            <div className="bg-white border shadow-lg rounded-lg p-8 dark:bg-slate-800">
+              <h1 className="text-3xl font-bold text-gray-800 mb-6 dark:text-white"></h1>
+              <p className="text-gray-600 mb-6 dark:text-white">
+                {t('team_info')}
               </p>
-              <div className="px-4 ">
-                <div className=" flex flex-col gap-3">
-                  <div className="flex gap-3 mr-6 items-center justify-center text-center">
-                    <a href="" className=" duration-200 hover:scale-105">
-                      <FaTwitter className="text-3xl" />
+              <ul className="space-y-4">
+                <li className="flex items-center">
+                  <span
+                    className="w-8 h-8 flex items-center justify-center 
+               bg-blue-100 dark:bg-white text-principal rounded-full mr-4"
+                  >
+                    <FaEnvelope />
+                  </span>
+                  <span className="text-gray-700 dark:text-white">
+                    <a href="mailto:cosamed17@gmail.com">
+                      {dataadress?.emails}
                     </a>
-                    <a href="" className=" duration-200 hover:scale-105">
-                      <FaFacebook className=" text-3xl" />
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <span className="w-8 h-8 flex items-center justify-center dark:bg-white bg-blue-100 text-principal rounded-full mr-4">
+                    <FaPhone />
+                  </span>
+                  <span className="text-gray-700 dark:text-white">
+                    <a href={"tel:" + dataadress?.phones}>
+                      {dataadress?.phones}
                     </a>
-                    <a
-                      href="https://api.whatsapp.com/send?phone=243992036566"
-                      className=" duration-200 hover:scale-105"
-                    >
-                      <FaWhatsapp className=" text-3xl" />
-                    </a>
-                  </div>
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <span className="w-8 h-8 flex items-center justify-center bg-blue-100 text-principal rounded-full mr-4">
+                    <FaMapMarkerAlt />
+                  </span>
+                  <span className="text-gray-700 dark:text-white">
+                    {dataadress?.adresse +
+                      "/" +
+                      dataadress?.city +
+                      "/" +
+                      dataadress?.country?.name}
+                  </span>
+                </li>
+              </ul>
+
+              {/* Social Media Links */}
+              <div className="mt-8 ">
+                <h2 className="text-lg font-semibold text-gray-800 mb-4 dark:text-white">
+                  {t('Follow_use')}
+                </h2>
+                <div className="flex space-x-4">
+                  <a
+                    href={JSON.parse(data?.social_links || "{}")?.facebook}
+                    target="blank"
+                    className="w-10 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600"
+                  >
+                    <FaFacebook />
+                  </a>
+                  <a
+                    href={JSON.parse(data?.social_links || "{}")?.twitter}
+                    target="blank"
+                    className="w-10 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600"
+                  >
+                    <FaTwitter />
+                  </a>
+                  <a
+                    href={JSON.parse(data?.social_links || "{}")?.linkedin}
+                    target="blank"
+                    className="w-10 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600"
+                  >
+                    <FaLinkedin />
+                  </a>
                 </div>
               </div>
             </div>
-            <form className="mt-8 space-y-6 mb-8" onSubmit={validation}>
-              <div className="space-y-px rounded-md items-center">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                  <Input
-                    name="first_name"
-                    label={t('Name')}
-                    placeholder=""
-                    type="text"
-                    errors={errors.first_name}
-                    value={inputs.first_name}
-                    onChange={(e: any) =>
-                      handleOnChange(e.target.value, "first_name")
-                    }
-                  />
-                  <Input
-                    name="last_name"
-                    label={t('Prename')}
-                    placeholder=""
-                    type="text"
-                    errors={errors.last_name}
-                    value={inputs.last_name}
-                    onChange={(e: any) =>
-                      handleOnChange(e.target.value, "last_name")
-                    }
-                  />
+
+            {/* Right Section: Contact Form */}
+            <div className="bg-white shadow-lg border rounded-lg p-8 dark:bg-slate-800">
+              <p className="text-lg font-montserrat mb-2 font-base font-semibold  font-font1 text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
+                {t("Send_message")}
+              </p>
+              <form className="mt-8 space-y-6 mb-8" onSubmit={validation}>
+                <div className="space-y-px rounded-md items-center">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                    <Input
+                      name="first_name"
+                      label={t("Name")}
+                      placeholder=""
+                      type="text"
+                      errors={errors.first_name}
+                      value={inputs.first_name}
+                      onChange={(e: any) =>
+                        handleOnChange(e.target.value, "first_name")
+                      }
+                    />
+                    <Input
+                      name="last_name"
+                      label={t("Prename")}
+                      placeholder=""
+                      type="text"
+                      errors={errors.last_name}
+                      value={inputs.last_name}
+                      onChange={(e: any) =>
+                        handleOnChange(e.target.value, "last_name")
+                      }
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 gap-4">
+                    <Input
+                      name="email"
+                      label={t("Enter_email")}
+                      placeholder=""
+                      type="text"
+                      errors={errors.email}
+                      value={inputs.email}
+                      onChange={(e: any) =>
+                        handleOnChange(e.target.value, "email")
+                      }
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 gap-4">
+                    <Input
+                      name="phone"
+                      label={t("Phone")}
+                      placeholder=""
+                      type="phone"
+                      errors={errors.phone}
+                      value={inputs.phone}
+                      onChange={(e: any) =>
+                        handleOnChange(e.target.value, "phone")
+                      }
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 gap-4">
+                    <TextArea
+                      name="message"
+                      placeholder={t("Message")}
+                      type="text"
+                      value={inputs.message}
+                      onChange={(e: any) =>
+                        handleOnChange(e.target.value, "message")
+                      }
+                      label={t("Message")}
+                    />
+                  </div>
                 </div>
-                <div className="grid grid-cols-1 gap-4">
-                  <Input
-                    name="email"
-                    label="EMAIL"
-                    placeholder=""
-                    type="text"
-                    errors={errors.email}
-                    value={inputs.email}
-                    onChange={(e: any) =>
-                      handleOnChange(e.target.value, "email")
-                    }
-                  />
+                <Button label={t("SendMessage")} loading={loadingForm} />
+                <div className="justify-center items-center">
+                  <div className="mb-2">
+                    <p className="text-sm font-montserrat text-slate-700 dark:text-white text-justify">
+                      {t("Politic_clic")}
+                      <Link
+                        to="/privacy-policy"
+                        className="text-principal font-bold"
+                        target="_blank"
+                      >
+                        {t("To_clic_politic")}
+                      </Link>
+                    </p>
+                  </div>
                 </div>
-                <div className="grid grid-cols-1 gap-4">
-                  <Input
-                    name="phone"
-                    label={t('Phone')}
-                    placeholder=""
-                    type="phone"
-                    errors={errors.phone}
-                    value={inputs.phone}
-                    onChange={(e: any) =>
-                      handleOnChange(e.target.value, "phone")
-                    }
-                  />
-                </div>
-                <div className="grid grid-cols-1 gap-4">
-                  <TextArea
-                    name="message"
-                    placeholder={t('Message')}
-                    type="text"
-                    value={inputs.message}
-                    onChange={(e: any) =>
-                      handleOnChange(e.target.value, "message")
-                    }
-                    label={t('Message')}
-                  />
-                </div>
-              </div>
-              <Button label={t('Send')} loading={loadingForm} />
-              <div className="justify-center items-center">
-                <div className="mb-2">
-                  <p className="text-sm font-montserrat text-slate-700 dark:text-slate-600 text-justify">
-                    En cliquant sur Continuer, vous acceptez notre{" "}
-                    <Link
-                      to="/privacy-policy"
-                      className="text-principal font-bold"
-                      target="_blank"
-                    >
-                      Politique de confidentialité
-                    </Link>
-                    . Vous recevrez peut-être des notifications par texto ou par
-                    email de notre part.
-                  </p>
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
+
+      <br />
     </div>
   );
 };

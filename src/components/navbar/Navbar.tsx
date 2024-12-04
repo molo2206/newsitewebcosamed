@@ -59,7 +59,7 @@ function Navbar() {
           sticky ? "header-sticky" : ""
         } left-0 right-0 bg-navbar font-montserrat bg-slate-200 dark:bg-slate-800  text-white border-b-[1px] border-primary/50 `}
       >
-        <nav className="container flex items-center justify-between  md:h-20 sm:10">
+        <nav className="container flex items-center justify-between lg:h-10 md:h-20 sm:h-10 ">
           {/* Logo selection */}
           <div className=" text-white px-4 ">
             <a className={`${sticky ? "block" : "hidden"}`}>
@@ -78,10 +78,10 @@ function Navbar() {
             </a>
           </div>
           {/* Desktop menu selection */}
-          <div className="hidden md:block font-bold font-montserrat  ">
-            <ul className="flex top-12 left-0 right-0  items-center gap-10 font-montserrat">
+          <div className="hidden md:block font-bold font-montserrat ">
+            <ul className="flex top-12 left-0 right-0  items-center gap-10 font-montserrat ">
               <li className="group cursor-pointer ">
-                <a className="flex items-center gap-[2px] h-[50px] ">
+                <a className="flex items-center gap-[2px] h-[40px] ">
                   {t("Themes")}
                   <span>
                     <FaCaretDown
@@ -96,12 +96,12 @@ function Navbar() {
                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                 >
                   <div className="grid grid-cols-2 gap-5 px-40 ">
-                    <div className="col-span-2 hover:text-hover">
+                    <div className="col-span-2">
                       <p className=" text-xs">
-                        <div className=" grid grid-cols-4 mt-6">
+                        <div className=" grid grid-cols-5 mt-6">
                           {cat.map((item: any, index: number) => (
                             <div>
-                              <h1 className=" pb-1  text-principal text-md font-semibold ">
+                              <h1 className=" pb-1 text-principal font-semibold ">
                                 <CategoryCard cat={item} key={index} />
                               </h1>
                             </div>
@@ -113,7 +113,7 @@ function Navbar() {
                 </div>
               </li>
               <li className="group cursor-pointer ">
-                <a className="flex items-center gap-[2px] h-[50px] ">
+                <a className="flex items-center gap-[2px] h-[40px] ">
                   {t("Emergency")}
                   <span>
                     <FaCaretDown
@@ -183,7 +183,7 @@ function Navbar() {
                 </div>
               </li>
               <li className=" group cursor-pointer">
-                <a className="flex items-center gap-[2px] h-[50px] ">
+                <a className="flex items-center gap-[2px] h-[40px] ">
                   {t("Newsroom")}
                   <span>
                     <FaCaretDown
@@ -203,7 +203,7 @@ function Navbar() {
                   </div> */}
 
                     <div className="col-span-4">
-                      <div className="grid grid-cols-6 mt-6 px-40">
+                      <div className="grid grid-cols-4 mt-6 px-40">
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link
@@ -228,16 +228,6 @@ function Navbar() {
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link
-                              to="/data-loading/podcast"
-                              onClick={() => window.scroll}
-                            >
-                              {t("Podcast")}
-                            </Link>
-                          </h1>
-                        </div>
-                        <div>
-                          <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                            <Link
                               to="/data-loading/blogs"
                               onClick={() => window.scroll}
                             >
@@ -247,18 +237,12 @@ function Navbar() {
                         </div>
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                            <Link to="" onClick={() => window.scroll(0, 0)}>
+                            <Link to="/evements" onClick={() => window.scroll(0, 0)}>
                               {t("Events")}
                             </Link>
                           </h1>
                         </div>
-                        <div>
-                          <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                            <Link to="" onClick={() => window.scroll(0, 0)}>
-                              {t("testimony")}
-                            </Link>
-                          </h1>
-                        </div>
+                      
                       </div>
                       <div className=" flex items-center justify-center py-2">
                         <button
@@ -275,7 +259,7 @@ function Navbar() {
                 </div>
               </li>
               <li className=" group cursor-pointer">
-                <a className="flex items-center gap-[2px] h-[50px] ">
+                <a className="flex items-center gap-[2px] h-[40px] ">
                   {t("AboutUs")}
                   <span>
                     <FaCaretDown
@@ -291,9 +275,19 @@ function Navbar() {
                   dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                 >
                   <div className="grid grid-cols-4 gap-4">
-                    <div className="col-span-5 ">
+                    <div className="col-span-4 ">
                       <p className=" text-sm ">
                         <div className=" grid grid-cols-5 mt-4 px-40">
+                        <div>
+                            <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold cursor-pointer ">
+                              <Link
+                                to="/about"
+                                onClick={() => window.scrollTo(0, 0)}
+                              >
+                                {t("AboutUs")}
+                              </Link>
+                            </h1>
+                          </div>
                           <div>
                             <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold cursor-pointer ">
                               <Link
@@ -352,8 +346,9 @@ function Navbar() {
                 {/* <Link to="/community/donate" onClick={() => window.scroll}> */}
                 <button
                   onClick={donatelink}
-                  className="h-[40px] w-[180px] rounded-lg 
-                              bg-white text-principal hover:bg-hover hover:text-white font-extrabold text-center"
+                  className="h-[30px] w-[180px] rounded-lg 
+                              bg-white text-principal hover:bg-hover
+                               hover:text-white font-extrabold text-center md:text-sm"
                 >
                   {t("Donate")}
                   <ToastContainer />
@@ -361,7 +356,7 @@ function Navbar() {
                 {/* </Link> */}
               </li>
               <li className=" group relative cursor-pointer ">
-                <a className="flex items-center gap-[20px] h-[50px]  text-white font-bold ">
+                <a className="flex items-center gap-[20px] h-[30px]  text-white font-bold ">
                   {lang === "en" ? "Anglais" : "Français"}
                   <span>
                     <FaCaretDown

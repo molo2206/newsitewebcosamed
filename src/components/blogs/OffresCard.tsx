@@ -1,50 +1,37 @@
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 interface props {
-  offre?: any;
+  job?: any;
 }
-const OffresCard = ({ offre }: props) => {
+const OffresCard = ({ job }: props) => {
   const { t } = useTranslation();
   return (
     <>
-      {/* <Link to={`/offre/detail/` + offre?.id} onClick={() => window.scroll}> */}
-      <div className="p-4 shadow-lg border border-slate-300">
-        <div className=" container overflow-hidden">
-          <img
-            src={offre?.image}
-            alt="not found"
-            className="mx-auto h-[100px] w-full object-contain transition duration-700"
-          />
-        </div>
-        <div className=" container flex justify-between py-2 bg-principal text-slate-100">
-          <div className="rounded-md  w-[140px] h-[50px] flex items-center">
-            <p className="  text-center">Du {offre?.startdate}</p>
-          </div>
-          <div className="rounded-md w-[140px] h-[50px] flex items-center">
-            <p className="  text-center">au {offre?.enddate}</p>
-          </div>
-        </div>
-        <div className=" space-y-2 py-3">
-          <h1 className="font-montserrat line-clamp-1 font-bold uppercase">
-            {offre?.title}
-          </h1>
-          <p
-            className="font-montserrat line-clamp-3"
-            dangerouslySetInnerHTML={{ __html: offre?.description }}
-          ></p>
-          <div className="py-4 flex justify-center items-center">
-            <Link to={`/offre/detail/${offre?.id}`}>
-              <p
-                className="h-[40px] w-[180px] rounded-lg 
-                              bg-principal text-white hover:bg-orange-300 hover:text-white font-semibold text-center"
-              >
-                {t("Apply")}
-              </p>
-            </Link>
-          </div>
-        </div>
+      <div
+        key={job.id}
+        className="bg-white border dark:bg-slate-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+      >
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
+          {job.title}
+        </h2>
+        <p className="text-gray-600 mt-1 dark:text-white">Cosamed sasbl</p>
+        <p className="text-sm text-gray-500 dark:text-white">{job?.place}</p>
+        <span className="inline-block bg-blue-100 text-principal  text-sm font-medium mt-2 px-3 py-1 rounded-full">
+          {job.type}
+        </span>
+        <p
+          className="text-gray-700 mt-4 text-sm line-clamp-2 dark:text-white"
+          dangerouslySetInnerHTML={{ __html: job?.description }}
+        ></p>
+        <p className="text-gray-400 text-xs mt-4">
+          Du {job?.startdate} au {job?.enddate}
+        </p>
+        <a
+          href={`/offre/detail/` + job?.id}
+          className="mt-4 md:mt-0 text-principal hover:text-hover hover:underline"
+        >
+          {t("Apply")} →
+        </a>
       </div>
-      {/* </Link> */}
     </>
   );
 };

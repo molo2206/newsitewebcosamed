@@ -31,7 +31,7 @@ const SimpleBanner = () => {
             >
               <h1 className="font-bold md:text-2xl">{t("AboutUs")}</h1>
               <p
-                className="font-montserrat md:text-xl"
+                className="font-montserrat lg:text-xl md:text-xl sm:text-xs"
                 dangerouslySetInnerHTML={{
                   __html: showingTranslateValue(data?.translations, lang)
                     ?.about_us,

@@ -40,6 +40,11 @@ import { Elements } from "@stripe/react-stripe-js";
 import Vision from "./pages/Vision";
 import DetailProject from "./pages/DetailProject";
 import PageSearch from "./pages/PageSearch";
+import TransparenceFin from "./pages/TransparenceFin";
+import ImportanceDon from "./pages/ImportanceDon";
+import ToutSavoirSurDon from "./pages/ToutSavoirSurDon";
+import TouteslesQuestionsDon from "./pages/TouteslesQuestionsDon";
+import Evements from "./pages/Evements";
 
 function App() {
   const stripe = getstripe();
@@ -68,6 +73,11 @@ function App() {
             <Route path="/about" element={<About />}></Route>
             <Route path="/partners" element={<Partners />}></Route>
             <Route path="/team" element={<Team />}></Route>
+            <Route path="/transparence" element={<TransparenceFin />}></Route>
+            <Route path="/importancedon" element={<ImportanceDon />}></Route>
+            <Route path="/toutsavoirsurledon" element={<ToutSavoirSurDon />}></Route>
+            <Route path="/questions-don" element={<TouteslesQuestionsDon />}></Route>
+            <Route path="/evements" element={<Evements />}></Route>
             <Route
               path="/blog/category/:id"
               element={<Thematiqueblog />}
@@ -86,11 +96,11 @@ function App() {
             <Route path="/aboutmedia" element={<AboutMedia />}></Route>
             <Route
               path="/project/detail/:id"
-              element={<DetailRapport />}
+              element={<DetailProject />}
             ></Route>
             <Route
               path="/report/detail/:id"
-              element={<DetailProject />}
+              element={<DetailRapport />}
             ></Route>
             <Route path="/donation" element={<DonateTrue />}></Route>
             <Route path="/vision" element={<Vision />}></Route>

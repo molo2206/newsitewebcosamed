@@ -1,15 +1,14 @@
 import Hero from "../components/hero/Hero";
-import SimpleBanner from "../components/simpleBanner/SimpleBanner";
 import Blogs from "../components/blogs/Blogs";
 import BannerMission from "../components/bannerDetails/BannerMission";
 import Bulletin from "../components/blogs/Bulletin";
-import Work from "../components/blogs/Work";
 
 import usePageSEO from "../components/Seo/usePageSEO";
 import useAsync from "../hooks/useAsync";
 import SimpleBannerCommunicated from "../components/simpleBanner/SimpleBannerCommunicated";
 import CommunicatedServices from "../services/CommunicatedServices";
 import BannerPartener from "../components/bannerDetails/BannerPartener";
+import AboutMediaHome from "./AboutMediaHome";
 
 const Home = () => {
   const { data: lastCom } = useAsync(() =>
@@ -28,13 +27,12 @@ const Home = () => {
     <div className=" dark:bg-slate-900 text-sm ">
       <Hero />
       <BannerMission />
-      <SimpleBanner />
+      {/* <SimpleBanner /> */}
       <Blogs />
       <Bulletin />
-      <Work />
       <SimpleBannerCommunicated commun={lastCom} />
-      <BannerPartener />
-      
+      <BannerPartener /> 
+      <AboutMediaHome/>
     </div>
   );
 };

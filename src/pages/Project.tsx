@@ -1,17 +1,14 @@
-import SimpleBannerBlog from "../components/simpleBanner/SimpleBannerBlog";
-import BlogServices from "../services/BlogsServices";
 import ProjectServices from "../services/ProjectServices";
 import useAsync from "../hooks/useAsync";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 import { useTranslation } from "react-i18next";
 import ProjectCard from "../components/blogs/ProjectCard";
+import NewsLetter from "./NewsLetter";
 const Project = () => {
   const { data, loading } = useAsync(() => ProjectServices.getProjetct());
-  const { data: lastblog } = useAsync(() => BlogServices.lastBlog());
 
   //Get current blog
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,25 +18,35 @@ const Project = () => {
   const currentBlogs = data.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
   const { t } = useTranslation();
+  // Filtrer les projets par recherche
+
   return (
     <>
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white ">
+        <div className="container dark:bg-slate-900 w-full  dark:text-white ">
           <div>
             <BreadCumb title={"Blog"} />
             <section className="mb-10 ">
-              <SimpleBannerBlog blog={lastblog} />
-              <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
-                {t("How_project")}
-              </h1>
-              <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {loading
-                  ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
-                  : currentBlogs.map((item: any, index: number) => (
-                      <ProjectCard projet={item} key={index} />
-                    ))}
+              <header className="bg-principal dark:bg-slate-800 w-full dark:text-white rounded-lg text-white py-10">
+                <div className="max-w-6xl mx-auto px-4 text-center">
+                  <h1 className="text-4xl font-bold">{t("Project")}</h1>
+                  <p className="mt-4 text-lg">{t("Discover_all_our")}</p>
+                </div>
+              </header>
+              {/* Barre de recherche */}
+              <div className="mb-6 mt-10"> </div>
+
+              {/* Liste des projets */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {currentBlogs?.length > 0 ? (
+                  currentBlogs?.map((item: any, index: number) => (
+                    <ProjectCard projet={item} key={index} />
+                  ))
+                ) : (
+                  <p className="text-gray-600">Aucun projet trouvé.</p>
+                )}
               </div>
             </section>
             <Pagination
@@ -47,6 +54,9 @@ const Project = () => {
               totalPasts={data.length}
               paginate={paginate}
             />
+            <NewsLetter />
+            <br />
+            <br />
           </div>
         </div>
       )}

@@ -7,14 +7,14 @@ const Blogs = () => {
   const { t } = useTranslation();
   const { data, loading } = useAsync(() => BlogServices.getBlogHome());
   return (
-    <div className="container dark:bg-slate-900 w-full dark:text-white py-8">
-      <div>
-        <section className="py-2">
+    <div className=" dark:bg-slate-900 w-full dark:text-white py-8">
+      <div >
+        <section className="container py-2 dark:bg-slate-800  ">
           {/* <SimpleBannerBlog img={Img1} /> */}
           <h1 className="py-2 pl-2 text-left text-3xl font-bold">
             {t('News')}
           </h1>
-          <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  gap-3">
             {loading
               ? Array.from(Array(20).keys()).map(() => (
                   <BlogCardLoand />

@@ -26,7 +26,7 @@ const Blog = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white ">
+        <div className="container  dark:bg-slate-900 w-full dark:text-white ">
           <div>
             <BreadCumb title={"Blog"} />
             <section className="mb-10 ">
@@ -41,12 +41,13 @@ const Blog = () => {
                       <BlogCard blog={item} key={index} />
                     ))}
               </div>
-            </section>
-            <Pagination
+              <Pagination
               postsPerPage={postsPerPage}
               totalPasts={data.length}
               paginate={paginate}
             />
+            </section>
+           
           </div>
         </div>
       )}

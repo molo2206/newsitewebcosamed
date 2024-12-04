@@ -5,7 +5,7 @@ const Work = () => {
   // const notify = () => toast("En cours de développement");
   const { t } = useTranslation();
   return (
-    <section className=" bg-slate-100  dark:bg-slate-900 dark:text-white">
+    <section className=" bg-slate-100  dark:bg-slate-900 dark:text-white rounded-lg shadow-md mb-12">
       <div className=" container flex flex-col items-center justify-center py-2 md:h-[300px]">
         <div className={"order-1"}>
           <h1 className="py-2 pl-2 text-left md:text-3xl sm:text-2xl font-bold">{t('OurWork')}</h1>
