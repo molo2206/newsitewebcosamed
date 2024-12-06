@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
-import { FaBars, FaCaretDown, FaHome } from "react-icons/fa";
+import { FaBars, FaCaretDown } from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
 import useSticky from "../../hooks/useSticky";
 import SettingsServices from "../../services/SettingsServices";
@@ -29,10 +29,6 @@ function Navbar() {
   const [showMenu, setShowMenu] = useState(false);
   const element = document.documentElement;
 
-
-  const donatelink = () => {
-    navigate("/donation"); // new line
-  };
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -59,7 +55,7 @@ function Navbar() {
           sticky ? "header-sticky" : ""
         } left-0 right-0 bg-navbar font-montserrat bg-slate-200 dark:bg-slate-800  text-white border-b-[1px] border-primary/50 `}
       >
-        <nav className="container flex items-center justify-between lg:h-10 md:h-20 sm:h-10 ">
+        <nav className="container flex items-center justify-between lg:h-10 md:h-20 sm:h-10 dark:bg-slate-800   text-white ">
           {/* Logo selection */}
           <div className=" text-white px-4 ">
             <a className={`${sticky ? "block" : "hidden"}`}>
@@ -72,9 +68,14 @@ function Navbar() {
               </Link>
             </a>
             <a className={`${!sticky ? "block" : "hidden"}`}>
-              <Link to="/" onClick={() => window.scrollTo}>
+              {/* <Link to="/" onClick={() => window.scrollTo}>
                 <FaHome size={30} />
-              </Link>
+              </Link> */}
+              <img
+                src={data?.logo1}
+                alt=""
+                className="sticky-logo   h-[62px]"
+              />
             </a>
           </div>
           {/* Desktop menu selection */}
@@ -90,7 +91,6 @@ function Navbar() {
                     />
                   </span>
                 </a>
-                {/* dropdown full width section */}
                 <div
                   className="dropdown icon absolute left-0 z-[99999] hidden w-full rounded-b-3xl bg-white text-black
                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
@@ -129,7 +129,7 @@ function Navbar() {
                 >
                   <div className="grid grid-cols-4 gap-5 px-40">
                     <div className="col-span-4 hover:text-hover">
-                      <div className=" grid grid-cols-4 mt-6">
+                      <div className=" grid grid-cols-5 mt-6">
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
                             <Link
@@ -177,6 +177,13 @@ function Navbar() {
                             </Link>
                           </h1>
                         </div>
+                        <div>
+                          <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
+                            <Link to="/job_openings" onClick={() => window.scroll}>
+                              {t("Careers")}
+                            </Link>
+                          </h1>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -198,10 +205,6 @@ function Navbar() {
                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                 >
                   <div className="grid grid-cols-3 gap-5 ">
-                    {/* <div>
-                    <img  src={data?.logo2} className="sticky-logo max-w-60 h-full"/>
-                  </div> */}
-
                     <div className="col-span-4">
                       <div className="grid grid-cols-4 mt-6 px-40">
                         <div>
@@ -237,12 +240,14 @@ function Navbar() {
                         </div>
                         <div>
                           <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                            <Link to="/evements" onClick={() => window.scroll(0, 0)}>
+                            <Link
+                              to="/evements"
+                              onClick={() => window.scroll(0, 0)}
+                            >
                               {t("Events")}
                             </Link>
                           </h1>
                         </div>
-                      
                       </div>
                       <div className=" flex items-center justify-center py-2">
                         <button
@@ -278,7 +283,7 @@ function Navbar() {
                     <div className="col-span-4 ">
                       <p className=" text-sm ">
                         <div className=" grid grid-cols-5 mt-4 px-40">
-                        <div>
+                          <div>
                             <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold cursor-pointer ">
                               <Link
                                 to="/about"
@@ -342,20 +347,8 @@ function Navbar() {
                   </div>
                 </div>
               </li>
-              <li>
-                {/* <Link to="/community/donate" onClick={() => window.scroll}> */}
-                <button
-                  onClick={donatelink}
-                  className="h-[30px] w-[180px] rounded-lg 
-                              bg-white text-principal hover:bg-hover
-                               hover:text-white font-extrabold text-center md:text-sm"
-                >
-                  {t("Donate")}
-                  <ToastContainer />
-                </button>
-                {/* </Link> */}
-              </li>
-              <li className=" group relative cursor-pointer ">
+
+              <li className=" group relative cursor-pointer border border-slate-300 dark:border-slate-700 w-[140px] rounded-lg flex justify-center">
                 <a className="flex items-center gap-[20px] h-[30px]  text-white font-bold ">
                   {lang === "en" ? "Anglais" : "Français"}
                   <span>
@@ -422,7 +415,7 @@ function Navbar() {
           {/* Mobile menu header */}
           <div className="md:hidden flex items gap-4 p-4">
             <button
-              onClick={toggleMe} 
+              onClick={toggleMe}
               className=" focus:outline-none focus:text-gray-200"
             >
               {showMenu ? (

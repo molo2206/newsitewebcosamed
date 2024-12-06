@@ -131,7 +131,7 @@ const DonateTrue = () => {
                   <h2 className="font-montserrat mb-2 text-left text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Votre don mensuel
                   </h2>
-                  <p className="text-xl font-montserrat mb-2 font-base capitalize font-light font-font1 text-left text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
+                  <p className="text-xl font-montserrat mb-2 font-base  font-font1 text-left text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
                     Vous êtes sur le point de devenir un supporter mensuel de
                     COSAMED
                   </p>
@@ -318,9 +318,7 @@ const DonateTrue = () => {
                             className=" text-center px-4 py-1 rounded-md md:w-3/4 mx-auto absolute left-0 right-0 
              -top-12 dark:bg-slate-800 dark:text-slate-200 "
                           >
-                            <h3 className=" mb-3 text-neutralGray font-semibold line-clamp-2">
-                              Nous acceptons :
-                            </h3>
+                          
                           </div>
                           <img
                             src="https://apicosamed.cosamed.org/uploads/blogs/card.png"
@@ -392,10 +390,10 @@ const DonateTrue = () => {
             <div className=" grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
               <div className=" col-span-2 col-lg-8 col-md-8 px-8 py-8 ">
                 <div>
-                  <h2 className="font-montserrat mb-2 text-left text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                  <h2 className="font-montserrat mb-2 text-left text-2xl sm:text-3xl font-bold  text-gray-900 dark:text-white">
                     Votre don ponctuel
                   </h2>
-                  <p className="text-xl font-montserrat mb-2 font-base capitalize font-light font-font1 text-left text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
+                  <p className="text-xl font-montserrat mb-2 font-base  font-light font-font1 text-left text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
                     Vous êtes sur le point de faire un don
                   </p>
                 </div>
@@ -559,10 +557,10 @@ const DonateTrue = () => {
                     <div className=" grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
                       <div className=" col-span-2 col-lg-8 col-md-8 px-2 py-8 ">
                         <div>
-                          <h2 className="font-montserrat mb-2 text-left text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
+                          <h2 className="font-montserrat mb-2 text-left text-2xl sm:text-3xl font-bold  text-gray-900 dark:text-white">
                             Votre don mensuel
                           </h2>
-                          <p className="font-montserrat mb-2 text-left text-xl  font-medium tracking-tight text-gray-900 dark:text-white">
+                          <p className="font-montserrat mb-2 text-left text-xl  font-medium  text-gray-900 dark:text-white">
                             Vous êtes sur le point de faire un don
                           </p>
                           <div className=" mt-8">
@@ -581,9 +579,7 @@ const DonateTrue = () => {
                             className=" text-center px-4 py-1 rounded-md md:w-3/4 mx-auto absolute left-0 right-0 
              -top-12 dark:bg-slate-800 dark:text-slate-200 "
                           >
-                            <h3 className=" mb-3 text-neutralGray font-semibold line-clamp-2">
-                              Nous acceptons :
-                            </h3>
+                           
                           </div>
                           <img
                             src="https://apicosamed.cosamed.org/uploads/blogs/card.png"

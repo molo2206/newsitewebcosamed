@@ -6,7 +6,15 @@ import BlogCardLoand from "../components/blogs/BlogCardLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import Pagination from "../components/Pagination/Pagination";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Offres = () => {
+  const navigate = useNavigate();
+  const goToAbout = () => {
+    navigate("/job_openings/userHome"); // Remplace "/about" par la route cible
+  };
+  const goAlert = () => {
+    navigate("/recruiting/cosamed/job_openings/jobalerts"); // Remplace "/about" par la route cible
+  };
   const { data, loading } = useAsync(() => OffresServices.getOffres());
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(9);
@@ -25,17 +33,54 @@ const Offres = () => {
             <BreadCumb title={"Offres"} />
 
             <section className="mb-10 ">
-              <header className="bg-principal dark:bg-slate-800 w-full dark:text-white rounded-lg text-white py-10">
-                <div className="max-w-6xl mx-auto px-4 text-center">
-                  <h1 className="text-4xl font-bold">
-                    Offres d'emploi disponibles
-                  </h1>
-                  <p className="mt-4 text-lg">
-                    Trouvez l'opportunité qui correspond à vos compétences et
-                    aspirations.
-                  </p>
+              <div className="relative rounded-md ">
+                <img
+                  src="https://apicosamed.cosamed.org/uploads/blogs/6adbe8b2ab3a52e619c526eff905468a.png" // Remplacez par l'URL de l'image ou importez-la localement
+                  alt="Background"
+                  className="w-full h-[400px] object-cover"
+                />
+                <div className="absolute inset-0 bg-principal bg-opacity-60 flex items-center justify-center ">
+                  <header className="bg-transparent dark:bg-transparent w-full dark:text-white text-white py-10">
+                    <div className="max-w-6xl mx-auto px-4 text-center">
+                      <h1 className="text-4xl font-bold">
+                        Offres d'emploi disponibles
+                      </h1>
+                      <p className="mt-4 text-lg">
+                        Trouvez l'opportunité qui correspond à vos compétences
+                        et aspirations.
+                      </p>
+                    </div>
+                  </header>
                 </div>
-              </header>
+              </div>
+
+              {/* Section Recherche */}
+              <div className="bg-white p-6 shadow-md rounded-md max-w-4xl mx-auto -mt-12 relative z-10 dark:bg-slate-800">
+                <div className="flex items-center space-x-4">
+                  <input
+                    type="text"
+                    placeholder="Rechercher des emplois ou des mots-clés"
+                    className="flex-1 border border-gray-300 rounded-lg p-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600"
+                  />
+                  <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+                    Rechercher
+                  </button>
+                </div>
+                <div className="flex justify-between items-center mt-4 space-x-4 ">
+                  <button
+                    onClick={goToAbout}
+                    className="bg-white text-principal dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
+                  >
+                    Mes candidatures
+                  </button>
+                  <button
+                    onClick={goAlert}
+                    className="bg-white text-principal dark:bg-transparent border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
+                  >
+                    Alertes d'emploi
+                  </button>
+                </div>
+              </div>
               {/* Job Listings */}
               <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10">
                 {loading

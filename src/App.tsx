@@ -45,7 +45,14 @@ import ImportanceDon from "./pages/ImportanceDon";
 import ToutSavoirSurDon from "./pages/ToutSavoirSurDon";
 import TouteslesQuestionsDon from "./pages/TouteslesQuestionsDon";
 import Evements from "./pages/Evements";
-
+import JobApplicationForm from "./pages/JobApplicationForm";
+import LoginPage from "./pages/Auth/LoginPage";
+import SignupPage from "./pages/Auth/SignupPage";
+import Carriere from "./pages/Carriere";
+import OurCandidate from "./pages/OurCandidate";
+import UpdateProfile from "./pages/Auth/UpdateProfile";
+import UpdateEmail from "./pages/Auth/UpdateEmail";
+import AlertPage from "./pages/AlertEmploi/AlertPage";
 function App() {
   const stripe = getstripe();
 
@@ -75,9 +82,23 @@ function App() {
             <Route path="/team" element={<Team />}></Route>
             <Route path="/transparence" element={<TransparenceFin />}></Route>
             <Route path="/importancedon" element={<ImportanceDon />}></Route>
-            <Route path="/toutsavoirsurledon" element={<ToutSavoirSurDon />}></Route>
-            <Route path="/questions-don" element={<TouteslesQuestionsDon />}></Route>
+            <Route path="/sign" element={<LoginPage />}></Route>
+            <Route path="/signup" element={<SignupPage />}></Route>
+            <Route path="/job_openings" element={<Carriere />}></Route>
+            <Route path="/job_openings/userHome" element={<OurCandidate />}></Route>
+            <Route path="/recruiting/cosamed/job_openings/accountsettings" element={<UpdateEmail />}></Route>
+            <Route path="/recruiting/cosamed/job_openings/updateContactInfo" element={<UpdateProfile />}></Route>
+            <Route path="/recruiting/cosamed/job_openings/jobalerts" element={<AlertPage />}></Route>
+            <Route
+              path="/toutsavoirsurledon"
+              element={<ToutSavoirSurDon />}
+            ></Route>
+            <Route
+              path="/questions-don"
+              element={<TouteslesQuestionsDon />}
+            ></Route>
             <Route path="/evements" element={<Evements />}></Route>
+            <Route path="/jobapplication" element={<JobApplicationForm />}></Route>
             <Route
               path="/blog/category/:id"
               element={<Thematiqueblog />}

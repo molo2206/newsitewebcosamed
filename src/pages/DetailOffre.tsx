@@ -111,6 +111,7 @@ bg-principal px-3"
                       >
                         {t("Download")}
                       </button>
+                      <a href="/jobapplication">Vos informations</a>
                     </div>
                     <div className="px-4 py-1  rounded-2xl">
                       <h3 className="font-montserrat text-lg">
@@ -161,80 +162,6 @@ bg-principal px-3"
                       </p>
                     </div>
                   </div>
-                  {/* <div className="col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 py-8">
-                  <div className="px-4 py-8  bg-principal text-white ">
-                    <h1 className=" mb-3 text-justify text-1xl font-bold sm:text-left sm:text-2xl">
-                      {t("Share_on")}
-                    </h1>
-                    <div className=" flex flex-col gap-3 ">
-                      <div className="flex gap-3 mr-6 items-center">
-                        <a href="" className=" duration-200 hover:scale-105">
-                          <FaInstagram className=" text-3xl" />
-                        </a>
-                        <a href="" className=" duration-200 hover:scale-105">
-                          <FaFacebook className=" text-3xl" />
-                        </a>
-                        <a href="" className=" duration-200 hover:scale-105">
-                          <FaLinkedinIn className=" text-3xl" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4 shadow-2xl border border-lg">
-                    <div className="overflow-hidden h-[250px]">
-                      <h1 className=" text-xl font-montserrat font-semibold">
-                        {t("Stay_inform")}
-                      </h1>
-                      <form className="mt-8 space-y-6 mb-8">
-                        <div className="space-y-px rounded-md items-center">
-                          <Input
-                            type={"text"}
-                            label={"Email"}
-                            placeholder={t("Enter_email")}
-                          />
-                        </div>
-                        <Button loading={false} label={t("Becom_member")} />
-                        <div className="justify-center items-center">
-                          <div className="mb-2">
-                            <p className="text-sm font-montserrat text-slate-700 dark:text-slate-600 text-justify">
-                              <Link
-                                to="/privacy-policy"
-                                className="text-principal font-bold"
-                                target="_blank"
-                              ></Link>
-                            </p>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                  <div className="px-4 py-8  bg-principal text-white border border-lg">
-                    <h1 className=" mb-3 text-justify text-1xl font-bold sm:text-left sm:text-2xl">
-                      {t("Reiceve_news")}
-                    </h1>
-                  </div>
-                  <div className="p-4 shadow-2xl border border-lg py-10">
-                    <div className="overflow-hidden h-[150px] py-12">
-                      <Button loading={false} label={t("Contact")} />
-                    </div>
-                  </div>
-                  <div className="px-4 py-8  bg-principal text-white border border-lg">
-                    <h1 className=" mb-3 text-justify text-1xl font-bold sm:text-left sm:text-2xl">
-                      {t("Follow_use")}
-                    </h1>
-                    <div className="flex gap-4 mr-8 items-center">
-                      <a href="" className=" duration-200 hover:scale-105">
-                        <FaInstagram className=" text-3xl" />
-                      </a>
-                      <a href="" className=" duration-200 hover:scale-105">
-                        <FaFacebook className=" text-3xl" />
-                      </a>
-                      <a href="" className=" duration-200 hover:scale-105">
-                        <FaLinkedinIn className=" text-3xl" />
-                      </a>
-                    </div>
-                  </div>
-                </div> */}
                 </div>
               </div>
             </div>

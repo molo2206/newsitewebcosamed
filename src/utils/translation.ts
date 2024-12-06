@@ -1,6 +1,10 @@
 export const En = {
 	Home: 'Home',
-	Category:"Category",
+	Login: "Sign",
+	Careers: "Careers",
+	Username: "User name",
+	Password: "Password",
+	Category: "Category",
 	AboutUs: 'About us',
 	Our_Values: "Our Values",
 	Themes: 'Health Topics',
@@ -132,7 +136,11 @@ export const En = {
 
 export const FR = {
 	Home: 'Accueil',
-	Category:"Categories",
+	Login: "Se connecter",
+	Careers: "Carrières",
+	Username: "Nom d'utilisateur",
+	Password: "Mot de passe",
+	Category: "Categories",
 	AboutUs: 'A propos',
 	Our_Values: "Nos valeurs",
 	Professionalism: "Professionnalisme",
@@ -249,7 +257,7 @@ export const FR = {
 	Error_Message: "Message est obligatoire",
 	Politic_clic: "En cliquant sur Continuer, vous acceptez notre politique de confidentialité. Vous pouvez recevoir des notifications par SMS ou par e-mail de notre part.",
 	To_clic_politic: "Vous recevrez peut-être des notifications par texto ou par mail de notre part en cliquant ici!.",
-	The_gift_and_you: "Le don et votre contribution",
+	The_gift_and_you: "Votre contribution",
 	Financial_transparency: "Transparence financière",
 	Find_out_how_we_use: "Découvrez comment nous utilisons nos ressources pour avoir un impact positif.",
 	Financial_Report: "Rapport Financier",
