@@ -48,11 +48,11 @@ const BlogCard = ({ blog }: props) => {
                 alt={blog.author.full_name}
                 className="w-10 h-10 rounded-full"
               />
-              <span className="dark:text-white sm:text-sm md:text-sm lg:text-sm ">
+              <span style={{fontSize:11}} className="dark:text-white sm:text-sm md:text-sm lg:text-sm ">
                 Par {blog?.author.full_name}
               </span>
             </div>
-            <span className="dark:text-white sm:text-sm md:text-sm lg:text-sm ">{blog?.publication_date}</span>
+            <span style={{fontSize: 11}} className="dark:text-white sm:text-sm md:text-sm lg:text-sm ">{blog?.publication_date}</span>
           </div>
         </div>
         <div className="p-4 border-t text-center">

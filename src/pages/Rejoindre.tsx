@@ -113,44 +113,14 @@ const Rejoindre = () => {
       <section className="mb-10 ">
         <div className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg flex flex-col items-center justify-center text-white">
           <h1 className="text-3xl font-bold mb-10 mt-4">
-            Qui peut être membre de COSAMED
+            Comment dévenir membre de COSAMED
           </h1>
-          <div className="flex flex-wrap justify-center gap-10">
-            {/* Section 1 */}
-            <div className="text-center">
-              <p className="text-md font-montserrat">
-                Toute personne âgée de plus de 18 ans
-                <br />
-                (étudiante, active ou retraitée)
-              </p>
-            </div>
-            {/* Section 2 */}
-            <div className="text-center">
-              <p className="text-md font-montserrat">
-                Des personnes engagées qui veulent offrir
-                <br />
-                leurs services et apporter une valeur ajoutée à l'organisation
-              </p>
-            </div>
-            {/* Section 3 */}
-            <div className="text-center">
-              <p className="text-md font-montserrat">
-                Des collaborateurs intéressés par la possibilité
-                <br />
-                de vivre une expérience de travail unique au service de la
-                mission de COSAMED
-              </p>
-            </div>
-            
-          </div>
-          <br />
-            <br />
         </div>
         <div className="px-4 h-[1000px] flex mt-2">
           <div className="bg-endeleya pt-8 pb-16 lg:pt-16 lg:pb-24 w-[0%] md:w-[40%] sm-[0%] lg-[40%] md:block sm:hidden hidden">
             <div className=" md:block sm:hidden hidden">
               <div className="">
-                <h2 className="text-center font-montserrat  text-xl sm:text-2xl mb-4 font-bold tracking-tight text-gray-900 dark:text-white">
+                <h2 className="lg:text-xl md:text-sm font-light mb-2 font-base text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
                   {t("Condition")} DE COSAMED ASBL
                 </h2>
                 <div>
@@ -236,10 +206,7 @@ const Rejoindre = () => {
                   <div className="mx-auto w-full max-w-xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
                     <div className="m-x-auto">
                       <div>
-                        <h2 className="font-montserrat mb-2 text-center text-xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-                          {t("Becom_member")}
-                        </h2>
-                        <p className="text-sm font-montserrat mb-2 font-base capitalize font-light font-font1 text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
+                        <p className="lg:text-xl md:text-sm font-light mb-2 font-base text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
                           {t("complete_info")}
                         </p>
                       </div>

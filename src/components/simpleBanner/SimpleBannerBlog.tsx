@@ -31,11 +31,11 @@ const SimpleBannerBlog = ({ blog }: props) => {
                 className="flex flex-col items-center
        gap-4 text-center text-white dark:text-white md:col-span-2 md:items-start md:text-left"
               >
-                <h1 className="font-bold md:text-xl sm:text-sm">
+                <h1 className="font-bold lg:text-xl md:text-xl sm:text-sm">
                   {showingTranslateValue(blog?.translations, lang)?.title}
                 </h1>
                 <p
-                  className=" line-clamp-2"
+                  className="lg:text-sm md:text-sm sm:text-sm line-clamp-2"
                   dangerouslySetInnerHTML={{
                     __html: showingTranslateValue(blog?.translations, lang)
                       ?.description,
@@ -43,7 +43,7 @@ const SimpleBannerBlog = ({ blog }: props) => {
                 ></p>
                 <a
                   target="_blank"
-                  className="py-2 font-montserrat font-semibold flex items-center justify-center hover:text-white hover:bg-orange-300 text-lg rounded-md w-52 text-principal
+                  className="py-2 font-montserrat font-semibold flex items-center justify-center hover:text-white hover:bg-hover text-lg rounded-md w-52 text-principal
                bg-white "
                 >
                   {t("More")}

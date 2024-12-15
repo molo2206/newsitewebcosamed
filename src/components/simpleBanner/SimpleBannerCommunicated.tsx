@@ -15,32 +15,31 @@ const SimpleBannerCommunicated = ({ commun }: props) => {
   };
   return (
     <>
-      <div className="container dark:bg-slate-900 w-full dark:text-white py-4">
-        <h1 className="pl-2 text-left text-3xl font-bold">
-          Annonce Importante
-        </h1>
-        <div className=" py-8 ">
-          {/* Section Annonce */}
-          <section className="bg-white dark:bg-slate-800  border p-8 rounded-lg shadow-md mb-12">
-            <h2 className="text-3xl font-semibold dark:text-white text-gray-800 mb-6 underline decoration-blue">
+      <div className=" bg-white dark:bg-slate-900 flex items-center justify-center py-2">
+        <div className="container dark:bg-slate-800  shadow-lg rounded-lg p-6">
+          <h1 className="lg:text-xl md:text-xl font-extrabold dark:text-white  text-gray-800 mb-4 text-center">
+            Annonce Importante
+          </h1>
+          <div className="container border-t border-gray-300 pt-4">
+            <h2 className="text-2xl dark:text-white  font-semibold text-principal mb-2">
               {showingTranslateValue(commun?.translations, lang)?.title}
             </h2>
             <p
-              className="text-lg text-gray-700 mb-4 line-clamp-6 dark:text-white "
+              className="text-gray-700 dark:text-white  leading-relaxed mb-4 line-clamp-6"
               dangerouslySetInnerHTML={{
                 __html: showingTranslateValue(commun?.translations, lang)
                   ?.description,
               }}
             ></p>
-            <button
-              onClick={goToAbout}
-              className="mt-4 px-6 py-2 bg-principal text-white rounded-md hover:bg-hover"
-            >
-              {t("More")}
-            </button>
-          </section>
-
-          {/* Section À Propos de l'Entreprise */}
+            <div className="text-center">
+              <button
+                onClick={goToAbout}
+                className="bg-principal text-white px-4 py-2 rounded hover:bg-hover  transition"
+              >
+                {t("More")}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>

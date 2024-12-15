@@ -7,7 +7,10 @@ import BreadCumb from "../components/navbar/BreadCumb";
 import Pagination from "../components/Pagination/Pagination";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context";
 const Offres = () => {
+  const { user } = useAuthContext();
+  
   const navigate = useNavigate();
   const goToAbout = () => {
     navigate("/job_openings/userHome"); // Remplace "/about" par la route cible
@@ -67,12 +70,22 @@ const Offres = () => {
                   </button>
                 </div>
                 <div className="flex justify-between items-center mt-4 space-x-4 ">
-                  <button
-                    onClick={goToAbout}
-                    className="bg-white text-principal dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
-                  >
-                    Mes candidatures
-                  </button>
+                  {!user ? (
+                    <button
+                      onClick={goToAbout}
+                      className="bg-white text-principal  dark:bg-transparent  dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
+                    >
+                      Mes candidatures
+                    </button>
+                  ) : (
+                    <button
+                      onClick={goToAbout}
+                      className="bg-white text-principal dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
+                    >
+                      Mes candidatures
+                    </button>
+                  )}
+
                   <button
                     onClick={goAlert}
                     className="bg-white text-principal dark:bg-transparent border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"

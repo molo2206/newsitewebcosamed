@@ -9,7 +9,7 @@ const Partners = () => {
   const { t } = useTranslation();
   const { data, loading } = useAsync(() => PartenersServices.getPartners());
   const navigate = useNavigate();
-    const goToAbout = () => {
+  const goToAbout = () => {
     navigate("/contact"); // Remplace "/about" par la route cible
   };
   usePageSEO({
@@ -17,12 +17,13 @@ const Partners = () => {
     description: "Partenariats",
     keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
     ogTitle: "Cosamed asbl",
-    ogDescription: "Est une association à but non lucratif reconnue par le gouvernement congolais et composée de prestataires de santé allant des agents de santé communautaires aux médecins.",
+    ogDescription:
+      "Est une association à but non lucratif reconnue par le gouvernement congolais et composée de prestataires de santé allant des agents de santé communautaires aux médecins.",
     ogImage: "https://www.cosamed.org/",
     ogUrl: window.location.href,
   });
   return (
-    <div className="container dark:bg-slate-900 w-full dark:text-white  h-full py-4">
+    <div className="container dark:bg-slate-900 w-full dark:text-white  h-full py-2">
       <div>
         <BreadCumb title={"Partners"} />
 
@@ -63,7 +64,7 @@ const Partners = () => {
                 ))}
           </section>
           {/* Section Contact */}
-          <section className="mt-12 text-center">
+          <section className="md:mt-12 text-center">
             <h2 className="text-3xl font-semibold text-gray-800 mb-4 dark:text-white">
               Devenir Partenaire
             </h2>

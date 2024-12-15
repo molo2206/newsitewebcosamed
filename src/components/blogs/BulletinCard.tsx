@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { showingTranslateValue } from "../../utils/heleprs";
 import { useAuthContext } from "../../context";
 
@@ -8,59 +8,71 @@ interface props {
 
 const BulletinCard = ({ bulletin }: props) => {
   const { lang } = useAuthContext();
+  const navigate = useNavigate();
+
+  const goToAbout = () => {
+    navigate(`/bulletin/detail/` + bulletin?.id); // Remplace "/about" par la route cible
+  };
   return (
-    <>
-      <Link
-        to={`/bulletin/detail/` + bulletin?.id}
-        onClick={() => window.scroll}
+      <div
+        key={bulletin.id}
+        className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border dark:bg-slate-800 "
       >
-        <div className="p-4 shadow-lg py-2  relative overflow-hidden rounded-lg text-sm 
-           border dark:bg-slate-900 ">
-          <div className=" overflow-hidden rounded-t-lg hovering ">
-            <img
-              src={bulletin?.image}
-              alt="not found"
-              className="mx-auto h-64 w-64 object-fill "
-            />
-          </div>
-          <div className=" flex justify-between  py-4 text-slate-600">
-            <p
-              className="bg-slate-100 hover:bg-hover hover:text-slate-100 rounded-md px-4 py-1 text-principal "
-              dangerouslySetInnerHTML={{
-                __html:
-                  showingTranslateValue(bulletin?.translations, lang)?.month +
-                  "-" +
-                  showingTranslateValue(bulletin?.translations, lang)?.year,
-              }}
-            ></p>
-            
-            <div className=" flex justify-between gap-2">
+        <img
+          src={bulletin.image}
+          alt={bulletin.id}
+          className="w-full h-48 object-cover"
+        />
+        <div className="p-4">
+          <h2
+            onClick={goToAbout}
+            className="sm:text-sm md:text-sm lg:text-sm font-semibold text-gray-800 line-clamp-1 dark:text-white"
+            dangerouslySetInnerHTML={{
+              __html: showingTranslateValue(bulletin?.translations, lang)
+                ?.title,
+            }}
+          ></h2>
+          {/* <p
+            className="text-gray-600 sm:text-sm md:text-sm lg:text-sm  mb-4 line-clamp-2 dark:text-white"
+            dangerouslySetInnerHTML={{
+              __html: showingTranslateValue(bulletin?.translations, lang)
+                ?.description,
+            }}
+          ></p> */}
+          <div className="flex items-center justify-between text-gray-500 text-sm">
+            <div className=" flex justify-between space-x-2 items-center">
               <img
-                src={bulletin?.author?.image}
-                className=" h-[30px] px-30 rounded-full duration-200 hover:scale-105"
+                src={bulletin.author.image}
+                alt={bulletin.author.full_name}
+                className="w-10 h-10 rounded-full"
               />
-              <p className=" line-clamp-1 mt-1 dark:text-white">{bulletin?.author.full_name}</p>
+              <span style={{fontSize:11}} className="dark:text-white sm:text-sm md:text-sm lg:text-sm ">
+                Par {bulletin?.author.full_name}
+              </span>
+            </div>
+            <div className=" flex justify-between  py-4 text-slate-600">
+              <p
+                style={{fontSize: 11}}
+                className="bg-slate-100 rounded-md px-4 py-1 text-principal "
+                dangerouslySetInnerHTML={{
+                  __html:
+                    showingTranslateValue(bulletin?.translations, lang)?.month +
+                    "-" +
+                    showingTranslateValue(bulletin?.translations, lang)?.year,
+                }}
+              ></p>
             </div>
           </div>
-          <div className="space-y-2 py3">
-            <h1
-              className="font-montserrat line-clamp-1 font-bold text-sm dark:text-white"
-              dangerouslySetInnerHTML={{
-                __html: showingTranslateValue(bulletin?.translations, bulletin)
-                  ?.title,
-              }}
-            ></h1>
-            <p
-              className="font-montserrat line-clamp-3 text-sm dark:text-white"
-              dangerouslySetInnerHTML={{
-                __html: showingTranslateValue(bulletin?.translations, lang)
-                  ?.description,
-              }}
-            ></p>
-          </div>
         </div>
-      </Link>
-    </>
+        <div className="p-4 border-t text-center">
+          <button
+            onClick={goToAbout}
+            className="text-principal font-medium hover:underline sm:text-sm md:text-sm lg:text-sm "
+          >
+            Lire la suite
+          </button>
+        </div>
+      </div>
   );
 };
 

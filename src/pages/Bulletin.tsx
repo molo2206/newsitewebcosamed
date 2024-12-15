@@ -25,7 +25,7 @@ const Bulletin = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BulletinLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white ">
+        <div className="container  dark:bg-slate-900 w-full dark:text-white ">
           <BreadCumb title={"Bulletins"} />
           <section className="mb-10">
             <SimpleBannerBulletin bulletin={bulletin} />

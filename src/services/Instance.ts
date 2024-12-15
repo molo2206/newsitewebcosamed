@@ -34,6 +34,7 @@ instance.interceptors.response.use(
 
 
 const requests = {
+
 	get: (url: string) => instance.get(url),
 
 	post: (url: string, body: string, headers: object) =>

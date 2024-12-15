@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 interface props {
   items?: any;
 }
 
 const CardVideo = ({ items }: props) => {
   return (
-    <div key={items?.id} className=" mx-auto relative mb-12 cursor-pointer">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border dark:bg-slate-800 ">
       <iframe
         height="350"
         width="460"
@@ -19,15 +17,11 @@ const CardVideo = ({ items }: props) => {
         className=" rounded-md max-h-full max-w-full"
       ></iframe>
 
-      <div
-        className=" text-center px-4 
-bg-white shadow-lg rounded-md md:w-4/4
-mx-auto absolute left-0 right-0 
--bottom-18 dark:bg-slate-800 dark:text-slate-200 "
-      >
-        <h3 className=" mb-3  hover:text-neutral-700 first:font-medium font-semibold">
+      <div className="p-4">
+        <h2 className="sm:text-sm md:text-sm lg:text-sm font-semibold text-gray-800  dark:text-white">
           {items?.snippet?.title}
-        </h3>
+        </h2>
+        <p className="text-gray-600 sm:text-sm md:text-sm lg:text-sm  mb-4 line-clamp-2 dark:text-white"></p>
       </div>
     </div>
   );

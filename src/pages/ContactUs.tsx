@@ -81,14 +81,16 @@ const ContactUs = () => {
         <section className="mb-10 ">
           <header className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg text-white py-10">
             <div className="max-w-6xl mx-auto px-4 text-center">
-              <h1 className="text-4xl font-bold">{t("Contact_us")}</h1>
+              <h1 className="md:text-xl lg:text-2xl font-bold">{t("Contact_us")}</h1>
             </div>
           </header>
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 ">
             {/* Left Section: Contact Information */}
             <div className="bg-white border shadow-lg rounded-lg p-8 dark:bg-slate-800">
-              <h1 className="text-3xl font-bold text-gray-800 mb-6 dark:text-white"></h1>
-              <p className="text-gray-600 mb-6 dark:text-white">
+              <h1 className="lg:text-2xl md:text-xl  font-bold text-gray-800 mb-6 dark:text-white">
+                Ce que nous pensons,
+              </h1>
+              <p className=" font-montserrat lg:text-sm mb-6 dark:text-white">
                 {t('team_info')}
               </p>
               <ul className="space-y-4">
@@ -99,7 +101,7 @@ const ContactUs = () => {
                   >
                     <FaEnvelope />
                   </span>
-                  <span className="text-gray-700 dark:text-white">
+                  <span className="text-gray-700 lg:text-sm md:text-sm dark:text-white">
                     <a href="mailto:cosamed17@gmail.com">
                       {dataadress?.emails}
                     </a>
@@ -109,7 +111,7 @@ const ContactUs = () => {
                   <span className="w-8 h-8 flex items-center justify-center dark:bg-white bg-blue-100 text-principal rounded-full mr-4">
                     <FaPhone />
                   </span>
-                  <span className="text-gray-700 dark:text-white">
+                  <span className="text-gray-700 lg:text-sm md:text-sm dark:text-white">
                     <a href={"tel:" + dataadress?.phones}>
                       {dataadress?.phones}
                     </a>
@@ -119,7 +121,7 @@ const ContactUs = () => {
                   <span className="w-8 h-8 flex items-center justify-center bg-blue-100 text-principal rounded-full mr-4">
                     <FaMapMarkerAlt />
                   </span>
-                  <span className="text-gray-700 dark:text-white">
+                  <span className="text-gray-700 lg:text-sm md:text-sm dark:text-white">
                     {dataadress?.adresse +
                       "/" +
                       dataadress?.city +
@@ -131,7 +133,7 @@ const ContactUs = () => {
 
               {/* Social Media Links */}
               <div className="mt-8 ">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4 dark:text-white">
+                <h2 className="text-lg font-semibold lg:text-sm md:text-sm text-gray-800 mb-4 dark:text-white">
                   {t('Follow_use')}
                 </h2>
                 <div className="flex space-x-4">
@@ -162,7 +164,7 @@ const ContactUs = () => {
 
             {/* Right Section: Contact Form */}
             <div className="bg-white shadow-lg border rounded-lg p-8 dark:bg-slate-800">
-              <p className="text-lg font-montserrat mb-2 font-base font-semibold  font-font1 text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
+              <p className="lg:text-xl md:text-sm font-light mb-2 font-base text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
                 {t("Send_message")}
               </p>
               <form className="mt-8 space-y-6 mb-8" onSubmit={validation}>

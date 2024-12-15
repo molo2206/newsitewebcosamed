@@ -53,9 +53,15 @@ import OurCandidate from "./pages/OurCandidate";
 import UpdateProfile from "./pages/Auth/UpdateProfile";
 import UpdateEmail from "./pages/Auth/UpdateEmail";
 import AlertPage from "./pages/AlertEmploi/AlertPage";
+import RegisterPage from "./pages/Auth/RegisterPage ";
+import PrivateLayout from "./components/navbar/PrivateLayout";
+import AuthLayout from "./components/navbar/AuthLayout";
+import ValidateOTP from "./pages/Auth/ValidateOTP";
+import ForgetPassword from "./pages/Auth/Forget";
+import Otp from "./pages/Auth/Otp";
+import NewPassword from "./pages/Auth/NewPassword";
 function App() {
   const stripe = getstripe();
-
   return (
     <div className="bg-slate-100 dark:bg-slate-900  dark:text-white ">
       <Elements stripe={stripe}>
@@ -63,6 +69,46 @@ function App() {
         <ToastContainer position="bottom-right" style={{ zIndex: 99999 }} />
         <Routes>
           <Route element={<Layout />}>
+            <Route element={<PrivateLayout />}>
+              <Route
+                path="/job_openings/userHome"
+                element={<OurCandidate />}
+              ></Route>
+              <Route
+                path="/recruiting/cosamed/job_openings/accountsettings"
+                element={<UpdateEmail />}
+              ></Route>
+              <Route
+                path="/recruiting/cosamed/job_openings/updateContactInfo"
+                element={<UpdateProfile />}
+              ></Route>
+              <Route
+                path="/recruiting/cosamed/job_openings/jobalerts"
+                element={<AlertPage />}
+              ></Route>
+              <Route
+                path="/recruiting/cosamed/job_openings/jobapplication/:id"
+                element={<JobApplicationForm />}
+              ></Route>
+            </Route>
+            <Route element={<AuthLayout />}>
+              <Route path="auth/signin" element={<LoginPage />}></Route>
+              <Route path="auth/signup" element={<SignupPage />}></Route>
+              <Route path="/auth/put-otp" element={<Otp />}></Route>
+              <Route path="/auth/otp" element={<ValidateOTP />}></Route>
+              <Route
+                path="/auth/change-password"
+                element={<NewPassword />}
+              ></Route>
+              <Route
+                path="/auth/forgot-password"
+                element={<ForgetPassword />}
+              ></Route>
+              <Route
+                path="/recruiting/cosamed/job_openings/register"
+                element={<RegisterPage />}
+              ></Route>
+            </Route>
             <Route index element={<Home />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/data-loading/blogs" element={<Blog />} />
@@ -82,13 +128,9 @@ function App() {
             <Route path="/team" element={<Team />}></Route>
             <Route path="/transparence" element={<TransparenceFin />}></Route>
             <Route path="/importancedon" element={<ImportanceDon />}></Route>
-            <Route path="/sign" element={<LoginPage />}></Route>
-            <Route path="/signup" element={<SignupPage />}></Route>
+
             <Route path="/job_openings" element={<Carriere />}></Route>
-            <Route path="/job_openings/userHome" element={<OurCandidate />}></Route>
-            <Route path="/recruiting/cosamed/job_openings/accountsettings" element={<UpdateEmail />}></Route>
-            <Route path="/recruiting/cosamed/job_openings/updateContactInfo" element={<UpdateProfile />}></Route>
-            <Route path="/recruiting/cosamed/job_openings/jobalerts" element={<AlertPage />}></Route>
+
             <Route
               path="/toutsavoirsurledon"
               element={<ToutSavoirSurDon />}
@@ -98,7 +140,6 @@ function App() {
               element={<TouteslesQuestionsDon />}
             ></Route>
             <Route path="/evements" element={<Evements />}></Route>
-            <Route path="/jobapplication" element={<JobApplicationForm />}></Route>
             <Route
               path="/blog/category/:id"
               element={<Thematiqueblog />}
@@ -126,6 +167,7 @@ function App() {
             <Route path="/donation" element={<DonateTrue />}></Route>
             <Route path="/vision" element={<Vision />}></Route>
             <Route path="/about" element={<About />}></Route>
+
             {/* 
             <Route path="/evenement" element={<Evenement/>}></Route>
             <Route path="/galery" element={<Photos/>}></Route>

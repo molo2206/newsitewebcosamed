@@ -19,7 +19,7 @@ interface props {
   }: props) => {
     return (
       <div className="block">
-        <label className="text-sm font-montserrat  items-center justify-center sm:text-md font-semibold tracking-tight text-gray-900 dark:text-white">
+        <label className="text-sm font-montserrat  items-center justify-center sm:text-md font-light tracking-tight text-gray-900 dark:text-white">
           {label}
           {required && <span className="text-red-500 ml-2">*</span>}
         </label>
@@ -42,9 +42,9 @@ interface props {
           </select>
         ) : (
           <textarea
-            rows={10}
+            rows={4}
             name={name}
-            style={{ height: 300 }}
+            style={{ height: 100 }}
             value={value}
             autoComplete="off"
             className="w-full bg-transparent  font-montserrat  rounded-md text-slate-800 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"

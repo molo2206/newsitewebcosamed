@@ -13,10 +13,10 @@ const Bulletin = () => {
       
         <section className="container mb-10 py-2 dark:bg-slate-800 ">
           {/* <SimpleBannerBlog img={Img1} /> */}
-          <h1 className="py-2 pl-2 text-left md:text-3xl sm:text-2xl font-bold">
+          <h1 className="py-2 pl-2 text-left lg:text-xl md:text-xl font-extrabold">
             {t('Newsletters')}
           </h1>
-          <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 py-4 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3  gap-3">
             {loading
               ? Array.from(Array(20).keys()).map(() => (
                   <BulletinLoad />

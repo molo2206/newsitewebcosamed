@@ -11,20 +11,16 @@ const PartnerCard = ({ partners }: props) => {
         <img
           src={partners?.image}
           alt={`Logo de ${partners.image}`}
-          className="w-64 h-64 object-contain mx-auto mb-4"
+          className="w-20 h-20 border-2 rounded-full shadow-xl object-contain mx-auto mb-4"
         />
-        <h2 className="text-center text-xl font-semibold text-gray-800 dark:text-white">
+        <h2 style={{fontSize:11}} className="text-center text-xl font-semibold text-gray-800 dark:text-white">
           {partners?.full_name}
         </h2>
-        <p className="text-gray-600 mt-2 dark:text-white">
-          Bureau de la coordination des affaires humanitations des Nations Unies
-          (OCHA)
-        </p>
         <a
           href={partners?.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 inline-block text-blue-500 hover:text-blue-600"
+          className="mt-4 flex justify-center text-blue-500 hover:text-blue-600"
         >
           Visitez leur site
         </a>
