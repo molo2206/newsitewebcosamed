@@ -13,7 +13,7 @@ const Pagination = ({ postsPerPage, totalPasts, paginate }: props) => {
     <div className="flex items-center justify-between border-t border-gray-200 mt-10 dark:bg-slate-800  text-slate-400 dark:text-white px-4 py-3 sm:px-6">
       <div className="sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-gray-700  dark:text-white ">
+          <p style={{fontSize:11}} className="text-sm text-gray-700  dark:text-white ">
             Showing <span className="font-medium">1</span> to{" "}
             <span className="font-medium">10</span> of{" "}
             <span className="font-medium">{totalPasts}</span> results
@@ -28,11 +28,12 @@ const Pagination = ({ postsPerPage, totalPasts, paginate }: props) => {
             {pageNumbers.map((number) => (
               <ul>
                 <li key={number}>
-                  <a
+                  <a 
+                    style={{fontSize:10}}
                     onClick={() => paginate(number)}
                     
                     aria-current="page"
-                    className="cursor-pointer relative z-10 inline-flex items-center bg-principal px-4 py-2 text-sm font-semibold
+                    className="cursor-pointer relative z-10 inline-flex items-center bg-principal px-4 py-2 font-semibold
                      text-white focus:z-20 focus-visible:outline focus-visible:outline-2 
                      focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-slate-800 border rounded-lg"
                   >

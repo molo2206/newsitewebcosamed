@@ -27,7 +27,6 @@ const Home = () => {
     <div className=" dark:bg-slate-900 text-sm ">
       <Hero />
       <BannerMission />
-      {/* <SimpleBanner /> */}
       <Blogs />
       <Bulletin />
       <SimpleBannerCommunicated commun={lastCom} />
