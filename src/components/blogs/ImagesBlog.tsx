@@ -11,7 +11,7 @@ const ImagesBlog = ({ blogImage,onClick }: props) => {
             src={blogImage?.image}
             
             alt="not found"
-            className="mx-auto h-[200px] w-full
+            className="mx-auto h-[100px] w-full
             object-cover "
           />
         </div>

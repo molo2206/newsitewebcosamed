@@ -20,7 +20,7 @@ const BlogCard = ({ blog }: props) => {
     <>
       <div
         key={blog.id}
-        className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border dark:bg-slate-800 "
+        className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow dark:border-slate-700 dark:bg-slate-800 "
       >
         <img
           src={blog.image}

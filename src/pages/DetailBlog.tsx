@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAsync from "../hooks/useAsync";
 import BlogServices from "../services/BlogsServices";
 import CategoryServices from "../services/CategoryServices";
@@ -8,16 +8,15 @@ import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import usePageSEO from "../components/Seo/usePageSEO";
 import BreadCumb from "../components/navbar/BreadCumb";
 import Error404 from "./Error404";
-import CategoryCard from "../components/blogs/CategoryCard";
 import { ImageBlogs } from "../components/blogs/ImageBlogs";
 import Seo from "../components/Seo/Seo";
-import { useTranslation } from "react-i18next";
 import BlogCardLoand from "../components/blogs/BlogCardLoad";
-import BlogCard from "../components/blogs/BlogCard";
 import Pagination from "../components/Pagination/Pagination";
 import { useState } from "react";
 
 const DetailBlog = () => {
+  const navigate = useNavigate();
+
   const { slug } = useParams();
   const { lang } = useAuthContext();
   const { data, error, loading } = useAsync(
@@ -40,10 +39,10 @@ const DetailBlog = () => {
   Seo({
     title: data,
   });
-  const { t } = useTranslation();
+
   //Get current blog
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(2);
+  const [postsPerPage] = useState(4);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentBlogs = recentPost.slice(indexOfFirstPost, indexOfLastPost);
@@ -57,150 +56,135 @@ const DetailBlog = () => {
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
         <div className="container w-full dark:text-white py-1 mt-10 ">
-          {/* Blog Content */}
           <BreadCumb
             title="Detail blog"
             second={"/data-loading/blogs"}
             secondTitle={"Blog"}
           />
-          {/* <div className="bg-white p-6 shadow rounded-lg dark:bg-slate-800 border">
-            <div className="mb-6">
-              <h2
-                className="text-2xl font-bold text-gray-800 dark:text-white"
-                dangerouslySetInnerHTML={{
-                  __html: showingTranslateValue(data?.translations, lang)
-                    ?.title,
-                }}
-              ></h2>
-              <p className="text-sm text-gray-500 dark:text-white">
-                Publié le {data?.publication_date} • Catégorie :{" "}
-                {
-                  showingTranslateValue(data?.category?.translations, lang)
-                    ?.name
-                }
-              </p>
-            </div>
-            <div className="mb-6">
-              <img
-                src={data?.image}
-                alt="Main Blog"
-                className="w-full rounded-lg"
-              />
-            </div>
-            <p
-              className=" font-montserrat text-lg"
-              dangerouslySetInnerHTML={{
-                __html: showingTranslateValue(data?.translations, lang)
-                  ?.documentation,
-              }}
-            ></p>
-
-            <ImageBlogs data={data?.allimages} />
-
-            <p
-              className="text-gray-700 dark:text-white text-lg  mb-6"
-              dangerouslySetInnerHTML={{
-                __html: showingTranslateValue(data?.translations, lang)
-                  ?.description,
-              }}
-            ></p>
-
-            <div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">
-                {t("Category")}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {cat.map((item: any, index: number) => (
-                  <CategoryCard cat={item} key={index} />
-                ))}
+          <div className="min-h-screen dark:bg-slate-800  font-sans rounded-lg dark:border-slate-700 border">
+            <header className="bg-white dark:bg-slate-700 rounded-lg shadow-sm py-3">
+              <div className="container mx-auto flex gap-4 px-4">
+                <div>
+                  {cat.map((category: any, index: any) => (
+                    <button
+                      onClick={() =>
+                        navigate(
+                          `/blog/category/` +
+                            showingTranslateValue(category?.translations, lang)
+                              ?.category_id
+                        )
+                      }
+                      key={index}
+                      className="text-sm bg-gray-200 dark:bg-slate-800 rounded-full  px-4 py-1 hover:bg-gray-300"
+                    >
+                      {
+                        showingTranslateValue(category?.translations, lang)
+                          ?.name
+                      }
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          </div> */}
+            </header>
+            <main className="grid grid-cols-1 md:grid-cols-3 dark:bg-slate-800  gap-6 p-4 md:p-8">
+              <section className="md:col-span-2 relative dark:bg-slate-800 ">
+                <div className="relative rounded-md overflow-hidden shadow-lg">
+                  <img
+                    src={data?.image} // Remplacer avec l'image appropriée
+                    alt="Aide pour Mayotte"
+                    className="w-full h-[300px] md:h-[400px] object-cover"
+                  />
+                  <div className="absolute bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4">
+                    <span className="bg-red-500 px-2 py-1 text-xs uppercase font-bold text-white rounded">
+                      {
+                        showingTranslateValue(
+                          data?.category?.translations,
+                          lang
+                        )?.name
+                      }
+                    </span>
 
-          <div className="flex flex-col lg:flex-row gap-10  ">
-            <main className="bg-white p-6 rounded-lg shadow-lg dark:bg-slate-800 flex-1">
-              <h1
-                className="text-3xl font-bold text-gray-800 dark:text-white  mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: showingTranslateValue(data?.translations, lang)
-                    ?.title,
-                }}
-              ></h1>
-              <p className="text-gray-500 dark:text-white  text-sm mb-6">
-                Publié le {data?.publication_date}• Catégorie :{" "}
-                {
-                  showingTranslateValue(data?.category?.translations, lang)
-                    ?.name
-                }
-              </p>
-              <img
-                src={data?.image}
-                alt="Blog Banner"
-                className="w-full rounded-lg mb-6"
-              />
-              <p
-                style={{ fontSize: 13 }}
-                className=" font-montserrat lg:text-lg md:text-xl dark:text-white "
-                dangerouslySetInnerHTML={{
-                  __html: showingTranslateValue(data?.translations, lang)
-                    ?.documentation,
-                }}
-              ></p>
-
-              <ImageBlogs data={data?.allimages} />
-              <div className="text-gray-700 leading-relaxed space-y-4 dark:text-white font-light">
+                    <h2
+                      className="text-white sm:text-sm md:text-xl lg:text-xl font-bold mt-2 leading-tight"
+                      dangerouslySetInnerHTML={{
+                        __html: showingTranslateValue(data?.translations, lang)
+                          ?.title,
+                      }}
+                    ></h2>
+                  </div>
+                </div>
                 <p
+                  style={{ fontSize: 13 }}
+                  className=" font-montserrat lg:text-lg md:text-xl dark:text-white "
                   dangerouslySetInnerHTML={{
                     __html: showingTranslateValue(data?.translations, lang)
-                      ?.description,
+                      ?.documentation,
                   }}
                 ></p>
-              </div>
-              <div className="flex items-center justify-between text-gray-500 text-sm">
-                <div className=" flex justify-between space-x-2 items-center">
+                <aside className="md:col-span-1 bg-white dark:bg-slate-800  rounded-md mt-4 shadow-lg p-4">
+                  <ImageBlogs data={data?.allimages} />
+                  <div className="text-gray-700 leading-relaxed space-y-4 dark:text-white font-light">
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: showingTranslateValue(data?.translations, lang)
+                          ?.description,
+                      }}
+                    ></p>
+                  </div>
                   <img
                     src={data.author.image}
                     alt={data.author.full_name}
                     className="w-10 h-10 rounded-full"
                   />
-                  <span
-                    style={{ fontSize: 12 }}
-                    className="dark:text-white sm:text-sm md:text-sm lg:text-sm "
-                  >
-                    Par {data?.author.full_name}
+                  <span className="bg-red-500 px-2 py-1 text-xs uppercase font-bold text-white rounded">
+                    <span
+                      style={{ fontSize: 12 }}
+                      className="dark:text-white sm:text-sm md:text-sm lg:text-sm "
+                    >
+                      Par {data?.author.full_name}
+                    </span>
                   </span>
-                </div>
-              </div>
-            </main>
-            <aside className="w-full lg:w-72">
-              <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                  Catégories
-                </h2>
-                <ul className="space-y-2">
-                  {cat.map((category: any, index: any) => (
-                    <CategoryCard cat={category} key={index} />
-                  ))}
-                </ul>
-              </div>
-              <div className=" bg-white p-6 rounded-lg shadow-lg">
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                  Articles Récents
-                </h2>
-                <div className="space-y-4 w-full">
+                </aside>
+              </section>
+
+              {/* Section des brèves */}
+              <aside className="md:col-span-1 bg-white dark:bg-slate-800 dark:border-slate-700 border rounded-md shadow-lg p-4">
+                <h3 className="text-lg font-semibold pb-2 mb-4">Récentes</h3>
+                <ul className="space-y-4">
                   {load
                     ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
                     : currentBlogs.map((item: any, index: number) => (
-                        <BlogCard blog={item} key={index} />
+                        <li className="flex items-start  px-2  font-semibold ">
+                          <h1
+                            style={{ fontSize: 11 }}
+                            className=" line-clamp-2 cursor-pointer border-t border-gray-200 hover:text-slate-700"
+                            onClick={() =>
+                              navigate(
+                                `/blog/detail/` +
+                                  showingTranslateValue(
+                                    item?.translations,
+                                    lang
+                                  )?.slug
+                              )
+                            }
+                            key={index}
+                            dangerouslySetInnerHTML={{
+                              __html: showingTranslateValue(
+                                item?.translations,
+                                lang
+                              )?.title,
+                            }}
+                          ></h1>
+                        </li>
                       ))}
-                </div>
+                </ul>
                 <Pagination
                   postsPerPage={postsPerPage}
                   totalPasts={recentPost.length}
                   paginate={paginate}
                 />
-              </div>
-            </aside>
+              </aside>
+            </main>
           </div>
         </div>
       )}
