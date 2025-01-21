@@ -61,10 +61,10 @@ const AboutMedia = () => {
             <BreadCumb title={t("Media_resources")} />
             <section className="mb-10 ">
               <header className="text-center mb-12">
-                <h1 className="text-4xl font-extrabold text-gray-800 dark:text-white">
+                <h1 className="sm:text-sm md:text-2xl lg:text-2xl font-semibold text-gray-800 dark:text-white">
                   {t("Media_resources")}
                 </h1>
-                <p className="text-gray-600 mt-4 text-xl dark:text-white">
+                <p className="text-gray-600 mt-4 sm:text-sm md:text-sm lg:text-xl font-light dark:text-white">
                   Accédez à une sélection complète de documents, communiqués,
                   images et plus encore. Tout ce dont vous avez besoin pour
                   comprendre nos actions et nos engagements.
@@ -78,7 +78,7 @@ const AboutMedia = () => {
                     key={index}
                     className="bg-white dark:bg-slate-800  rounded-lg shadow-md border p-6 hover:shadow-lg transition-shadow"
                   >
-                    <h2 className="text-xl font-semibold text-gray-800 mb-3 dark:text-white">
+                    <h2 className="text-xl font-semilight text-gray-800 mb-3 dark:text-white">
                       {ressource.title}
                     </h2>
                     <p className="text-gray-600 mb-4 dark:text-white">
@@ -95,7 +95,7 @@ const AboutMedia = () => {
               </section>
               <section className="bg-gray-100  rounded-lg py-12 mt-10 dark:bg-slate-800">
                 <div className="max-w-6xl mx-auto px-4">
-                  <h2 className="text-3xl font-bold text-gray-800 mb-8 dark:text-white">
+                  <h2 className="text-3xl font-light text-gray-800 mb-8 dark:text-white">
                     {t("Media_testimonials")}
                   </h2>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

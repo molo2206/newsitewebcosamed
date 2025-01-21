@@ -60,6 +60,7 @@ import ValidateOTP from "./pages/Auth/ValidateOTP";
 import ForgetPassword from "./pages/Auth/Forget";
 import Otp from "./pages/Auth/Otp";
 import NewPassword from "./pages/Auth/NewPassword";
+import Gallery from "./pages/Gallery";
 function App() {
   const stripe = getstripe();
   return (
@@ -167,6 +168,7 @@ function App() {
             <Route path="/donation" element={<DonateTrue />}></Route>
             <Route path="/vision" element={<Vision />}></Route>
             <Route path="/about" element={<About />}></Route>
+            <Route path="/data-loading/gallery" element={<Gallery />} />
 
             {/* 
             <Route path="/evenement" element={<Evenement/>}></Route>

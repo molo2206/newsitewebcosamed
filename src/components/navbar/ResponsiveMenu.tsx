@@ -4,7 +4,7 @@ import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
 import { FaCaretDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import CategoryServices from "../../services/CategoryServices";
 import useAsync from "../../hooks/useAsync";
 import CategoryCard from "../blogs/CategoryCard";
@@ -26,8 +26,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
 
   const element = document.documentElement;
 
-  const notify = () =>
-    toast("Cette fonctionnalité est encours de développement!");
+ 
 
   const donatelink = () => {
     navigate("/donation"); // new line
@@ -78,8 +77,8 @@ const ResponsiveMenu = ({ showMenu }: props) => {
             )}
           </div>
         </div>
-        <div className=" text-white font-montserrat mt-5 ml-2 ">
-          <ul className=" top-12 left-0 right-0   gap-1 font-montserrat">
+        <div className=" text-white font-light mt-5 ml-2 ">
+          <ul className=" top-12 left-0 right-0   gap-1 font-light">
             <li className="group cursor-pointer ">
               <a className="flex items-center  ">
                 {t("Themes")}
@@ -101,7 +100,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                       <div className="mt-2">
                         {cat.map((item: any, index: number) => (
                           <div>
-                            <h1 className=" pb-1  text-principal dark:text-white text-md font-semibold ">
+                            <h1 className=" pb-1  text-principal dark:text-white text-md font-light ">
                               <CategoryCard cat={item} key={index} />
                             </h1>
                           </div>
@@ -131,7 +130,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                   <div className="col-span-4 hover:text-hover">
                     <div className="mt-2">
                       <div>
-                        <h1 className="  pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold ">
+                        <h1 className="  pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light ">
                           <Link
                             to="/data-loading/newsletters"
                             onClick={() => window.scroll}
@@ -141,7 +140,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                         </h1>
                       </div>
                       <div>
-                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold">
+                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light">
                           <Link
                             to="/data-loading/reports"
                             onClick={() => window.scroll}
@@ -151,7 +150,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                         </h1>
                       </div>
                       <div>
-                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold ">
+                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light ">
                           <Link
                             to="/data-loading/jobopenings"
                             onClick={() => window.scroll}
@@ -161,7 +160,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                         </h1>
                       </div>
                       <div>
-                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold  ">
+                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light  ">
                           <Link to="/projects" onClick={() => window.scroll}>
                             {t("Project")}
                           </Link>
@@ -191,7 +190,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                   <div className="col-span-4">
                     <div className="px-2">
                       <div>
-                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold ">
+                        <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light ">
                           <Link
                             className="space-y-2 "
                             to="/load-data/communicated"
@@ -202,7 +201,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                         </h1>
                       </div>
                       <div>
-                        <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold ">
+                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light  ">
                           <Link
                             to="/data-loading/videos"
                             onClick={() => window.scroll}
@@ -212,17 +211,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                         </h1>
                       </div>
                       <div>
-                        <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold">
-                          <Link
-                            to="/data-loading/podcast"
-                            onClick={() => window.scroll}
-                          >
-                            {t("Podcast")}
-                          </Link>
-                        </h1>
-                      </div>
-                      <div>
-                        <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold">
+                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light  ">
                           <Link
                             to="/data-loading/blogs"
                             onClick={() => window.scroll}
@@ -232,16 +221,22 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                         </h1>
                       </div>
                       <div>
-                        <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold">
-                          <Link to="" onClick={() => window.scroll(0, 0)}>
-                            {t("Events")}
+                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light  ">
+                          <Link
+                            to="/data-loading/gallery"
+                            onClick={() => window.scroll}
+                          >
+                            {t("Gallery")}
                           </Link>
                         </h1>
                       </div>
                       <div>
-                        <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-semibold">
-                          <Link to="" onClick={() => window.scroll(0, 0)}>
-                            {t("testimony")}
+                        <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light  ">
+                          <Link
+                            to="/evements"
+                            onClick={() => window.scroll(0, 0)}
+                          >
+                            {t("Events")}
                           </Link>
                         </h1>
                       </div>
@@ -251,7 +246,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                         onClick={handleGoBack}
                         className="h-[60px] w-full rounded-lg 
                               bg-principal  dark:hover:text-slate-300  text-white 
-                               hover:text-white hover:bg-hover dark:text-white font-bold text-center"
+                               hover:text-white hover:bg-hover dark:text-white font-light text-center"
                       >
                         {t("Find_More")}
                         <ToastContainer />
@@ -282,7 +277,17 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                     <p className=" text-sm ">
                       <div className="px-2">
                         <div>
-                          <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white  text-md font-semibold">
+                          <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light  ">
+                            <Link
+                              to="/about"
+                              onClick={() => window.scrollTo(0, 0)}
+                            >
+                              {t("AboutUs")}
+                            </Link>
+                          </h1>
+                        </div>
+                        <div>
+                          <h1 className="  pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light ">
                             <Link
                               to="/contact"
                               onClick={() => window.scrollTo(0, 0)}
@@ -292,7 +297,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                           </h1>
                         </div>
                         <div>
-                          <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white  text-md font-semibold">
+                          <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light ">
                             <Link
                               to="/partners"
                               onClick={() => window.scroll(0, 0)}
@@ -302,15 +307,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                           </h1>
                         </div>
                         <div>
-                          <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white  text-md font-semibold">
-                            <Link to={`#`} onClick={notify}>
-                              {t("Funding")}
-                              <ToastContainer />
-                            </Link>
-                          </h1>
-                        </div>
-                        <div>
-                          <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white  text-md font-semibold">
+                          <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light ">
                             <Link
                               to="/team"
                               onClick={() => window.scroll(0, 0)}
@@ -320,7 +317,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
                           </h1>
                         </div>
                         <div>
-                          <h1 className="pb-1 hover:text-gray-700 text-principal dark:text-white  text-md font-semibold">
+                          <h1 className=" pb-1 hover:text-gray-700 text-principal dark:text-white text-md font-light ">
                             <Link
                               to="/community/join"
                               onClick={() => window.scroll()}
@@ -340,7 +337,8 @@ const ResponsiveMenu = ({ showMenu }: props) => {
               <button
                 onClick={donatelink}
                 className="h-[40px] w-[180px] rounded-lg 
-                              bg-white text-principal hover:bg-hover hover:text-white font-extrabold text-center"
+                              bg-white text-principal hover:bg-hover hover:text-white
+                               font-semibold text-center"
               >
                 {t("Donate")}
                 <ToastContainer />
@@ -348,8 +346,8 @@ const ResponsiveMenu = ({ showMenu }: props) => {
               {/* </Link> */}
             </li>
             <li className=" group relative cursor-pointer ">
-              <a className="flex items-center gap-[20px] h-[50px]  text-white font-bold ">
-                {lang === "en" ? "Anglais" : "Français"}
+              <a className="flex items-center gap-[20px] h-[50px]  text-white font-light ">
+                {lang === "fr"  ? "Français" : "Anglais"}
                 <span>
                   <FaCaretDown
                     className=" transition-all 

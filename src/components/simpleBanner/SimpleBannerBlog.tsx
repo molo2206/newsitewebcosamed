@@ -43,7 +43,8 @@ const SimpleBannerBlog = ({ blog }: props) => {
                 ></p>
                 <a
                   target="_blank"
-                  className="py-2 font-montserrat font-semibold flex items-center justify-center hover:text-white hover:bg-hover text-lg rounded-md w-52 text-principal
+                  className="py-2 font-montserrat font-semibold flex items-center justify-center
+                   hover:text-white hover:bg-hover lg:text-sm md:text-sm rounded-md w-52 text-principal
                bg-white "
                 >
                   {t("More")}

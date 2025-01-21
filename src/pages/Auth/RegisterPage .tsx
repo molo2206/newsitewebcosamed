@@ -49,33 +49,13 @@ const RegisterPage = () => {
     <div className=" container py-4">
       <div
         className="min-h-screen flex md:flex-row w-full dark:bg-slate-800 
-       bg-gray-50 dark:border dark:border-slate-700"
+       bg-white"
       >
-        {/* Left Section */}
-        <div className="md:w-1/2 p-10  dark:bg-slate-800 shadow-lg items-center justify-center text-center bg-white">
-          <h1 className="lg:text-xl md:text-sm dark:text-white font-light mb-6">
-            Compte confidentiel
-          </h1>
-          <p className="lg:text-sm md:text-sm dark:text-white font-light mb-6">
-            Ce compte vous permettra de gérer vos candidatures, de suivre les
-            statuts, de fournir des documents complémentaires et de gérer les
-            offres potentielles que vous recevez.
-          </p>
-          <h1 className="lg:text-sm md:text-sm">
-            Critères de mot de passe :
-            <span className=" text-principallg:text-sm md:text-sm">
-              Nombre, Lettre, Caractère spécial caractères Majuscule et
-              Muniscule
-            </span>
-          </h1>
-        </div>
-
-        {/* Right Section */}
-        <div className="md:w-1/2 p-10 flex flex-col justify-center items-center bg-gray-100 dark:bg-slate-900">
+        <div className="md:w-full p-10 flex flex-col justify-center items-center bg-white dark:bg-slate-900">
           <h2 className="lg:text-xl md:text-xl font-light mb-4  text-center">
             Créez votre compte gratuitement
           </h2>
-          <form className="space-y-4" onSubmit={validation}>
+          <form className="w-full max-w-sm space-y-4" onSubmit={validation}>
             <Input
               required
               name="full_name"

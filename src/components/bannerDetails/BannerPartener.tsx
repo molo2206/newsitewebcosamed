@@ -25,7 +25,7 @@ function BannerPartener() {
         </header>
 
         {/* Liste des Partenaires */}
-        <section className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 py-4">
+        <section className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 py-4">
           {loading
             ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
             : data.map((item: any, index: number) => (
@@ -38,7 +38,7 @@ function BannerPartener() {
           <h2 className="lg:text-xl md:text-lg font-extrabold text-gray-800 mb-4 dark:text-white">
             Devenir Partenaire
           </h2>
-          <p className="text-gray-600 mb-6 lg:text-xl md:text-xl font-light dark:text-white">
+          <p className="text-gray-600 mb-6 lg:text-xl md:text-sm font-light dark:text-white">
             Si vous souhaitez devenir partenaire de notre organisation et
             rejoindre notre réseau d'excellence, contactez-nous dès aujourd'hui.
           </p>

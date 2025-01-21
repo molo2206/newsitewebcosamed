@@ -75,7 +75,7 @@ const AboutMediaHome = () => {
                 {ressources.map((ressource, index) => (
                   <div
                     key={index}
-                    className="bg-white dark:bg-slate-800  rounded-lg shadow-md border p-6 hover:shadow-lg transition-shadow"
+                    className="bg-white dark:bg-slate-800  rounded-lg shadow-md dark:border border-slate-700  p-6 hover:shadow-lg transition-shadow"
                   >
                     <h2 className="lg:text-xl md:text-xl  text-gray-800 mb-3 dark:text-white">
                       {ressource.title}
@@ -106,6 +106,7 @@ const AboutMediaHome = () => {
                           <TestimonyCard testimony={item} key={index} />
                         ))}
                   </div>
+                  
                 </div>
               </section>
               <Pagination

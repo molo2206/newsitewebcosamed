@@ -33,19 +33,9 @@ const Otp = () => {
   };
   return (
     <div className=" container py-4">
-      <div className="min-h-screen flex flex-col md:flex-row w-full dark:bg-slate-800  bg-gray-50 dark:border dark:border-slate-700">
-        {/* Left Section */}
-        <div className="md:w-1/2 p-10 flex flex-col dark:bg-slate-800 shadow-lg items-center justify-center text-center bg-white">
-          <h1 className="text-xl md:text-xl dark:text-white font-bold mb-6">
-            Pour utiliser nos informations sur notre plateforme, il est
-            primordial de se connecter!
-          </h1>
-
-          <p className="text-sm  mb-6"></p>
-        </div>
-
-        {/* Right Section */}
-        <div className="md:w-1/2 p-10 flex flex-col justify-center items-center bg-gray-100 dark:bg-slate-900">
+      <div className="min-h-screen flex flex-col md:flex-row w-full dark:bg-slate-800  bg-white">
+        
+        <div className="md:w-full p-10 flex flex-col justify-center items-center bg-white dark:bg-slate-900">
           <h2 className="text-2xl font-semibold mb-4 dark:">
             Code de validation
           </h2>

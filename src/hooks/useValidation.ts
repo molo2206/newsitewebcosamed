@@ -1,6 +1,6 @@
 import React from 'react'
-const useValidation = (data: any) => {
-	const [inputs, setInputs] = React.useState(data)
+const useValidation = <T extends any>(data: any) => {
+	const [inputs, setInputs] = React.useState<T>(data)
 	const [errors, setErrors] = React.useState<any>({})
 	const handleOnChange = (text: any, input: any) => {
 		setInputs((prevState: any) => ({ ...prevState, [input]: text }))
@@ -10,7 +10,7 @@ const useValidation = (data: any) => {
 	}
 
 	const resetInput = () => {
-		setInputs((prev:any) => !prev)
+		setInputs(data)
 	}
 
 	return {
@@ -18,9 +18,10 @@ const useValidation = (data: any) => {
 		errors,
 		handleOnChange,
 		hanldeError,
+		setErrors,
 		setInputs,
 		resetInput,
 	}
 }
 
-export default useValidation
+export default useValidation

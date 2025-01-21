@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { showingTranslateValue } from "../../utils/heleprs";
 import { useAuthContext } from "../../context";
 
@@ -6,25 +6,25 @@ interface props {
   cat?: any;
 }
 const CategoryCard = ({ cat }: props) => {
+  const navigate = useNavigate();
+  const Onclick = () => {
+    navigate(
+      `/blog/category/${
+        showingTranslateValue(cat?.translations, lang)?.category_id
+      }`
+    ); // Remplace "/about" par la route cible
+  };
   const { lang } = useAuthContext();
   return (
     <>
-      <Link
-        to={`/blog/category/${
-          showingTranslateValue(cat?.translations, lang)?.category_id
-        }`}
+      <p
+        onClick={Onclick}
+        className=" hover:text-hover  text-principal cursor-pointer 
+           w-full p-2 rounded-full lg:text-sm font-light
+          md:text-sm"
       >
-        {/* <div className="  underline-offset-4 dark:text-white md:text-xl sm:text-sm lg:text-lg hover:text-hover">
-          {showingTranslateValue(cat?.translations, lang)?.name}
-        </div>
-        <p className="border border-t-1 border-principal"></p> */}
-        
-          <span className=" hover:text-hover  text-principal w-full py-1 px-3 rounded-full lg:text-sm
-          md:text-sm">
-            {showingTranslateValue(cat?.translations, lang)?.name}
-          </span>
-       
-      </Link>
+        {showingTranslateValue(cat?.translations, lang)?.name}
+      </p>
     </>
   );
 };

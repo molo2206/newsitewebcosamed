@@ -10,6 +10,9 @@ export const showingTranslateValue = (data: any, lang: any) => {
 		return null
 	}
 }
+export function limittext(text: string, limit: number) {
+	return text.length > limit ? text.slice(0, limit) + "..." : text
+}
 
 export function checkPermission(ressource: any, access: string) {
 	const userData = localStorage.getItem('_DICI_AUTH')

@@ -5,14 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuthContext } from "../../context";
 import { useState } from "react";
-import {
-
-  FaUserCircle,
-} from "react-icons/fa";
+import { FaUserCircle } from "react-icons/fa";
 
 const NavbarFirst = () => {
   const { user } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpens, setIsOpens] = useState(false);
+  const toggleMenu = () => {
+    setIsOpens((prevState) => !prevState);
+  };
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
@@ -27,6 +28,17 @@ const NavbarFirst = () => {
     toggleModal;
     navigation("auth/signin");
   };
+  const profile = () => {
+    navigation("/recruiting/cosamed/job_openings/accountsettings"); // new line
+  };
+  const condidate = () => {
+    navigation("/job_openings/userHome"); // new line
+  };
+
+  const register = () => {
+    navigation("/recruiting/cosamed/job_openings/register");
+  };
+
   const { t } = useTranslation();
   const { removeSession } = useAuthContext();
 
@@ -64,7 +76,7 @@ const NavbarFirst = () => {
                       <div className="border-slate-300 border md:w-full lg:w-[250px] border-sm dark:border-slate-700 search-box">
                         <InputSearch
                           name="keyword"
-                          placeholder="Rechercher sur le site en mode privé!"
+                          placeholder="Rechercher"
                           type="text"
                           errors={errors.keyword}
                           value={inputs.keyword}
@@ -79,58 +91,11 @@ const NavbarFirst = () => {
                 </form>
               </div>
             </div>
-            <div>
-              {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                  <div className="bg-white rounded-lg shadow-lg w-96">
-                    <div className="p-4 border-b">
-                      <h2 className="text-lg flex justify-center text-black font-semibold">
-                        {/* {!user
-                          ? "Voulez-vous vous connecter ?"
-                          : "Voulez-vous vous déconnecter ?"} */}
-                        <FaUserCircle className=" text-principal" size={24} />
-                      </h2>
-                    </div>
-                    <div className="p-4 flex justify-center">
-                      <p className="text-black">
-                        {!user
-                          ? "Voulez-vous vous connecter ?"
-                          : "Voulez-vous vous déconnecter ?"}
-                      </p>
-                    </div>
-                    <div className="flex justify-between p-4 border-t">
-                      {!user ? (
-                        <button
-                          className="px-4 py-2 text-white  bg-red-500 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
-                          onClick={login}
-                        >
-                          Se connecter
-                        </button>
-                      ) : (
-                        <button
-                          className="px-4 py-2 text-white  bg-red-500 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
-                          onClick={handleLogout}
-                        >
-                          Se déconnecter
-                        </button>
-                      )}
-
-                      <button
-                        className="px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400"
-                        onClick={toggleModal}
-                      >
-                        Fermer
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
             <div className="flex items-center lg:space-x-6 sm:space-x-2 md:space-x-8 ">
               <div className=" flex justify-between space-x-2">
                 <button
                   onClick={donatelink}
-                  className=" sm:h-[38px] sm:w-[140px] rounded-lg  border dark:border-slate-700 dark:bg-red-500
+                  className=" p-2 sm:h-[38px] sm:w-[140px] rounded-lg  border dark:border-slate-700 dark:bg-red-500
                               bg-red-500 text-white hover:bg-hover
                                hover:text-white font-light text-center md:text-sm"
                 >
@@ -138,38 +103,105 @@ const NavbarFirst = () => {
                 </button>
                 <div className="items-center hidden md:flex space-x-4">
                   <a
-                    style={{ fontSize: 12 }}
+                    style={{}}
                     href="/aboutmedia"
-                    className="text-gray-700 cursor-pointer dark:text-white  hover:text-hover"
+                    className="text-gray-700 cursor-pointer text-sm dark:text-white  hover:text-hover"
                   >
                     {t("Media_resources")}
                   </a>
-                  <br />
-                  <a
-                    onClick={toggleModal}
-                    style={{ fontSize: 12 }}
-                    className="text-gray-700 cursor-pointer dark:text-white hover:text-hover  dark:to-hover "
-                  >
-                    {!user ? t("Login") : user?.email}
-                  </a>
-                </div>
-                {!user ? (
-                  ""
-                ) : (
-                  <div className="flex items-center justify-between text-gray-500 text-sm">
-                    <div className=" flex justify-between space-x-2 items-center">
+                  <div className="relative">
+                    {/* Bouton de la photo de profil */}
+                    <button
+                      onClick={toggleMenu}
+                      className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden focus:outline-none"
+                    >
                       {!user?.image ? (
-                        <FaUserCircle className=" text-principal" size={24} />
+                        <FaUserCircle
+                          className=" text-principal w-full h-full object-cover"
+                          size={24}
+                        />
                       ) : (
                         <img
                           src={user?.image}
                           alt=""
-                          className="w-8 h-8 rounded-full"
+                          className="w-full h-full rounded-full"
                         />
                       )}
-                    </div>
+                    </button>
+
+                    {/* Menu déroulant */}
+                    {isOpens && (
+                      <div
+                        className="absolute right-0 py-2 w-60  bg-principal  dark:bg-slate-800 dark:border border-slate-700
+                         rounded-lg shadow-lg z-50"
+                        onClick={() => setIsOpens(false)} // Optionnel : Ferme le menu si on clique dessus
+                      >
+                        <div className="flex flex-wrap  px-4 items-center mb-4">
+                          {!user?.image ? (
+                            <FaUserCircle
+                              className=" text-white w-8 h-8 object-cover"
+                              size={24}
+                            />
+                          ) : (
+                            <img
+                              src={user?.image}
+                              alt=""
+                              className="w-8 h-8 rounded-full"
+                            />
+                          )}
+                          <div className="ml-3">
+                            <h3 className="text-sm font-light" style={{fontSize:11}}>
+                              {!user ? "" : user?.email}
+                            </h3>
+                          </div>
+                        </div>
+                        <ul className="py-1 text-xs">
+                          <li
+                            onClick={profile}
+                            className="px-4 py-2 font-light
+                           dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
+                          >
+                            Mon Profil
+                          </li>
+                          <li
+                            onClick={condidate}
+                            className="px-4 py-2 font-light  dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
+                          >
+                            Mes candidatures
+                          </li>
+                          {!user ? (
+                            <li
+                              onClick={login}
+                              className="px-4 py-2 font-light   dark:hover:bg-gray-700 dark:hover:text-white  cursor-pointer"
+                            >
+                              {t("Login")}
+                            </li>
+                          ) : (
+                            <li
+                              onClick={handleLogout}
+                              className="px-4 py-2 font-light   dark:hover:bg-gray-700 dark:hover:text-white  cursor-pointer"
+                            >
+                              {t("Logout")}
+                            </li>
+                          )}
+                          <li
+                            onClick={register}
+                            className="px-4 py-2 font-light dark:hover:bg-gray-700 dark:hover:text-white  cursor-pointer"
+                          >
+                            {t("Register")}
+                          </li>
+                        </ul>
+                      </div>
+                    )}
+                    {/* Overlay pour fermer le menu si on clique à l'extérieur */}
+                    {isOpens && (
+                      <div
+                        className="fixed inset-0 z-40 cursor-pointer"
+                        onClick={() => setIsOpens(false)}
+                      ></div>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
             </div>
           </div>

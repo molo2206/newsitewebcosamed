@@ -6,7 +6,7 @@ const PartnerCard = ({ partners }: props) => {
     <div className="  py-10">
       <div
         key={partners?.id}
-        className=" bg-white dark:bg-slate-800 dark:text-white p-6 rounded-lg border shadow-lg hover:shadow-xl transition-shadow duration-300"
+        className=" bg-white dark:bg-slate-800 dark:text-white p-6 rounded-lg dark:border border-slate-700 shadow-lg hover:shadow-xl transition-shadow duration-300"
       >
         <img
           src={partners?.image}

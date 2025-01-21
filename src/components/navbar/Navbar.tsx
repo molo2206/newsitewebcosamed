@@ -15,14 +15,13 @@ import useAsync from "../../hooks/useAsync";
 import CategoryCard from "../blogs/CategoryCard";
 import { useNavigate } from "react-router-dom";
 import { FaXmark } from "react-icons/fa6";
+import { showingTranslateValue } from "../../utils/heleprs";
 
 function Navbar() {
   const { handleLanguageChange, lang } = useAuthContext();
   const { t } = useTranslation();
   const { sticky } = useSticky();
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
+
   const { data: cat } = useAsync(() => CategoryServices.getCategory());
   const { data } = useAsync(() => SettingsServices.getSettings());
 
@@ -34,7 +33,9 @@ function Navbar() {
   const handleGoBack = () => {
     navigate("/aboutmedia"); // new line
   };
-
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+  );
   useEffect(() => {
     if (theme === "dark") {
       element.classList.add("dark");
@@ -47,6 +48,56 @@ function Navbar() {
   const toggleMe = () => {
     setShowMenu(!showMenu);
   };
+  const navigateNewsletter = () => {
+    navigate(`/data-loading/newsletters`); // Remplace "/about" par la route cible
+  };
+  const navigateJobopen = () => {
+    navigate(`/data-loading/jobopenings`);
+  };
+
+  const navigateProject = () => {
+    navigate(`/projects`);
+  };
+
+  const navigateJobOpening = () => {
+    navigate(`/job_openings`);
+  };
+  const navigateReport = () => {
+    navigate(`/data-loading/reports`);
+  };
+
+  const navigateCommunicated = () => {
+    navigate(`/load-data/communicated`);
+  };
+  const navigateVideo = () => {
+    navigate(`/data-loading/videos`);
+  };
+  const navigateBlog = () => {
+    navigate(`/data-loading/blogs`);
+  };
+
+  const navigateGallery = () => {
+    navigate(`/data-loading/gallery`);
+  };
+  const navigateEvent = () => {
+    navigate(`/evements`);
+  };
+
+  const navigateAbout = () => {
+    navigate(`/about`);
+  };
+  const navigateContact = () => {
+    navigate(`/contact`);
+  };
+  const navigatePartners = () => {
+    navigate(`/partners`);
+  };
+  const navigateGouvernance = () => {
+    navigate(`/team`);
+  };
+  const navigateCommunity = () => {
+    navigate(`/community/join`);
+  };
   return (
     <>
       <div className="">
@@ -54,7 +105,7 @@ function Navbar() {
           style={{ zIndex: 2 }}
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
-          } left-0 right-0  lg:max-xl font-montserrat bg-principal  dark:bg-slate-800  text-white border-b-[1px] border-primary/50 `}
+          } left-0 right-0  lg:max-xl font-light bg-principal  dark:bg-slate-800  text-white border-b-[1px] border-primary/50 `}
         >
           <nav className=" flex items-center md:w-full justify-between lg:h-14 md:h-14 sm:h-10  dark:bg-slate-800  text-white ">
             {/* Logo selection */}
@@ -69,9 +120,6 @@ function Navbar() {
                 </Link>
               </a>
               <a className={`${!sticky ? "block" : "hidden"}`}>
-                {/* <Link to="/" onClick={() => window.scrollTo}>
-                <FaHome size={30} />
-              </Link> */}
                 <Link to="/" onClick={() => window.scrollTo}>
                   <img
                     src={data?.logo1}
@@ -82,31 +130,23 @@ function Navbar() {
               </a>
             </div>
             {/* Desktop menu selection */}
-            <div className="hidden md:block font-bold font-montserrat ">
-              <ul className="flex top-12 left-0 right-0  items-center gap-10 font-montserrat ">
+            <div className="hidden md:block font-light ">
+              <ul className="flex top-12 left-0 right-0  items-center gap-10 font-light">
                 <li className="group cursor-pointer ">
                   <a className="flex items-center gap-[2px] h-[40px] ">
                     {t("Themes")}
-                    <span>
-                      <FaCaretDown
-                        className="transition-all 
-                        duration-200 group-hover:rotate-180"
-                      />
-                    </span>
                   </a>
                   <div
                     className="dropdown icon absolute left-0 z-[99999] hidden w-full rounded-b-3xl bg-white text-black
                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                   >
-                    <div className="grid grid-cols-2 gap-5 px-40 ">
+                    <div className="grid grid-cols-2 gap-5 ">
                       <div className="col-span-2">
                         <p className=" text-xs">
                           <div className=" grid grid-cols-5 mt-6">
                             {cat.map((item: any, index: number) => (
                               <div>
-                                <h1 className=" pb-1 text-principal font-semibold ">
-                                  <CategoryCard cat={item} key={index} />
-                                </h1>
+                                <CategoryCard cat={item} key={index} />
                               </div>
                             ))}
                           </div>
@@ -116,75 +156,54 @@ function Navbar() {
                   </div>
                 </li>
                 <li className="group cursor-pointer ">
-                  <a className="flex items-center gap-[2px] h-[40px] ">
+                  <a className="flex items-center gap-[2px] h-[40px]  line-clamp-1">
                     {t("Emergency")}
-                    <span>
-                      <FaCaretDown
-                        className=" transition-all 
-                        duration-200 group-hover:rotate-180"
-                      />
-                    </span>
                   </a>
                   {/* dropdown full width section */}
                   <div
                     className="dropdown icon absolute left-0 z-[99999] hidden w-full rounded-b-3xl
                   bg-white text-black
-                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
+                  dark:bg-gray-800 dark:text-white p-4 text-black shadow-md group-hover:block"
                   >
-                    <div className="grid grid-cols-3 gap-5 ">
-                      <div className="col-span-6">
-                        <div className="grid grid-cols-5 mt-6 px-40">
-                          <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                              <Link
-                                to="/data-loading/newsletters"
-                                onClick={() => window.scroll}
-                              >
-                                {t("Newsletters")}
-                              </Link>
-                            </h1>
+                    <div className="grid grid-cols-5 gap-5 ">
+                      <div className="col-span-5">
+                        <div className="grid grid-cols-5 ">
+                          <div
+                            className="hover:text-hover  p-4  text-principal cursor-pointer 
+                              w-full  rounded-full lg:text-sm font-light
+                              md:text-sm"
+                            onClick={navigateNewsletter}
+                          >
+                            {t("Newsletters")}
                           </div>
 
-                          <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                              <Link
-                                to="/data-loading/jobopenings"
-                                onClick={() => window.scroll}
-                              >
-                                {t("Jobs")}
-                              </Link>
-                            </h1>
+                          <div
+                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                            onClick={navigateJobopen}
+                          >
+                            {t("Jobs")}
                           </div>
-                          <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                              <Link
-                                to="/projects"
-                                onClick={() => window.scroll}
-                              >
-                                {t("Project")}
-                              </Link>
-                            </h1>
+                          <div
+                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                            onClick={navigateProject}
+                          >
+                            {t("Project")}
                           </div>
-
-                          <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                              <Link
-                                to="/job_openings"
-                                onClick={() => window.scroll}
-                              >
-                                {t("Careers")}
-                              </Link>
-                            </h1>
+                          <div
+                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                            onClick={navigateJobOpening}
+                          >
+                            {t("Careers")}
                           </div>
-                          <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                              <Link
-                                to="/data-loading/reports"
-                                onClick={() => window.scroll}
-                              >
-                                {t("Reports")}
-                              </Link>
-                            </h1>
+                          <div
+                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                            onClick={navigateReport}
+                          >
+                            {t("Reports")}
                           </div>
                         </div>
                       </div>
@@ -194,68 +213,58 @@ function Navbar() {
                 <li className=" group cursor-pointer">
                   <a className="flex items-center gap-[2px] h-[40px] ">
                     {t("Newsroom")}
-                    <span>
-                      <FaCaretDown
-                        className=" transition-all 
-                        duration-200 group-hover:rotate-180"
-                      />
-                    </span>
                   </a>
-                  {/* dropdown full width section */}
                   <div
                     className="dropdown icon  absolute left-0 z-[99999] hidden w-full rounded-b-3xl bg-white text-black
-                 dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
+                 dark:bg-gray-800 dark:text-white p-4 text-black shadow-md group-hover:block"
                   >
                     <div className="grid grid-cols-4 gap-4">
                       <div className="col-span-4 ">
-                        <div className=" grid grid-cols-4 mt-4 px-40">
-                          <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                              <Link
-                                className="space-y-2 "
-                                to="/load-data/communicated"
-                                onClick={() => window.scroll(0, 0)}
-                              >
-                                {t("Press")}
-                              </Link>
-                            </h1>
+                        <div className=" grid grid-cols-5 ">
+                          <div
+                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                            onClick={navigateCommunicated}
+                          >
+                            {t("Press")}
                           </div>
-                          <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                              <Link
-                                to="/data-loading/videos"
-                                onClick={() => window.scroll}
-                              >
-                                {t("Videos")}
-                              </Link>
-                            </h1>
+
+                          <div
+                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                            onClick={navigateVideo}
+                          >
+                            {t("Videos")}
                           </div>
-                          <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                              <Link
-                                to="/data-loading/blogs"
-                                onClick={() => window.scroll}
-                              >
-                                {t("Blog")}
-                              </Link>
-                            </h1>
+                          <div
+                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                            onClick={navigateBlog}
+                          >
+                            {t("Blog")}
                           </div>
-                          <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-principal text-xl font-semibold ">
-                              <Link
-                                to="/evements"
-                                onClick={() => window.scroll(0, 0)}
-                              >
-                                {t("Events")}
-                              </Link>
-                            </h1>
+
+                          <div
+                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                            onClick={navigateGallery}
+                          >
+                            {t("Gallery")}
+                          </div>
+
+                          <div
+                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                            onClick={navigateEvent}
+                          >
+                            {t("Events")}
                           </div>
                         </div>
                         <div className=" flex items-center justify-center py-2">
                           <button
                             onClick={handleGoBack}
                             className="h-[60px] w-full rounded-lg 
-                              bg-principal  text-white  hover:text-white hover:bg-hover font-bold text-center"
+                              bg-principal  text-white  hover:text-white hover:bg-hover font-semibold text-center"
                           >
                             {t("Find_More")}
                             <ToastContainer />
@@ -268,80 +277,53 @@ function Navbar() {
                 <li className=" group cursor-pointer">
                   <a className="flex items-center gap-[2px] h-[40px] ">
                     {t("AboutUs")}
-                    <span>
-                      <FaCaretDown
-                        className=" transition-all 
-                        duration-200 group-hover:rotate-180"
-                      />
-                    </span>
                   </a>
-                  {/* dropdown full width section */}
                   <div
                     className="dropdown icon absolute left-0 z-[99999] hidden w-full rounded-b-3xl
                   bg-white text-black
-                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
+                  dark:bg-gray-800 dark:text-white p-4 t ext-black shadow-md group-hover:block"
                   >
                     <div className="grid grid-cols-4 gap-4">
                       <div className="col-span-4 ">
                         <p className=" text-sm ">
-                          <div className=" grid grid-cols-5 mt-4 px-40">
-                            <div>
-                              <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold cursor-pointer ">
-                                <Link
-                                  to="/about"
-                                  onClick={() => window.scrollTo(0, 0)}
-                                >
-                                  {t("AboutUs")}
-                                </Link>
-                              </h1>
+                          <div className=" grid grid-cols-5 ">
+                            <div
+                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              onClick={navigateAbout}
+                            >
+                              {t("AboutUs")}
                             </div>
-                            <div>
-                              <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold cursor-pointer ">
-                                <Link
-                                  to="/contact"
-                                  onClick={() => window.scrollTo(0, 0)}
-                                >
-                                  {t("Contact")}
-                                </Link>
-                              </h1>
+                            <div
+                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              onClick={navigateContact}
+                            >
+                              {" "}
+                              {t("Contact")}
                             </div>
-                            <div>
-                              <h1 className="pb-1 hover:text-gray-700 text-xl text-principal font-semibold">
-                                <Link
-                                  to="/partners"
-                                  onClick={() => window.scroll(0, 0)}
-                                >
-                                  {t("Partnerships")}
-                                </Link>
-                              </h1>
+                            <div
+                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              onClick={navigatePartners}
+                            >
+                              {" "}
+                              {t("Partnerships")}
                             </div>
-                            {/* <div>
-                            <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold ">
-                              <Link to={`#`} onClick={notify}>
-                                {t("Funding")}
-                                <ToastContainer />
-                              </Link>
-                            </h1>
-                          </div> */}
-                            <div>
-                              <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold ">
-                                <Link
-                                  to="/team"
-                                  onClick={() => window.scroll(0, 0)}
-                                >
-                                  {t("Governance")}
-                                </Link>
-                              </h1>
+
+                            <div
+                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              onClick={navigateGouvernance}
+                            >
+                              {t("Governance")}
                             </div>
-                            <div>
-                              <h1 className=" pb-1 hover:text-gray-700 text-xl text-principal font-semibold ">
-                                <Link
-                                  to="/community/join"
-                                  onClick={() => window.scroll()}
-                                >
-                                  {t("Becom_member")}
-                                </Link>
-                              </h1>
+                            <div
+                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              onClick={navigateCommunity}
+                            >
+                              {t("Becom_member")}
                             </div>
                           </div>
                         </p>
@@ -351,7 +333,7 @@ function Navbar() {
                 </li>
 
                 <li className=" group relative cursor-pointer border border-slate-300 dark:border-slate-700 w-[140px] rounded-lg flex justify-center">
-                  <a className="flex items-center gap-[20px] h-[30px]  text-white font-bold ">
+                  <a className="flex items-center gap-[20px] h-[30px]  text-white font-light ">
                     {lang === "en" ? "Anglais" : "Français"}
                     <span>
                       <FaCaretDown
@@ -361,7 +343,11 @@ function Navbar() {
                     </span>
                   </a>
                   {/* dropdown section */}
-                  <div className="dropdown-lg absolute -center-9 z-[99999] hidden w-[150px] rounded-lg bg-white dark:bg-slate-900 text-principal dark:text-white p-2 shadow-md   group-hover:block">
+                  <div
+                    className="dropdown-lg absolute -center-9 z-[99999] hidden w-[150px] 
+                  rounded-lg bg-white dark:bg-slate-900 text-principal dark:text-white 
+                  p-2 shadow-md   group-hover:block"
+                  >
                     <ul className="">
                       <li
                         role="button"

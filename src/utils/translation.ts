@@ -1,6 +1,8 @@
 export const En = {
 	Home: 'Home',
+	Gallery:"Gallery",
 	Login: "Sign in",
+	Logout: "Log out",
 	Register: "Create an account",
 	Careers: "Careers",
 	Full_name: "Full name",
@@ -138,7 +140,9 @@ export const En = {
 
 export const FR = {
 	Home: 'Accueil',
+	Gallery:"Galerie",
 	Login: "Se connecter",
+	Logout: "Se déconnecter",
 	Register: "Créer un compte",
 	Careers: "Carrières",
 	Full_name: "Nom complet",

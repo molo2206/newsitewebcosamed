@@ -1,0 +1,98 @@
+[
+    {
+        "code": "en",
+        "name": "English"
+    },
+    {
+        "code": "fr",
+        "name": "French"
+    },
+    {
+        "code": "es",
+        "name": "Spanish"
+    },
+    {
+        "code": "de",
+        "name": "German"
+    },
+    {
+        "code": "zh",
+        "name": "Chinese"
+    },
+    {
+        "code": "ja",
+        "name": "Japanese"
+    },
+    {
+        "code": "ru",
+        "name": "Russian"
+    },
+    {
+        "code": "ar",
+        "name": "Arabic"
+    },
+    {
+        "code": "pt",
+        "name": "Portuguese"
+    },
+    {
+        "code": "hi",
+        "name": "Hindi"
+    },
+    {
+        "code": "it",
+        "name": "Italian"
+    },
+    {
+        "code": "ko",
+        "name": "Korean"
+    },
+    {
+        "code": "vi",
+        "name": "Vietnamese"
+    },
+    {
+        "code": "tr",
+        "name": "Turkish"
+    },
+    {
+        "code": "nl",
+        "name": "Dutch"
+    },
+    {
+        "code": "sv",
+        "name": "Swedish"
+    },
+    {
+        "code": "no",
+        "name": "Norwegian"
+    },
+    {
+        "code": "da",
+        "name": "Danish"
+    },
+    {
+        "code": "fi",
+        "name": "Finnish"
+    },
+    {
+        "code": "el",
+        "name": "Greek"
+    },
+    {
+        "code": "pl",
+        "name": "Polish"
+    },
+    {
+        "code": "cs",
+        "name": "Czech"
+    },
+    {
+        "code": "hu",
+        "name": "Hungarian"
+    },
+    {
+        "code": "th",
+        "name": "Thai"
+    }
+]

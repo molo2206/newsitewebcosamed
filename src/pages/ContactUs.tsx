@@ -90,7 +90,7 @@ const ContactUs = () => {
               <h1 className="lg:text-2xl md:text-xl  font-bold text-gray-800 mb-6 dark:text-white">
                 Ce que nous pensons,
               </h1>
-              <p className=" font-montserrat lg:text-sm mb-6 dark:text-white">
+              <p className=" font-light lg:text-sm mb-6 dark:text-white">
                 {t('team_info')}
               </p>
               <ul className="space-y-4">
@@ -101,7 +101,7 @@ const ContactUs = () => {
                   >
                     <FaEnvelope />
                   </span>
-                  <span className="text-gray-700 lg:text-sm md:text-sm dark:text-white">
+                  <span className="text-gray-700 lg:text-sm md:text-sm font-light dark:text-white">
                     <a href="mailto:cosamed17@gmail.com">
                       {dataadress?.emails}
                     </a>
@@ -111,7 +111,7 @@ const ContactUs = () => {
                   <span className="w-8 h-8 flex items-center justify-center dark:bg-white bg-blue-100 text-principal rounded-full mr-4">
                     <FaPhone />
                   </span>
-                  <span className="text-gray-700 lg:text-sm md:text-sm dark:text-white">
+                  <span className="text-gray-700 font-light  lg:text-sm md:text-sm dark:text-white">
                     <a href={"tel:" + dataadress?.phones}>
                       {dataadress?.phones}
                     </a>
@@ -121,7 +121,7 @@ const ContactUs = () => {
                   <span className="w-8 h-8 flex items-center justify-center bg-blue-100 text-principal rounded-full mr-4">
                     <FaMapMarkerAlt />
                   </span>
-                  <span className="text-gray-700 lg:text-sm md:text-sm dark:text-white">
+                  <span className="text-gray-700 font-light lg:text-sm md:text-sm dark:text-white">
                     {dataadress?.adresse +
                       "/" +
                       dataadress?.city +
@@ -133,7 +133,7 @@ const ContactUs = () => {
 
               {/* Social Media Links */}
               <div className="mt-8 ">
-                <h2 className="text-lg font-semibold lg:text-sm md:text-sm text-gray-800 mb-4 dark:text-white">
+                <h2 className="text-lg font-semibold lg:text-sm md:text-sm  text-gray-800 mb-4 dark:text-white">
                   {t('Follow_use')}
                 </h2>
                 <div className="flex space-x-4">

@@ -25,9 +25,11 @@ const BlogCard = ({ blog }: props) => {
         <img
           src={blog.image}
           alt={blog.id}
-          className="w-full h-48 object-cover"
+          className="mx-auto w-full h-32
+            object-cover"
         />
-        <div className="p-4">
+        <div className="from-black via-black/70 to-transparent"></div>
+        <div className="p-4 ">
           <h2  onClick={goToAbout}
             className="sm:text-sm md:text-sm lg:text-sm font-semibold text-gray-800 line-clamp-1 dark:text-white"
             dangerouslySetInnerHTML={{
@@ -35,7 +37,7 @@ const BlogCard = ({ blog }: props) => {
             }}
           ></h2>
           <p
-            className="text-gray-600 sm:text-sm md:text-sm lg:text-sm  mb-4 line-clamp-2 dark:text-white"
+            className="text-gray-600 sm:text-sm md:text-sm lg:text-sm  mb-4 line-clamp-2 font-light dark:text-white"
             dangerouslySetInnerHTML={{
               __html: showingTranslateValue(blog?.translations, lang)
                 ?.description,

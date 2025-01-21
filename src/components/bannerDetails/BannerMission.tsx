@@ -15,7 +15,7 @@ const BannerMission = () => {
       </p>
       <div className=" container flex flex-col items-center justify-center dark:bg-slate-800  md:h-[500px] ">
         <div className=" grid grid-cols-1 items-center gap-4 md:grid-cols-2">
-          <div className={"order-1 bg-white  p-6 rounded-lg shadow-md mb-12  border  dark:bg-slate-800 w-full dark:text-white"}>
+          <div className={"order-1 bg-white  p-6 rounded-lg shadow-md mb-12  dark:border border-slate-700 dark:bg-slate-800 w-full dark:text-white"}>
             <h1 className="text-2xl md:text-4xl  p-4  ">{t("Mission")}</h1>
             <p
               className="text-slate-600 dark:text-slate-200 font-montserrat mx-auto w-full p-4 text-sm"
@@ -27,7 +27,7 @@ const BannerMission = () => {
           </div>
           <div
             className="flex flex-col items-start  text-left 
-          md:items-start md:p-8 md:text-left bg-white p-6  border rounded-lg dark:bg-slate-800 w-full dark:text-white shadow-md mb-12"
+          md:items-start md:p-8 md:text-left bg-white p-6  dark:border border-slate-700  rounded-lg dark:bg-slate-800 w-full dark:text-white shadow-md mb-12"
           >
             <h1 className="text-2xl md:text-4xl p-4">{t("Vision")}</h1>
             <p

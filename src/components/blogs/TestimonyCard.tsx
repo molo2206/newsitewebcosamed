@@ -14,7 +14,7 @@ const TestimonyCard = ({ testimony, index }: props) => {
         className="bg-white dark:bg-slate-800  rounded-lg border shadow-md p-6 flex flex-col"
       >
         <p
-          className="text-gray-600 italic dark:text-white font-semibold"
+          className="text-gray-600 italic dark:text-white font-light"
           dangerouslySetInnerHTML={{
             __html: showingTranslateValue(testimony?.translations, lang)
               ?.message,

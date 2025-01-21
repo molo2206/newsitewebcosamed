@@ -6,23 +6,23 @@ import { useTranslation } from "react-i18next";
 import BulletinLoad from "../components/blogs/BulletinLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import usePageSEO from "../components/Seo/usePageSEO";
-import ImageRealisationCard from "../components/blogs/ImageRealisationCard";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
-import MediaServices from "../services/MediaServices";
-import { useState } from "react";
-import Pagination from "../components/Pagination/Pagination";
-import LightboxViewer from "../components/LightBox";
+// import ImageRealisationCard from "../components/blogs/ImageRealisationCard";
+// import BlogCardLoand from "../components/blogs/BlogCardLoad";
+// import MediaServices from "../services/MediaServices";
+//import { useState } from "react";
+// import Pagination from "../components/Pagination/Pagination";
+// import LightboxViewer from "../components/LightBox";
 function About() {
   const { data, loading } = useAsync(() => SettingsServices.getSettings());
-  const { data: datas } = useAsync(() => MediaServices.getMedia());
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(3);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentMedia = datas.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+  // const { data: datas } = useAsync(() => MediaServices.getMedia());
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [postsPerPage] = useState(3);
+  // const indexOfLastPost = currentPage * postsPerPage;
+  // const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  // const currentMedia = datas.slice(indexOfFirstPost, indexOfLastPost);
+  // const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+  // const [currentIndex, setCurrentIndex] = useState(0);
+  // const [isOpen, setIsOpen] = useState(false);
   const { lang } = useAuthContext();
   const { t } = useTranslation();
   usePageSEO({
@@ -35,10 +35,10 @@ function About() {
     ogImage: "https://www.cosamed.org/",
     ogUrl: window.location.href,
   });
-  const openLightbox = (index: number) => {
-    setCurrentIndex(index);
-    setIsOpen(true);
-  };
+  // const openLightbox = (index: number) => {
+  //   setCurrentIndex(index);
+  //   setIsOpen(true);
+  // };
   return (
     <>
       {loading ? (
@@ -57,7 +57,7 @@ function About() {
                 {t("AboutUs")}
               </h2>
               <p
-                className="text-gray-600 leading-relaxed dark:text-white"
+                className="text-gray-600 leading-relaxed dark:text-white font-light"
                 dangerouslySetInnerHTML={{
                   __html: showingTranslateValue(data?.translations, lang)
                     ?.about_us,
@@ -73,7 +73,7 @@ function About() {
                   {t("Mission")}
                 </h3>
                 <p
-                  className="text-gray-600 dark:text-white"
+                  className="text-gray-600 dark:text-white font-light"
                   dangerouslySetInnerHTML={{
                     __html: showingTranslateValue(data?.translations, lang)
                       ?.mission,
@@ -83,11 +83,11 @@ function About() {
 
               {/* Vision */}
               <div className="bg-white p-6 border rounded-lg shadow-md dark:bg-slate-800">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2 dark:text-white">
+                <h3 className="text-xl font-semibold text-gray-800 mb-2 dark:text-white ">
                   {t("Vision")}
                 </h3>
                 <p
-                  className="text-gray-600 dark:text-white"
+                  className="text-gray-600 dark:text-white font-light"
                   dangerouslySetInnerHTML={{
                     __html: showingTranslateValue(data?.translations, lang)
                       ?.vision,
@@ -99,7 +99,7 @@ function About() {
                 <h3 className="text-xl font-semibold text-gray-800 mb-2 dark:text-white">
                   {t("Our_Values")}
                 </h3>
-                <ul className="text-gray-600 list-disc ml-5 space-y-2 dark:text-white">
+                <ul className="text-gray-600 list-disc ml-5 space-y-2 dark:text-white font-light">
                   <li>{t("Professionalism")}</li>
                   <li>{t("Responsibility")}</li>
                   <li>{t("Mutual_respect")}</li>
@@ -111,8 +111,9 @@ function About() {
                 </ul>
               </div>
             </section>
-            {/* Image Gallery */}
-            <section className="bg-white p-6  border rounded-lg shadow-md dark:bg-slate-800 ">
+          </section>
+          {/* Image Gallery */}
+          {/* <section className="bg-white p-6  border rounded-lg shadow-md dark:bg-slate-800 ">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4 dark:text-white">
                 {t("Our_achievements")}
               </h2>
@@ -133,7 +134,7 @@ function About() {
               totalPasts={datas.length}
               paginate={paginate}
             />
-          </section>
+          
           <LightboxViewer
             isOpen={isOpen}
             onClose={() => setIsOpen(false)}
@@ -144,7 +145,7 @@ function About() {
               caption: item.id,
               alt: item.id,
             }))}
-          />
+          /> */}
         </div>
       )}
     </>

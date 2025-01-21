@@ -117,7 +117,7 @@ const Rejoindre = () => {
           </h1>
         </div>
         <div className="px-4 h-[1000px] flex mt-2">
-          <div className="bg-endeleya pt-8 pb-16 lg:pt-16 lg:pb-24 w-[0%] md:w-[40%] sm-[0%] lg-[40%] md:block sm:hidden hidden">
+          <div className=" pt-8 pb-16 lg:pt-16 lg:pb-24 w-[0%] md:w-[40%] sm-[0%] lg-[40%] md:block sm:hidden hidden">
             <div className=" md:block sm:hidden hidden">
               <div className="">
                 <h2 className="lg:text-xl md:text-sm font-light mb-2 font-base text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">

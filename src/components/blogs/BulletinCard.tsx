@@ -16,12 +16,13 @@ const BulletinCard = ({ bulletin }: props) => {
   return (
       <div
         key={bulletin.id}
-        className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow border dark:bg-slate-800 "
+        className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow dark:bg-slate-800 "
       >
         <img
           src={bulletin.image}
           alt={bulletin.id}
-          className="w-full h-48 object-cover"
+          className="mx-auto w-full h-32
+            object-cover"
         />
         <div className="p-4">
           <h2
@@ -32,13 +33,6 @@ const BulletinCard = ({ bulletin }: props) => {
                 ?.title,
             }}
           ></h2>
-          {/* <p
-            className="text-gray-600 sm:text-sm md:text-sm lg:text-sm  mb-4 line-clamp-2 dark:text-white"
-            dangerouslySetInnerHTML={{
-              __html: showingTranslateValue(bulletin?.translations, lang)
-                ?.description,
-            }}
-          ></p> */}
           <div className="flex items-center justify-between text-gray-500 text-sm">
             <div className=" flex justify-between space-x-2 items-center">
               <img
@@ -53,7 +47,7 @@ const BulletinCard = ({ bulletin }: props) => {
             <div className=" flex justify-between  py-4 text-slate-600">
               <p
                 style={{fontSize: 11}}
-                className="bg-slate-100 rounded-md px-4 py-1 text-principal "
+                className="bg-slate-100 rounded-md px-1 py-1 text-principal "
                 dangerouslySetInnerHTML={{
                   __html:
                     showingTranslateValue(bulletin?.translations, lang)?.month +
