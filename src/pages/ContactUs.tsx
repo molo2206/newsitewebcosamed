@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import usePageSEO from "../components/Seo/usePageSEO";
 import SettingsServices from "../services/SettingsServices";
 import useAsync from "../hooks/useAsync";
+import { ApplyForm } from "../types";
 
 const ContactUs = () => {
   const { t } = useTranslation();
@@ -36,7 +37,7 @@ const ContactUs = () => {
   });
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
-    useValidation({
+    useValidation<ApplyForm>({
       first_name: "",
       last_name: "",
       email: "",

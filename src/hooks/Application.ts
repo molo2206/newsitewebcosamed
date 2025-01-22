@@ -19,17 +19,49 @@ const Application = () => {
     // const navigation = useNavigate()
     // const location = useLocation()
 
-    const apply_offre = (body: any) => {
+    const apply_offre = (body: any, offer_id: any, user_id: any) => {
         setLoading(true)
         const formdata = new FormData()
-        formdata.append('offer_id', body?.offer_id)
-        formdata.append('user_id', user?.id)
+        formdata.append('offer_id', '9c4eec88-37a7-4143-9cbe-165ec1dc9fc8')
+        formdata.append('user_id', user_id)
         if (body?.cover_letter) {
             formdata.append('cover_letter', body?.cover_letter)
         }
         if (body?.cv) {
             formdata.append('cv', body?.cv)
         }
+
+        body?.languages?.forEach((lang: any, index: number) => {
+            formdata.append(`languages[${index}][language]`, lang.language);
+            formdata.append(`languages[${index}][writing]`, lang.writing);
+            formdata.append(`languages[${index}][reading]`, lang.reading);
+            formdata.append(`languages[${index}][speaking]`, lang.speaking);
+            formdata.append(`languages[${index}][comprehension]`, lang.comprehension);
+        });
+        body?.educations.forEach((etude: any, index: number) => {
+            formdata.append(`etudes[${index}][title_edu]`, etude.title_edu);
+            formdata.append(`etudes[${index}][institution]`, etude.institution);
+            formdata.append(`etudes[${index}][endDate_edu]`, etude.endDate_edu);
+        });
+        body?.experiences.forEach((exp: any, index: number) => {
+            formdata.append(`experiences[${index}][job_title]`, exp.job_title_ex);
+            formdata.append(`experiences[${index}][company_name]`, exp.company_name_exp);
+            formdata.append(`experiences[${index}][start_date]`, exp.start_date_exp);
+            formdata.append(`experiences[${index}][end_date]`, exp.end_date_exp);
+            formdata.append(`experiences[${index}][description]`, exp.description_exp);
+        });
+
+        body?.skills.forEach((skill: any, index: number) => {
+            formdata.append(`skills[${index}]`, skill);
+        });
+
+        body?.attestations.forEach((cert: any, index: number) => {
+            formdata.append(`certificates[${index}][title]`, cert.title_attestation);
+            if (body?.cover_letter) {
+                formdata.append(`certificates[${index}][certificate]`, cert.file_attestation);
+            }
+            formdata.append(`certificates[${index}][date_delivrance]`, cert.date_delivrance_attestation);
+        });
 
         Candidature.apply(formdata)
             .then((response: any) => {
@@ -48,7 +80,9 @@ const Application = () => {
                 } else {
                     errorNotification(
                         response.data
+
                     )
+                    console.log(response.data)
                 }
             })
             .catch((err) => {

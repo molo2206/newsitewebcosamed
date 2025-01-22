@@ -17,39 +17,59 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="text-white   bg-gradient-to-r bg-principal dark:bg-slate-800  font-montserrat">
-        <div className="container mx-auto p-8 grid grid-cols-4 gap-8">
+      <footer className="text-white bg-gradient-to-r bg-principal dark:bg-slate-800  font-montserrat">
+        <div className="container mx-auto p-4 grid grid-cols-4 gap-8">
           {/* Section "Qui sommes-nous?" */}
           <div>
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4">QUI SOMMES-NOUS</h3>
-            <ul>
+            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold sm:font-semibold mb-4">
+              QUI SOMMES-NOUS
+            </h3>
+            <ul className="space-y-2">
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm" href="/about">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm"
+                  href="/about"
+                >
                   A PROPOS
                 </a>
               </li>
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="/team">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href="/team"
+                >
                   Gouvernance et direction
                 </a>
               </li>
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="/transparence">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href="/transparence"
+                >
                   Financements et donateurs
                 </a>
               </li>
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="/importancedon">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href="/importancedon"
+                >
                   A quoi servent vos dons
                 </a>
               </li>
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="/toutsavoirsurledon">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href="/toutsavoirsurledon"
+                >
                   Tout savoir sur le don régulier
                 </a>
               </li>
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="/questions-don">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href="/questions-don"
+                >
                   Toutes les questions sur le don
                 </a>
               </li>
@@ -57,16 +77,24 @@ const Footer = () => {
           </div>
           {/* Section "Notre Travail" */}
           <div>
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4 line-clamp-1">NOTRE TRAVAIL</h3>
-            <ul>
+            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4 line-clamp-1">
+              NOTRE TRAVAIL
+            </h3>
+            <ul className="space-y-2">
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href=""
+                >
                   Aide sanitaire
                 </a>
               </li>
               <li>
                 {" "}
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href=""
+                >
                   Assistance et services humanitaires
                 </a>
               </li>
@@ -74,8 +102,10 @@ const Footer = () => {
           </div>
           {/* Section "Médias et Ressources" */}
           <div>
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4 line-clamp-1">MÉDIAS & RESSOURCES</h3>
-            <ul>
+            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4 line-clamp-1">
+              MÉDIAS & RESSOURCES
+            </h3>
+            <ul className=" space-y-2">
               <li>
                 <a
                   className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
@@ -85,28 +115,41 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="/data-loading/blogs">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href="/data-loading/blogs"
+                >
                   Publications
                 </a>
               </li>
             </ul>
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mt-6 mb-4">IMPLIQUEZ-VOUS</h3>
-            <ul>
+            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mt-6 mb-4">
+              IMPLIQUEZ-VOUS
+            </h3>
+            <ul className="">
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="/job_openings">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href="/job_openings"
+                >
                   Carrières
                 </a>
               </li>
-              <li>Collaborez avec nous</li>
+              {/* <li>Collaborez avec nous</li> */}
               <li>
-                <a className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1" href="/community/join">
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href="/community/join"
+                >
                   Devenez volontaire ou membre de COSAMED
                 </a>
               </li>
             </ul>
           </div>
-          <div>
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4">URGENCE</h3>
+          <div className=" hidden md:block">
+            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4">
+              URGENCE
+            </h3>
             <button
               onClick={donatelink}
               className="mt-4 sm:w-full md:w-full bg-red-500 text-white px-2 py-2 rounded "

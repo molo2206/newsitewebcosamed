@@ -15,12 +15,20 @@ import useAsync from "../../hooks/useAsync";
 import CategoryCard from "../blogs/CategoryCard";
 import { useNavigate } from "react-router-dom";
 import { FaXmark } from "react-icons/fa6";
-import { showingTranslateValue } from "../../utils/heleprs";
 
 function Navbar() {
   const { handleLanguageChange, lang } = useAuthContext();
   const { t } = useTranslation();
   const { sticky } = useSticky();
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const [selectedLanguage, setSelectedLanguage] = useState("fr");
+  const selectLanguage = (language: any) => {
+    setSelectedLanguage(language);
+    setDropdownOpen(false);
+    handleLanguageChange(language);
+  };
 
   const { data: cat } = useAsync(() => CategoryServices.getCategory());
   const { data } = useAsync(() => SettingsServices.getSettings());
@@ -105,17 +113,17 @@ function Navbar() {
           style={{ zIndex: 2 }}
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
-          } left-0 right-0  lg:max-xl font-light bg-principal  dark:bg-slate-800  text-white border-b-[1px] border-primary/50 `}
+          } left-0 right-0  lg:max-xl font-light bg-principal   dark:bg-slate-800  text-white border-b-[1px] border-primary/50 `}
         >
           <nav className=" flex items-center md:w-full justify-between lg:h-14 md:h-14 sm:h-10  dark:bg-slate-800  text-white ">
             {/* Logo selection */}
-            <div className=" text-white px-4  ">
+            <div className=" text-white md:p-12  ">
               <a className={`${sticky ? "block" : "hidden"}`}>
                 <Link to="/" onClick={() => window.scrollTo}>
                   <img
                     src={data?.logo1}
                     alt=""
-                    className="sticky-logo  w-full h-full"
+                    className="sticky-logo   w-full h-full"
                   />
                 </Link>
               </a>
@@ -332,58 +340,62 @@ function Navbar() {
                   </div>
                 </li>
 
-                <li className=" group relative cursor-pointer border border-slate-300 dark:border-slate-700 w-[140px] rounded-lg flex justify-center">
-                  <a className="flex items-center gap-[20px] h-[30px]  text-white font-light ">
-                    {lang === "en" ? "Anglais" : "Français"}
-                    <span>
-                      <FaCaretDown
-                        className=" transition-all 
-                      duration-200 group-hover:rotate-180"
+                <li className=" group relative cursor-pointer border border-slate-400 dark:border-slate-700 w-[140px] rounded-lg flex justify-center">
+                  <div className="relative hidden md:block">
+                    {/* Bouton principal */}
+                    <button
+                      className="flex items-center gap-2 bg-principale text-sm md:text-sm text-white px-4 py-2 rounded"
+                      onClick={toggleDropdown}
+                    >
+                      <ReactCountryFlag
+                        countryCode={selectedLanguage === "en" ? "GB" : "FR"}
+                        svg
+                        style={{
+                          width: "1.5em",
+                          height: "1.5em",
+                        }}
+                        title={selectedLanguage === "en" ? "English" : "French"}
                       />
-                    </span>
-                  </a>
-                  {/* dropdown section */}
-                  <div
-                    className="dropdown-lg absolute -center-9 z-[99999] hidden w-[150px] 
-                  rounded-lg bg-white dark:bg-slate-900 text-principal dark:text-white 
-                  p-2 shadow-md   group-hover:block"
-                  >
-                    <ul className="">
-                      <li
-                        role="button"
-                        onClick={() => handleLanguageChange("fr")}
-                        className="p-2  hover:text-principal cursor-pointer"
-                      >
-                        <a>
+                      {selectedLanguage === "en" ? "English" : "French"}
+                      <span className="ml-2">▼</span>
+                    </button>
+
+                    {/* Dropdown */}
+                    {dropdownOpen && (
+                      <div className="absolute right-0 mt-1 w-[140px]  bg-principal  dark:bg-slate-800 dark:border border-slate-700
+                         rounded-lg shadow-lg z-20">
+                        <button
+                          className="flex items-center gap-2 w-full text-sm md:text-sm px-4 py-2 hover:bg-hover rounded text-white"
+                          onClick={() => selectLanguage("en")}
+                        >
                           <ReactCountryFlag
-                            className="emojiFlag mr-2"
+                            countryCode="GB"
+                            svg
+                            style={{
+                              width: "1.5em",
+                              height: "1.5em",
+                            }}
+                            title="English"
+                          />
+                          English
+                        </button>
+                        <button
+                          className="flex items-center gap-2 w-full px-4 py-2 text-sm md:text-sm hover:bg-hover rounded"
+                          onClick={() => selectLanguage("fr")}
+                        >
+                          <ReactCountryFlag
                             countryCode="FR"
                             svg
-                            cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                            cdnSuffix="svg"
-                            title="FR"
+                            style={{
+                              width: "1.5em",
+                              height: "1.5em",
+                            }}
+                            title="French"
                           />
-                          Français
-                        </a>
-                      </li>
-                      <li
-                        role="button"
-                        onClick={() => handleLanguageChange("en")}
-                        className="p-2  hover:text-principal cursor-pointer"
-                      >
-                        <a>
-                          <ReactCountryFlag
-                            className="emojiFlag mr-2"
-                            countryCode="US"
-                            svg
-                            cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                            cdnSuffix="svg"
-                            title="US"
-                          />
-                          Anglais
-                        </a>
-                      </li>
-                    </ul>
+                          French
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </li>
                 {/* Light and dark mode switcher */}

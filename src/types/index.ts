@@ -35,12 +35,18 @@ export type ApplyForm = {
     id?: string;
     phone?: string;
     email?: string;
+    password?: string;
+    password_confirmation?: string;
+    keyword?: string;
     country?: string;
     town?: string;
     gender?: string;
     full_name?: string;
     cover_letter?: string;
     cv?: string;
+    first_name: "",
+    last_name: "",
+    message: "",
     //Languages
     languages?: Languages[]
     //Education
@@ -51,5 +57,5 @@ export type ApplyForm = {
     skills?: Skills[]
     //Attestations/certificats
     attestations?: Attestations[];
-   
+
 }

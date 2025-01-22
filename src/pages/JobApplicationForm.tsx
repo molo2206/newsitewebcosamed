@@ -16,12 +16,16 @@ import {
   Languages,
   Skills,
 } from "../types";
+import Application from "../hooks/Application";
+import Button from "../components/form/Button";
+import BreadCumb from "../components/navbar/BreadCumb";
 
 const JobApplicationForm = () => {
   const { t } = useTranslation();
+  const { offre_id } = useParams();
   const { user, pageLang } = useAuthContext();
   const { data: country } = useAsync(() => CountryServices.getCountry());
-  const { id } = useParams();
+  const { apply_offre, loading } = Application();
   //==============================Mes données personnelles=========
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
     useValidation<ApplyForm>({
@@ -85,6 +89,44 @@ const JobApplicationForm = () => {
     const array: any = inputs.languages;
     array[index][field] = value;
     handleOnChange("languages", array);
+  };
+
+  const handleOnChangeIndexEtude = (
+    value: string,
+    index: number,
+    field: string
+  ) => {
+    const array: any = inputs.educations;
+    array[index][field] = value;
+    handleOnChange("educations", array);
+  };
+
+  const handleOnChangeIndexExp = (
+    value: string,
+    index: number,
+    field: string
+  ) => {
+    const array: any = inputs.experiences;
+    array[index][field] = value;
+    handleOnChange("experiences", array);
+  };
+  const handleOnChangeIndexSkills = (
+    value: string,
+    index: number,
+    field: string
+  ) => {
+    const array: any = inputs.skills;
+    array[index][field] = value;
+    handleOnChange("skills", array);
+  };
+  const handleOnChangeIndexAttestation = (
+    value: string,
+    index: number,
+    field: string
+  ) => {
+    const array: any = inputs.attestations;
+    array[index][field] = value;
+    handleOnChange("attestations", array);
   };
 
   //============================== Validation des champs puis les validés
@@ -207,7 +249,6 @@ const JobApplicationForm = () => {
           }
         });
         break;
-
       case 3:
         if (!inputs.cover_letter || !inputs.cv) {
           hanldeError(
@@ -217,7 +258,6 @@ const JobApplicationForm = () => {
           isValid = false;
         }
         break;
-
       default:
         break;
     }
@@ -238,14 +278,6 @@ const JobApplicationForm = () => {
     }
   };
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    if (validateStep()) {
-      console.log(inputs);
-    }
-  };
-  //======================================
-
   const [languages, setLanguages] = useState([]);
   useEffect(() => {
     fetch("/languages.json")
@@ -256,16 +288,6 @@ const JobApplicationForm = () => {
       );
   }, []);
 
-  const [language_experience, setLanguageExperience] = useState([
-    {
-      id: 1,
-      job_title_ex: "",
-      company_name_exp: "",
-      start_date_exp: "",
-      end_date_exp: "",
-      description_exp: "",
-    },
-  ]);
   const addLanguageExperience = () => {
     const array: Languages[] | any = inputs?.languages;
     array?.push({
@@ -277,11 +299,70 @@ const JobApplicationForm = () => {
     });
     handleOnChange("languages", array);
   };
-
+  ///==============================Education=================================
+  const addEducation = () => {
+    const array: Education[] | any = inputs?.educations;
+    array?.push({
+      title_edu: "",
+      institution: "",
+      endDate_edu: "",
+    });
+    handleOnChange("educations", array);
+  };
+  //==============================Experiences=================================
+  const addExperiences = () => {
+    const array: Experience[] | any = inputs?.experiences;
+    array?.push({
+      job_title_ex: "",
+      company_name_exp: "",
+      start_date_exp: "",
+      end_date_exp: "",
+      description_exp: "",
+    });
+    handleOnChange("experiences", array);
+  };
+  ///==============================Skills=================================
+  const addSkills = () => {
+    const array: Skills[] | any = inputs?.skills;
+    array?.push({
+      skill_name: "",
+    });
+    handleOnChange("skills", array);
+  };
+  //=====================Attestation/Certificats=================================
+  const addCertificates = () => {
+    const array: Attestations[] | any = inputs?.attestations;
+    array?.push({
+      title_attestation: "",
+      file_attestation: "",
+      date_delivrance_attestation: "",
+    });
+    handleOnChange("attestations", array);
+  };
   const removeLanguageExperience = (index: number) => {
     const array = inputs?.languages;
     array?.splice(index, 1);
     handleOnChange("languages", array);
+  };
+  const removeEducation = (index: number) => {
+    const array = inputs?.educations;
+    array?.splice(index, 1);
+    handleOnChange("educations", array);
+  };
+  const removeExperience = (index: number) => {
+    const array = inputs?.experiences;
+    array?.splice(index, 1);
+    handleOnChange("experiences", array);
+  };
+  const removeSkills = (index: number) => {
+    const array = inputs?.skills;
+    array?.splice(index, 1);
+    handleOnChange("skills", array);
+  };
+  const removeAttestation = (index: number) => {
+    const array = inputs?.attestations;
+    array?.splice(index, 1);
+    handleOnChange("attestations", array);
   };
 
   const niveau_language = [
@@ -322,592 +403,251 @@ const JobApplicationForm = () => {
       label: "Feminin",
     },
   ];
-  ///==============================Education=================================
-  const [educations, setEducations] = useState([
-    {
-      id: 1,
-      title_edu: "",
-      institution: "",
-      endDate_edu: "",
-    },
-  ]);
-  const handleChangeEducations = (id: any, field: any, value: any) => {
-    setEducations((prev) =>
-      prev.map((edu) => (edu.id === id ? { ...edu, [field]: value } : edu))
-    );
-  };
-  const addEducation = () => {
-    setEducations((prev: any) => [
-      ...prev,
-      {
-        id: prev.length + 1,
-        title_edu: "",
-        institution: "",
-        endDate_edu: "",
-      },
-    ]);
-  };
-  const removeEducation = (id: any) => {
-    setEducations((prev) => prev.filter((edu) => edu.id !== id));
-  };
 
-  const [experiences, setExperiences] = useState([
-    {
-      id: 1,
-      job_title_ex: "",
-      company_name_exp: "",
-      start_date_exp: "",
-      end_date_exp: "",
-      description_exp: "",
-    },
-  ]);
-
-  const handleChanges = (id: any, field: any, value: any) => {
-    setExperiences((prev) =>
-      prev.map((exp) => (exp.id === id ? { ...exp, [field]: value } : exp))
-    );
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (validateStep()) {
+      apply_offre(inputs, offre_id, user?.id);
+      // console.log(inputs);
+    }
   };
-
-  const addExperience = () => {
-    setExperiences((prev) => [
-      ...prev,
-      {
-        id: prev.length + 1,
-        job_title_ex: "",
-        company_name_exp: "",
-        start_date_exp: "",
-        end_date_exp: "",
-        description_exp: "",
-      },
-    ]);
-  };
-
-  const removeExperience = (id: any) => {
-    setExperiences((prev) => prev.filter((exp) => exp.id !== id));
-  };
-
-  //=========================Mes competences===============================
-  const [competences, setCompetences] = useState([
-    {
-      id: 1,
-      skill_name: "",
-    },
-  ]);
-  const handleChangeCompetences = (id: any, field: any, value: any) => {
-    setCompetences((prev) =>
-      prev.map((edu) => (edu.id === id ? { ...edu, [field]: value } : edu))
-    );
-  };
-  const addCompentence = () => {
-    setCompetences((prev: any) => [
-      ...prev,
-      {
-        id: prev.length + 1,
-        skill_name: "",
-      },
-    ]);
-  };
-  const removeCompetence = (id: any) => {
-    setCompetences((prev) => prev.filter((edu) => edu.id !== id));
-  };
-
-  const handleChangess = (id: any, field: any, value: any) => {
-    setCompetences((prev) =>
-      prev.map((exp) => (exp.id === id ? { ...exp, [field]: value } : exp))
-    );
-  };
-  //=====================Certificats=================================
-  const [attestation, setAttestation] = useState([
-    {
-      id: 1,
-      title: "",
-      file: "",
-      date_delivrance: "",
-    },
-  ]);
-
-  const addattestation = () => {
-    setAttestation((prev: any) => [
-      ...prev,
-      {
-        id: prev.length + 1,
-        title: "",
-        file: "",
-        date_delivrance: "",
-      },
-    ]);
-  };
-  const removeAttestation = (id: any) => {
-    setAttestation((prev) => prev.filter((edu) => edu.id !== id));
-  };
-
   return (
-    <div className="container bg-gray-100  p-6 dark:bg-slate-900 dark:text-white">
-      {/* Indicateur d'étape */}
-      <div className="flex items-center justify-between mb-6">
-        {[...Array(totalSteps)].map((_, index) => (
-          <div
-            key={index}
-            className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              currentStep === index + 1
-                ? "bg-principal text-white"
-                : "bg-gray-200 text-gray-600"
-            }`}
-          >
-            {index + 1}
-          </div>
-        ))}
-      </div>
-
-      <form onSubmit={handleSubmit}>
-        {currentStep === 1 && (
-          <div className="mb-4 rounded-lg dark:border border-slate-700  dark:bg-slate-900 dark:text-white">
-            <div className=" px-2 py-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                <Input
-                  required
-                  name="full_name"
-                  label={t("Full_name")}
-                  placeholder=""
-                  type="text"
-                  errors={errors.full_name}
-                  value={inputs.full_name}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "full_name")
-                  }
-                />
-                <Input
-                  required
-                  name="select"
-                  label={t("Select_Sexe")}
-                  type="select"
-                  value={inputs.gender}
-                  errors={errors.gender}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "gender")
-                  }
-                  options={genres?.map((item: any) => ({
-                    label: item.label,
-                    value: item.value,
-                  }))}
-                />
-                <Input
-                  required
-                  name="phone"
-                  label={t("Phone")}
-                  type="phone"
-                  errors={errors.phone}
-                  value={inputs.phone}
-                  onChange={(e: any) => handleOnChange(e.target.value, "phone")}
-                />
-                <Input
-                  required
-                  name="email"
-                  label="Email"
-                  placeholder=""
-                  type="email"
-                  errors={errors.email}
-                  value={inputs.email}
-                  onChange={(e: any) => handleOnChange(e.target.value, "email")}
-                />
-                <Input
-                  required
-                  name="select"
-                  label={t("Select_country")}
-                  type="select"
-                  value={inputs.country}
-                  errors={errors.country}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "country")
-                  }
-                  options={country?.map((item: any) => ({
-                    label: item.name,
-                    value: item.id,
-                  }))}
-                />
-                <Input
-                  required
-                  name="town"
-                  label={t("City")}
-                  type="text"
-                  errors={errors.town}
-                  value={inputs.town}
-                  onChange={(e: any) => handleOnChange(e.target.value, "town")}
-                />
+    <div className="container dark:bg-slate-900 w-full dark:text-white  bg-gray-100">
+      <BreadCumb title={"Blog"} />
+      <header className="bg-principal dark:bg-slate-800 dark:text-white shadow-md p-6 rounded-lg">
+        <div className="max-w-6xl mx-auto">
+          {/* Conteneur des étapes */}
+          <div className="flex items-center justify-between gap-6">
+            {[...Array(totalSteps)].map((_, index) => (
+              <div key={index} className="flex-1 flex flex-col items-center">
+                {/* Étape */}
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-medium border-2 transition-all duration-300 ${
+                    currentStep === index + 1
+                      ? "bg-hover text-white "
+                      : currentStep > index + 1
+                      ? "bg-blue-100 text-blue-600 "
+                      : "bg-gray-200 text-gray-600 "
+                  }`}
+                >
+                  {index + 1}
+                </div>
               </div>
-            </div>
-            <div className=" px-2 py-4">
-              <h1 className=" text-xl font-semibold">Langues</h1>
-              <p className="font-light">
-                Langues Énumérez chacune des langues que vous parlez, lisez ou
-                écrivez ainsi que leurs niveaux de compétence. Veuillez préciser
-                toutes vos qualifications linguistiques, en particulier les
-                langues de l'ONU (anglais, espagnol, français, arabe, russe,
-                portugais, chinois). Si vous possédez une certification
-                linguistique, veuillez la joindre dans la section Certification.
-              </p>
-            </div>
-            <div className=" px-2 py-4">
-              {inputs?.languages?.map((edu: Languages, index) => (
-                <div key={index} className="border-b pb-4 mb-4">
-                  <div className="flex justify-between items-center">
-                    <h2 className="text-lg font-semibold text-gray-800">
-                      Langues {index + 1}
-                    </h2>
-                    {inputs?.languages && inputs?.languages?.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() => removeLanguageExperience(index)}
-                        className="text-red-500 hover:text-red-700"
-                      >
-                        Supprimer
-                      </button>
-                    )}
-                  </div>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      <div className="mt-8 ">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full max-w-full dark:bg-slate-800 dark:text-white bg-white rounded-lg shadow-md p-6 "
+        >
+          {currentStep === 1 && (
+            <div className="mb-4 rounded-lg dark:border border-slate-700 p-4  dark:bg-slate-900 dark:text-white">
+              <div className=" px-2 py-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                  <Input
+                    required
+                    name="full_name"
+                    label={t("Full_name")}
+                    placeholder=""
+                    type="text"
+                    errors={errors.full_name}
+                    value={inputs.full_name}
+                    onChange={(e: any) =>
+                      handleOnChange(e.target.value, "full_name")
+                    }
+                    onFocus={() => hanldeError(null, `full_name`)}
+                  />
                   <Input
                     required
                     name="select"
-                    label="Selectionner la langue"
+                    label={t("Select_Sexe")}
                     type="select"
-                    value={edu.language}
-                    errors={errors[`language${index}`]}
+                    value={inputs.gender}
+                    errors={errors.gender}
                     onChange={(e: any) =>
-                      handleOnChangeIndex(e.target.value, index, "language")
+                      handleOnChange(e.target.value, "gender")
                     }
-                    onFocus={() => hanldeError(null, `language${index}`)}
-                    options={languages?.map((language: any) => ({
-                      label: language.name,
-                      value: language.name,
+                    onFocus={() => hanldeError(null, `gender`)}
+                    options={genres?.map((item: any) => ({
+                      label: item.label,
+                      value: item.value,
                     }))}
                   />
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                    <Input
-                      required
-                      name="select"
-                      label="1.Écriture"
-                      type="select"
-                      value={edu.writing}
-                      errors={errors[`writing${index}`]}
-                      onChange={(e: any) =>
-                        handleOnChangeIndex(e.target.value, index, "writing")
-                      }
-                      onFocus={() => hanldeError(null, `writing${index}`)}
-                      options={niveau_language?.map((item: any) => ({
-                        label: item.label,
-                        value: item.value,
-                      }))}
-                    />
-
-                    <Input
-                      required
-                      name="select"
-                      label="2.Lecture"
-                      type="select"
-                      value={edu.reading}
-                      errors={errors[`reading${index}`]}
-                      onChange={(e: any) =>
-                        handleOnChangeIndex(e.target.value, index, "reading")
-                      }
-                      onFocus={() => hanldeError(null, `reading${index}`)}
-                      options={niveau_language?.map((item: any) => ({
-                        label: item.label,
-                        value: item.value,
-                      }))}
-                    />
-                    <Input
-                      required
-                      name="select"
-                      label="3.Parler"
-                      type="select"
-                      value={edu.speaking}
-                      errors={errors[`speaking${index}`]}
-                      onChange={(e: any) =>
-                        handleOnChangeIndex(e.target.value, index, "speaking")
-                      }
-                      onFocus={() => hanldeError(null, `speaking${index}`)}
-                      options={niveau_language?.map((item: any) => ({
-                        label: item.label,
-                        value: item.value,
-                      }))}
-                    />
-                    <Input
-                      required
-                      name="select"
-                      label="4.Comprehension"
-                      type="select"
-                      value={edu.comprehension}
-                      errors={errors[`comprehension${index}`]}
-                      onFocus={() => hanldeError(null, `comprehension${index}`)}
-                      onChange={(e: any) =>
-                        handleOnChangeIndex(
-                          e.target.value,
-                          index,
-                          "comprehension"
-                        )
-                      }
-                      options={niveau_language?.map((item: any) => ({
-                        label: item.label,
-                        value: item.value,
-                      }))}
-                    />
-                  </div>
+                  <Input
+                    required
+                    name="phone"
+                    label={t("Phone")}
+                    type="phone"
+                    errors={errors.phone}
+                    value={inputs.phone}
+                    onFocus={() => hanldeError(null, `phone`)}
+                    onChange={(e: any) =>
+                      handleOnChange(e.target.value, "phone")
+                    }
+                  />
+                  <Input
+                    required
+                    name="email"
+                    label="Email"
+                    placeholder=""
+                    type="email"
+                    errors={errors.email}
+                    value={inputs.email}
+                    onFocus={() => hanldeError(null, `email`)}
+                    onChange={(e: any) =>
+                      handleOnChange(e.target.value, "email")
+                    }
+                  />
+                  <Input
+                    required
+                    name="select"
+                    label={t("Select_country")}
+                    type="select"
+                    value={inputs.country}
+                    errors={errors.country}
+                    onFocus={() => hanldeError(null, `country`)}
+                    onChange={(e: any) =>
+                      handleOnChange(e.target.value, "country")
+                    }
+                    options={country?.map((item: any) => ({
+                      label: item.name,
+                      value: item.id,
+                    }))}
+                  />
+                  <Input
+                    required
+                    name="town"
+                    label={t("City")}
+                    type="text"
+                    errors={errors.town}
+                    value={inputs.town}
+                    onFocus={() => hanldeError(null, `town`)}
+                    onChange={(e: any) =>
+                      handleOnChange(e.target.value, "town")
+                    }
+                  />
                 </div>
-              ))}
-              <button
-                type="button"
-                style={{ fontSize: 11 }}
-                onClick={addLanguageExperience}
-                className=" bg-principal w-[60px] text-white py-2 rounded-lg hover:bg-hover transition duration-300"
-              >
-                Ajouter
-              </button>
-            </div>
-          </div>
-        )}
-
-        {currentStep === 2 && (
-          <div>
-            <div className="mb-4 border rounded-lg">
+              </div>
               <div className=" px-2 py-4">
-                {inputs?.educations?.map((edu: Education, index) => (
+                <h1 className=" text-xl font-semibold">Langues</h1>
+                <p className="font-light lg:text-sm">
+                  Langues Énumérez chacune des langues que vous parlez, lisez ou
+                  écrivez ainsi que leurs niveaux de compétence. Veuillez
+                  préciser toutes vos qualifications linguistiques, en
+                  particulier les langues de l'ONU (anglais, espagnol, français,
+                  arabe, russe, portugais, chinois). Si vous possédez une
+                  certification linguistique, veuillez la joindre dans la
+                  section Certification.
+                </p>
+              </div>
+              <div className=" px-2 py-4">
+                {inputs?.languages?.map((edu: Languages, index) => (
                   <div key={index} className="border-b pb-4 mb-4">
                     <div className="flex justify-between items-center">
-                      <h2 className="text-lg font-semibold text-gray-800">
-                        Education {index + 1}
+                      <h2 className="text-sm font-semibold font-semibold text-gray-800">
+                        Langues {index + 1}
                       </h2>
                       {inputs?.languages && inputs?.languages?.length > 1 && (
                         <button
                           type="button"
-                          onClick={() => removeEducation(index)}
+                          onClick={() => removeLanguageExperience(index)}
                           className="text-red-500 hover:text-red-700"
                         >
                           Supprimer
                         </button>
                       )}
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                      <Input
-                        name="institution_edu"
-                        label="Établissement ou université*"
-                        placeholder="Nom de l'institution"
-                        type="text"
-                        value={edu.institution}
-                        errors={errors[`institution${index}`]}
-                        onFocus={() => hanldeError(null, `institution${index}`)}
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "institution"
-                          )
-                        }
-                      />
-                      <Input
-                        name="title_edu"
-                        label="title*"
-                        placeholder=""
-                        type="text"
-                        value={edu.title_edu}
-                        errors={errors[`title_edu${index}`]}
-                        onFocus={() => hanldeError(null, `title_edu${index}`)}
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "title_edu"
-                          )
-                        }
-                      />
-                      <Input
-                        name="endDate_edu"
-                        label="Année términale*"
-                        placeholder=""
-                        type="date"
-                        value={edu.endDate_edu}
-                        errors={errors[`endDate_edu${index}`]}
-                        onFocus={() => hanldeError(null, `endDate_edu${index}`)}
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "endDate_edu"
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  style={{ fontSize: 11 }}
-                  onClick={addEducation}
-                  className=" bg-principal w-[60px] text-white py-2 rounded-lg hover:bg-hover transition duration-300"
-                >
-                  Ajouter
-                </button>
-              </div>
-            </div>
-            <div className=" border rounded-lg ">
-              <div className=" px-2 py-4">
-                {inputs?.experiences?.map((edu: Experience, index) => (
-                  <div key={index} className="border-b pb-4 mb-4">
-                    <div className="flex justify-between items-center">
-                      <h2 className="text-lg font-semibold text-gray-800">
-                        Expérience {index + 1}
-                      </h2>
-                      {inputs?.experiences &&
-                        inputs?.experiences?.length > 1 && (
-                          <button
-                            type="button"
-                            onClick={() => removeExperience(index)}
-                            className="text-red-500 hover:text-red-700"
-                          >
-                            Supprimer
-                          </button>
-                        )}
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                      <Input
-                        required
-                        name="select"
-                        label="Nom de l'entreprise"
-                        type="text"
-                        value={edu.company_name_exp}
-                        errors={errors[`company_name_exp${index}`]}
-                        onFocus={() =>
-                          hanldeError(null, `company_name_exp${index}`)
-                        }
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "company_name_exp"
-                          )
-                        }
-                      />
-                      <Input
-                        required
-                        name="select"
-                        label="Titre du poste"
-                        type="text"
-                        value={edu.job_title_ex}
-                        errors={errors[`job_title_ex${index}`]}
-                        onFocus={() =>
-                          hanldeError(null, `job_title_ex${index}`)
-                        }
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "job_title_ex"
-                          )
-                        }
-                      />
-                      <Input
-                        required
-                        name="select"
-                        label="De*"
-                        type="date"
-                        value={edu.start_date_exp}
-                        errors={errors[`start_date_exp${index}`]}
-                        onFocus={() =>
-                          hanldeError(null, `start_date_exp${index}`)
-                        }
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "start_date_exp"
-                          )
-                        }
-                      />
-                      <Input
-                        required
-                        name="select"
-                        label="À*"
-                        type="date"
-                        value={edu.end_date_exp}
-                        errors={errors[`end_date_exp${index}`]}
-                        onFocus={() =>
-                          hanldeError(null, `end_date_exp${index}`)
-                        }
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "end_date_exp"
-                          )
-                        }
-                      />
-                      <TextArea
-                        label="Description de l'expérience"
-                        name=""
-                        value={edu.description_exp}
-                        errors={errors[`description_exp${index}`]}
-                        onFocus={() =>
-                          hanldeError(null, `description_exp${index}`)
-                        }
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "description_exp"
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                ))}
-                <button
-                  type="button"
-                  style={{ fontSize: 11 }}
-                  onClick={addExperience}
-                  className="w-[60px] bg-principal text-white py-2 rounded-lg hover:bg-hover transition duration-300"
-                >
-                  Ajouter
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        {currentStep === 3 && (
-          <div>
-            <div className="mb-4 border rounded-lg">
-              <div className=" px-2 py-4">
-                {inputs?.skills?.map((edu: Skills, index) => (
-                  <div key={index} className="border-b pb-4 mb-4">
-                    <div className="flex justify-between items-center">
-                      <h2 className="text-lg font-semibold text-gray-800">
-                        Competence {index + 1}
-                      </h2>
-                      {inputs?.skills && inputs?.skills?.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => removeCompetence(index)}
-                          className="text-red-500 hover:text-red-700"
-                        >
-                          Supprimer
-                        </button>
-                      )}
-                    </div>
+                    <Input
+                      required
+                      name="select"
+                      label="Selectionner la langue"
+                      type="select"
+                      value={edu.language}
+                      errors={errors[`language${index}`]}
+                      onChange={(e: any) =>
+                        handleOnChangeIndex(e.target.value, index, "language")
+                      }
+                      onFocus={() => hanldeError(null, `language${index}`)}
+                      options={languages?.map((language: any) => ({
+                        label: language.name,
+                        value: language.name,
+                      }))}
+                    />
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                       <Input
-                        name="skill_name"
-                        label="Entrez la compétence à ajouter ici"
-                        placeholder=""
-                        type="text"
-                        value={edu.skill_name}
-                        errors={errors[`skill_name${index}`]}
-                        onFocus={() => hanldeError(null, `skill_name${index}`)}
+                        required
+                        name="select"
+                        label="1.Écriture"
+                        type="select"
+                        value={edu.writing}
+                        errors={errors[`writing${index}`]}
+                        onChange={(e: any) =>
+                          handleOnChangeIndex(e.target.value, index, "writing")
+                        }
+                        onFocus={() => hanldeError(null, `writing${index}`)}
+                        options={niveau_language?.map((item: any) => ({
+                          label: item.label,
+                          value: item.value,
+                        }))}
+                      />
+
+                      <Input
+                        required
+                        name="select"
+                        label="2.Lecture"
+                        type="select"
+                        value={edu.reading}
+                        errors={errors[`reading${index}`]}
+                        onChange={(e: any) =>
+                          handleOnChangeIndex(e.target.value, index, "reading")
+                        }
+                        onFocus={() => hanldeError(null, `reading${index}`)}
+                        options={niveau_language?.map((item: any) => ({
+                          label: item.label,
+                          value: item.value,
+                        }))}
+                      />
+                      <Input
+                        required
+                        name="select"
+                        label="3.Parler"
+                        type="select"
+                        value={edu.speaking}
+                        errors={errors[`speaking${index}`]}
+                        onChange={(e: any) =>
+                          handleOnChangeIndex(e.target.value, index, "speaking")
+                        }
+                        onFocus={() => hanldeError(null, `speaking${index}`)}
+                        options={niveau_language?.map((item: any) => ({
+                          label: item.label,
+                          value: item.value,
+                        }))}
+                      />
+                      <Input
+                        required
+                        name="select"
+                        label="4.Comprehension"
+                        type="select"
+                        value={edu.comprehension}
+                        errors={errors[`comprehension${index}`]}
+                        onFocus={() =>
+                          hanldeError(null, `comprehension${index}`)
+                        }
                         onChange={(e: any) =>
                           handleOnChangeIndex(
                             e.target.value,
                             index,
-                            "skill_name"
+                            "comprehension"
                           )
                         }
+                        options={niveau_language?.map((item: any) => ({
+                          label: item.label,
+                          value: item.value,
+                        }))}
                       />
                     </div>
                   </div>
@@ -915,134 +655,421 @@ const JobApplicationForm = () => {
                 <button
                   type="button"
                   style={{ fontSize: 11 }}
-                  onClick={addCompentence}
+                  onClick={addLanguageExperience}
                   className=" bg-principal w-[60px] text-white py-2 rounded-lg hover:bg-hover transition duration-300"
                 >
                   Ajouter
                 </button>
               </div>
             </div>
-            <div className="mb-4 border rounded-lg">
-              <div className=" px-2 py-4">
-                <div>
-                  <h1 className=" text-xl font-semibold">
-                    Attestations/certificats
-                  </h1>
-                  <p>
-                    Parlez-nous de toute certification professionnelle que vous
-                    détenez et qui pourrait être pertinente pour votre
-                    candidature, y compris toute certification linguistique
-                    potentielle.
-                  </p>
+          )}
+
+          {currentStep === 2 && (
+            <div>
+              <div className="mb-4 border rounded-lg">
+                <div className=" px-2 py-4">
+                  {inputs?.educations?.map((edu: Education, index) => (
+                    <div key={index} className="border-b pb-4 mb-4">
+                      <div className="flex justify-between items-center">
+                        <h2 className="text-sm font-semibold font-semibold text-gray-800">
+                          Education {index + 1}
+                        </h2>
+                        {inputs?.educations &&
+                          inputs?.educations?.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeEducation(index)}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              Supprimer
+                            </button>
+                          )}
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <Input
+                          name="institution_edu"
+                          label="Établissement ou université*"
+                          placeholder="Nom de l'institution"
+                          type="text"
+                          value={edu.institution}
+                          errors={errors[`institution${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `institution${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexEtude(
+                              e.target.value,
+                              index,
+                              "institution"
+                            )
+                          }
+                        />
+                        <Input
+                          name="title_edu"
+                          label="title*"
+                          placeholder=""
+                          type="text"
+                          value={edu.title_edu}
+                          errors={errors[`title_edu${index}`]}
+                          onFocus={() => hanldeError(null, `title_edu${index}`)}
+                          onChange={(e: any) =>
+                            handleOnChangeIndexEtude(
+                              e.target.value,
+                              index,
+                              "title_edu"
+                            )
+                          }
+                        />
+                        <Input
+                          name="endDate_edu"
+                          label="Année términale*"
+                          placeholder=""
+                          type="date"
+                          value={edu.endDate_edu}
+                          errors={errors[`endDate_edu${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `endDate_edu${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexEtude(
+                              e.target.value,
+                              index,
+                              "endDate_edu"
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    style={{ fontSize: 11 }}
+                    onClick={addEducation}
+                    className=" bg-principal w-[60px] text-white py-2 rounded-lg hover:bg-hover transition duration-300"
+                  >
+                    Ajouter
+                  </button>
                 </div>
-                {inputs?.attestations?.map((edu: Attestations, index) => (
-                  <div key={index} className="border-b pb-4 mb-4">
-                    <div className="flex justify-between items-center">
-                      <h2 className="text-lg font-semibold text-gray-800">
-                        Attestation/certificat {index + 1}
-                      </h2>
-                      {inputs?.attestations &&
-                        inputs?.attestations?.length > 1 && (
+              </div>
+              <div className=" border rounded-lg ">
+                <div className=" px-2 py-4">
+                  {inputs?.experiences?.map((edu: Experience, index) => (
+                    <div key={index} className="border-b pb-4 mb-4">
+                      <div className="flex justify-between items-center">
+                        <h2 className="text-sm font-semibold text-gray-800">
+                          Expérience {index + 1}
+                        </h2>
+                        {inputs?.experiences &&
+                          inputs?.experiences?.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeExperience(index)}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              Supprimer
+                            </button>
+                          )}
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <Input
+                          required
+                          name="select"
+                          label="Nom de l'entreprise"
+                          type="text"
+                          value={edu.company_name_exp}
+                          errors={errors[`company_name_exp${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `company_name_exp${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexExp(
+                              e.target.value,
+                              index,
+                              "company_name_exp"
+                            )
+                          }
+                        />
+                        <Input
+                          required
+                          name="select"
+                          label="Titre du poste"
+                          type="text"
+                          value={edu.job_title_ex}
+                          errors={errors[`job_title_ex${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `job_title_ex${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexExp(
+                              e.target.value,
+                              index,
+                              "job_title_ex"
+                            )
+                          }
+                        />
+                        <Input
+                          required
+                          name="select"
+                          label="De*"
+                          type="date"
+                          value={edu.start_date_exp}
+                          errors={errors[`start_date_exp${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `start_date_exp${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexExp(
+                              e.target.value,
+                              index,
+                              "start_date_exp"
+                            )
+                          }
+                        />
+                        <Input
+                          required
+                          name="select"
+                          label="À*"
+                          type="date"
+                          value={edu.end_date_exp}
+                          errors={errors[`end_date_exp${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `end_date_exp${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexExp(
+                              e.target.value,
+                              index,
+                              "end_date_exp"
+                            )
+                          }
+                        />
+                        <TextArea
+                          label="Description de l'expérience"
+                          name=""
+                          value={edu.description_exp}
+                          errors={errors[`description_exp${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `description_exp${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexExp(
+                              e.target.value,
+                              index,
+                              "description_exp"
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    style={{ fontSize: 11 }}
+                    onClick={addExperiences}
+                    className="w-[60px] bg-principal text-white py-2 rounded-lg hover:bg-hover transition duration-300"
+                  >
+                    Ajouter
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+          {currentStep === 3 && (
+            <div>
+              <div className="mb-4 border rounded-lg">
+                <div className=" px-2 py-4">
+                  {inputs?.skills?.map((edu: Skills, index) => (
+                    <div key={index} className="border-b pb-4 mb-4">
+                      <div className="flex justify-between items-center">
+                        <h2 className="text-sm font-semibold font-semibold text-gray-800">
+                          Competence {index + 1}
+                        </h2>
+                        {inputs?.skills && inputs?.skills?.length > 1 && (
                           <button
                             type="button"
-                            onClick={() => removeAttestation(index)}
+                            onClick={() => removeSkills(index)}
                             className="text-red-500 hover:text-red-700"
                           >
                             Supprimer
                           </button>
                         )}
-                    </div>
+                      </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-                      <Input
-                        name="title"
-                        label="Entrez le nom de l'attestion à ajouter ici"
-                        placeholder=""
-                        type="text"
-                        value={edu.title_attestation}
-                        errors={errors[`title_attestation${index}`]}
-                        onFocus={() =>
-                          hanldeError(null, `title_attestation${index}`)
-                        }
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "title_attestation"
-                          )
-                        }
-                      />
-                      <Input
-                        name="certificate"
-                        label="Entrez le nom de l'attestion à ajouter ici"
-                        placeholder=""
-                        type="file"
-                        value={edu.file_attestation}
-                        errors={errors[`file_attestation${index}`]}
-                        onFocus={() =>
-                          hanldeError(null, `file_attestation${index}`)
-                        }
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "file_attestation"
-                          )
-                        }
-                      />
-
-                      <Input
-                        name="date_delivrance"
-                        label="Date de délivrance"
-                        placeholder=""
-                        type="date"
-                        value={edu.date_delivrance_attestation}
-                        errors={errors[`date_delivrance_attestation${index}`]}
-                        onFocus={() =>
-                          hanldeError(
-                            null,
-                            `date_delivrance_attestation${index}`
-                          )
-                        }
-                        onChange={(e: any) =>
-                          handleOnChangeIndex(
-                            e.target.value,
-                            index,
-                            "date_delivrance_attestation"
-                          )
-                        }
-                      />
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <Input
+                          name="skill_name"
+                          label="Entrez la compétence à ajouter ici"
+                          placeholder=""
+                          type="text"
+                          value={edu.skill_name}
+                          errors={errors[`skill_name${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `skill_name${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexSkills(
+                              e.target.value,
+                              index,
+                              "skill_name"
+                            )
+                          }
+                        />
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center py-4">
-                      <h2 className="text-lg font-semibold text-gray-800">
-                        CV & Lettre de motivation
-                      </h2>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
-                      <Input
-                        name="cv"
-                        label="Sélectionner votre CV"
-                        placeholder=""
-                        type="file"
-                        errors={errors.cv}
-                        value={inputs.cv}
-                      />
-                      <Input
-                        name="cover_letter"
-                        label="Sélectionner votre lettre de motivation"
-                        placeholder=""
-                        type="file"
-                        errors={errors.cover_letter}
-                        value={inputs.cover_letter}
-                      />
-                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    style={{ fontSize: 11 }}
+                    onClick={addSkills}
+                    className=" bg-principal w-[60px] text-white py-2 rounded-lg hover:bg-hover transition duration-300"
+                  >
+                    Ajouter
+                  </button>
+                </div>
+              </div>
+              <div className="mb-4 border rounded-lg">
+                <div className=" px-2 py-4">
+                  <div>
+                    <p className="font-light lg:text-sm">
+                      Parlez-nous de toute certification professionnelle que
+                      vous détenez et qui pourrait être pertinente pour votre
+                      candidature, y compris toute certification linguistique
+                      potentielle.
+                    </p>
                   </div>
-                ))}
+                  {inputs?.attestations?.map((edu: Attestations, index) => (
+                    <div key={index} className="border-b pb-4 mb-4">
+                      <div className="flex justify-between items-center">
+                        <h2 className="text-sm font-semibold text-gray-800 py-4">
+                          Attestation/certificat {index + 1}
+                        </h2>
+                        {inputs?.attestations &&
+                          inputs?.attestations?.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeAttestation(index)}
+                              className="text-red-500 hover:text-red-700"
+                            >
+                              Supprimer
+                            </button>
+                          )}
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
+                        <Input
+                          name="title"
+                          label="Entrez le nom de l'attestion à ajouter ici"
+                          placeholder=""
+                          type="text"
+                          value={edu.title_attestation}
+                          errors={errors[`title_attestation${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `title_attestation${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexAttestation(
+                              e.target.value,
+                              index,
+                              "title_attestation"
+                            )
+                          }
+                        />
+                        <Input
+                          name="certificate"
+                          label="Entrez le nom de l'attestion à ajouter ici"
+                          placeholder=""
+                          type="file"
+                          value={edu.file_attestation}
+                          errors={errors[`file_attestation${index}`]}
+                          onFocus={() =>
+                            hanldeError(null, `file_attestation${index}`)
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexAttestation(
+                              e.target.value,
+                              index,
+                              "file_attestation"
+                            )
+                          }
+                        />
+                        <Input
+                          name="date_delivrance"
+                          label="Date de délivrance"
+                          placeholder=""
+                          type="date"
+                          value={edu.date_delivrance_attestation}
+                          errors={errors[`date_delivrance_attestation${index}`]}
+                          onFocus={() =>
+                            hanldeError(
+                              null,
+                              `date_delivrance_attestation${index}`
+                            )
+                          }
+                          onChange={(e: any) =>
+                            handleOnChangeIndexAttestation(
+                              e.target.value,
+                              index,
+                              "date_delivrance_attestation"
+                            )
+                          }
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="p-2">
+                  <button
+                    type="button"
+                    style={{ fontSize: 11 }}
+                    onClick={addCertificates}
+                    className=" bg-principal w-[60px] text-white p-2 rounded-lg hover:bg-hover transition duration-300"
+                  >
+                    Ajouter
+                  </button>
+                </div>
+              </div>
+              <div className=" ">
+                <div className="mb-4 border rounded-lg p-2">
+                  <div className="flex justify-between items-center py-4">
+                    <h2 className="text-sm font-semibold font-semibold text-gray-800">
+                      CV & Lettre de motivation
+                    </h2>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
+                    <Input
+                      name="cv"
+                      label="Sélectionner votre CV"
+                      placeholder=""
+                      type="file"
+                      errors={errors.cv}
+                      value={inputs.cv}
+                      onChange={(e: any) =>
+                        handleOnChange(e.target.value, "cv")
+                      }
+                    />
+                    <Input
+                      name="cover_letter"
+                      label="Sélectionner votre lettre de motivation"
+                      placeholder=""
+                      type="file"
+                      errors={errors.cover_letter}
+                      value={inputs.cover_letter}
+                      onChange={(e: any) =>
+                        handleOnChange(e.target.value, "cover_letter")
+                      }
+                    />
+                  </div>
+                </div>
               </div>
             </div>
+          )}
+          <div className=" p-6">
+            {currentStep === totalSteps && (
+              <Button loading={loading} label={t("SendMessage")} />
+            )}
           </div>
-        )}
-        <div className="flex justify-between mt-6">
+        </form>
+        <div className="flex justify-between p-2">
           {currentStep > 1 && (
             <button
               type="button"
@@ -1061,16 +1088,8 @@ const JobApplicationForm = () => {
               Suivant
             </button>
           )}
-          {currentStep === totalSteps && (
-            <button
-              type="submit"
-              className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-            >
-              Soumettre
-            </button>
-          )}
         </div>
-      </form>
+      </div>
     </div>
   );
 };

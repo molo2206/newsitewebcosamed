@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useAuthContext } from "../../context";
 import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { ApplyForm } from "../../types";
 
 const NavbarFirst = () => {
   const { user } = useAuthContext();
@@ -47,7 +48,7 @@ const NavbarFirst = () => {
     navigation("/", { replace: true });
   };
 
-  const { inputs, errors, handleOnChange, hanldeError } = useValidation({
+  const { inputs, errors, handleOnChange, hanldeError } = useValidation <ApplyForm>({
     keyword: "",
   });
   const validation = (e: any) => {

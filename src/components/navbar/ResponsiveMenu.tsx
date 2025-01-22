@@ -18,6 +18,14 @@ interface props {
 const ResponsiveMenu = ({ showMenu }: props) => {
   const { t } = useTranslation();
   const { handleLanguageChange, lang } = useAuthContext();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const [selectedLanguage, setSelectedLanguage] = useState("fr");
+  const selectLanguage = (language: any) => {
+    setSelectedLanguage(language);
+    setDropdownOpen(false);
+    handleLanguageChange(language);
+  };
 
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
@@ -25,8 +33,6 @@ const ResponsiveMenu = ({ showMenu }: props) => {
   const { data: cat } = useAsync(() => CategoryServices.getCategory());
 
   const element = document.documentElement;
-
- 
 
   const donatelink = () => {
     navigate("/donation"); // new line
@@ -337,7 +343,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
               <button
                 onClick={donatelink}
                 className="h-[40px] w-[180px] rounded-lg 
-                              bg-white text-principal hover:bg-hover hover:text-white
+                               bg-red-500 text-white hover:bg-hover p-2 hover:text-white
                                font-semibold text-center"
               >
                 {t("Donate")}
@@ -346,53 +352,63 @@ const ResponsiveMenu = ({ showMenu }: props) => {
               {/* </Link> */}
             </li>
             <li className=" group relative cursor-pointer ">
-              <a className="flex items-center gap-[20px] h-[50px]  text-white font-light ">
-                {lang === "fr"  ? "Français" : "Anglais"}
-                <span>
-                  <FaCaretDown
-                    className=" transition-all 
-                      duration-200 group-hover:rotate-180"
+              <div className="relative md:hidden sm:block py-2">
+                {/* Bouton principal */}
+                <button
+                  className="flex items-center gap-2 bg-principale border border-slate-300 text-sm md:text-sm text-white px-4 py-2 rounded"
+                  onClick={toggleDropdown}
+                >
+                  <ReactCountryFlag
+                    countryCode={selectedLanguage === "en" ? "GB" : "FR"}
+                    svg
+                    style={{
+                      width: "1.5em",
+                      height: "1.5em",
+                    }}
+                    title={selectedLanguage === "en" ? "English" : "French"}
                   />
-                </span>
-              </a>
-              {/* dropdown section */}
-              <div className="dropdown-lg absolute -center-9 z-[99999] hidden w-[150px] rounded-lg bg-white dark:bg-slate-900 text-principal dark:text-white p-2 shadow-md   group-hover:block">
-                <ul className="">
-                  <li
-                    role="button"
-                    onClick={() => handleLanguageChange("fr")}
-                    className="p-2  hover:text-principal cursor-pointer"
+                  {selectedLanguage === "en" ? "English" : "French"}
+                  <span className="ml-2">▼</span>
+                </button>
+
+                {/* Dropdown */}
+                {dropdownOpen && (
+                  <div
+                    className="absolute right-38 mt-1 w-[140px]  bg-principal border dark:bg-slate-800 dark:border border-slate-300
+                                       rounded-lg shadow-lg z-50"
                   >
-                    <a>
+                    <button
+                      className="flex items-center gap-2 w-full text-sm md:text-sm px-4 py-2 hover:bg-hover rounded text-white"
+                      onClick={() => selectLanguage("en")}
+                    >
                       <ReactCountryFlag
-                        className="emojiFlag mr-2"
+                        countryCode="GB"
+                        svg
+                        style={{
+                          width: "1.5em",
+                          height: "1.5em",
+                        }}
+                        title="English"
+                      />
+                      English
+                    </button>
+                    <button
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm md:text-sm hover:bg-hover rounded"
+                      onClick={() => selectLanguage("fr")}
+                    >
+                      <ReactCountryFlag
                         countryCode="FR"
                         svg
-                        cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                        cdnSuffix="svg"
-                        title="FR"
+                        style={{
+                          width: "1.5em",
+                          height: "1.5em",
+                        }}
+                        title="French"
                       />
-                      Français
-                    </a>
-                  </li>
-                  <li
-                    role="button"
-                    onClick={() => handleLanguageChange("en")}
-                    className="p-2  hover:text-principal cursor-pointer"
-                  >
-                    <a>
-                      <ReactCountryFlag
-                        className="emojiFlag mr-2"
-                        countryCode="US"
-                        svg
-                        cdnUrl="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.3/flags/1x1/"
-                        cdnSuffix="svg"
-                        title="US"
-                      />
-                      Anglais
-                    </a>
-                  </li>
-                </ul>
+                      French
+                    </button>
+                  </div>
+                )}
               </div>
             </li>
           </ul>
