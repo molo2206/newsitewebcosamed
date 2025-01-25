@@ -20,6 +20,7 @@ export const contactForm: any = {
     message: ""
 }
 
+
 export const donateForm: any = {
     first_name: "",
     last_name: "",

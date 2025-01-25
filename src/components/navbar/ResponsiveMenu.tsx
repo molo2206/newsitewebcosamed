@@ -17,7 +17,7 @@ interface props {
 
 const ResponsiveMenu = ({ showMenu }: props) => {
   const { t } = useTranslation();
-  const { handleLanguageChange, lang } = useAuthContext();
+  const { handleLanguageChange } = useAuthContext();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
   const [selectedLanguage, setSelectedLanguage] = useState("fr");

@@ -38,15 +38,33 @@ export type ApplyForm = {
     password?: string;
     password_confirmation?: string;
     keyword?: string;
+    old_password?: string;
+    new_password?: string;
+    otp?: number;
     country?: string;
     town?: string;
     gender?: string;
     full_name?: string;
     cover_letter?: string;
     cv?: string;
-    first_name: "",
-    last_name: "",
-    message: "",
+    image?: any;
+    first_name?: string;
+    last_name?: string;
+    message?: string;
+    currency?: string;
+    amount?: string;
+    custom_amount?: number;
+    name?: string;
+    prename?: string;
+    typemembre?: string;
+    thematique?: string;
+    ville?: string;
+    profession?: string;
+    sexe?: string;
+    num_ordre?: string;
+    corporation?: string;
+    motif?: string;
+
     //Languages
     languages?: Languages[]
     //Education

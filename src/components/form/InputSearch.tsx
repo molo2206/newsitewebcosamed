@@ -8,31 +8,29 @@ interface props {
   value?: any;
   name?: any | string;
   errors: any;
+  onFocus?: any;
 }
 const InputSearch = ({
-  label,
   type,
   onChange,
-  required,
+  onFocus,
   options,
   name,
   value,
-  // errors,
   placeholder,
 }: props) => {
   return (
     <div className="block">
-      <label className="text-sm font-montserrat  items-center justify-center sm:text-md font-semibold tracking-tight text-gray-900 dark:text-white">
-        {label}
-        {required && <span className="text-red-500 ml-2">*</span>}
-      </label>
       {type === "select" ? (
         <select
           name={name}
-          style={{ height: 50 }}
+          style={{ height: 44 }}
           value={value}
           onChange={onChange}
-          className="w-full  font-montserrat  bg-transparent dark:bg-slate-900 rounded-3xl text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
+          onFocus={onFocus}
+          className="w-full bg-transparent dark:bg-slate-900 rounded-full text-black border py-3
+           px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal
+            focus:dark:border-principal focus:ring-0 "
         >
           <option value={""} defaultChecked>
             ...
@@ -46,18 +44,19 @@ const InputSearch = ({
       ) : (
         <input
           name={name}
+          style={{ height: 42 }}
           value={value}
           autoComplete="off"
-          placeholder={placeholder}
           type={type || "text"}
-          className=" bg-transparent font-montserrat md:w-full  sm:w-w-full rounded-3xl text-slate-800 border py-3
-             px-4 dark:text-white border-slate-400 dark:border-slate-700 focus:outline-none focus:border-principal
-              focus:dark:border-principal focus:ring-0 "
-          //placeholder={placeholder}
+          id="autoResizeInput"
+          placeholder={placeholder}
           onChange={onChange}
+          onFocus={onFocus}
+          className="flex-1 p-4 w-full md:w-[400px] lg:w-[400px] border dark:text-white dark:bg-slate-900
+           border-slate-400 dark:border-slate-700 rounded-full focus:outline-none min-w-[10px] 
+           resize-none focus:ring focus:ring-blue-300"
         />
       )}
-      {/* {errors ? <div className="d-block"><span className=" text-red-500 text-sm ">{errors}</span></div> : null} */}
     </div>
   );
 };

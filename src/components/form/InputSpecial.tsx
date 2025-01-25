@@ -10,24 +10,23 @@ interface props {
   errors: any;
   onFocus?: any;
 }
-const Input = ({
-  label,
+const InputSpecial = ({
+  //   label,
   type,
   onChange,
   onFocus,
-  required,
+  //   required,
   options,
   name,
   value,
-  errors,
   placeholder,
 }: props) => {
   return (
     <div className="block">
-      <label className="lg:text-sm  items-center justify-center md:text-sm font-light tracking-tight text-gray-900 dark:text-white">
+      {/* <label className="lg:text-sm  items-center justify-center md:text-sm font-light tracking-tight text-gray-900 dark:text-white">
         {label}
-        {required && <span className="text-red-500 ml-2">*</span>}
-      </label>
+        {required && <span className="text-red-500 ml-2"> * </span>}
+      </label> */}
       {type === "select" ? (
         <select
           name={name}
@@ -53,21 +52,22 @@ const Input = ({
           value={value}
           autoComplete="off"
           type={type || "text"}
-          className="w-full bg-transparent   rounded-md text-slate-800 border py-3 px-4 dark:text-white dark:bg-slate-900 border-slate-400 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
+          id="autoResizeInput"
           placeholder={placeholder}
           onChange={onChange}
           onFocus={onFocus}
+          className="flex-1 px-4 py-2 w-full md:w-[400px] lg:w-[400px] border dark:text-white dark:bg-slate-900 border-slate-400 dark:border-slate-700 rounded-md focus:outline-none min-w-[10px] resize-none focus:ring focus:ring-blue-300"
         />
       )}
-      {errors ? (
+      {/* {errors ? (
         <div className="d-block">
           <span style={{ fontSize: 11 }} className=" text-red-500  ">
             {errors}
           </span>
         </div>
-      ) : null}
+      ) : null} */}
     </div>
   );
 };
 
-export default Input;
+export default InputSpecial;

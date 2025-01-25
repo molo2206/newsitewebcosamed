@@ -5,6 +5,7 @@ import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
 import { useAuthContext } from "../../context";
 import VerifyOtp from "../../hooks/VerifyOtp";
+import { ApplyForm } from "../../types";
 const Otp = () => {
   const { t } = useTranslation();
   const { forgetpassword } = useAuthContext();
@@ -15,12 +16,12 @@ const Otp = () => {
     navigation("/auth/signin"); // new line
   };
 
-  const { inputs, errors, handleOnChange, hanldeError } = useValidation({
-    otp: "",
-  });
+  const { inputs, errors, handleOnChange, hanldeError } =
+    useValidation<ApplyForm>({
+      otp: "",
+    });
   const validation = (e: any) => {
     e.preventDefault();
-
     let valide = true;
     if (!inputs.otp) {
       hanldeError(t("Otp"), "otp");
@@ -28,13 +29,12 @@ const Otp = () => {
     }
 
     if (valide) {
-       verify({ ...forgetpassword, otp: inputs.otp });
+      verify({ ...forgetpassword, otp: inputs.otp });
     }
   };
   return (
     <div className=" container py-4">
       <div className="min-h-screen flex flex-col md:flex-row w-full dark:bg-slate-800  bg-white">
-        
         <div className="md:w-full p-10 flex flex-col justify-center items-center bg-white dark:bg-slate-900">
           <h2 className="text-2xl font-semibold mb-4 dark:">
             Code de validation

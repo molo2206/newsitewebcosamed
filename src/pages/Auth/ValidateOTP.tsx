@@ -5,6 +5,7 @@ import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
 import { useAuthContext } from "../../context";
 import RegisterUser from "../../hooks/RegisterUser";
+import { ApplyForm } from "../../types";
 const ValidateOTP = () => {
   const { t } = useTranslation();
   const { register } = useAuthContext();
@@ -15,7 +16,7 @@ const ValidateOTP = () => {
     navigation("/auth/signin"); // new line
   };
 
-  const { inputs, errors, handleOnChange, hanldeError } = useValidation({
+  const { inputs, errors, handleOnChange, hanldeError } = useValidation<ApplyForm>({
     otp: "",
   });
   const validation = (e: any) => {

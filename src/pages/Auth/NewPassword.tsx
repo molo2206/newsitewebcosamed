@@ -5,6 +5,7 @@ import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
 import { useAuthContext } from "../../context";
 import Change_pass from "../../hooks/Change_pass";
+import { ApplyForm } from "../../types";
 const NewPassword = () => {
   const { t } = useTranslation();
   const { forgetpassword } = useAuthContext();
@@ -15,7 +16,7 @@ const NewPassword = () => {
     navigation("/auth/signin"); // new line
   };
 
-  const { inputs, errors, handleOnChange, hanldeError } = useValidation({
+  const { inputs, errors, handleOnChange, hanldeError } = useValidation<ApplyForm>({
     email: "",
   });
   const validation = (e: any) => {

@@ -25,7 +25,7 @@ export default function Editeprofile() {
         formdata.append('email', body?.email)
         formdata.append('phone', body?.phone)
         formdata.append('gender', body?.gender)
-        if (body?.image) {
+        if (body?.image?.name) {
             formdata.append('image', body?.image)
         }
         AuthService.editprofile(body)

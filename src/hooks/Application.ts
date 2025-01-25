@@ -1,10 +1,9 @@
 import { useAuthContext } from "../context";
 import { useState } from "react";
 import Candidature from "../services/CandidateServices";
-import { useLocation, useNavigate } from "react-router-dom";
-
+import { useNavigate, useSearchParams } from 'react-router-dom';
 const Application = () => {
-    const { user } = useAuthContext();
+    // const { user } = useAuthContext();
     const {
         errorNotification,
         successNotification,
@@ -16,13 +15,16 @@ const Application = () => {
         setImageUrl,
     } = useAuthContext()
     const [loading, setLoading] = useState(false)
+    const [searchParams] = useSearchParams();
     // const navigation = useNavigate()
     // const location = useLocation()
-
+    const navigate = useNavigate()
+    const redirectUrl = searchParams.get("next") || "/application-send-successfully";
     const apply_offre = (body: any, offer_id: any, user_id: any) => {
+        
         setLoading(true)
         const formdata = new FormData()
-        formdata.append('offer_id', '9c4eec88-37a7-4143-9cbe-165ec1dc9fc8')
+        formdata.append('offer_id', offer_id)
         formdata.append('user_id', user_id)
         if (body?.cover_letter) {
             formdata.append('cover_letter', body?.cover_letter)
@@ -76,6 +78,7 @@ const Application = () => {
                     setImage(null)
                     setImageUrl(null)
                     closeModal()
+                    navigate('/application-send-successfully');
                     // navigation('/community/join', { replace: true })
                 } else {
                     errorNotification(
@@ -100,6 +103,7 @@ const Application = () => {
 
     return {
         loading,
+        redirectUrl,
         apply_offre,
     }
 }

@@ -40,7 +40,7 @@ const LoginPage = () => {
         <img
           src="https://apicosamed.cosamed.org/uploads/blogs/505259756244493872b7709a8a01b536.png" // Remplacez par votre URL d'image
           alt="Banner"
-          className="w-full object-cover h-72"
+          className="w-full object-cover h-72 rounded-md"
         />
       </div>
 

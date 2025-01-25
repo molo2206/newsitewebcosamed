@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAsync from "../hooks/useAsync";
-import OffresServices from "../services/OffresServices";
 import Input from "../components/form/Input";
 import CountryServices from "../services/CountryServices";
 import { useTranslation } from "react-i18next";
@@ -22,7 +21,7 @@ import BreadCumb from "../components/navbar/BreadCumb";
 
 const JobApplicationForm = () => {
   const { t } = useTranslation();
-  const { offre_id } = useParams();
+  const { id } = useParams();
   const { user, pageLang } = useAuthContext();
   const { data: country } = useAsync(() => CountryServices.getCountry());
   const { apply_offre, loading } = Application();
@@ -407,8 +406,7 @@ const JobApplicationForm = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (validateStep()) {
-      apply_offre(inputs, offre_id, user?.id);
-      // console.log(inputs);
+      apply_offre(inputs, id, user?.id);
     }
   };
   return (
@@ -666,13 +664,31 @@ const JobApplicationForm = () => {
 
           {currentStep === 2 && (
             <div>
+              <div className="">
+                <h1 className=" text-xl font-semibold">
+                  Parcours scolaire en termes de diplôme
+                </h1>
+                <p className="font-light text-sm lg:text-sm">
+                  Le parcours scolaire est l'ensemble des étapes d'apprentissage
+                  et de formation qu'une personne suit tout au long de sa vie
+                  académique. Il commence généralement par l'école primaire, où
+                  les bases de l'éducation sont posées, suivie par
+                  l'enseignement secondaire, qui permet de développer des
+                  compétences plus spécifiques et d'approfondir les
+                  connaissances générales. Ensuite, certains choisissent de
+                  poursuivre dans l'enseignement supérieur pour acquérir une
+                  expertise dans un domaine particulier, en passant par des
+                  études universitaires, des formations professionnelles, ou des
+                  écoles spécialisées.
+                </p>
+              </div>
               <div className="mb-4 border rounded-lg">
                 <div className=" px-2 py-4">
                   {inputs?.educations?.map((edu: Education, index) => (
                     <div key={index} className="border-b pb-4 mb-4">
                       <div className="flex justify-between items-center">
                         <h2 className="text-sm font-semibold font-semibold text-gray-800">
-                          Education {index + 1}
+                          Parcours : {index + 1}
                         </h2>
                         {inputs?.educations &&
                           inputs?.educations?.length > 1 && (
@@ -688,7 +704,7 @@ const JobApplicationForm = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                         <Input
                           name="institution_edu"
-                          label="Établissement ou université*"
+                          label="Établissement*"
                           placeholder="Nom de l'institution"
                           type="text"
                           value={edu.institution}
@@ -706,7 +722,7 @@ const JobApplicationForm = () => {
                         />
                         <Input
                           name="title_edu"
-                          label="title*"
+                          label="Titre du diplôme ou de la certification"
                           placeholder=""
                           type="text"
                           value={edu.title_edu}
@@ -722,7 +738,7 @@ const JobApplicationForm = () => {
                         />
                         <Input
                           name="endDate_edu"
-                          label="Année términale*"
+                          label="Année*"
                           placeholder=""
                           type="date"
                           value={edu.endDate_edu}
@@ -751,13 +767,23 @@ const JobApplicationForm = () => {
                   </button>
                 </div>
               </div>
+              <div className="">
+                <h1 className=" text-xl font-semibold">
+                  Expériences professionnelles
+                </h1>
+                <p className="font-light text-sm lg:text-sm">
+                  Les expériences professionnelles font référence à l’ensemble
+                  des postes, missions ou projets que vous avez occupés ou
+                  réalisés dans le cadre de votre vie active.
+                </p>
+              </div>
               <div className=" border rounded-lg ">
                 <div className=" px-2 py-4">
                   {inputs?.experiences?.map((edu: Experience, index) => (
                     <div key={index} className="border-b pb-4 mb-4">
                       <div className="flex justify-between items-center">
                         <h2 className="text-sm font-semibold text-gray-800">
-                          Expérience {index + 1}
+                          Expérience : {index + 1}
                         </h2>
                         {inputs?.experiences &&
                           inputs?.experiences?.length > 1 && (
@@ -774,7 +800,7 @@ const JobApplicationForm = () => {
                         <Input
                           required
                           name="select"
-                          label="Nom de l'entreprise"
+                          label="Nom de l'entreprise ou organisation"
                           type="text"
                           value={edu.company_name_exp}
                           errors={errors[`company_name_exp${index}`]}
@@ -792,7 +818,7 @@ const JobApplicationForm = () => {
                         <Input
                           required
                           name="select"
-                          label="Titre du poste"
+                          label="Titre du poste ou intitulé du poste"
                           type="text"
                           value={edu.job_title_ex}
                           errors={errors[`job_title_ex${index}`]}
@@ -810,7 +836,7 @@ const JobApplicationForm = () => {
                         <Input
                           required
                           name="select"
-                          label="De*"
+                          label="De"
                           type="date"
                           value={edu.start_date_exp}
                           errors={errors[`start_date_exp${index}`]}
@@ -828,7 +854,7 @@ const JobApplicationForm = () => {
                         <Input
                           required
                           name="select"
-                          label="À*"
+                          label="À"
                           type="date"
                           value={edu.end_date_exp}
                           errors={errors[`end_date_exp${index}`]}
@@ -844,7 +870,7 @@ const JobApplicationForm = () => {
                           }
                         />
                         <TextArea
-                          label="Description de l'expérience"
+                          label="Description du poste (Pour nous permettre de clarifier clairement votre rôle)"
                           name=""
                           value={edu.description_exp}
                           errors={errors[`description_exp${index}`]}
@@ -876,13 +902,24 @@ const JobApplicationForm = () => {
           )}
           {currentStep === 3 && (
             <div>
+              <div className="">
+                <h1 className=" text-xl font-semibold">
+                  Competences (Habiletes et capacités)
+                </h1>
+                <p className="font-light text-sm lg:text-sm">
+                  Les compétences (habiletés et capacités) représentent les
+                  aptitudes techniques, relationnelles et personnelles qui
+                  permettent à un individu d'accomplir efficacement des tâches
+                  dans un contexte professionnel.
+                </p>
+              </div>
               <div className="mb-4 border rounded-lg">
                 <div className=" px-2 py-4">
                   {inputs?.skills?.map((edu: Skills, index) => (
                     <div key={index} className="border-b pb-4 mb-4">
                       <div className="flex justify-between items-center">
                         <h2 className="text-sm font-semibold font-semibold text-gray-800">
-                          Competence {index + 1}
+                          Competence : {index + 1}
                         </h2>
                         {inputs?.skills && inputs?.skills?.length > 1 && (
                           <button
@@ -898,7 +935,7 @@ const JobApplicationForm = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
                         <Input
                           name="skill_name"
-                          label="Entrez la compétence à ajouter ici"
+                          label="Entrer la compétence puis ajouter"
                           placeholder=""
                           type="text"
                           value={edu.skill_name}

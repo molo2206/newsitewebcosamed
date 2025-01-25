@@ -17,8 +17,8 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="text-white bg-gradient-to-r bg-principal dark:bg-slate-800  font-montserrat">
-        <div className="container mx-auto p-4 grid grid-cols-4 gap-8">
+      <footer className="text-white bg-gradient-to-r  p-4 bg-principal dark:bg-slate-800  font-montserrat">
+        <div className="container mx-auto grid md:grid-cols-4 gap-8">
           {/* Section "Qui sommes-nous?" */}
           <div>
             <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold sm:font-semibold mb-4">
@@ -35,7 +35,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  className="font-light lg:text-sm sm:text-sm md:text-sm"
                   href="/team"
                 >
                   Gouvernance et direction
@@ -145,6 +145,17 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
+            <div className="md:hidden">
+              <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4">
+                URGENCE
+              </h3>
+              <button
+                onClick={donatelink}
+                className="mt-4 sm:w-full md:w-full bg-red-500 text-white px-2 py-2 rounded "
+              >
+                {t("Donate")}
+              </button>
+            </div>
           </div>
           <div className=" hidden md:block">
             <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4">

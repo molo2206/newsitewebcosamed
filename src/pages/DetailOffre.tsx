@@ -48,7 +48,7 @@ const DetailOffre = () => {
               </h1>
               <button
                 onClick={gojobapllication}
-                // disabled={moment().format("YYYY-MM-DD") > data?.enddate}
+                disabled={moment().format("YYYY-MM-DD") > data?.enddate}
                 className="bg-principal text-white px-6 py-2 mt-4 rounded shadow hover:bg-hover"
               >
                 {t("Apply")}

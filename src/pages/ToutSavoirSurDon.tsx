@@ -10,6 +10,7 @@ import useValidation from "../hooks/useValidation";
 import TextArea from "../components/form/TextArea";
 import { Link } from "react-router-dom";
 import SimpleBannerToutSavoir from "../components/simpleBanner/SimpleBannerToutSavoir";
+import { ApplyForm } from "../types";
 
 const ToutSavoirSurDon = () => {
   const { data, loading } = useAsync(() => BlogServices.getBlog());
@@ -19,7 +20,7 @@ const ToutSavoirSurDon = () => {
   const { createContact, loading: loadingForm } = Contact();
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
-    useValidation({
+    useValidation<ApplyForm>({
       first_name: "",
       last_name: "",
       email: "",

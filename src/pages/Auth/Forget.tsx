@@ -4,6 +4,7 @@ import useValidation from "../../hooks/useValidation";
 import Input from "../../components/form/Input";
 import Button from "../../components/form/Button";
 import ForgetPassword from "../../hooks/ForgetPassword";
+import { ApplyForm } from "../../types";
 const Forget = () => {
   const { t } = useTranslation();
   const { forget, loading: loadingForm } = ForgetPassword();
@@ -13,9 +14,10 @@ const Forget = () => {
     navigation("/auth/signin"); // new line
   };
 
-  const { inputs, errors, handleOnChange, hanldeError } = useValidation({
-    email: "",
-  });
+  const { inputs, errors, handleOnChange, hanldeError } =
+    useValidation<ApplyForm>({
+      email: "",
+    });
   const validation = (e: any) => {
     e.preventDefault();
 
@@ -27,7 +29,6 @@ const Forget = () => {
 
     if (valide) {
       forget(inputs);
-      // console.log({ ...register, code: inputs.code })
     }
   };
   return (

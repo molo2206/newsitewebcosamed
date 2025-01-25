@@ -8,6 +8,7 @@ import { ButtonMoney } from "../components/cards/ButtonMoney";
 import { CardElement } from "@stripe/react-stripe-js";
 import Button from "../components/form/Button";
 import Donate from "../hooks/Donate";
+import { ApplyForm } from "../types";
 
 const CARD_OPTIONS: any = {
   iconStyle: "solid",
@@ -68,7 +69,7 @@ const DonateTrue = () => {
   const { data: country } = useAsync(() => CountryService.getCountry());
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
-    useValidation({
+    useValidation<ApplyForm>({
       first_name: "",
       last_name: "",
       email: "",
@@ -113,7 +114,9 @@ const DonateTrue = () => {
               key={tab.id}
               className={`h-[60px] w-[800px] rounded-lg 
                             ${
-                              currentTab === tab.id ? "bg-principal" : "bg-white"
+                              currentTab === tab.id
+                                ? "bg-principal"
+                                : "bg-white"
                             } text-black  hover:bg-hover hover:text-white font-extrabold text-center`}
               onClick={() => onChangeTab(tab)}
             >
@@ -317,9 +320,7 @@ const DonateTrue = () => {
                           <div
                             className=" text-center px-4 py-1 rounded-md md:w-3/4 mx-auto absolute left-0 right-0 
              -top-12 dark:bg-slate-800 dark:text-slate-200 "
-                          >
-                          
-                          </div>
+                          ></div>
                           <img
                             src="https://apicosamed.cosamed.org/uploads/blogs/card.png"
                             alt=""
@@ -368,8 +369,8 @@ const DonateTrue = () => {
              -bottom-16 dark:bg-slate-800 dark:text-slate-200 "
                   >
                     <h3 className=" mb-3 text-neutralGray font-semibold line-clamp-5">
-                    Permet de fournir le soin de santé primaire et secondiare à 35
-                    personnes souffrant.
+                      Permet de fournir le soin de santé primaire et secondiare
+                      à 35 personnes souffrant.
                     </h3>
                     {/* <div className=" flex items-center justify-center gap-8 ">
                       <a
@@ -453,8 +454,8 @@ const DonateTrue = () => {
                         name="autre"
                         label="Autre"
                         type="number"
-                        errors={errors.custom_amount}
-                        value={inputs.custom_amount}
+                        errors={errors?.custom_amount}
+                        value={inputs?.custom_amount}
                         onChange={(e: any) =>
                           handleOnChange(e.target.value, "custom_amount")
                         }
@@ -578,9 +579,7 @@ const DonateTrue = () => {
                           <div
                             className=" text-center px-4 py-1 rounded-md md:w-3/4 mx-auto absolute left-0 right-0 
              -top-12 dark:bg-slate-800 dark:text-slate-200 "
-                          >
-                           
-                          </div>
+                          ></div>
                           <img
                             src="https://apicosamed.cosamed.org/uploads/blogs/card.png"
                             alt=""
@@ -629,8 +628,8 @@ const DonateTrue = () => {
              -bottom-16 dark:bg-slate-800 dark:text-slate-200 "
                   >
                     <h3 className=" mb-3 text-neutralGray font-semibold line-clamp-5">
-                      Permet de fournir le soin de santé primaire et secondiare à 74
-                      personnes souffrant.
+                      Permet de fournir le soin de santé primaire et secondiare
+                      à 74 personnes souffrant.
                     </h3>
                     {/* <div className=" flex items-center justify-center gap-8 ">
                       <a

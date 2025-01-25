@@ -11,6 +11,13 @@ const SearchServices = {
     getResultSearch: async () => {
         return requests.get(`/all_result`)
     },
+    getResultSearchOffre: async (body: any, page: number) => {
+        return requests.post(`/public/search_all_offre${page ? "?page=" + page : ""}`, body, {
+            headers: {
+                Accept: 'application/json',
+            },
+        })
+    },
 }
 
 export default SearchServices

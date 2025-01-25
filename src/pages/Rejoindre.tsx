@@ -13,6 +13,7 @@ import { useAuthContext } from "../context";
 import Members from "../hooks/Members";
 import BreadCumb from "../components/navbar/BreadCumb";
 import usePageSEO from "../components/Seo/usePageSEO";
+import { ApplyForm } from "../types";
 
 const Rejoindre = () => {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ const Rejoindre = () => {
   });
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
-    useValidation({
+    useValidation<ApplyForm>({
       name: "",
       prename: "",
       sexe: "",
@@ -222,6 +223,7 @@ const Rejoindre = () => {
                               type="select"
                               errors={errors.thematique}
                               value={inputs.thematique}
+                              onFocus={() => hanldeError(null, `thematique`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "thematique")
                               }
@@ -239,6 +241,7 @@ const Rejoindre = () => {
                               type="select"
                               errors={errors.typemembre}
                               value={inputs.typemembre}
+                              onFocus={() => hanldeError(null, `typemembre`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "typemembre")
                               }
@@ -260,6 +263,7 @@ const Rejoindre = () => {
                               type="text"
                               errors={errors.name}
                               value={inputs.name}
+                              onFocus={() => hanldeError(null, `name`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "name")
                               }
@@ -272,6 +276,7 @@ const Rejoindre = () => {
                               type="text"
                               errors={errors.prename}
                               value={inputs.prename}
+                              onFocus={() => hanldeError(null, `prename`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "prename")
                               }
@@ -283,6 +288,7 @@ const Rejoindre = () => {
                               type="select"
                               value={inputs.sexe}
                               errors={errors.sexe}
+                              onFocus={() => hanldeError(null, `sexe`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "sexe")
                               }
@@ -298,6 +304,7 @@ const Rejoindre = () => {
                               type="phone"
                               errors={errors.phone}
                               value={inputs.phone}
+                              onFocus={() => hanldeError(null, `phone`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "phone")
                               }
@@ -310,6 +317,7 @@ const Rejoindre = () => {
                               type="email"
                               errors={errors.email}
                               value={inputs.email}
+                              onFocus={() => hanldeError(null, `email`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "email")
                               }
@@ -321,6 +329,7 @@ const Rejoindre = () => {
                               type="select"
                               value={inputs.country}
                               errors={errors.country}
+                              onFocus={() => hanldeError(null, `country`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "country")
                               }
@@ -336,6 +345,7 @@ const Rejoindre = () => {
                               type="text"
                               errors={errors.ville}
                               value={inputs.ville}
+                              onFocus={() => hanldeError(null, `ville`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "ville")
                               }
@@ -348,6 +358,7 @@ const Rejoindre = () => {
                               placeholder=""
                               errors={errors.profession}
                               value={inputs.profession}
+                              onFocus={() => hanldeError(null, `profession`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "profession")
                               }
@@ -359,6 +370,7 @@ const Rejoindre = () => {
                               type="text"
                               errors={errors.num_ordre}
                               value={inputs.num_ordre}
+                              onFocus={() => hanldeError(null, `num_ordre`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "num_ordre")
                               }
@@ -370,6 +382,7 @@ const Rejoindre = () => {
                               placeholder=""
                               errors={errors.corporation}
                               value={inputs.corporation}
+                              onFocus={() => hanldeError(null, `corporation`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "corporation")
                               }
@@ -381,6 +394,7 @@ const Rejoindre = () => {
                               placeholder=""
                               type="text"
                               value={inputs.motif}
+                              onFocus={() => hanldeError(null, `motif`)}
                               onChange={(e: any) =>
                                 handleOnChange(e.target.value, "motif")
                               }

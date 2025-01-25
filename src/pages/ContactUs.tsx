@@ -82,7 +82,9 @@ const ContactUs = () => {
         <section className="mb-10 ">
           <header className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg text-white py-10">
             <div className="max-w-6xl mx-auto px-4 text-center">
-              <h1 className="md:text-xl lg:text-2xl font-bold">{t("Contact_us")}</h1>
+              <h1 className="md:text-xl lg:text-2xl font-bold">
+                {t("Contact_us")}
+              </h1>
             </div>
           </header>
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 ">
@@ -92,7 +94,7 @@ const ContactUs = () => {
                 Ce que nous pensons,
               </h1>
               <p className=" font-light lg:text-sm mb-6 dark:text-white">
-                {t('team_info')}
+                {t("team_info")}
               </p>
               <ul className="space-y-4">
                 <li className="flex items-center">
@@ -135,7 +137,7 @@ const ContactUs = () => {
               {/* Social Media Links */}
               <div className="mt-8 ">
                 <h2 className="text-lg font-semibold lg:text-sm md:text-sm  text-gray-800 mb-4 dark:text-white">
-                  {t('Follow_use')}
+                  {t("Follow_use")}
                 </h2>
                 <div className="flex space-x-4">
                   <a
@@ -178,6 +180,7 @@ const ContactUs = () => {
                       type="text"
                       errors={errors.first_name}
                       value={inputs.first_name}
+                      onFocus={() => hanldeError(null, `first_name`)}
                       onChange={(e: any) =>
                         handleOnChange(e.target.value, "first_name")
                       }
@@ -189,6 +192,7 @@ const ContactUs = () => {
                       type="text"
                       errors={errors.last_name}
                       value={inputs.last_name}
+                      onFocus={() => hanldeError(null, `last_name`)}
                       onChange={(e: any) =>
                         handleOnChange(e.target.value, "last_name")
                       }
@@ -202,6 +206,7 @@ const ContactUs = () => {
                       type="text"
                       errors={errors.email}
                       value={inputs.email}
+                      onFocus={() => hanldeError(null, `email`)}
                       onChange={(e: any) =>
                         handleOnChange(e.target.value, "email")
                       }
@@ -215,6 +220,7 @@ const ContactUs = () => {
                       type="phone"
                       errors={errors.phone}
                       value={inputs.phone}
+                      onFocus={() => hanldeError(null, `phone`)}
                       onChange={(e: any) =>
                         handleOnChange(e.target.value, "phone")
                       }
@@ -226,6 +232,7 @@ const ContactUs = () => {
                       placeholder={t("Message")}
                       type="text"
                       value={inputs.message}
+                      onFocus={() => hanldeError(null, `message`)}
                       onChange={(e: any) =>
                         handleOnChange(e.target.value, "message")
                       }

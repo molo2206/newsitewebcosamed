@@ -61,6 +61,8 @@ import ForgetPassword from "./pages/Auth/Forget";
 import Otp from "./pages/Auth/Otp";
 import NewPassword from "./pages/Auth/NewPassword";
 import Gallery from "./pages/Gallery";
+import PageRechercheOffre from "./pages/PageRechercheOffre";
+import SuccessPage from "./pages/AlertEmploi/SuccessPage";
 function App() {
   const stripe = getstripe();
   return (
@@ -146,6 +148,14 @@ function App() {
               element={<Thematiqueblog />}
             ></Route>
             <Route path="/search" element={<PageSearch />}></Route>
+            <Route
+              path="/search-offre"
+              element={<PageRechercheOffre />}
+            ></Route>
+            <Route
+              path="application-send-successfully"
+              element={<SuccessPage />}
+            />
             <Route
               path="/load-data/communicated"
               element={<Communicates />}

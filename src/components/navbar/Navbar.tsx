@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
-import { FaBars, FaCaretDown } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
 import useSticky from "../../hooks/useSticky";
 import SettingsServices from "../../services/SettingsServices";
@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { FaXmark } from "react-icons/fa6";
 
 function Navbar() {
-  const { handleLanguageChange, lang } = useAuthContext();
+  const { handleLanguageChange } = useAuthContext();
   const { t } = useTranslation();
   const { sticky } = useSticky();
 
@@ -148,10 +148,10 @@ function Navbar() {
                     className="dropdown icon absolute left-0 z-[99999] hidden w-full rounded-b-3xl bg-white text-black
                  dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
                   >
-                    <div className="grid grid-cols-2 gap-5 ">
-                      <div className="col-span-2">
+                    <div className="grid grid-cols-4 gap-6 ">
+                      <div className="col-span-4">
                         <p className=" text-xs">
-                          <div className=" grid grid-cols-5 mt-6">
+                          <div className=" grid grid-cols-4 mt-4 px-4">
                             {cat.map((item: any, index: number) => (
                               <div>
                                 <CategoryCard cat={item} key={index} />
@@ -357,13 +357,15 @@ function Navbar() {
                         title={selectedLanguage === "en" ? "English" : "French"}
                       />
                       {selectedLanguage === "en" ? "English" : "French"}
-                      <span className="ml-2">▼</span>
+                      <span className="ml-2 px-2">▼</span>
                     </button>
 
                     {/* Dropdown */}
                     {dropdownOpen && (
-                      <div className="absolute right-0 mt-1 w-[140px]  bg-principal  dark:bg-slate-800 dark:border border-slate-700
-                         rounded-lg shadow-lg z-20">
+                      <div
+                        className="absolute right-0 mt-1 w-[140px]  bg-principal  dark:bg-slate-800 dark:border border-slate-700
+                         rounded-lg shadow-lg z-20"
+                      >
                         <button
                           className="flex items-center gap-2 w-full text-sm md:text-sm px-4 py-2 hover:bg-hover rounded text-white"
                           onClick={() => selectLanguage("en")}
