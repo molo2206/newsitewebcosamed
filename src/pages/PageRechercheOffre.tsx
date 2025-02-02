@@ -84,16 +84,16 @@ const PageRechercheOffre = () => {
             </p>
           </div>
         </div>
-        <div className=" py-6">
-          <div className="">
-            {loading
-              ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
-              : data?.data?.map((items: any) => (
+        <div className=" py-2">
+          {loading
+            ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
+            : data?.data?.map((items: any) => (
+                <div className="py-2">
                   <CardSearchOffre job={items} />
-                ))}
-            <div className=" flex relative justify-center items-center py-3">
-              {renderPaginationLinks()}
-            </div>
+                </div>
+              ))}
+          <div className=" flex relative justify-center items-center py-3">
+            {renderPaginationLinks()}
           </div>
         </div>
       </div>

@@ -32,14 +32,17 @@ const DetailOffre = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="min-h-screen bg-gray-100 dark:bg-slate-900 w-full dark:text-white flex items-center justify-center p-6">
+        <div className=" bg-gray-100 dark:bg-slate-900 w-full dark:text-white flex items-center justify-center p-6">
           <div className="bg-white p-6 rounded-lg dark:bg-slate-800 dark:border dark:border-slate-700  dark:text-white shadow-lg w-full max-w-6xl">
             {/* Titre de l'offre */}
             {moment().format("YYYY-MM-DD") > data?.enddate && (
-              <div className="  bg-gradient-to-r bg-red-500 rounded-lg h-[50px] w-full">
-                <p className=" flex items-center justify-center text-white sm:text-sm md:text-lg dark:text-slate-200">
+              <div className="">
+                <p className="bg-gradient-to-r bg-red-500 rounded p-2 flex items-center 
+                justify-center text-white sm:text-sm md:text-sm dark:text-slate-200">
                   {t("Job_off")}
+                  
                 </p>
+                <a href="/contact" className=" text-principal text-sm underline">Contacter-nous</a>
               </div>
             )}
             <div className="flex justify-between items-center mb-4">
@@ -49,7 +52,7 @@ const DetailOffre = () => {
               <button
                 onClick={gojobapllication}
                 disabled={moment().format("YYYY-MM-DD") > data?.enddate}
-                className="bg-principal text-white px-6 py-2 mt-4 rounded shadow hover:bg-hover"
+                className="bg-principal text-white p-4 mt-4 rounded shadow hover:bg-hover"
               >
                 {t("Apply")}
               </button>
@@ -206,7 +209,7 @@ const DetailOffre = () => {
                 <button
                   onClick={gojobapllication}
                   disabled={moment().format("YYYY-MM-DD") > data?.enddate}
-                  className="bg-principal text-white px-6 py-2 mt-4 rounded shadow hover:bg-hover"
+                  className="bg-principal text-white p-4 py-2 mt-4 rounded shadow hover:bg-hover"
                 >
                   {t("Apply")}
                 </button>

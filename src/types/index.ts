@@ -45,8 +45,10 @@ export type ApplyForm = {
     town?: string;
     gender?: string;
     full_name?: string;
-    cover_letter?: string;
-    cv?: string;
+    cover_letter?: any;
+    cv?: any;
+    carte?: any,
+    dossier?: any,
     image?: any;
     first_name?: string;
     last_name?: string;

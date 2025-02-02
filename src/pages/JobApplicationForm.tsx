@@ -18,11 +18,14 @@ import {
 import Application from "../hooks/Application";
 import Button from "../components/form/Button";
 import BreadCumb from "../components/navbar/BreadCumb";
+import InputFile from "../components/form/InputFile";
+import OffresServices from "../services/OffresServices";
 
 const JobApplicationForm = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const { user, pageLang } = useAuthContext();
+  const { data: offre } = useAsync(() => OffresServices.oneOffre(id), id);
   const { data: country } = useAsync(() => CountryServices.getCountry());
   const { apply_offre, loading } = Application();
   //==============================Mes données personnelles=========
@@ -35,6 +38,10 @@ const JobApplicationForm = () => {
       phone: "",
       country: "",
       town: "",
+      cover_letter: "",
+      cv: "",
+      dossier: "",
+      carte: "",
       //Langue
       languages: [
         {
@@ -80,8 +87,6 @@ const JobApplicationForm = () => {
         },
       ],
       //Application
-      cover_letter: "",
-      cv: "",
     });
 
   const handleOnChangeIndex = (value: string, index: number, field: string) => {
@@ -249,13 +254,51 @@ const JobApplicationForm = () => {
         });
         break;
       case 3:
-        if (!inputs.cover_letter || !inputs.cv) {
-          hanldeError(
-            t("Veuillez ajouter une lettre de motivation et un CV"),
-            "cover_letter"
-          );
+        if (!inputs.cover_letter) {
+          hanldeError("Cover is required", "cover_letter");
           isValid = false;
+        } else {
+          const MAX_FILE_SIZE = 5120; // 5MB
+          const fileSizeKiloBytes = inputs?.cover_letter?.size / 1024;
+          if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+            hanldeError("Cover letter is too big (max 5 mb) ", "cover_letter");
+            isValid = false;
+          }
         }
+        if (!inputs.cv) {
+          hanldeError("Cover is required", "cv");
+          isValid = false;
+        } else {
+          const MAX_FILE_SIZE = 5120; // 5MB
+          const fileSizeKiloBytes = inputs?.cv?.size / 1024;
+          if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+            hanldeError("Cv is too big (max 5 mb) ", "cv");
+            isValid = false;
+          }
+        }
+        if (!inputs.carte) {
+          hanldeError("Carte is required", "carte");
+          isValid = false;
+        } else {
+          const MAX_FILE_SIZE = 5120; // 5MB
+          const fileSizeKiloBytes = inputs?.carte?.size / 1024;
+          if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+            hanldeError("Carte is too big (max 5 mb) ", "carte");
+            isValid = false;
+          }
+        }
+        if (!inputs.dossier) {
+          hanldeError("Dossier is required", "dossier");
+          isValid = false;
+        } else {
+          const MAX_FILE_SIZE = 5120; // 5MB
+          const fileSizeKiloBytes = inputs?.dossier?.size / 1024;
+          if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+            hanldeError("Dossier is too big (max 5 mb) ", "dossier");
+            isValid = false;
+          }
+        }
+
         break;
       default:
         break;
@@ -277,16 +320,21 @@ const JobApplicationForm = () => {
     }
   };
 
-  const [languages, setLanguages] = useState([]);
-  useEffect(() => {
-    fetch("/languages.json")
-      .then((response) => response.json())
-      .then((data) => setLanguages(data))
-      .catch((error) =>
-        console.error("Erreur lors du chargement des langues:", error)
-      );
-  }, []);
-
+  const languages = [
+    {
+      code: "en",
+      name: "English",
+    },
+    {
+      code: "fr",
+      name: "French",
+    },
+    {
+      code: "es",
+      name: "Spanish",
+    },
+  ];
+  
   const addLanguageExperience = () => {
     const array: Languages[] | any = inputs?.languages;
     array?.push({
@@ -412,7 +460,7 @@ const JobApplicationForm = () => {
   return (
     <div className="container dark:bg-slate-900 w-full dark:text-white  bg-gray-100">
       <BreadCumb title={"Blog"} />
-      <header className="bg-principal dark:bg-slate-800 dark:text-white shadow-md p-6 rounded-lg">
+      <header className="bg-principal dark:bg-slate-800 dark:text-white shadow-md p-2 rounded-lg">
         <div className="max-w-6xl mx-auto">
           {/* Conteneur des étapes */}
           <div className="flex items-center justify-between gap-6">
@@ -420,7 +468,7 @@ const JobApplicationForm = () => {
               <div key={index} className="flex-1 flex flex-col items-center">
                 {/* Étape */}
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-medium border-2 transition-all duration-300 ${
+                  className={`w-8 h-8 md:w-10 md:h-10  rounded-full flex items-center justify-center text-lg font-medium border-2 transition-all duration-300 ${
                     currentStep === index + 1
                       ? "bg-hover text-white "
                       : currentStep > index + 1
@@ -437,6 +485,11 @@ const JobApplicationForm = () => {
       </header>
 
       <div className="mt-8 ">
+        <div className="flex justify-center items-center mb-4">
+          <h1 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white p-6">
+            {offre?.title}
+          </h1>
+        </div>
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-full dark:bg-slate-800 dark:text-white bg-white rounded-lg shadow-md p-6 "
@@ -964,21 +1017,22 @@ const JobApplicationForm = () => {
                   </button>
                 </div>
               </div>
+              <div className="">
+                <h1 className=" text-xl font-semibold">Brevet/certificat</h1>
+                <p className="font-light text-sm lg:text-sm">
+                  Parlez-nous de toute Certificat,brevet professionnelle que
+                  vous détenez et qui pourrait être pertinente pour votre
+                  candidature, y compris toute certification linguistique
+                  potentielle.
+                </p>
+              </div>
               <div className="mb-4 border rounded-lg">
-                <div className=" px-2 py-4">
-                  <div>
-                    <p className="font-light lg:text-sm">
-                      Parlez-nous de toute certification professionnelle que
-                      vous détenez et qui pourrait être pertinente pour votre
-                      candidature, y compris toute certification linguistique
-                      potentielle.
-                    </p>
-                  </div>
+                <div className=" px-2 py-2">
                   {inputs?.attestations?.map((edu: Attestations, index) => (
                     <div key={index} className="border-b pb-4 mb-4">
                       <div className="flex justify-between items-center">
                         <h2 className="text-sm font-semibold text-gray-800 py-4">
-                          Attestation/certificat {index + 1}
+                          Brevet ou certificat : {index + 1}
                         </h2>
                         {inputs?.attestations &&
                           inputs?.attestations?.length > 1 && (
@@ -995,7 +1049,7 @@ const JobApplicationForm = () => {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
                         <Input
                           name="title"
-                          label="Entrez le nom de l'attestion à ajouter ici"
+                          label="Précisez le titre de ce document(Ex:Conduite,Pharmacie,etc.)"
                           placeholder=""
                           type="text"
                           value={edu.title_attestation}
@@ -1011,19 +1065,19 @@ const JobApplicationForm = () => {
                             )
                           }
                         />
-                        <Input
+                        <InputFile
                           name="certificate"
-                          label="Entrez le nom de l'attestion à ajouter ici"
+                          label="Sélectionnez la copie de ce document en pdf"
                           placeholder=""
                           type="file"
-                          value={edu.file_attestation}
+                          // value={edu.file_attestation}
                           errors={errors[`file_attestation${index}`]}
                           onFocus={() =>
                             hanldeError(null, `file_attestation${index}`)
                           }
                           onChange={(e: any) =>
                             handleOnChangeIndexAttestation(
-                              e.target.value,
+                              e.target.files[0],
                               index,
                               "file_attestation"
                             )
@@ -1065,35 +1119,74 @@ const JobApplicationForm = () => {
                   </button>
                 </div>
               </div>
+              <div className="">
+                <h1 className=" text-xl font-semibold">
+                  {" "}
+                  CV & Lettre de motivation
+                </h1>
+                <p className="font-light text-sm lg:text-sm">
+                  Cosamed cherche ainsi à maximiser les chances de trouver un
+                  candidat bien aligné.
+                </p>
+              </div>
               <div className=" ">
                 <div className="mb-4 border rounded-lg p-2">
-                  <div className="flex justify-between items-center py-4">
-                    <h2 className="text-sm font-semibold font-semibold text-gray-800">
-                      CV & Lettre de motivation
-                    </h2>
-                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
-                    <Input
+                    <InputFile
                       name="cv"
                       label="Sélectionner votre CV"
                       placeholder=""
                       type="file"
                       errors={errors.cv}
-                      value={inputs.cv}
-                      onChange={(e: any) =>
-                        handleOnChange(e.target.value, "cv")
-                      }
+                      onChange={(e: any) => {
+                        handleOnChange(e.target.files[0], "cv");
+                      }}
                     />
-                    <Input
+                    <InputFile
                       name="cover_letter"
                       label="Sélectionner votre lettre de motivation"
                       placeholder=""
                       type="file"
                       errors={errors.cover_letter}
-                      value={inputs.cover_letter}
-                      onChange={(e: any) =>
-                        handleOnChange(e.target.value, "cover_letter")
-                      }
+                      onChange={(e: any) => {
+                        handleOnChange(e.target.files[0], "cover_letter");
+                      }}
+                    />
+                    <InputFile
+                      name="carte"
+                      label="Sélectionner la copie de votre carte d'identité"
+                      placeholder=""
+                      type="file"
+                      errors={errors.cv}
+                      onChange={(e: any) => {
+                        handleOnChange(e.target.files[0], "carte");
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="">
+                <h1 className=" text-xl font-semibold"> Dossier au complet</h1>
+                <p className="font-light text-sm lg:text-sm">
+                  Afin de nous simplifier l'évaluation et la prise de décision.
+                </p>
+                <p className="py-2 line-coverage">
+                  Note : Tous les documents demandés doivent être regroupés dans
+                  un seul fichier PDF (dossier complet).
+                </p>
+              </div>
+              <div className=" py-2 ">
+                <div className="mb-4 border rounded-lg p-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
+                    <InputFile
+                      name="dossier"
+                      label="Sélectionner  votre dossier complet"
+                      placeholder=""
+                      type="file"
+                      errors={errors.dossier}
+                      onChange={(e: any) => {
+                        handleOnChange(e.target.files[0], "dossier");
+                      }}
                     />
                   </div>
                 </div>

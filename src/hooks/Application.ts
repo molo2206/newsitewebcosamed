@@ -21,7 +21,7 @@ const Application = () => {
     const navigate = useNavigate()
     const redirectUrl = searchParams.get("next") || "/application-send-successfully";
     const apply_offre = (body: any, offer_id: any, user_id: any) => {
-        
+
         setLoading(true)
         const formdata = new FormData()
         formdata.append('offer_id', offer_id)
@@ -31,6 +31,12 @@ const Application = () => {
         }
         if (body?.cv) {
             formdata.append('cv', body?.cv)
+        }
+        if (body?.dossier) {
+            formdata.append('dossier', body?.dossier)
+        }
+        if (body?.carte) {
+            formdata.append('carte', body?.carte)
         }
 
         body?.languages?.forEach((lang: any, index: number) => {
@@ -54,7 +60,7 @@ const Application = () => {
         });
 
         body?.skills.forEach((skill: any, index: number) => {
-            formdata.append(`skills[${index}]`, skill);
+            formdata.append(`skills[${index}]`, skill.skill_name);
         });
 
         body?.attestations.forEach((cert: any, index: number) => {

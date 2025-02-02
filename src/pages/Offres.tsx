@@ -90,25 +90,6 @@ const Offres = () => {
               {/* Section Recherche */}
               <div className="bg-white p-6 shadow-md rounded-md max-w-4xl mx-auto -mt-12 relative  dark:bg-slate-800">
                 <div className="flex items-center space-x-4">
-                  {/* <form onSubmit={validation} className="mt-2 space-y-6 mb-2">
-                    <div className="space-y-px rounded-md items-lg">
-                      <div className="blog-search-content">
-                        <div className="border-slate-300 border md:w-[400px] lg:w-[400px] border-sm dark:border-slate-700 search-box">
-                          <InputSearchOffre
-                            name="keyword"
-                            placeholder="Rechercher des emplois ou mots-clés"
-                            type="text"
-                            errors={errors.keyword}
-                            value={inputs.keyword}
-                            onChange={(e: any) =>
-                              handleOnChange(e.target.value, "keyword")
-                            }
-                          />
-                          <ButtonSearch loading="" />
-                        </div>
-                      </div>
-                    </div>
-                  </form> */}
                   <form
                     onSubmit={validation}
                     className="mt-6 max-w-md mx-auto flex flex-col md:flex-row gap-4"
@@ -166,13 +147,15 @@ const Offres = () => {
                 </div>
               </div>
               {/* Job Listings */}
-              <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10">
+              <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {loading
                   ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
                   : currentOffres.map((item: any, index: number) => (
-                      <OffresCard job={item} key={index} />
+                      <div className="py-2">
+                        <OffresCard job={item} key={index} />
+                      </div>
                     ))}
-              </section>
+              </div>
             </section>
             <Pagination
               postsPerPage={postsPerPage}

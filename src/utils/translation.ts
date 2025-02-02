@@ -1,6 +1,6 @@
 export const En = {
 	Home: 'Home',
-	Gallery:"Gallery",
+	Gallery: "Gallery",
 	Login: "Sign in",
 	Logout: "Log out",
 	Register: "Create an account",
@@ -78,7 +78,7 @@ export const En = {
 	PressButton: "Click the button below to download the newsletter",
 	Condition: "CONDITION OF MEMBERSHIP WITHIN",
 	Apply: "To apply",
-	Job_off: "This opening is not available anymore. Do not try to apply for this job.",
+	Job_off: "We would like to inform you that the deadline for this has passed, and the offer is no longer available. We understand that this may be disappointing, but we remain at your disposal to offer you similar opportunities if you wish.Please don't hesitate to contact us for any questions or to learn more about our upcoming offers.Thank you for your understanding, and we look forward to hearing from you soon!",
 	More: "Read more",
 	How_collaborate: "How we collaborate",
 	Data_how_collaborate: "We are proud to collaborate with the best in their respective sectors.",
@@ -140,7 +140,7 @@ export const En = {
 
 export const FR = {
 	Home: 'Accueil',
-	Gallery:"Galerie",
+	Gallery: "Galerie",
 	Login: "Se connecter",
 	Logout: "Se déconnecter",
 	Register: "Créer un compte",
@@ -221,7 +221,7 @@ export const FR = {
 	PressButton: "Cliquez sur le bouton ci-dessous pour télécharger le bulletin",
 	Condition: "CONDITION D’ADHESION AU SEIN DE",
 	Apply: "Postuler",
-	Job_off: "Cette ouverture n'est plus disponible. N'essayez pas de postuler pour cet emploi.",
+	Job_off: "Nous tenons à vous informer que la date limite de cette offre est désormais passée, et cette offre n’est plus disponible. Nous comprenons que cela puisse être décevant, mais nous restons à votre disposition pour vous proposer d’autres opportunités similaires si vous le souhaitez.N’hésitez pas à nous contacter pour toute question ou pour obtenir plus d’informations sur nos prochaines offres.Merci de votre compréhension et à bientôt !",
 	More: "Lire plus",
 	How_collaborate: "Comment nous collaborons",
 	Data_how_collaborate: "Nous sommes fiers de collaborer avec les meilleurs dans leurs secteurs respectifs.",

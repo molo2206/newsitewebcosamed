@@ -7,7 +7,7 @@ const PrivateLayout = () => {
   const { setRedirect, isAuthenticated } = useAuthContext();
   setRedirect(location.pathname);
   if (!isAuthenticated) {
-    return <Navigate to={`/signin?next=${location.pathname}`} />;
+    return <Navigate to={`/auth/signin?next=${location.pathname}`} />;
   }
 
   return <Outlet />;

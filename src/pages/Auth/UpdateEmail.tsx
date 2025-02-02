@@ -1,10 +1,8 @@
 import Button from "../../components/form/Button";
 import { useTranslation } from "react-i18next";
-import useAsync from "../../hooks/useAsync";
 import useValidation from "../../hooks/useValidation";
 import Input from "../../components/form/Input";
 import { useAuthContext } from "../../context";
-import Showprofil from "../../services/AuthService";
 import { useEffect } from "react";
 import Editeprofile from "../../hooks/Editeprofile";
 import InputPassword from "../../components/form/InputPassword";
@@ -20,9 +18,7 @@ const UpdateEmail = () => {
   const { editprof, loading: loadingForm } = Editeprofile();
   const { update_password, loading: loadingPassword } = Editeprofile();
 
-  const { data: profil, loading } = useAsync(() =>
-    Showprofil.showprofile(user?.id)
-  );
+
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
     useValidation<ApplyForm>({
@@ -34,14 +30,14 @@ const UpdateEmail = () => {
     });
   useEffect(() => {
     setInputs({
-      id: profil?.id,
-      full_name: profil?.full_name || "",
-      email: profil?.email || "",
-      phone: profil?.phone || "",
-      gender: profil?.gender || "",
-      image: profil?.image || "",
+      id: user?.id,
+      full_name: user?.full_name || "",
+      email: user?.email || "",
+      phone: user?.phone || "",
+      gender: user?.gender || "",
+      image: user?.image || "",
     });
-  }, [profil, pageLang]);
+  }, [user, pageLang]);
   const genres = [
     {
       value: "Masculin",
@@ -124,7 +120,7 @@ const UpdateEmail = () => {
             <h2 className="text-lg font-bold border-b-2 border-gray-300 pb-2 mb-4">
               Informations
             </h2>
-            {loading ? (
+            {loadingForm ? (
               Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
             ) : (
               <div>
