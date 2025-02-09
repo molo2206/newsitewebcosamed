@@ -26,7 +26,7 @@ export type Skills = {
 }
 export type Attestations = {
     title_attestation?: string;
-    file_attestation?: string;
+    file_attestation?: any;
     date_delivrance_attestation?: string;
 }
 

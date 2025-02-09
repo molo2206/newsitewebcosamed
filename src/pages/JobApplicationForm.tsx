@@ -20,6 +20,7 @@ import Button from "../components/form/Button";
 import BreadCumb from "../components/navbar/BreadCumb";
 import InputFile from "../components/form/InputFile";
 import OffresServices from "../services/OffresServices";
+import InputPdf from "../components/form/InputPdf";
 
 const JobApplicationForm = () => {
   const { t } = useTranslation();
@@ -334,7 +335,7 @@ const JobApplicationForm = () => {
       name: "Spanish",
     },
   ];
-  
+
   const addLanguageExperience = () => {
     const array: Languages[] | any = inputs?.languages;
     array?.push({
@@ -1065,7 +1066,7 @@ const JobApplicationForm = () => {
                             )
                           }
                         />
-                        <InputFile
+                        <InputPdf
                           name="certificate"
                           label="Sélectionnez la copie de ce document en pdf"
                           placeholder=""
@@ -1132,22 +1133,24 @@ const JobApplicationForm = () => {
               <div className=" ">
                 <div className="mb-4 border rounded-lg p-2">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
-                    <InputFile
+                    <InputPdf
                       name="cv"
                       label="Sélectionner votre CV"
                       placeholder=""
                       type="file"
                       errors={errors.cv}
+                      onFocus={() => hanldeError(null, `cv`)}
                       onChange={(e: any) => {
                         handleOnChange(e.target.files[0], "cv");
                       }}
                     />
-                    <InputFile
+                    <InputPdf
                       name="cover_letter"
                       label="Sélectionner votre lettre de motivation"
                       placeholder=""
                       type="file"
                       errors={errors.cover_letter}
+                      onFocus={() => hanldeError(null, `cover_letter`)}
                       onChange={(e: any) => {
                         handleOnChange(e.target.files[0], "cover_letter");
                       }}
@@ -1158,6 +1161,7 @@ const JobApplicationForm = () => {
                       placeholder=""
                       type="file"
                       errors={errors.cv}
+                      onFocus={() => hanldeError(null, `carte`)}
                       onChange={(e: any) => {
                         handleOnChange(e.target.files[0], "carte");
                       }}
@@ -1178,15 +1182,19 @@ const JobApplicationForm = () => {
               <div className=" py-2 ">
                 <div className="mb-4 border rounded-lg p-2">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
-                    <InputFile
+                    <InputPdf
                       name="dossier"
                       label="Sélectionner  votre dossier complet"
                       placeholder=""
                       type="file"
                       errors={errors.dossier}
+                      onFocus={() => hanldeError(null, `dossier`)}
                       onChange={(e: any) => {
-                        handleOnChange(e.target.files[0], "dossier");
+                        handleOnChange(e.target.files[0], "dossier"
+                          
+                        );
                       }}
+                      
                     />
                   </div>
                 </div>

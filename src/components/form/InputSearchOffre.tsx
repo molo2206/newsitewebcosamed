@@ -51,8 +51,8 @@ const InputSearchOffre = ({
           placeholder={placeholder}
           type={type || "text"}
           className=" bg-transparent font-montserrat w-full  md:w-[350px]  sm:w-w-full rounded-3xl text-slate-800 border py-3
-             px-4 dark:text-white border-slate-400 dark:border-slate-700 focus:outline-none focus:border-principal
-              focus:dark:border-principal focus:ring-0 "
+             px-4 dark:text-white border-slate-400 dark:border-slate-700 focus:outline-none min-w-[10px] 
+           resize-none focus:ring focus:ring-slate-300 "
           //placeholder={placeholder}
           onChange={onChange}
         />

@@ -144,6 +144,14 @@ const Footer = () => {
                   Devenez volontaire ou membre de COSAMED
                 </a>
               </li>
+              <li>
+                <a
+                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
+                  href="/confidentiality"
+                >
+                  Politique de Confidentialité
+                </a>
+              </li>
             </ul>
             <div className="md:hidden">
               <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4">

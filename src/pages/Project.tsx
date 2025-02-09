@@ -6,7 +6,6 @@ import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 import { useTranslation } from "react-i18next";
 import ProjectCard from "../components/blogs/ProjectCard";
-import NewsLetter from "./NewsLetter";
 const Project = () => {
   const { data, loading } = useAsync(() => ProjectServices.getProjetct());
 
@@ -54,9 +53,9 @@ const Project = () => {
               totalPasts={data.length}
               paginate={paginate}
             />
-            <NewsLetter />
+            {/* <NewsLetter />
             <br />
-            <br />
+            <br /> */}
           </div>
         </div>
       )}

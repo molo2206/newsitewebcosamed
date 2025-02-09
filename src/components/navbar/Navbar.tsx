@@ -113,9 +113,9 @@ function Navbar() {
           style={{ zIndex: 2 }}
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
-          } left-0 right-0  lg:max-xl font-light bg-principal   dark:bg-slate-800  text-white border-b-[1px] border-primary/50 `}
+          } left-0 right-0  lg:max-xl font-light bg-principal   dark:bg-slate-800  text-white border-t border-slate-700  border-primary/50 `}
         >
-          <nav className=" flex items-center md:w-full justify-between lg:h-14 md:h-14 sm:h-10  dark:bg-slate-800  text-white ">
+          <nav className=" flex items-center md:w-full justify-between lg:h-16 md:h-16 sm:h-10  dark:bg-slate-800  text-white ">
             {/* Logo selection */}
             <div className=" text-white md:p-12  ">
               <a className={`${sticky ? "block" : "hidden"}`}>
@@ -141,7 +141,7 @@ function Navbar() {
             <div className="hidden md:block font-light ">
               <ul className="flex top-12 left-0 right-0  items-center gap-10 font-light">
                 <li className="group cursor-pointer ">
-                  <a className="flex items-center gap-[2px] h-[40px] ">
+                  <a className="flex items-center gap-[2px] h-[40px] dark:text-white   hover:text-slate-300 ">
                     {t("Themes")}
                   </a>
                   <div
@@ -164,7 +164,7 @@ function Navbar() {
                   </div>
                 </li>
                 <li className="group cursor-pointer ">
-                  <a className="flex items-center gap-[2px] h-[40px]  line-clamp-1">
+                  <a className="flex items-center gap-[2px] h-[40px]  line-clamp-1  hover:text-slate-300 ">
                     {t("Emergency")}
                   </a>
                   {/* dropdown full width section */}
@@ -177,7 +177,7 @@ function Navbar() {
                       <div className="col-span-5">
                         <div className="grid grid-cols-5 ">
                           <div
-                            className="hover:text-hover  p-4  text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                               w-full  rounded-full lg:text-sm font-light
                               md:text-sm"
                             onClick={navigateNewsletter}
@@ -186,28 +186,28 @@ function Navbar() {
                           </div>
 
                           <div
-                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                             onClick={navigateJobopen}
                           >
                             {t("Jobs")}
                           </div>
                           <div
-                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                             onClick={navigateProject}
                           >
                             {t("Project")}
                           </div>
                           <div
-                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                             onClick={navigateJobOpening}
                           >
                             {t("Careers")}
                           </div>
                           <div
-                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                             onClick={navigateReport}
                           >
@@ -218,8 +218,8 @@ function Navbar() {
                     </div>
                   </div>
                 </li>
-                <li className=" group cursor-pointer">
-                  <a className="flex items-center gap-[2px] h-[40px] ">
+                <li className=" group cursor-pointer ">
+                  <a className="flex items-center gap-[2px] h-[40px] hover:text-slate-300 ">
                     {t("Newsroom")}
                   </a>
                   <div
@@ -230,7 +230,7 @@ function Navbar() {
                       <div className="col-span-4 ">
                         <div className=" grid grid-cols-5 ">
                           <div
-                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                             onClick={navigateCommunicated}
                           >
@@ -238,14 +238,14 @@ function Navbar() {
                           </div>
 
                           <div
-                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                             onClick={navigateVideo}
                           >
                             {t("Videos")}
                           </div>
                           <div
-                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                             onClick={navigateBlog}
                           >
@@ -253,7 +253,7 @@ function Navbar() {
                           </div>
 
                           <div
-                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                             onClick={navigateGallery}
                           >
@@ -261,7 +261,7 @@ function Navbar() {
                           </div>
 
                           <div
-                            className="hover:text-hover  p-4 text-principal cursor-pointer 
+                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                             onClick={navigateEvent}
                           >
@@ -283,7 +283,7 @@ function Navbar() {
                   </div>
                 </li>
                 <li className=" group cursor-pointer">
-                  <a className="flex items-center gap-[2px] h-[40px] ">
+                  <a className="flex items-center gap-[2px] h-[40px]  hover:text-slate-300 ">
                     {t("AboutUs")}
                   </a>
                   <div
@@ -296,14 +296,14 @@ function Navbar() {
                         <p className=" text-sm ">
                           <div className=" grid grid-cols-5 ">
                             <div
-                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                               onClick={navigateAbout}
                             >
                               {t("AboutUs")}
                             </div>
                             <div
-                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                               onClick={navigateContact}
                             >
@@ -311,7 +311,7 @@ function Navbar() {
                               {t("Contact")}
                             </div>
                             <div
-                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
                              w-full  rounded-full lg:text-sm font-light md:text-sm"
                               onClick={navigatePartners}
                             >
@@ -320,14 +320,14 @@ function Navbar() {
                             </div>
 
                             <div
-                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
                             w-full  rounded-full lg:text-sm font-light md:text-sm"
                               onClick={navigateGouvernance}
                             >
                               {t("Governance")}
                             </div>
                             <div
-                              className="hover:text-hover  p-4 text-principal cursor-pointer 
+                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
                             w-full  rounded-full lg:text-sm font-light md:text-sm"
                               onClick={navigateCommunity}
                             >
@@ -401,15 +401,17 @@ function Navbar() {
                   </div>
                 </li>
                 {/* Light and dark mode switcher */}
-                <div className="px-6 flex">
+                <div className="px-6 flex ">
                   {theme === "dark" ? (
                     <BiSolidSun
-                      className="text-xl cursor-pointer "
+                      size={30}
+                      className="text-sm cursor-pointer rounded-full border border-slate-400 dark:border-slate-700 "
                       onClick={() => setTheme("light")}
                     />
                   ) : (
                     <BiSolidMoon
-                      className="text-xl cursor-pointer "
+                      size={30}
+                      className="text-sm cursor-pointer rounded-full border border-slate-400 dark:border-slate-700"
                       onClick={() => setTheme("dark")}
                     />
                   )}

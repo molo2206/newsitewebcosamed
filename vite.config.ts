@@ -20,7 +20,10 @@ export default defineConfig({
         secure: false,
       },
     },
+    host: '0.0.0.0', // Permet l'accès à partir d'autres appareils
+    port: 3000,       // 
   },
+
   build: {
     rollupOptions: {
       output: {

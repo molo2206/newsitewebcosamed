@@ -408,7 +408,7 @@ const Rejoindre = () => {
                             <p className="text-sm font-montserrat text-slate-700 dark:text-slate-600 text-justify">
                               En cliquant sur Continuer, vous acceptez notre{" "}
                               <Link
-                                to="/privacy-policy"
+                                to="/confidentiality"
                                 className="text-principal font-bold"
                                 target="_blank"
                               >

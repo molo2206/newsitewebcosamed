@@ -60,6 +60,8 @@ import NewPassword from "./pages/Auth/NewPassword";
 import PageRechercheOffre from "./pages/PageRechercheOffre";
 import SuccessPage from "./pages/AlertEmploi/SuccessPage";
 import React, { Suspense } from "react";
+import CookieConsent from "./pages/Cookies/CookieConsent";
+import Confidentialite from "./pages/Confidentialite";
 
 function App() {
   const Home = React.lazy(() => import("./pages/Home"));
@@ -70,7 +72,14 @@ function App() {
 
   return (
     <div className="bg-slate-100 dark:bg-slate-900  dark:text-white ">
-      <Suspense fallback={<div>Loading...</div>}>
+      <CookieConsent />
+      <Suspense
+        fallback={
+          <div className="bg-slate-100 dark:bg-slate-900  dark:text-white">
+            Loading...
+          </div>
+        }
+      >
         <Elements stripe={stripe}>
           <ScrollToTop />
           <ToastContainer position="bottom-right" style={{ zIndex: 99999 }} />
@@ -135,6 +144,10 @@ function App() {
               <Route path="/team" element={<Team />}></Route>
               <Route path="/transparence" element={<TransparenceFin />}></Route>
               <Route path="/importancedon" element={<ImportanceDon />}></Route>
+              <Route
+                path="/confidentiality"
+                element={<Confidentialite />}
+              ></Route>
 
               <Route path="/job_openings" element={<Carriere />}></Route>
 

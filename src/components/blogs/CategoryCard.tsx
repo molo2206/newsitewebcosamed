@@ -19,7 +19,7 @@ const CategoryCard = ({ cat }: props) => {
     <>
       <p
         onClick={Onclick}
-        className=" hover:text-hover  text-principal cursor-pointer 
+        className=" hover:text-hover dark:text-white  text-principal cursor-pointer 
            w-full p-2 rounded-full lg:text-sm font-light
           md:text-sm"
       >

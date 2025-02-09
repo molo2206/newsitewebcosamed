@@ -10,11 +10,20 @@ import CommunicatedServices from "../services/CommunicatedServices";
 import BannerPartener from "../components/bannerDetails/BannerPartener";
 import AboutMediaHome from "./AboutMediaHome";
 import DonateBanner from "./DonateBanner";
+import Visitors from "../hooks/Visitors";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Home = () => {
   const { data: lastCom } = useAsync(() =>
     CommunicatedServices.getLastCommunicate()
   );
+  const location = useLocation();
+  const { registervisitor } = Visitors();
+  useEffect(() => {
+    registervisitor(location);
+  }, []);
+
   usePageSEO({
     title: "Acceuil",
     description: "Acceuil",
@@ -28,7 +37,6 @@ const Home = () => {
 
   return (
     <div className=" dark:bg-slate-900 text-sm ">
-      
       <Hero />
       <BannerMission />
       <Blogs />

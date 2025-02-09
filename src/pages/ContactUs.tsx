@@ -94,7 +94,11 @@ const ContactUs = () => {
                 Ce que nous pensons,
               </h1>
               <p className=" font-light lg:text-sm mb-6 dark:text-white">
-                {t("team_info")}
+                Nous sommes à votre écoute ! Que vous ayez une question, un
+                projet à discuter ou simplement besoin d’informations, n’hésitez
+                pas à nous contacter. Vous pouvez également remplir notre
+                formulaire de contact et nous vous répondrons dans les plus
+                brefs délais. À très bientôt ! 😊
               </p>
               <ul className="space-y-4">
                 <li className="flex items-center">
@@ -246,7 +250,7 @@ const ContactUs = () => {
                     <p className="text-sm font-montserrat text-slate-700 dark:text-white text-justify">
                       {t("Politic_clic")}
                       <Link
-                        to="/privacy-policy"
+                        to="/confidentiality"
                         className="text-principal font-bold"
                         target="_blank"
                       >

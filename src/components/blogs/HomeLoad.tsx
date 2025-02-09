@@ -14,7 +14,7 @@ const HomeLoad = () => {
           <Skeleton count={1} width={200} height={20} />
           <Skeleton count={1} width={200} height={20} />
         </div>
-        <div className="space-y-2 py3">
+        <div className="space-y-2 py-3">
           <h1 className="font-montserrat line-clamp-1 font-bold">
             <Skeleton count={1} width="100%" height={20} />
           </h1>

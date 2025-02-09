@@ -18,8 +18,9 @@ const CookieConsent = () => {
   if (!showBanner) return null;
 
   return (
-    <div className=" dark:bg-slate-800 dark:rounded-lg fixed bottom-0 left-0 right-0 bg-white shadow-lg border border-gray-300 p-4">
-      <div className=" container mx-auto flex flex-col md:flex-row justify-between items-center">
+    <div className=" dark:bg-slate-800   top-0 left-0 right-0 p-4
+    bg-white shadow-lg border-b dark:border-slate-700 ">
+      <div className=" container mx-auto flex flex-col  md:flex-row justify-between items-center">
         <div className="text-gray-700 text-sm mb-3 md:mb-0">
           <p>
             <strong className=" dark:text-white">Votre vie privée est importante pour nous</strong>
@@ -34,14 +35,14 @@ const CookieConsent = () => {
           <button
             style={{ fontSize: 11 }}
             onClick={() => handleConsent("accepted")}
-            className="bg-principal  text-white py-2 px-4 rounded-lg hover:bg- transition"
+            className="bg-principal dark:bg-slate-900   text-white py-2 px-4 rounded-lg hover:bg- transition"
           >
             Accepter les cookies
           </button>
           <button
             style={{ fontSize: 11 }}
             onClick={() => handleConsent("refused")}
-            className="bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition"
+            className="bg-gray-200 dark:bg-slate-900 dark:text-white   text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300 transition"
           >
             Refuser
           </button>

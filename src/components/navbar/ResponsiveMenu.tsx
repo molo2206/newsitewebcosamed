@@ -72,12 +72,12 @@ const ResponsiveMenu = ({ showMenu }: props) => {
             {/* Light and dark mode switcher */}
             {theme === "dark" ? (
               <BiSolidSun
-                className="text-xl cursor-pointer text-white"
+                className="text-xl cursor-pointer text-white rounded-full border border-slate-400 dark:border-slate-700 "
                 onClick={() => setTheme("light")}
               />
             ) : (
               <BiSolidMoon
-                className="text-xl cursor-pointer text-white"
+                className="text-xl cursor-pointer text-white rounded-full border border-slate-400 dark:border-slate-700 "
                 onClick={() => setTheme("dark")}
               />
             )}
