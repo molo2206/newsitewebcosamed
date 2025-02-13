@@ -21,13 +21,19 @@ import BreadCumb from "../components/navbar/BreadCumb";
 import InputFile from "../components/form/InputFile";
 import OffresServices from "../services/OffresServices";
 import InputPdf from "../components/form/InputPdf";
+import JobApplication from "../services/JobApplication";
 
-const JobApplicationForm = () => {
+const JobApplicationForm_Data = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const { user, pageLang } = useAuthContext();
   const { data: offre } = useAsync(() => OffresServices.oneOffre(id), id);
   const { data: country } = useAsync(() => CountryServices.getCountry());
+  const { data: apply } = useAsync(
+    () => JobApplication.Apply_User("57f11108-f63e-11ee-b269-507b9d5e706b"),
+    "57f11108-f63e-11ee-b269-507b9d5e706b"
+  );
+  console.log(apply);
   const { apply_offre, loading } = Application();
   //==============================Mes données personnelles=========
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
@@ -188,7 +194,10 @@ const JobApplicationForm = () => {
         }
         inputs.educations?.map((item: Education, index: number) => {
           if (!item.title_edu) {
-            hanldeError(t("Veuillez entrer le titre du diplôme"), `title_edu${index}`);
+            hanldeError(
+              t("Veuillez entrer le titre du diplôme"),
+              `title_edu${index}`
+            );
             isValid = false;
           }
           if (!item.institution) {
@@ -1338,4 +1347,4 @@ const JobApplicationForm = () => {
   );
 };
 
-export default JobApplicationForm;
+export default JobApplicationForm_Data;

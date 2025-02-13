@@ -16,6 +16,7 @@ import {
 import { useTranslation } from "react-i18next";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import moment from "moment";
+import { date_format } from "../utils/heleprs";
 
 const DetailOffre = () => {
   const { t } = useTranslation();
@@ -25,6 +26,9 @@ const DetailOffre = () => {
   const navigate = useNavigate();
   const gojobapllication = () => {
     navigate("/recruiting/cosamed/job_openings/jobapplication/" + id); // Remplace "/about" par la route cible
+  };
+  const gojobapllication_user = () => {
+    // navigate("/recruiting/cosamed/job_openings/jobapplication_user/" + id); // Remplace "/about" par la route cible
   };
 
   return (
@@ -37,25 +41,41 @@ const DetailOffre = () => {
             {/* Titre de l'offre */}
             {moment().format("YYYY-MM-DD") > data?.enddate && (
               <div className="">
-                <p className="bg-gradient-to-r bg-red-500 rounded p-2 flex items-center 
-                justify-center text-white sm:text-sm md:text-sm dark:text-slate-200">
+                <p
+                  className="bg-gradient-to-r bg-red-500 rounded p-2 flex items-center 
+                justify-center text-white sm:text-sm md:text-sm dark:text-slate-200"
+                >
                   {t("Job_off")}
-                  
                 </p>
-                <a href="/contact" className=" text-principal text-sm underline">Contacter-nous</a>
+                <a
+                  href="/contact"
+                  className=" text-principal text-sm underline"
+                >
+                  Contacter-nous
+                </a>
               </div>
             )}
-            <div className="flex justify-between items-center mb-4">
-              <h1 className="text-2xl font-bold text-gray-800 dark:text-white ">
+
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
+              <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-0">
                 {data?.title}
               </h1>
-              <button
-                onClick={gojobapllication}
-                disabled={moment().format("YYYY-MM-DD") > data?.enddate}
-                className="bg-principal text-white p-4 mt-4 rounded shadow hover:bg-hover"
-              >
-                {t("Apply")}
-              </button>
+              <div className="flex space-x-2 sm:space-x-4">
+                <button
+                  onClick={gojobapllication}
+                  disabled={moment().format("YYYY-MM-DD") > data?.enddate}
+                  className="bg-principal text-white p-4 rounded shadow hover:bg-hover"
+                >
+                  {t("Apply")}
+                </button>
+                <button
+                  onClick={gojobapllication_user}
+                  disabled={moment().format("YYYY-MM-DD") > data?.enddate}
+                  className="bg-principal text-white p-4 rounded shadow hover:bg-hover"
+                >
+                  {t("Apply_last")}
+                </button>
+              </div>
             </div>
 
             {/* Informations générales */}
@@ -68,7 +88,8 @@ const DetailOffre = () => {
                 207DI005577
               </p>
               <p className="mt-2">
-                <span className="font-semibold">Posted:</span> December 3, 2024
+                <span className="font-semibold">Posted:</span>{" "}
+                {date_format(data?.updated_at)}
               </p>
               <p>
                 <span className="font-semibold">Type:</span> {data?.type}

@@ -62,6 +62,7 @@ import SuccessPage from "./pages/AlertEmploi/SuccessPage";
 import React, { Suspense } from "react";
 import CookieConsent from "./pages/Cookies/CookieConsent";
 import Confidentialite from "./pages/Confidentialite";
+import JobApplicationForm_Data from "./pages/JobApplicationForm_Data";
 
 function App() {
   const Home = React.lazy(() => import("./pages/Home"));
@@ -105,6 +106,10 @@ function App() {
                 <Route
                   path="/recruiting/cosamed/job_openings/jobapplication/:id"
                   element={<JobApplicationForm />}
+                ></Route>
+                <Route
+                  path="/recruiting/cosamed/job_openings/jobapplication_user/:id"
+                  element={<JobApplicationForm_Data />}
                 ></Route>
               </Route>
               <Route element={<AuthLayout />}>

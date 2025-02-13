@@ -42,12 +42,12 @@ const Partners = () => {
               : data.map((partners: any) => (
                   <div
                     key={partners?.id}
-                    className="bg-white border dark:bg-slate-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+                    className="bg-white shadow-lg rounded-lg border dark:bg-slate-800  p-6 text-center hover:shadow-xl transition-shadow duration-300"
                   >
                     <img
                       src={partners?.image}
                       alt={`Logo de ${partners.image}`}
-                      className="w-64 h-64 object-contain mx-auto mb-4"
+                      className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
                     />
                     <h2 className="text-center text-xl font-semibold text-gray-800 dark:text-white">
                       {partners?.full_name}

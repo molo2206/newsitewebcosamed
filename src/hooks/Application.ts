@@ -26,6 +26,10 @@ const Application = () => {
         const formdata = new FormData()
         formdata.append('offer_id', offer_id)
         formdata.append('user_id', user_id)
+        formdata.append('full_name', body?.full_name)
+        formdata.append('country', body?.country)
+        formdata.append('town', body?.town)
+        formdata.append('phone', body?.phone)
         if (body?.cover_letter) {
             formdata.append('cover_letter', body?.cover_letter)
         }

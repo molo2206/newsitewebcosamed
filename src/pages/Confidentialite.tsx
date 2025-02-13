@@ -24,7 +24,7 @@ const Confidentialite = () => {
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-2">2. Données collectées</h2>
           <p className="text-gray-700 dark:text-white font-light">
-            Nous pouvo dark:text-white ns collecter les types d’informations
+            Nous pouvons collecter les types d’informations
             suivants :
           </p>
           <ul className="list-disc list-inside text-gray-700 dark:text-white dark:text-white ">
@@ -44,7 +44,7 @@ const Confidentialite = () => {
             3. Utilisation des données
           </h2>
           <p className="text-gray-700 dark:text-white font-light">
-            Nous utili dark:text-white sons vos informations pour :
+            Nous utilisons vos informations pour :
           </p>
           <ul className="list-disc list-inside text-gray-700 dark:text-white dark:text-white ">
             <li>Vous contacter concernant nos actions humanitaires.</li>
@@ -56,7 +56,7 @@ const Confidentialite = () => {
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-2">4. Partage des données</h2>
           <p className="text-gray-700 dark:text-white font-light">
-            Nous ne pa dark:text-white rtageons pas vos informations
+            Nous ne partageons pas vos informations
             personnelles avec des tiers, sauf dans les cas suivants :
           </p>
           <ul className="list-disc list-inside text-gray-700 dark:text-white dark:text-white ">
@@ -73,7 +73,7 @@ const Confidentialite = () => {
             5. Sécurité des données
           </h2>
           <p className="text-gray-700 dark:text-white font-light">
-            Nous metto dark:text-white ns en œuvre des mesures de sécurité
+            Nous mettons en œuvre des mesures de sécurité
             strictes pour protéger vos données contre tout accès non autorisé.
           </p>
         </section>
@@ -81,10 +81,10 @@ const Confidentialite = () => {
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-2">6. Vos droits</h2>
           <p className="text-gray-700 dark:text-white font-light">
-            Vous avez dark:text-white le droit de demander l’accès, la
+            Vous avez le droit de demander l’accès, la
             correction ou la suppression de vos données personnelles.
             Contactez-nous à
-            <span className="font-semibold"> contact@organisation.org</span>{" "}
+            <span className="font-semibold"> <a href="mailto:cosamed17@gmail.com">cosamed17@gmail.com</a></span>{" "}
             pour toute demande.
           </p>
         </section>
@@ -92,7 +92,7 @@ const Confidentialite = () => {
         <section className="mb-6">
           <h2 className="text-xl font-semibold mb-2">7. Modifications</h2>
           <p className="text-gray-700 dark:text-white font-light">
-            Nous pouvo dark:text-white ns mettre à jour cette politique de
+            Nous pouvons mettre à jour cette politique de
             confidentialité. Les changements seront publiés sur cette page.
           </p>
         </section>

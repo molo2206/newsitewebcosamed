@@ -283,6 +283,14 @@ function Navbar() {
                   </div>
                 </li>
                 <li className=" group cursor-pointer">
+                  <a
+                    href="/data-loading/jobopenings"
+                    className="flex items-center gap-[2px] h-[40px]  hover:text-slate-300 "
+                  >
+                    {t("Jobs")}
+                  </a>
+                </li>
+                <li className=" group cursor-pointer">
                   <a className="flex items-center gap-[2px] h-[40px]  hover:text-slate-300 ">
                     {t("AboutUs")}
                   </a>
