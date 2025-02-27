@@ -22,6 +22,7 @@ import InputFile from "../components/form/InputFile";
 import OffresServices from "../services/OffresServices";
 import InputPdf from "../components/form/InputPdf";
 import JobApplication from "../services/JobApplication";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 const JobApplicationForm_Data = () => {
   const { t } = useTranslation();
@@ -30,15 +31,13 @@ const JobApplicationForm_Data = () => {
   const { data: offre } = useAsync(() => OffresServices.oneOffre(id), id);
   const { data: country } = useAsync(() => CountryServices.getCountry());
   const { data: apply } = useAsync(
-    () => JobApplication.Apply_User("57f11108-f63e-11ee-b269-507b9d5e706b"),
-    "57f11108-f63e-11ee-b269-507b9d5e706b"
+    () => JobApplication.Apply_User(user?.id),
+    user?.id
   );
-  console.log(apply);
   const { apply_offre, loading } = Application();
   //==============================Mes données personnelles=========
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
     useValidation<ApplyForm>({
-      //Mes informations
       id: "",
       full_name: "",
       email: "",
@@ -545,9 +544,36 @@ const JobApplicationForm_Data = () => {
       gender: user?.gender || "",
       country: user?.country || "",
       town: user?.town || "",
+      languages: apply?.user?.languages?.map((item: any) => ({
+        language: item?.langue,
+        comprehension: item.comprehension,
+        writing: item.writing,
+        reading: item.reading,
+        speaking: item.speaking,
+      })),
+      educations: apply?.user?.etude?.map((item: any) => ({
+        title_edu: item.title,
+        institution: item.institution,
+        endDate_edu: item.endDate,
+      })),
+      experiences: apply?.user?.experiences?.map((item: any) => ({
+        job_title_ex: item?.job_title,
+        company_name_exp: item?.company_name,
+        start_date_exp: item?.start_date,
+        end_date_exp: item?.end_date,
+        description_exp: item?.description,
+      })),
+      skills: apply?.user?.skills?.map((item: any) => ({
+        skill_name: item?.skill_name,
+      })),
+      attestations: apply?.user?.certificates?.map((item: any) => ({
+        title_attestation: item?.title,
+        file_attestation: item?.file,
+        date_delivrance_attestation: item?.date_delivrance,
+      })),
     });
-  }, [user, pageLang]);
-
+  }, [user, apply, pageLang]);
+  console.log(apply);
   const genres = [
     {
       value: "Masculin",
@@ -565,6 +591,7 @@ const JobApplicationForm_Data = () => {
       apply_offre(inputs, id, user?.id);
     }
   };
+
   return (
     <div className="container dark:bg-slate-900 w-full dark:text-white  bg-gray-100">
       <BreadCumb title={"Blog"} />
@@ -619,6 +646,7 @@ const JobApplicationForm_Data = () => {
                     }
                     onFocus={() => hanldeError(null, `full_name`)}
                   />
+
                   <Input
                     required
                     name="select"
@@ -635,6 +663,7 @@ const JobApplicationForm_Data = () => {
                       value: item.value,
                     }))}
                   />
+
                   <Input
                     required
                     name="phone"
@@ -647,6 +676,7 @@ const JobApplicationForm_Data = () => {
                       handleOnChange(e.target.value, "phone")
                     }
                   />
+
                   <Input
                     required
                     name="email"
@@ -660,6 +690,7 @@ const JobApplicationForm_Data = () => {
                       handleOnChange(e.target.value, "email")
                     }
                   />
+
                   <Input
                     required
                     name="select"
@@ -676,6 +707,7 @@ const JobApplicationForm_Data = () => {
                       value: item.id,
                     }))}
                   />
+
                   <Input
                     required
                     name="town"
@@ -715,7 +747,7 @@ const JobApplicationForm_Data = () => {
                           onClick={() => removeLanguageExperience(index)}
                           className="text-red-500 hover:text-red-700"
                         >
-                          Supprimer
+                           <FaDeleteLeft size={20}/>    
                         </button>
                       )}
                     </div>
@@ -858,7 +890,7 @@ const JobApplicationForm_Data = () => {
                               onClick={() => removeEducation(index)}
                               className="text-red-500 hover:text-red-700"
                             >
-                              Supprimer
+                               <FaDeleteLeft size={20}/>    
                             </button>
                           )}
                       </div>
@@ -956,7 +988,7 @@ const JobApplicationForm_Data = () => {
                               onClick={() => removeExperience(index)}
                               className="text-red-500 hover:text-red-700"
                             >
-                              Supprimer
+                               <FaDeleteLeft size={20}/>    
                             </button>
                           )}
                       </div>
@@ -1091,7 +1123,7 @@ const JobApplicationForm_Data = () => {
                             onClick={() => removeSkills(index)}
                             className="text-red-500 hover:text-red-700"
                           >
-                            Supprimer
+                             <FaDeleteLeft size={20}/>    
                           </button>
                         )}
                       </div>
@@ -1153,7 +1185,7 @@ const JobApplicationForm_Data = () => {
                               onClick={() => removeAttestation(index)}
                               className="text-red-500 hover:text-red-700"
                             >
-                              Supprimer
+                               <FaDeleteLeft size={20}/>    
                             </button>
                           )}
                       </div>

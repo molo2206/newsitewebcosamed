@@ -1,5 +1,6 @@
 export const En = {
 	Home: 'Home',
+	Update: 'Update',
 	Gallery: "Gallery",
 	Login: "Sign in",
 	Logout: "Log out",
@@ -141,6 +142,7 @@ export const En = {
 
 export const FR = {
 	Home: 'Accueil',
+	Update: 'Modifier',
 	Gallery: "Galerie",
 	Login: "Se connecter",
 	Logout: "Se déconnecter",

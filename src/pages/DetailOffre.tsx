@@ -28,7 +28,7 @@ const DetailOffre = () => {
     navigate("/recruiting/cosamed/job_openings/jobapplication/" + id); // Remplace "/about" par la route cible
   };
   const gojobapllication_user = () => {
-    // navigate("/recruiting/cosamed/job_openings/jobapplication_user/" + id); // Remplace "/about" par la route cible
+    navigate("/recruiting/cosamed/job_openings/jobapplication_user/" + id); // Remplace "/about" par la route cible
   };
 
   return (

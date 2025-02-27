@@ -30,7 +30,7 @@ const Footer = () => {
                   className="font-light lg:text-sm sm:text-sm md:text-sm"
                   href="/about"
                 >
-                  A PROPOS
+                  A propos
                 </a>
               </li>
               <li>

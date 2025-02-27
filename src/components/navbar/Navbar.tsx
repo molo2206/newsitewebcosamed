@@ -41,9 +41,11 @@ function Navbar() {
   const handleGoBack = () => {
     navigate("/aboutmedia"); // new line
   };
+
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
+
   useEffect(() => {
     if (theme === "dark") {
       element.classList.add("dark");
@@ -56,9 +58,11 @@ function Navbar() {
   const toggleMe = () => {
     setShowMenu(!showMenu);
   };
+
   const navigateNewsletter = () => {
     navigate(`/data-loading/newsletters`); // Remplace "/about" par la route cible
   };
+
   const navigateJobopen = () => {
     navigate(`/data-loading/jobopenings`);
   };
@@ -106,6 +110,7 @@ function Navbar() {
   const navigateCommunity = () => {
     navigate(`/community/join`);
   };
+  
   return (
     <>
       <div className="">
@@ -115,33 +120,27 @@ function Navbar() {
             sticky ? "header-sticky" : ""
           } left-0 right-0  lg:max-xl font-light bg-principal   dark:bg-slate-800  text-white border-t border-slate-700  border-primary/50 `}
         >
-          <nav className=" flex items-center md:w-full justify-between lg:h-16 md:h-16 sm:h-10  dark:bg-slate-800  text-white ">
+          <nav className=" flex items-center md:w-full justify-between lg:h-14 md:h-12 sm:h-12  dark:bg-slate-800  text-white ">
             {/* Logo selection */}
-            <div className=" text-white md:p-12  ">
-              <a className={`${sticky ? "block" : "hidden"}`}>
-                <Link to="/" onClick={() => window.scrollTo}>
-                  <img
-                    src={data?.logo1}
-                    alt=""
-                    className="sticky-logo   w-full h-full"
-                  />
-                </Link>
-              </a>
-              <a className={`${!sticky ? "block" : "hidden"}`}>
-                <Link to="/" onClick={() => window.scrollTo}>
-                  <img
-                    src={data?.logo1}
-                    alt=""
-                    className="sticky-logo  w-full h-full"
-                  />
-                </Link>
-              </a>
+            <div className="text-white md:p-8 lg:p-12 flex justify-center items-center">
+              <Link
+                to="/"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                <img
+                  src={data?.logo1}
+                  alt="Logo"
+                  className={`h-16 md:h-20 transition-all duration-300 ${
+                    sticky ? "opacity-100 scale-100" : "opacity-75 scale-90"
+                  }`}
+                />
+              </Link>
             </div>
             {/* Desktop menu selection */}
             <div className="hidden md:block font-light ">
-              <ul className="flex top-12 left-0 right-0  items-center gap-10 font-light">
+              <ul className="flex top-12 left-0 right-0  items-center gap-8  font-semibold ">
                 <li className="group cursor-pointer ">
-                  <a className="flex items-center gap-[2px] h-[40px] dark:text-white   hover:text-slate-300 ">
+                  <a className="flex items-center gap-[2px] h-[40px] dark:text-white text-sm   hover:text-slate-300 ">
                     {t("Themes")}
                   </a>
                   <div
@@ -164,7 +163,7 @@ function Navbar() {
                   </div>
                 </li>
                 <li className="group cursor-pointer ">
-                  <a className="flex items-center gap-[2px] h-[40px]  line-clamp-1  hover:text-slate-300 ">
+                  <a className="flex items-center gap-[2px] h-[40px]  line-clamp-1 text-sm hover:text-slate-300 ">
                     {t("Emergency")}
                   </a>
                   {/* dropdown full width section */}
@@ -219,7 +218,7 @@ function Navbar() {
                   </div>
                 </li>
                 <li className=" group cursor-pointer ">
-                  <a className="flex items-center gap-[2px] h-[40px] hover:text-slate-300 ">
+                  <a className="flex items-center gap-[2px] h-[40px] text-sm hover:text-slate-300 ">
                     {t("Newsroom")}
                   </a>
                   <div
@@ -285,13 +284,13 @@ function Navbar() {
                 <li className=" group cursor-pointer">
                   <a
                     href="/data-loading/jobopenings"
-                    className="flex items-center gap-[2px] h-[40px]  hover:text-slate-300 "
+                    className="flex items-center gap-[2px] h-[40px] text-sm  hover:text-slate-300 "
                   >
                     {t("Jobs")}
                   </a>
                 </li>
                 <li className=" group cursor-pointer">
-                  <a className="flex items-center gap-[2px] h-[40px]  hover:text-slate-300 ">
+                  <a className="flex items-center gap-[2px] h-[40px] text-sm  hover:text-slate-300 ">
                     {t("AboutUs")}
                   </a>
                   <div

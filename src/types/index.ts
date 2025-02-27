@@ -32,6 +32,8 @@ export type Attestations = {
 
 export type ApplyForm = {
     //Mes informations
+    id_apply?: string;
+    offer_id?: string;
     id?: string;
     phone?: string;
     email?: string;

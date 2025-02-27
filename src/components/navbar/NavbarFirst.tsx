@@ -79,7 +79,7 @@ const NavbarFirst = () => {
       >
         <InputSearch
           name="keyword"
-          placeholder="Rechercher des emplois ou mots-clés"
+          placeholder="Rechercher"
           type="text"
           errors={errors.keyword}
           value={inputs.keyword}

@@ -3,6 +3,9 @@ const CandidateServices = {
     getCandidate: async (id: any) => {
         return requests.get(`public/getcandidate/${id}`)
     },
+    getCandidateRejected: async (id: any) => {
+        return requests.get(`public/getcandidate_rejected/${id}`)
+    },
     oneCandidate: async (id: any) => {
         return requests.get(`/public/detail/${id}`)
     },
@@ -14,6 +17,14 @@ const CandidateServices = {
     },
     apply: async (body: any) => {
         return requests.post(`/public/apply`, body, {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+    },
+    update_apply: async (body: any) => {
+        return requests.post(`/public/update_apply`, body, {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'multipart/form-data',

@@ -93,7 +93,7 @@ const ResponsiveMenu = ({ showMenu }: props) => {
               className="block text-white  dark:bg-slate-800
             dark:text-white  font-medium"
             >
-              Accueil
+              {t('Home')}
             </a>
           </li>
           <li>

@@ -21,6 +21,7 @@ import BreadCumb from "../components/navbar/BreadCumb";
 import InputFile from "../components/form/InputFile";
 import OffresServices from "../services/OffresServices";
 import InputPdf from "../components/form/InputPdf";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 const JobApplicationForm = () => {
   const { t } = useTranslation();
@@ -706,7 +707,7 @@ const JobApplicationForm = () => {
                           onClick={() => removeLanguageExperience(index)}
                           className="text-red-500 hover:text-red-700"
                         >
-                          Supprimer
+                           <FaDeleteLeft size={20}/>    
                         </button>
                       )}
                     </div>
@@ -849,7 +850,7 @@ const JobApplicationForm = () => {
                               onClick={() => removeEducation(index)}
                               className="text-red-500 hover:text-red-700"
                             >
-                              Supprimer
+                               <FaDeleteLeft size={20}/>    
                             </button>
                           )}
                       </div>
@@ -947,7 +948,7 @@ const JobApplicationForm = () => {
                               onClick={() => removeExperience(index)}
                               className="text-red-500 hover:text-red-700"
                             >
-                              Supprimer
+                               <FaDeleteLeft size={20}/>    
                             </button>
                           )}
                       </div>
@@ -1082,7 +1083,7 @@ const JobApplicationForm = () => {
                             onClick={() => removeSkills(index)}
                             className="text-red-500 hover:text-red-700"
                           >
-                            Supprimer
+                             <FaDeleteLeft size={20}/>    
                           </button>
                         )}
                       </div>
@@ -1144,7 +1145,7 @@ const JobApplicationForm = () => {
                               onClick={() => removeAttestation(index)}
                               className="text-red-500 hover:text-red-700"
                             >
-                              Supprimer
+                               <FaDeleteLeft size={20}/>    
                             </button>
                           )}
                       </div>
