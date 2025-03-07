@@ -23,7 +23,7 @@ function Navbar() {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-  const [selectedLanguage, setSelectedLanguage] = useState("fr");
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
   const selectLanguage = (language: any) => {
     setSelectedLanguage(language);
     setDropdownOpen(false);
