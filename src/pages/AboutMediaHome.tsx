@@ -1,5 +1,4 @@
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
-import SettingsServices from "../services/SettingsServices";
 import useAsync from "../hooks/useAsync";
 import TestimonyServices from "../services/TestimonyServices";
 import { useState } from "react";
@@ -8,9 +7,8 @@ import BlogCardLoand from "../components/blogs/BlogCardLoad";
 import TestimonyCard from "../components/blogs/TestimonyCard";
 import { useTranslation } from "react-i18next";
 const AboutMediaHome = () => {
-  const { data, loading } = useAsync(() => SettingsServices.getSettings());
-  const { data: datas } = useAsync(() => TestimonyServices.getTestimony());
-  console.log(data);
+  const { data: datas,loading } = useAsync(() => TestimonyServices.getTestimony());
+  
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(2);

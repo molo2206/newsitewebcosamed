@@ -1,5 +1,4 @@
 import { useState } from "react";
-import BlogCardLoand from "./BlogCardLoad";
 import BlogDetailLoad from "./BlogDetailLoad";
 import ImagesBlog from "./ImagesBlog";
 import LightboxViewer from "../LightBox";
@@ -18,24 +17,25 @@ export const ImageBlogs = ({ data, loading }: props) => {
   return (
     <>
       {loading ? (
-        Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
+          {Array.from(Array(20).keys()).map((_, index) => (
+            <BlogDetailLoad key={index} />
+          ))}
+        </div>
       ) : (
-        <div>
-          <div className=" dark:bg-slate-900 w-full dark:text-white">
-            <section className="mb-10">
-              <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {loading
-                  ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
-                  : data.map((item: any, index: number) => (
-                      <ImagesBlog
-                        blogImage={item}
-                        onClick={() => openLightbox(index)}
-                        key={index}
-                      />
-                    ))}
-              </div>
-            </section>
-            <LightboxViewer
+        <div className="dark:bg-slate-900 w-full dark:text-white">
+          <section className="container mx-auto p-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {data.map((item: any, index: number) => (
+                <ImagesBlog
+                  key={index}
+                  blogImage={item}
+                  onClick={() => openLightbox(index)}
+                />
+              ))}
+            </div>
+          </section>
+          <LightboxViewer
             isOpen={isOpen}
             onClose={() => setIsOpen(false)}
             currentIndex={currentIndex}
@@ -46,7 +46,6 @@ export const ImageBlogs = ({ data, loading }: props) => {
               alt: item.id,
             }))}
           />
-          </div>
         </div>
       )}
     </>

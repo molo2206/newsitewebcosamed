@@ -79,7 +79,7 @@ const NavbarFirst = () => {
       >
         <InputSearch
           name="keyword"
-          placeholder="Rechercher"
+          placeholder={t('Search')}
           type="text"
           errors={errors.keyword}
           value={inputs.keyword}
@@ -153,13 +153,13 @@ const NavbarFirst = () => {
                   className="px-4 py-2 font-light
                            dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                 >
-                  Mon Profil
+                  {t('My_profile')}
                 </li>
                 <li
                   onClick={condidate}
                   className="px-4 py-2 font-light  dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                 >
-                  Mes candidatures
+                  {t('My_applications')}
                 </li>
                 {!user ? (
                   <li

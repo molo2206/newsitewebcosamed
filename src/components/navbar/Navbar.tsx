@@ -118,9 +118,9 @@ function Navbar() {
           style={{ zIndex: 2 }}
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
-          } left-0 right-0  lg:max-xl font-light bg-principal   dark:bg-slate-800  text-white border-t border-slate-700  border-primary/50 `}
+          } left-0 right-0  lg:max-xl font-light bg-principal   dark:bg-slate-800  text-white dark:border-t border-slate-700  border-primary/50 `}
         >
-          <nav className=" flex items-center md:w-full justify-between lg:h-14 md:h-12 sm:h-12  dark:bg-slate-800  text-white ">
+          <nav className=" flex items-center md:w-full justify-between p-2 h-10 lg:h-12 md:h-12 sm:h-12  dark:bg-slate-800  text-white ">
             {/* Logo selection */}
             <div className="text-white md:p-8 lg:p-12 flex justify-center items-center">
               <Link
@@ -150,7 +150,7 @@ function Navbar() {
                     <div className="grid grid-cols-4 gap-6 ">
                       <div className="col-span-4">
                         <p className=" text-xs">
-                          <div className=" grid grid-cols-4 mt-4 px-4">
+                          <div className=" grid grid-cols-4 mt-4 px-4 space-y-2">
                             {cat.map((item: any, index: number) => (
                               <div>
                                 <CategoryCard cat={item} key={index} />
@@ -351,15 +351,15 @@ function Navbar() {
                   <div className="relative hidden md:block">
                     {/* Bouton principal */}
                     <button
-                      className="flex items-center gap-2 bg-principale text-sm md:text-sm text-white px-4 py-2 rounded"
+                      className="flex items-center gap-2 bg-principale text-sm text-white px-4 py-2 rounded"
                       onClick={toggleDropdown}
                     >
                       <ReactCountryFlag
                         countryCode={selectedLanguage === "en" ? "GB" : "FR"}
                         svg
                         style={{
-                          width: "1.5em",
-                          height: "1.5em",
+                          width: "1.2em",
+                          height: "1.2em",
                         }}
                         title={selectedLanguage === "en" ? "English" : "French"}
                       />
@@ -381,8 +381,8 @@ function Navbar() {
                             countryCode="GB"
                             svg
                             style={{
-                              width: "1.5em",
-                              height: "1.5em",
+                              width: "1.2em",
+                              height: "1.2em",
                             }}
                             title="English"
                           />
@@ -396,8 +396,8 @@ function Navbar() {
                             countryCode="FR"
                             svg
                             style={{
-                              width: "1.5em",
-                              height: "1.5em",
+                              width: "1.2em",
+                              height: "1.2em",
                             }}
                             title="French"
                           />
