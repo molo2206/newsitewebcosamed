@@ -1,55 +1,58 @@
-@use './breakpoints' as *;
-@at-root{
-    div.blog__breadcrumb-slider{
+@import url("./_breakpoints.scss");
 
-        div.blog-slider-dot-breadcrumb{
+@at-root {
+    div.blog__breadcrumb-slider {
+
+        div.blog-slider-dot-breadcrumb {
             position: absolute;
-            bottom: 30px;
-            right: 19%;
-            z-index: 1;
-            width: auto;
-            left: auto;
-    
+            bottom  : 30px;
+            right   : 19%;
+            z-index : 1;
+            width   : auto;
+            left    : auto;
+
             // @include rtl{
             //     right: auto;
             //     left: 19%;
             // }
-    
-            @media #{$md}{
-                right: 6%;
+            $xs: 480px;
+            $sm: 576px;
+            $md: 768px;
+            $lg: 992px;
+            $xl: 1200px;
+
+            @media (max-width: $md) {
+                right       : 6%;
                 // @include rtl{
                 //     right: auto;
                 //     left: 6%;
                 // }
             }
-    
-            @media #{$sm}{
-                right: 4%;
+
+            @media (max-width: $sm) {
+                right : 4%;
                 bottom: 20px;
-    
-                // @include rtl{
-                //     right: auto;
-                //     left: 4%;
-                // }
             }
-    
-            @media #{$xs}{
+
+            @media (max-width: $sm) {
                 bottom: 10px;
-                right: 3%;
-    
+                right : 3%;
+
                 // @include rtl{
                 //     right: auto;
                 //     left: 3%;
                 // }
             }
-            .swiper-pagination-bullet{
+
+            .swiper-pagination-bullet {
                 background-color: #FFFFFF4D;
-                margin: 0 4px;
-                &::after{
+                margin          : 0 4px;
+
+                &::after {
                     display: none;
                 }
-              
-                &.swiper-pagination-bullet-active{
+
+                &.swiper-pagination-bullet-active {
                     background-color: var(--tp-common-white);
                 }
             }
