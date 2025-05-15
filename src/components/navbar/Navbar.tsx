@@ -4,8 +4,6 @@ import { FaBars } from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
 import useSticky from "../../hooks/useSticky";
 import SettingsServices from "../../services/SettingsServices";
-import { Link } from "react-router-dom";
-
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";
 import { useAuthContext } from "../../context";
@@ -110,7 +108,7 @@ function Navbar() {
   const navigateCommunity = () => {
     navigate(`/community/join`);
   };
-  
+
   return (
     <>
       <div className="">
@@ -118,15 +116,13 @@ function Navbar() {
           style={{ zIndex: 2 }}
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
-          } left-0 right-0  lg:max-xl font-light bg-principal   dark:bg-slate-800  text-white dark:border-t border-slate-700  border-primary/50 `}
+          } left-0 right-0 lg:max-xl font-light bg-principal dark:bg-slate-800 text-white dark:border-t border-slate-700 border-primary/50`}
         >
-          <nav className=" flex items-center md:w-full justify-between p-2 h-10 lg:h-12 md:h-12 sm:h-12  dark:bg-slate-800  text-white ">
+          <nav className="flex items-center md:w-full justify-between p-2 h-10 lg:h-20 md:h-20 sm:h-12 dark:bg-slate-800 text-white">
+            {/* logo */}
             {/* Logo selection */}
             <div className="text-white md:p-8 lg:p-12 flex justify-center items-center">
-              <Link
-                to="/"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              >
+              <div onClick={() => navigate("/")}>
                 <img
                   src={data?.logo1}
                   alt="Logo"
@@ -134,7 +130,7 @@ function Navbar() {
                     sticky ? "opacity-100 scale-100" : "opacity-75 scale-90"
                   }`}
                 />
-              </Link>
+              </div>
             </div>
             {/* Desktop menu selection */}
             <div className="hidden md:block font-light ">
@@ -281,13 +277,22 @@ function Navbar() {
                     </div>
                   </div>
                 </li>
+
                 <li className=" group cursor-pointer">
-                  <a
-                    href="/data-loading/jobopenings"
+                  <div
+                    onClick={() => navigate("/data-loading/Ai4Mpox")}
+                    className="flex items-center gap-[2px] h-[40px] text-sm  hover:text-slate-300 "
+                  >
+                    {t("AI4Mpox")}
+                  </div>
+                </li>
+                <li className=" group cursor-pointer">
+                  <div
+                    onClick={() => navigate("/data-loading/jobopenings")}
                     className="flex items-center gap-[2px] h-[40px] text-sm  hover:text-slate-300 "
                   >
                     {t("Jobs")}
-                  </a>
+                  </div>
                 </li>
                 <li className=" group cursor-pointer">
                   <a className="flex items-center gap-[2px] h-[40px] text-sm  hover:text-slate-300 ">

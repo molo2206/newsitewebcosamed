@@ -63,6 +63,7 @@ import React, { Suspense } from "react";
 import CookieConsent from "./pages/Cookies/CookieConsent";
 import Confidentialite from "./pages/Confidentialite";
 import JobApplicationForm_Data from "./pages/JobApplicationForm_Data";
+import Ai4Mpox from "./pages/Ai4Mpox";
 
 function App() {
   const Home = React.lazy(() => import("./pages/Home"));
@@ -132,6 +133,7 @@ function App() {
               </Route>
               <Route index element={<Home />} />
               <Route path="/contact" element={<ContactUs />} />
+              <Route path="/data-loading/Ai4Mpox" element={<Ai4Mpox />} />
               <Route path="/data-loading/blogs" element={<Blog />} />
               <Route path="/data-loading/videos" element={<Videos />} />
               <Route path="/data-loading/podcast" element={<Podcast />} />
