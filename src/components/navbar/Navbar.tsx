@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaUserCircle } from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
 import useSticky from "../../hooks/useSticky";
 import SettingsServices from "../../services/SettingsServices";
@@ -21,11 +21,19 @@ function Navbar() {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  const [isDropdown, setIsDropdown] = useState(false);
+  const toggleMenu = () => setIsDropdown(!isDropdown);
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const selectLanguage = (language: any) => {
     setSelectedLanguage(language);
     setDropdownOpen(false);
     handleLanguageChange(language);
+  };
+
+  const { user, removeSession } = useAuthContext();
+  const handleLogout = () => {
+    removeSession();
+    navigate("/auth/signin", { replace: true });
   };
 
   const { data: cat } = useAsync(() => CategoryServices.getCategory());
@@ -118,23 +126,23 @@ function Navbar() {
             sticky ? "header-sticky" : ""
           } left-0 right-0 lg:max-xl font-light bg-principal dark:bg-slate-800 text-white dark:border-t border-slate-700 border-primary/50`}
         >
-          <nav className="flex items-center md:w-full justify-between p-2 h-10 lg:h-20 md:h-20 sm:h-12 dark:bg-slate-800 text-white">
+          <nav className="flex items-center md:w-full justify-between p-2 h-12 lg:h-20 md:h-20 sm:h-12 dark:bg-slate-800 text-white">
             {/* logo */}
             {/* Logo selection */}
-            <div className="text-white md:p-8 lg:p-12 flex justify-center items-center">
+            <div className="text-white cursor-pointer md:p-8 lg:p-12 flex justify-center items-center">
               <div onClick={() => navigate("/")}>
                 <img
                   src={data?.logo1}
                   alt="Logo"
-                  className={`h-16 md:h-20 transition-all duration-300 ${
+                  className={`h-16 md:h-24 transition-all duration-300 ${
                     sticky ? "opacity-100 scale-100" : "opacity-75 scale-90"
                   }`}
                 />
               </div>
             </div>
             {/* Desktop menu selection */}
-            <div className="hidden md:block font-light ">
-              <ul className="flex top-12 left-0 right-0  items-center gap-8  font-semibold ">
+            <div className="hidden md:flex justify-center font-light w-full">
+              <ul className="flex items-center gap-8 justify-center font-semibold">
                 <li className="group cursor-pointer ">
                   <a className="flex items-center gap-[2px] h-[40px] dark:text-white text-sm   hover:text-slate-300 ">
                     {t("Themes")}
@@ -148,8 +156,8 @@ function Navbar() {
                         <p className=" text-xs">
                           <div className=" grid grid-cols-4 mt-4 px-4 space-y-2">
                             {cat.map((item: any, index: number) => (
-                              <div>
-                                <CategoryCard cat={item} key={index} />
+                              <div key={index}>
+                                <CategoryCard cat={item} />
                               </div>
                             ))}
                           </div>
@@ -412,8 +420,7 @@ function Navbar() {
                     )}
                   </div>
                 </li>
-                {/* Light and dark mode switcher */}
-                <div className="px-6 flex ">
+                <div className="px-6 flex">
                   {theme === "dark" ? (
                     <BiSolidSun
                       size={30}
@@ -426,6 +433,96 @@ function Navbar() {
                       className="text-sm cursor-pointer rounded-full border border-slate-400 dark:border-slate-700"
                       onClick={() => setTheme("dark")}
                     />
+                  )}
+                </div>
+                <div className="relative mt-2">
+                  <button
+                    onClick={toggleMenu}
+                    className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden focus:outline-none"
+                  >
+                    {!user?.image ? (
+                      <FaUserCircle className="text-principal w-10 h-10" />
+                    ) : (
+                      <img
+                        src={user.image}
+                        alt="Profil"
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                    )}
+                  </button>
+
+                  {/* Menu déroulant */}
+                  {isDropdown && (
+                    <>
+                      <div
+                        className="absolute left-1/2 -translate-x-1/2 mt-3 w-64 bg-principal dark:bg-slate-800 border border-gray-400 dark:border-slate-700 
+                 rounded-xl shadow-xl z-50 transition-all duration-200"
+                      >
+                        <div className="flex flex-col items-center justify-center p-4 space-y-2">
+                          {/* {!user?.image ? (
+                            <FaUserCircle className="text-gray-600 dark:text-white w-12 h-12" />
+                          ) : (
+                            <img
+                              src={user.image}
+                              alt="Profil"
+                              className="w-12 h-12 rounded-full object-cover"
+                            />
+                          )} */}
+                          <span className="text-sm text-white dark:text-white text-center">
+                            {user?.email}
+                          </span>
+                        </div>
+
+                        <ul className="text-sm text-white dark:text-white">
+                          <li
+                            onClick={() =>
+                              navigate(
+                                "/recruiting/cosamed/job_openings/accountsettings"
+                              )
+                            }
+                            className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer rounded-b"
+                          >
+                            {t("My_profile")}
+                          </li>
+                          <li
+                            onClick={() => navigate("/job_openings/userHome")}
+                            className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                          >
+                            {t("My_applications")}
+                          </li>
+                          {!user ? (
+                            <li
+                              onClick={() => navigate("/auth/signin")}
+                              className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                            >
+                              {t("Login")}
+                            </li>
+                          ) : (
+                            <li
+                              onClick={handleLogout}
+                              className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                            >
+                              {t("Logout")}
+                            </li>
+                          )}
+                          <li
+                            onClick={() =>
+                              navigate(
+                                "/recruiting/cosamed/job_openings/register"
+                              )
+                            }
+                            className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                          >
+                            {t("Register")}
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div
+                        className="fixed inset-0 z-40"
+                        onClick={() => setIsDropdown(false)}
+                      />
+                    </>
                   )}
                 </div>
               </ul>
@@ -442,6 +539,7 @@ function Navbar() {
                   <FaBars className=" h-6 w-6 " />
                 )}
               </button>
+              {/* Avatar utilisateur */}
             </div>
           </nav>
         </header>

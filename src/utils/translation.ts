@@ -121,6 +121,7 @@ export const En = {
   Erreur_404: "Error 404",
   It_looks_404: "It appears that this URL does not exist.",
   Do_not_worry: "Please check your URL before updating the page.",
+  Important_Announcement:"Important Announcement",
   complete_info:
     "COMPLETE THE INFORMATION BELOW IF YOU WISH TO BECOME A MEMBER OF COSAMED",
   Select_thematic: "Select theme",
@@ -167,6 +168,7 @@ export const FR = {
     "Votre vie privée est importante pour nous En cliquant sur le bouton 'Accepter', vous consentez à l'utilisation du 1er et cookies tiers (ou similaires) pour améliorer votre expérience Web, mesurer notre audience et collecter des données.",
   Your_privacy_important: "Votre vie privée est importante pour nous",
   Accept_cookies: "Accepter",
+  Important_Announcement:"Annonce importante",
   Refuse: "Refuse",
   My_profile: "Mon profil",
   My_applications: "Mes candidatures",

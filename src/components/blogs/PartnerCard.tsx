@@ -3,7 +3,7 @@ interface props {
 }
 const PartnerCard = ({ partners }: props) => {
   return (
-    <div className="  py-10">
+    <div className="  py-2">
       <div
         key={partners?.id}
         className=" bg-white dark:bg-slate-800 dark:text-white p-6 rounded-lg dark:border border-slate-700 shadow-lg hover:shadow-xl transition-shadow duration-300"

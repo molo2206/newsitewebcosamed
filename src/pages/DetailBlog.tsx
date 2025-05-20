@@ -1,19 +1,22 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import useAsync from "../hooks/useAsync";
 import BlogServices from "../services/BlogsServices";
 import { showingTranslateValue } from "../utils/heleprs";
 import { useAuthContext } from "../context";
+
+// Components
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
-import usePageSEO from "../components/Seo/usePageSEO";
 import BreadCumb from "../components/navbar/BreadCumb";
 import Error404 from "./Error404";
 import { ImageBlogs } from "../components/blogs/ImageBlogs";
-import Seo from "../components/Seo/Seo";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
+import usePageSEO from "../components/Seo/usePageSEO";
 import Pagination from "../components/Pagination/Pagination";
+
+// Icons
 import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
-import { useTranslation } from "react-i18next";
 
 const DetailBlog = () => {
   const { t } = useTranslation();
@@ -21,14 +24,18 @@ const DetailBlog = () => {
   const { slug } = useParams();
   const { lang } = useAuthContext();
 
-  const { data, error, loading } = useAsync(
-    () => BlogServices.oneBlogs(slug),
-    slug
-  );
-  const { data: recentPost, loading: load } = useAsync(() =>
-    BlogServices.getBlogHome()
-  );
+  const { data, error, loading } = useAsync(() => BlogServices.oneBlogs(slug), slug);
+  const { data: recentPost = [], loading: load } = useAsync(() => BlogServices.getBlogHome());
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 4;
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentBlogs = recentPost.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  // SEO Meta
   usePageSEO({
     title: showingTranslateValue(data?.translations, lang)?.title,
     keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
@@ -38,161 +45,146 @@ const DetailBlog = () => {
     ogUrl: window.location.href,
   });
 
-  Seo({ title: data });
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 4;
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentBlogs = recentPost?.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
-
   if (error) return <Error404 />;
 
   return (
     <>
       {loading ? (
-        Array.from({ length: 20 }).map((_, index) => (
-          <BlogDetailLoad key={index} />
-        ))
+        Array.from({ length: 4 }).map((_, index) => <BlogDetailLoad key={index} />)
       ) : (
-        <div className="container mx-auto w-full dark:text-white mt-10">
-          <BreadCumb
-            title="Détail du blog"
-            second="/data-loading/blogs"
-            secondTitle="Blog"
-          />
-          <div className="min-h-screen dark:bg-slate-800 font-sans rounded-lg dark:border-slate-700 border">
-            <main className="grid grid-cols-1 md:grid-cols-3 gap-6 p-2 md:p-8">
-              <section className="md:col-span-2 relative">
-                <div className="relative rounded-md overflow-hidden shadow-lg">
-                  <img
-                    src={data?.image}
-                    alt="Aide pour Mayotte"
-                    className="w-full h-[300px] md:h-[400px] object-cover"
-                  />
-                  <div className="absolute bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent px-4">
-                    <span className="bg-red-500 px-2 py-1 text-xs uppercase font-bold text-white rounded ">
-                      {
-                        showingTranslateValue(
-                          data?.category?.translations,
-                          lang
-                        )?.name
-                      }
-                    </span>
-                    <h2
-                      className="text-white sm:text-sm md:text-xl lg:text-xl font-bold mt-2 leading-tight"
-                      dangerouslySetInnerHTML={{
-                        __html: showingTranslateValue(data?.translations, lang)
-                          ?.title,
-                      }}
-                    ></h2>
-                  </div>
-                </div>
-                {data && Object.keys(data).length > 0 ? (
-                  <aside className="bg-white dark:bg-slate-800 rounded-md mt-4 shadow-lg px-4 py-2">
-                    <ImageBlogs data={data?.allimages} />
-                    <p
-                      className="font-montserrat lg:text-lg md:text-xl dark:text-white"
-                      dangerouslySetInnerHTML={{
-                        __html: showingTranslateValue(data?.translations, lang)
-                          ?.documentation,
-                      }}
-                    ></p>
-                    <p
-                      className="text-gray-700 leading-relaxed space-y-4 dark:text-white font-light"
-                      dangerouslySetInnerHTML={{
-                        __html: showingTranslateValue(data?.translations, lang)
-                          ?.description,
-                      }}
-                    ></p>
+        <div className="container mx-auto w-full dark:text-white mt-6 px-4">
+          <BreadCumb title="Détail du blog" second="/data-loading/blogs" secondTitle="Blog" />
+
+          <div className="min-h-screen font-sans">
+            <main className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Blog principal */}
+              <section className="md:col-span-2 space-y-6">
+                <div className="bg-white dark:bg-slate-800 rounded-xl border dark:border-slate-700 p-6 shadow-sm">
+                  {/* Auteur */}
+                  <div className="flex items-center gap-4">
                     {data?.author?.image && (
                       <img
                         src={data.author.image}
                         alt={data.author.full_name}
-                        className="w-10 h-10 rounded-full"
+                        className="w-12 h-12 rounded-full"
                       />
                     )}
-                    {data?.author?.full_name && (
-                      <span className="bg-red-500 px-2 py-1 text-xs uppercase font-bold text-white rounded">
-                        Par {data?.author.full_name}
-                      </span>
-                    )}
-                  </aside>
-                ) : (
-                  <p>Chargement ou aucune donnée disponible</p>
-                )}{/* Accessoires supplémentaires */}
-                <div className="mt-8 border-t pt-6">
-                  <h2 className="lg:text-xl md:text-xl font-bold  mb-4">
-                    {t("Share_on")}
-                  </h2>
-                  <div className="flex gap-4">
-                    <a
-                      href="https://facebook.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-principal dark:text-white hover:text-hover dark:hover:text-hover"
-                    >
-                      <FaFacebook size={24} />
-                    </a>
-                    <a
-                      href="https://twitter.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-principal dark:text-white hover:text-hover dark:hover:text-hover"
-                    >
-                      <FaTwitter size={24} />
-                    </a>
-                    <a
-                      href="https://linkedin.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-principal dark:text-white hover:text-hover dark:hover:text-hover"
-                    >
-                      <FaLinkedin size={24} />
-                    </a>
+                    <div>
+                      <p className="text-sm font-semibold">{data?.author?.full_name}</p>
+                      <p className="text-xs text-gray-500">
+                        {new Date(data.created_at).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Titre et catégorie */}
+                  <div className="mt-4">
+                    <h2
+                      className="text-xl font-bold leading-tight text-gray-900 dark:text-white"
+                      dangerouslySetInnerHTML={{
+                        __html: showingTranslateValue(data?.translations, lang)?.title,
+                      }}
+                    ></h2>
+                    <span className="inline-block bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-white text-xs font-semibold px-2 py-1 rounded mt-2">
+                      {showingTranslateValue(data?.category?.translations, lang)?.name}
+                    </span>
+                  </div>
+
+                  {/* Image principale */}
+                  {data?.image && (
+                    <img
+                      src={data.image}
+                      alt="Blog"
+                      className="w-full rounded-xl object-cover mt-4 max-h-[400px]"
+                    />
+                  )}
+
+                  {/* Contenu */}
+                  <div className="prose dark:prose-invert mt-6 max-w-none text-gray-800 dark:text-gray-100">
+                    <ImageBlogs data={data?.allimages} />
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: showingTranslateValue(data?.translations, lang)?.documentation,
+                      }}
+                    />
+                    <div
+                      className="mt-4"
+                      dangerouslySetInnerHTML={{
+                        __html: showingTranslateValue(data?.translations, lang)?.description,
+                      }}
+                    />
+                  </div>
+
+                  {/* Réactions et Partage */}
+                  <div className="flex justify-between items-center mt-6 text-sm text-gray-600 dark:text-gray-300 border-t pt-4">
+                    <button className="hover:text-blue-500">👍 {t("Like")}</button>
+                    <button className="hover:text-blue-500">💬 {t("Comment")}</button>
+                    <div className="mt-6 pt-4">
+                      <h2 className="text-md font-bold mb-2">{t("Share_on")}</h2>
+                      <div className="flex gap-4 items-center">
+                        <a
+                          href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:opacity-75"
+                        >
+                          <FaFacebook size={24} className="text-blue-600" />
+                        </a>
+                        <a
+                          href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:opacity-75"
+                        >
+                          <FaTwitter size={24} className="text-sky-500" />
+                        </a>
+                        <a
+                          href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location.href}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:opacity-75"
+                        >
+                          <FaLinkedin size={24} className="text-blue-700" />
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
-              
-              <aside className="md:col-span-1 bg-white dark:bg-slate-800 dark:border-slate-700 border rounded-md shadow-lg p-2">
-                <h3 className="text-lg font-semibold pb-2 mb-4">Récentes</h3>
-                <ul className="space-y-4">
-                  {load
-                    ? Array.from({ length: 4 }).map((_, index) => (
-                        <BlogCardLoand key={index} />
-                      ))
-                    : currentBlogs?.map((item: any, index: number) => (
-                        <li
-                          key={index}
-                          className="flex items-start px-2 font-semibold"
-                        >
-                          <h1
-                            className="line-clamp-2 cursor-pointer border-t border-gray-200 hover:text-slate-700 text-sm"
-                            onClick={() =>
-                              navigate(
-                                `/blog/detail/` +
-                                  showingTranslateValue(
-                                    item?.translations,
-                                    lang
-                                  )?.slug
-                              )
-                            }
+
+              {/* Sidebar */}
+              <aside className="md:col-span-1">
+                <div className="bg-white dark:bg-slate-800 rounded-xl border dark:border-slate-700 p-4 shadow-sm">
+                  <h3 className="text-md font-semibold mb-3">{t("Latest_posts")}</h3>
+                  <ul className="space-y-4">
+                    {(load ? Array.from({ length: 4 }) : currentBlogs)?.map((item: any, index: number) => (
+                      <li
+                        key={index}
+                        className="cursor-pointer"
+                        onClick={() =>
+                          navigate(`/blog/detail/${showingTranslateValue(item?.translations, lang)?.slug}`)
+                        }
+                      >
+                        <div className="hover:bg-gray-100 dark:hover:bg-slate-700 p-2 rounded-md transition">
+                          <p
+                            className="text-sm font-medium text-gray-800 dark:text-white line-clamp-2"
                             dangerouslySetInnerHTML={{
-                              __html: showingTranslateValue(
-                                item?.translations,
-                                lang
-                              )?.title,
+                              __html: showingTranslateValue(item?.translations, lang)?.title,
                             }}
-                          ></h1>
-                        </li>
-                      ))}
-                </ul>
-                <Pagination
-                  postsPerPage={postsPerPage}
-                  totalPasts={recentPost.length}
-                  paginate={paginate}
-                />
+                          ></p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-4">
+                    <Pagination
+                      postsPerPage={postsPerPage}
+                      totalPasts={recentPost.length}
+                      paginate={paginate}
+                    />
+                  </div>
+                </div>
               </aside>
             </main>
           </div>

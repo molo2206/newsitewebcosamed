@@ -10,7 +10,7 @@ const Pagination = ({ postsPerPage, totalPasts, paginate }: props) => {
     pageNumbers.push(i);
   }
   return (
-    <div className="flex items-center justify-between border-t border-gray-200 mt-10 dark:bg-slate-800  text-slate-400 dark:text-white px-4 py-3 sm:px-6">
+    <div className="flex items-center rounded-md justify-between border-t border-gray-200 mt-10 dark:bg-slate-800  text-slate-400 dark:text-white px-4 py-3 sm:px-6">
       <div className="sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p style={{fontSize:11}} className="text-sm text-gray-700  dark:text-white ">

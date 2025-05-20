@@ -48,11 +48,11 @@ const Gallery = () => {
               </div>
             </header>
             {/* Image Gallery */}
-            <section className="bg-white p-6 mt-6 border rounded-lg shadow-md dark:bg-slate-800 ">
+            <section className="bg-transparent p-0 mt-6">
               <h2 className="text-2xl font-semibold text-gray-800 mb-4 dark:text-white">
                 {t("Our_achievements")}
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
                 {loading
                   ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
                   : currentMedia.map((item: any, index: number) => (

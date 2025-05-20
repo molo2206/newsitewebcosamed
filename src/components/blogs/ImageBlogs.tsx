@@ -1,53 +1,63 @@
 import { useState } from "react";
 import BlogDetailLoad from "./BlogDetailLoad";
-import ImagesBlog from "./ImagesBlog";
 import LightboxViewer from "../LightBox";
 
-interface props {
-  data?: any;
-  loading?: any;
+interface Props {
+  data?: any[];
+  loading?: boolean;
 }
-export const ImageBlogs = ({ data, loading }: props) => {
+
+export const ImageBlogs = ({ data = [], loading }: Props) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+
   const openLightbox = (index: number) => {
     setCurrentIndex(index);
     setIsOpen(true);
   };
+
+  if (loading) {
+    return (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <BlogDetailLoad key={index} />
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <>
-      {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
-          {Array.from(Array(20).keys()).map((_, index) => (
-            <BlogDetailLoad key={index} />
+    <div className="w-full">
+      <section className="container mx-auto p-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+          {data.map((item, index) => (
+            <div
+              key={item.id || index}
+              className="aspect-square overflow-hidden rounded-lg relative cursor-pointer"
+              onClick={() => openLightbox(index)}
+            >
+              <img
+                src={item.image}
+                alt={item.id}
+                 loading="lazy"
+                className="w-full h-full object-cover transition duration-300 hover:scale-105"
+              />
+            </div>
           ))}
         </div>
-      ) : (
-        <div className="dark:bg-slate-900 w-full dark:text-white">
-          <section className="container mx-auto p-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {data.map((item: any, index: number) => (
-                <ImagesBlog
-                  key={index}
-                  blogImage={item}
-                  onClick={() => openLightbox(index)}
-                />
-              ))}
-            </div>
-          </section>
-          <LightboxViewer
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-            images={data?.map((item: any) => ({
-              src: item.image,
-              caption: item.id,
-              alt: item.id,
-            }))}
-          />
-        </div>
-      )}
-    </>
+      </section>
+
+      <LightboxViewer
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        currentIndex={currentIndex}
+        setCurrentIndex={setCurrentIndex}
+        images={data.map((item) => ({
+          src: item.image,
+          caption: item.id,
+          alt: item.id,
+        }))}
+      />
+    </div>
   );
 };

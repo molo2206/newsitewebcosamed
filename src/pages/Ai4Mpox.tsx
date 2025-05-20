@@ -1,164 +1,160 @@
+import useAsync from "../hooks/useAsync";
+import BlogServices from "../services/BlogsServices";
+import Blogia from "../components/blogs/Blogia";
+
 const Ai4Mpox = () => {
+  const { data: lastblog } = useAsync(() => BlogServices.getBlogHome());
   return (
-    <div className="bg-white text-gray-800 dark:bg-slate-800 dark:text-slate-200  font-sans min-h-screen">
+    <div className="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 font-sans min-h-screen">
       {/* Bandeau principal */}
-      <header className="relative bg-blue-600 text-white">
+      <header className="relative bg-gradient-to-r from-purple-800 to-principal text-white">
         <img
           src="https://apicosamed.cosamed.org/uploads/blogs/ai4.jpg"
           alt="Bannière AI4Mpox"
-          className="w-full h-72 object-cover opacity-70"
+          className="w-full h-[400px] object-cover opacity-60"
         />
-        <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-12 lg:px-24 bg-gradient-to-r from-blue-900/90 to-blue-800/60">
-          <h1 className="text-4xl md:text-5xl font-bold mb-2 drop-shadow-lg">
+        <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-12 lg:px-24 bg-black/60">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 drop-shadow-lg">
             AI4Mpox
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl drop-shadow-md">
-            AI4Mpox: Leveraging Artificial Intelligence and Mathematical
-            Modelling for Enhanced Mpox Outbreak Response and Preparedness in
-            DRC
+          <p className="text-xl md:text-2xl max-w-3xl drop-shadow-md">
+            Utiliser l'IA et la modélisation pour renforcer la réponse à Mpox en
+            RDC.
           </p>
         </div>
       </header>
 
-      {/* Contenu principal */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+      <main className="max-w-7xl mx-auto px-6 py-16 space-y-16">
         {/* Dashboards */}
-        <section>
-          <h2 className="text-3xl font-semibold text-blue-700 mb-4">
-            Mpox Dashboards: Improved Public Health Decision-Making
+        <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+          <h2 className="text-3xl font-bold text-principal mb-6">
+            Tableaux de bord décisionnels
           </h2>
-          <p className="mb-4">
-            Interactive dashboards to monitor the epidemic in real time. These
-            tools help prioritize responses based on epidemiological risks and
-            population movement. Carte de la RDC par province et par zone de
-            santé avec la distribution des cas suspect de Mpox, cas confirmés de
-            Mpox, disponibilité de labo et mouvement des populations Carte de la
-            RDC par province et par zone de santé
+          <p className="mb-4 text-lg leading-relaxed">
+            Suivi en temps réel de l’épidémie, priorisation des interventions
+            selon les risques.
           </p>
-          <ul className="list-disc list-inside mb-6">
-            <li>Carte de la RDC par province et zone de santé</li>
-            <li>Répartition des cas suspects et confirmés</li>
-            <li>
-              Cartographie des partenaires et disponibilité des laboratoires
-            </li>
+          <ul className="list-disc list-inside mb-6 text-base space-y-2">
+            <li>Carte de la RDC par province</li>
+            <li>Répartition des cas suspects / confirmés</li>
+            <li>Présence des partenaires et laboratoires</li>
           </ul>
-          <div className="rounded-xl overflow-hidden shadow-lg">
+          <div className="rounded-2xl overflow-hidden shadow-2xl">
             <img
               src="https://apicosamed.cosamed.org/uploads/parteners/dash.png"
-              alt="Aperçu tableau de bord Mpox"
-              className="w-full h-auto object-cover"
+              alt="Dashboard Mpox"
+              className="w-full object-cover"
             />
           </div>
         </section>
 
         {/* Actions de réponse */}
-        <section className="">
-          <h2 className="text-3xl font-semibold text-blue-700 mb-4">
-            Response actions
+        <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+          <h2 className="text-3xl font-bold text-principal mb-6">
+            Actions de réponse
           </h2>
-          <p>
-            Carte de la RDC par province et par zone de santé avec la
-            cartographie des partenaires avec leurs actions de réponse. Par
-            pilier de la réponse Mpox (prise en charge médicale, PCI, CREC, PEC
-            nutritionnelle, PEC psychosociale ; PSEA, coordination)
+          <p className="text-lg leading-relaxed">
+            Cartographie des partenaires selon les piliers : soins, prévention,
+            communication, nutrition, protection et coordination.
           </p>
         </section>
 
-        {/* Détection précoce */}
-        <section>
-          <h2 className="text-3xl font-semibold text-blue-700 mb-4">
-            Early Mpox Case Detection and Rapid Response
+        {/* Détection rapide des cas */}
+        <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+          <h2 className="text-3xl font-bold text-principal mb-6">
+            Détection rapide des cas
           </h2>
-          <p className="mb-4">
-            Thanks to the deployment of field-based PCR diagnostics, including
-            GeneXpert, mpox detection capabilities have improved significantly,
-            even in remote and unstable regions.
+          <p className="mb-4 text-lg leading-relaxed">
+            Diagnostics sur le terrain (PCR GeneXpert) pour les régions
+            éloignées.
           </p>
-          <ul className="list-disc list-inside space-y-2">
-            <li>Nombre des cas suspects</li>
-            <li>Nombre des cas prélevés/testés</li>
-            <li>Nombre des cas confirmés</li>
+          <ul className="list-disc list-inside space-y-2 text-base">
+            <li>Cas suspects / testés / confirmés</li>
             <li>Taux de positivité</li>
-            <li>Alertes remontées et investiguées</li>
-            <li>Carte des indicateurs par province</li>
-            <li>Suivi des contacts</li>
+            <li>Suivi des alertes et contacts</li>
+            <li>Cartes épidémiques</li>
           </ul>
         </section>
 
         {/* Vaccination */}
-        <section>
-          <h2 className="text-3xl font-semibold text-blue-700 mb-4">
-            Access to Vaccination in Underserved Areas
+        <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+          <h2 className="text-3xl font-bold text-principal mb-6">
+            Accès à la vaccination
           </h2>
-          <p className="mb-4">
-            A historic mpox vaccination campaign was launched in October 2024,
-            despite logistical challenges in North Kivu, South Kivu, and Ituri.
-            These conflict-affected regions host hundreds of thousands of
-            displaced people. With support from international partners, over
-            265,000 vaccine doses have been delivered to priority areas.
+          <p className="text-lg leading-relaxed">
+            Campagne en octobre 2024 dans les zones de conflit. 265 000 doses
+            livrées.
           </p>
         </section>
 
         {/* Recommandations */}
-        <section className=" p-6">
-          <h2 className="text-3xl font-semibold text-blue-700 mb-4">
-            Recommendations
+        <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+          <h2 className="text-3xl font-bold text-principal mb-6">
+            Recommandations
           </h2>
-          <ul className="list-disc list-inside space-y-2">
+          <ul className="list-disc list-inside space-y-3 text-base leading-relaxed">
             <li>
-              <strong>Government :</strong> Ensure effective coordination among
-              stakeholders and integrate mpox strategies into national response
-              plans.
+              <strong>Gouvernement :</strong> Coordination nationale et
+              intégration Mpox.
             </li>
             <li>
-              <strong>Community :</strong> Maintain continuous dialogue with
-              local leaders to build trust and promote adherence to health
-              measures.
+              <strong>Communautés :</strong> Collaboration avec les leaders
+              locaux.
             </li>
             <li>
-              <strong>Partners :</strong>Integrate mpox response into broader
-              humanitarian strategies (nutrition, protection, WASH).
+              <strong>Partenaires :</strong> Approche intégrée humanitaire.
             </li>
             <li>
-              <strong>Donors :</strong> financement mobile et flexibleFund
-              flexible, mobile health interventions to reach displaced
-              populations, hard-to-access areas and no complicated cases.
+              <strong>Bailleurs :</strong> Financement mobile et flexible.
             </li>
           </ul>
         </section>
 
-        {/* Logos des partenaires */}
+        {/* Blog AI4Mpox */}
         <section>
-          <h2 className="text-2xl font-semibold mb-6">🤝 Partenaires</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 items-center">
-            <img
-              src="https://apicosamed.cosamed.org/uploads/parteners/logo.jpg"
-              alt="COSAMED"
-              className="h-20 object-contain hover:grayscale-0 transition"
-            />
-            <img
-              src="https://apicosamed.cosamed.org/uploads/parteners/partener2.png"
-              alt="Université de Toronto"
-              className="h-20 w-full object-contain hover:grayscale-0 transition"
-            />
-            <img
-              src="https://apicosamed.cosamed.org/uploads/parteners/uk.png"
-              alt="FCDO"
-              className="h-20 w-full object-contain hover:grayscale-0 transition"
-            />
-            <img
-              src="https://apicosamed.cosamed.org/uploads/parteners/ai4.jpg"
-              alt="AI4"
-              className="h-20 w-[200%] object-contain hover:grayscale-0 transition"
-            />
+          <h2 className="text-2xl md:text-3xl font-bold text-principal mb-6">
+            Actualité sur AI4Mpox
+          </h2>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {Array.isArray(lastblog) && lastblog.length > 0 ? (
+              lastblog.map((item: any) => (
+                <Blogia key={item.id || item.slug} blog={item} />
+              ))
+            ) : (
+              <p>Aucun article à afficher.</p>
+            )}
+          </div>
+        </section>
+
+        {/* Logos partenaires */}
+        <section className="bg-gray-100 dark:bg-gray-800 rounded-xl p-8">
+          <h2 className="text-2xl font-bold text-center mb-8">
+            🤝 Partenaires
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 items-center justify-center">
+            {["logo.jpg", "partener2.png", "uk.png", "ai4.jpg"].map(
+              (file, index) => (
+                <img
+                  key={index}
+                  src={`https://apicosamed.cosamed.org/uploads/parteners/${file}`}
+                  alt={`Logo ${index}`}
+                  className="h-20 object-contain  transition duration-300"
+                />
+              )
+            )}
           </div>
         </section>
 
         {/* Bouton final */}
-        <div className="mt-12 text-center">
-          <button className="bg-principal dark:bg-slate-900 text-white px-6 py-3 rounded-full font-semibold shadow hover:bg-hover transition">
+        <div className="text-center mt-16">
+          <a
+            href="https://ai4mpox.afiagap.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-principal text-white text-lg font-semibold px-8 py-4 rounded-full shadow hover:opacity-90 transition"
+          >
             En savoir plus sur AI4Mpox
-          </button>
+          </a>
         </div>
       </main>
     </div>

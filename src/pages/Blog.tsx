@@ -2,7 +2,7 @@ import BlogCard from "../components/blogs/BlogCard";
 import SimpleBannerBlog from "../components/simpleBanner/SimpleBannerBlog";
 import BlogServices from "../services/BlogsServices";
 import useAsync from "../hooks/useAsync";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
+import BlogCardLoad from "../components/blogs/BlogCardLoad";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import { useState } from "react";
@@ -12,46 +12,57 @@ import { useTranslation } from "react-i18next";
 const Blog = () => {
   const { data, loading } = useAsync(() => BlogServices.getBlog());
   const { data: lastblog } = useAsync(() => BlogServices.lastBlog());
+  const { t } = useTranslation();
 
-  //Get current blog
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(6);
+  const postsPerPage = 6;
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentBlogs = data.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
-  const { t } = useTranslation();
+  const currentBlogs = data?.slice(indexOfFirstPost, indexOfLastPost) || [];
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  if (loading && !data) {
+    // Chargement global : placeholder
+    return (
+      <div className="container mx-auto py-8">
+        <BlogDetailLoad />
+      </div>
+    );
+  }
+
   return (
-    <>
-      {loading ? (
-        Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
-      ) : (
-        <div className="container  dark:bg-slate-900 w-full dark:text-white ">
-          <div>
-            <BreadCumb title={"Blog"} />
-            <section className="mb-10 ">
-              <SimpleBannerBlog blog={lastblog} />
-              <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
-                {t("How_blogs")}
-              </h1>
-              <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {loading
-                  ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
-                  : currentBlogs.map((item: any, index: number) => (
-                      <BlogCard blog={item} key={index} />
-                    ))}
-              </div>
-              <Pagination
-              postsPerPage={postsPerPage}
-              totalPasts={data.length}
-              paginate={paginate}
-            />
-            </section>
-           
-          </div>
-        </div>
-      )}
-    </>
+    <div className="container mx-auto dark:bg-slate-900 dark:text-white p-4">
+      <BreadCumb title={"Blog"} />
+
+      {/* Bannière principale du dernier article */}
+      {lastblog && <SimpleBannerBlog blog={lastblog} />}
+
+      <h1 className="my-8 border-l-8 border-blue-600 pl-4 text-center text-3xl font-bold">
+        {t("How_blogs")}
+      </h1>
+
+      {/* Grille des articles */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {loading
+          ? Array.from({ length: postsPerPage }).map((_, i) => (
+              <BlogCardLoad key={i} />
+            ))
+          : currentBlogs.map((blog: any) => (
+              <BlogCard key={blog.id || blog.slug} blog={blog} />
+            ))}
+      </section>
+
+      {/* Pagination */}
+      <div className="mt-8 flex justify-center">
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPasts={data?.length || 0}
+          paginate={paginate}
+        />
+      </div>
+    </div>
   );
 };
 

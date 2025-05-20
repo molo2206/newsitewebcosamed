@@ -25,7 +25,7 @@ const Home = () => {
   // }, []);
 
   usePageSEO({
-    title: "Acceuil",
+    title: "Acceuil | COSAMED ASBL",
     description: "Acceuil",
     keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
     ogTitle: "Cosamed asbl",
@@ -36,7 +36,7 @@ const Home = () => {
   });
 
   return (
-    <div className=" dark:bg-slate-900 text-sm ">
+    <div className=" bg-slate-100 dark:bg-slate-900 text-sm ">
       <Hero />
       <BannerMission />
       <Blogs />

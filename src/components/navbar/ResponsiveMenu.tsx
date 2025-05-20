@@ -59,7 +59,7 @@ const ResponsiveMenu = ({ showMenu }: Props) => {
     <div
       className={`${
         showMenu ? "left-0" : "-left-[100%]"
-      } fixed bottom-0 top-0 z-20 flex h-full w-80 py-10 flex-col justify-between
+      } fixed bottom-0 top-0 z-20 flex h-full w-72 py-10 flex-col justify-between
       bg-principal dark:bg-slate-800 transition-all duration-200 md:hidden rounded-r-xl shadow-md`}
     >
       <div className="relative mt-5 text-sm dark:bg-slate-800 bg-principale h-full overflow-y-auto">

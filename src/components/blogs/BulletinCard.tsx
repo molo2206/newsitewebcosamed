@@ -2,71 +2,67 @@ import { useNavigate } from "react-router-dom";
 import { showingTranslateValue } from "../../utils/heleprs";
 import { useAuthContext } from "../../context";
 
-interface props {
+interface Props {
   bulletin?: any;
 }
 
-const BulletinCard = ({ bulletin }: props) => {
+const BulletinCard = ({ bulletin }: Props) => {
   const { lang } = useAuthContext();
   const navigate = useNavigate();
 
-  const goToAbout = () => {
-    navigate(`/bulletin/detail/` + bulletin?.id); // Remplace "/about" par la route cible
+  const goToDetail = () => {
+    navigate(`/bulletin/detail/${bulletin?.id}`);
   };
+
+  const translated = showingTranslateValue(bulletin?.translations, lang);
+
   return (
-      <div
-        key={bulletin.id}
-        className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow dark:bg-slate-800 "
-      >
-        <img
-          src={bulletin.image}
-          alt={bulletin.id}
-          className="mx-auto w-full h-32
-            object-cover"
+    <div
+      onClick={goToDetail}
+      className="cursor-pointer flex items-start space-x-4 bg-white dark:bg-slate-800 rounded-xl shadow hover:shadow-md transition-shadow p-4"
+    >
+      <img
+        src={bulletin?.image}
+        alt={`Bulletin ${bulletin?.id}`}
+        className="w-28 h-28 rounded-md object-cover"
+      />
+
+      <div className="flex-1">
+        <h2
+          className="text-base font-semibold text-gray-800 dark:text-white line-clamp-1"
+          dangerouslySetInnerHTML={{
+            __html: translated?.title || "",
+          }}
         />
-        <div className="p-4">
-          <h2
-            onClick={goToAbout}
-            className="sm:text-sm md:text-sm lg:text-sm font-semibold text-gray-800 line-clamp-1 dark:text-white"
-            dangerouslySetInnerHTML={{
-              __html: showingTranslateValue(bulletin?.translations, lang)
-                ?.title,
-            }}
-          ></h2>
-          <div className="flex items-center justify-between text-gray-500 text-sm">
-            <div className=" flex justify-between space-x-2 items-center">
-              <img
-                src={bulletin.author.image}
-                alt={bulletin.author.full_name}
-                className="w-10 h-10 rounded-full"
-              />
-              <span style={{fontSize:11}} className="dark:text-white sm:text-sm md:text-sm lg:text-sm ">
-                Par {bulletin?.author.full_name}
-              </span>
-            </div>
-            <div className=" flex justify-between  py-4 text-slate-600">
-              <p
-                style={{fontSize: 11}}
-                className="bg-slate-100 rounded-md px-1 py-1 text-principal "
-                dangerouslySetInnerHTML={{
-                  __html:
-                    showingTranslateValue(bulletin?.translations, lang)?.month +
-                    "-" +
-                    showingTranslateValue(bulletin?.translations, lang)?.year,
-                }}
-              ></p>
-            </div>
+
+        <div className="flex items-center justify-between mt-4 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex items-center space-x-2">
+            <img
+              src={bulletin?.author?.image}
+              alt={bulletin?.author?.full_name}
+              className="w-8 h-8 rounded-full object-cover"
+            />
+            <span>Par {bulletin?.author?.full_name}</span>
           </div>
+
+          <span className="bg-slate-100 dark:bg-slate-700 text-principal px-2 py-1 rounded text-[11px]">
+            {translated?.month}-{translated?.year}
+          </span>
         </div>
-        <div className="p-4 border-t text-center">
+
+        <div className="text-right mt-3">
           <button
-            onClick={goToAbout}
-            className="text-principal font-medium hover:underline sm:text-sm md:text-sm lg:text-sm "
+            onClick={(e) => {
+              e.stopPropagation();
+              goToDetail();
+            }}
+            className="text-principal font-medium hover:underline text-sm"
           >
             Lire la suite
           </button>
         </div>
       </div>
+    </div>
   );
 };
 
