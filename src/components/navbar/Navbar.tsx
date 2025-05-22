@@ -59,6 +59,10 @@ function Navbar() {
     navigate("/aboutmedia"); // new line
   };
 
+  const home = () => {
+    navigate("/"); // new line
+  };
+
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
@@ -137,11 +141,11 @@ function Navbar() {
             sticky ? "header-sticky" : ""
           } left-0 right-0 lg:max-xl font-light bg-principal dark:bg-slate-800 text-white dark:border-t border-slate-700 border-primary/50`}
         >
-          <nav className="flex items-center md:w-full justify-between p-2 h-12 lg:h-20 md:h-20 sm:h-12 dark:bg-slate-800 text-white">
+          <nav className="flex items-center md:w-full justify-between p-2 h-18 lg:h-20 md:h-20 sm:h-12 dark:bg-slate-800 text-white">
             {/* logo */}
             {/* Logo selection */}
             <div className="text-white cursor-pointer md:p-8 lg:p-12 flex justify-center items-center">
-              <div onClick={() => navigate("/")}>
+              <div onClick={() => home()}>
                 <img
                   src={data?.logo1}
                   alt="Logo"
@@ -481,7 +485,7 @@ function Navbar() {
                           )} */}
                           <span className=" dark:text-white text-center">
                             <a
-                              style={{ fontSize: "10px" }}
+                              style={{ fontSize: "12px" }}
                               href="#"
                               className=" line-clamp-0"
                             >

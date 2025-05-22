@@ -52,31 +52,15 @@ const DetailBlog = () => {
       {loading ? (
         Array.from({ length: 4 }).map((_, index) => <BlogDetailLoad key={index} />)
       ) : (
-        <div className="container mx-auto w-full dark:text-white mt-6 px-4">
+        <div className="lg:container mx-auto w-full dark:text-white mt-6  p-4">
           <BreadCumb title="Détail du blog" second="/data-loading/blogs" secondTitle="Blog" />
 
-          <div className="min-h-screen font-sans">
+          <div className="font-sans">
             <main className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Blog principal */}
               <section className="md:col-span-2 space-y-6">
-                <div className="bg-white dark:bg-slate-800 rounded-xl border dark:border-slate-700 p-6 shadow-sm">
-                  {/* Auteur */}
-                  <div className="flex items-center gap-4">
-                    {data?.author?.image && (
-                      <img
-                        src={data.author.image}
-                        alt={data.author.full_name}
-                        className="w-12 h-12 rounded-full"
-                      />
-                    )}
-                    <div>
-                      <p className="text-sm font-semibold">{data?.author?.full_name}</p>
-                      <p className="text-xs text-gray-500">
-                        {new Date(data.created_at).toLocaleDateString()}
-                      </p>
-                    </div>
-                  </div>
-
+                <div className="bg-white dark:bg-slate-800 lg:rounded-xl lg:border dark:border-slate-700 p-6 lg:shadow-sm">
+                  
                   {/* Titre et catégorie */}
                   <div className="mt-4">
                     <h2
@@ -95,7 +79,7 @@ const DetailBlog = () => {
                     <img
                       src={data.image}
                       alt="Blog"
-                      className="w-full rounded-xl object-cover mt-4 max-h-[400px]"
+                      className="w-full rounded-xl object-cover mt-4 lg:max-h-[400px]"
                     />
                   )}
 
@@ -115,38 +99,58 @@ const DetailBlog = () => {
                     />
                   </div>
 
-                  {/* Réactions et Partage */}
-                  <div className="flex justify-between items-center mt-6 text-sm text-gray-600 dark:text-gray-300 border-t pt-4">
-                    <button className="hover:text-blue-500">👍 {t("Like")}</button>
-                    <button className="hover:text-blue-500">💬 {t("Comment")}</button>
-                    <div className="mt-6 pt-4">
-                      <h2 className="text-md font-bold mb-2">{t("Share_on")}</h2>
-                      <div className="flex gap-4 items-center">
-                        <a
-                          href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:opacity-75"
-                        >
-                          <FaFacebook size={24} className="text-blue-600" />
-                        </a>
-                        <a
-                          href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:opacity-75"
-                        >
-                          <FaTwitter size={24} className="text-sky-500" />
-                        </a>
-                        <a
-                          href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location.href}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:opacity-75"
-                        >
-                          <FaLinkedin size={24} className="text-blue-700" />
-                        </a>
+                  {/* Auteur en bas avec carte dédiée */}
+                  <div className="mt-10 pt-6 border-t">
+                    <div className="flex gap-4 items-start bg-gray-50 dark:bg-slate-700 p-4 rounded-xl shadow-inner">
+                      {data?.author?.image && (
+                        <img
+                          src={data.author.image}
+                          alt={data.author.full_name}
+                          className="w-16 h-16 rounded-full object-cover"
+                        />
+                      )}
+                      <div className="text-sm text-gray-800 dark:text-gray-200">
+                        <p className="font-semibold text-base">{data?.author?.full_name}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {new Date(data.created_at).toLocaleDateString()}
+                        </p>
+                        {data?.author?.bio && (
+                          <blockquote className="mt-2 italic text-gray-600 dark:text-gray-300">
+                            “{data.author.bio}”
+                          </blockquote>
+                        )}
                       </div>
+                    </div>
+                  </div>
+
+                  {/* Réseaux sociaux */}
+                  <div className="mt-8 pt-4 border-t">
+                    <h2 className="text-md font-bold mb-2">{t("Share_on")}</h2>
+                    <div className="flex gap-4 items-center">
+                      <a
+                        href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:opacity-75"
+                      >
+                        <FaFacebook size={24} className="text-blue-600" />
+                      </a>
+                      <a
+                        href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:opacity-75"
+                      >
+                        <FaTwitter size={24} className="text-sky-500" />
+                      </a>
+                      <a
+                        href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location.href}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:opacity-75"
+                      >
+                        <FaLinkedin size={24} className="text-blue-700" />
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -155,7 +159,7 @@ const DetailBlog = () => {
               {/* Sidebar */}
               <aside className="md:col-span-1">
                 <div className="bg-white dark:bg-slate-800 rounded-xl border dark:border-slate-700 p-4 shadow-sm">
-                  <h3 className="text-md font-semibold mb-3">{t("Latest_posts")}</h3>
+                  <h3 className="text-md font-semibold mb-3">{t("News")}</h3>
                   <ul className="space-y-4">
                     {(load ? Array.from({ length: 4 }) : currentBlogs)?.map((item: any, index: number) => (
                       <li
