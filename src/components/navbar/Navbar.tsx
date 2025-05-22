@@ -16,6 +16,23 @@ import { FaXmark } from "react-icons/fa6";
 
 function Navbar() {
   const { handleLanguageChange } = useAuthContext();
+
+  const [selectedLanguage, setSelectedLanguage] = useState("en");
+
+  useEffect(() => {
+    const browserLang = navigator.language || navigator.languages[0];
+    const lang = browserLang.startsWith("en") ? "en" : "fr";
+
+    setSelectedLanguage(lang);
+    handleLanguageChange(lang);
+  }, []);
+
+  const selectLanguage = (language: any) => {
+    setSelectedLanguage(language);
+    setDropdownOpen(false);
+    handleLanguageChange(language);
+  };
+
   const { t } = useTranslation();
   const { sticky } = useSticky();
 
@@ -23,12 +40,6 @@ function Navbar() {
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
   const [isDropdown, setIsDropdown] = useState(false);
   const toggleMenu = () => setIsDropdown(!isDropdown);
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const selectLanguage = (language: any) => {
-    setSelectedLanguage(language);
-    setDropdownOpen(false);
-    handleLanguageChange(language);
-  };
 
   const { user, removeSession } = useAuthContext();
   const handleLogout = () => {
@@ -468,8 +479,14 @@ function Navbar() {
                               className="w-12 h-12 rounded-full object-cover"
                             />
                           )} */}
-                          <span className="text-sm text-white dark:text-white text-center">
-                            {user?.email}
+                          <span className=" dark:text-white text-center">
+                            <a
+                              style={{ fontSize: "10px" }}
+                              href="#"
+                              className=" line-clamp-0"
+                            >
+                              {user?.email}
+                            </a>
                           </span>
                         </div>
 
@@ -544,7 +561,10 @@ function Navbar() {
           </nav>
         </header>
         {/* Mobile menu section  dropdown */}
-        <ResponsiveMenu showMenu={showMenu} />
+        <ResponsiveMenu
+          showMenu={showMenu}
+          onClose={() => setShowMenu(false)}
+        />
       </div>
     </>
   );

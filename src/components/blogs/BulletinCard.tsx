@@ -19,46 +19,52 @@ const BulletinCard = ({ bulletin }: Props) => {
   return (
     <div
       onClick={goToDetail}
-      className="cursor-pointer flex items-start space-x-4 bg-white dark:bg-slate-800 rounded-xl shadow hover:shadow-md transition-shadow p-4"
+      className="cursor-pointer flex items-start gap-6 bg-white dark:bg-slate-800 rounded-xl shadow border border-gray-200 dark:border-slate-700 overflow-hidden transition hover:shadow-md duration-300 p-6 text-base max-w-xl"
     >
-      <img
-        src={bulletin?.image}
-        alt={`Bulletin ${bulletin?.id}`}
-        className="w-28 h-28 rounded-md object-cover"
-      />
+      {/* Image */}
+      {bulletin?.image && (
+        <img
+          src={bulletin.image}
+          alt={`Bulletin ${bulletin.id}`}
+          className="w-40 h-40 rounded-lg object-cover flex-shrink-0"
+        />
+      )}
 
-      <div className="flex-1">
+      {/* Contenu */}
+      <div className="flex-1 flex flex-col justify-between">
+        {/* Titre */}
         <h2
-          className="text-base font-semibold text-gray-800 dark:text-white line-clamp-1"
+          className="text-base font-semibold text-gray-800 dark:text-white line-clamp-2"
           dangerouslySetInnerHTML={{
             __html: translated?.title || "",
           }}
         />
 
-        <div className="flex items-center justify-between mt-4 text-xs text-gray-500 dark:text-gray-400">
-          <div className="flex items-center space-x-2">
+        {/* Auteur & date */}
+        <div className="flex items-center justify-between mt-4 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-3">
             <img
               src={bulletin?.author?.image}
               alt={bulletin?.author?.full_name}
-              className="w-8 h-8 rounded-full object-cover"
+              className="w-10 h-10 rounded-full object-cover"
             />
-            <span>Par {bulletin?.author?.full_name}</span>
+            <span>{bulletin?.author?.full_name || "Inconnu"}</span>
           </div>
-
-          <span className="bg-slate-100 dark:bg-slate-700 text-principal px-2 py-1 rounded text-[11px]">
+          <span className="bg-slate-100 dark:bg-slate-700 text-principal px-3 py-1 rounded text-xs">
             {translated?.month}-{translated?.year}
           </span>
         </div>
 
-        <div className="text-right mt-3">
+        {/* Bouton lire la suite */}
+        <div className="text-right mt-4">
           <button
             onClick={(e) => {
               e.stopPropagation();
               goToDetail();
             }}
-            className="text-principal font-medium hover:underline text-sm"
+            className="text-sm text-principal font-medium hover:underline"
           >
-            Lire la suite
+            Lire la suite →
           </button>
         </div>
       </div>

@@ -9,7 +9,7 @@ interface Props {
 }
 
 const formatDate = (date: string) => {
-  return format(new Date(date), "d MMMM yyyy", { locale: fr });
+  return format(new Date(date), "d MMM yyyy", { locale: fr });
 };
 
 const Blogia = ({ blog }: Props) => {
@@ -17,59 +17,60 @@ const Blogia = ({ blog }: Props) => {
   const navigate = useNavigate();
 
   const goToAbout = () => {
-    navigate(
-      `/blog/detail/` + showingTranslateValue(blog?.translations, lang)?.slug
-    );
+    navigate(`/blog/detail/` + showingTranslateValue(blog?.translations, lang)?.slug);
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 max-w-xl mx-auto my-4">
-      {/* En-tête avec avatar, nom, date */}
-      <div className="flex items-center p-4 space-x-3">
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow border border-gray-200 dark:border-slate-700 overflow-hidden transition hover:shadow-md duration-300 text-sm">
+      {/* Auteur + Date */}
+      <div className="flex items-center gap-3 p-3">
         <img
           src={blog.author.image}
           alt={blog.author.full_name}
-          className="w-10 h-10 rounded-full object-cover"
+          className="w-9 h-9 rounded-full object-cover"
         />
-        <div className="flex flex-col">
-          <span className="font-semibold text-gray-800 dark:text-white text-sm">
+        <div>
+          <p className="text-gray-800 dark:text-white font-medium">
             {blog.author.full_name}
-          </span>
-          <span className="text-xs text-gray-500 dark:text-gray-300">
+          </p>
+          <p className="text-gray-500 dark:text-gray-400 text-xs">
             {formatDate(blog.publication_date)}
-          </span>
+          </p>
         </div>
       </div>
 
-      {/* Contenu (titre, image, description) */}
-      <div className="px-4 pb-4 cursor-pointer" onClick={goToAbout}>
+      {/* Image */}
+      {blog.image && (
+        <div onClick={goToAbout} className="cursor-pointer">
+          <img
+            src={blog.image}
+            alt="Illustration blog"
+            className="w-full h-40 object-cover"
+          />
+        </div>
+      )}
+
+      {/* Titre + description */}
+      <div className="px-3 py-2 cursor-pointer" onClick={goToAbout}>
         <h2
-          className="text-base font-bold text-gray-800 dark:text-white mb-2 line-clamp-2"
+          className="text-sm font-semibold text-gray-800 dark:text-white mb-1 line-clamp-2"
           dangerouslySetInnerHTML={{
             __html: showingTranslateValue(blog?.translations, lang)?.title,
           }}
         />
-        {blog.image && (
-          <img
-            src={blog.image}
-            alt="Illustration blog"
-            className="w-full h-60 object-cover rounded-md mb-3"
-          />
-        )}
         <p
-          className="text-sm text-gray-600 dark:text-gray-200 line-clamp-3"
+          className="text-xs text-gray-600 dark:text-gray-300 line-clamp-3"
           dangerouslySetInnerHTML={{
-            __html: showingTranslateValue(blog?.translations, lang)
-              ?.description,
+            __html: showingTranslateValue(blog?.translations, lang)?.description,
           }}
         />
       </div>
 
-      {/* Footer avec bouton "Lire la suite" */}
-      <div className="border-t px-4 py-3 text-right">
+      {/* Bouton lire la suite */}
+      <div className="border-t px-3 py-2 text-right">
         <button
           onClick={goToAbout}
-          className="text-sm text-principal font-medium hover:underline"
+          className="text-xs text-principal font-medium hover:underline"
         >
           Lire la suite →
         </button>
