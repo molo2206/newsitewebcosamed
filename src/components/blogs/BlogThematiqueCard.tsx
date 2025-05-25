@@ -1,7 +1,9 @@
-
 import { showingTranslateValue } from "../../utils/heleprs";
 import { useAuthContext } from "../../context";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import { useTranslation } from "react-i18next";
 
 interface props {
   cat?: any;
@@ -9,57 +11,38 @@ interface props {
 
 const BlogThematiqueCard = ({ cat }: props) => {
   const navigate = useNavigate();
-  const goToAbout = () => {
+  const goToDetail = () => {
     navigate(
       `/blog/detail/` + showingTranslateValue(cat?.translations, lang)?.slug
     ); // Remplace "/about" par la route cible
   };
+  const formattedDate = cat?.publication_date
+    ? format(new Date(cat.publication_date), "d MMMM yyyy", { locale: fr })
+    : "";
   const { lang } = useAuthContext();
+  const { t } = useTranslation();
   return (
     <>
-       <div
-        key={cat.id}
-        className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow dark:border-slate-700 dark:bg-slate-800 "
-      >
+      <div className="border p-4 bg-gray-50 hover:shadow">
         <img
-          src={cat.image}
-          className="w-full h-48 object-cover"
+          src={cat?.image}
+          alt={showingTranslateValue(cat?.translations, lang)?.title}
+          className="h-40 w-full object-cover transition-transform  duration-300 group-hover:scale-105"
         />
-        <div className="p-4">
-          <h2  onClick={goToAbout}
-            className="sm:text-sm md:text-sm lg:text-sm font-semibold text-gray-800 line-clamp-1 dark:text-white"
-            dangerouslySetInnerHTML={{
-              __html: showingTranslateValue(cat?.translations, lang)?.title,
-            }}
-          ></h2>
-          <p
-            className="text-gray-600 sm:text-sm md:text-sm lg:text-sm  mb-4 line-clamp-2 dark:text-white"
-            dangerouslySetInnerHTML={{
-              __html: showingTranslateValue(cat?.translations, lang)
-                ?.description,
-            }}
-          ></p>
-          <div className="flex items-center justify-between text-gray-500 text-sm">
-            <div className=" flex justify-between space-x-2 items-center">
-              <img
-                src={cat.author.image}
-                alt={cat.author.full_name}
-                className="w-10 h-10 rounded-full"
-              />
-              <span style={{fontSize:11}} className="dark:text-white sm:text-sm md:text-sm lg:text-sm ">
-                Par {cat?.author.full_name}
-              </span>
-            </div>
-            <span style={{fontSize: 11}} className="dark:text-white sm:text-sm md:text-sm lg:text-sm ">{cat?.publication_date}</span>
-          </div>
-        </div>
-        <div className="p-4 border-t text-center">
-          <button
-            onClick={goToAbout}
-            className="text-principal font-medium hover:underline sm:text-sm md:text-sm lg:text-sm "
+        <p className="text-sm text-gray-500">{formattedDate}</p>
+        <p
+          className="font-medium text-sm text-gray-800 mt-1 line-clamp-2"
+          dangerouslySetInnerHTML={{
+            __html: showingTranslateValue(cat?.translations, lang)?.title || "",
+          }}
+        ></p>
+        <div className="mt-3 flex space-x-4 text-sm">
+          <a
+            onClick={() => goToDetail()}
+            className="text-blue-700 font-medium cursor-pointer"
           >
-            Lire la suite
-          </button>
+            {t("Read_more", "Lire la suite →")}
+          </a>
         </div>
       </div>
     </>

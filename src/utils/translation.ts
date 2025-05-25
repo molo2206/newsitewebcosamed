@@ -45,7 +45,7 @@ export const En = {
   Mental: "Mental Health",
   PublicHealth: "Public health",
   Surveillance: "Disease surveillance",
-  Newsletters: "Newsletters",
+  Newsletters: "Latest Newsletters",
   Reports: "Status report",
   Jobs: "Jobs",
   Other: "Other documents",
@@ -80,7 +80,7 @@ export const En = {
   Mission: "Assignment",
   Vision: "Vision",
   History: "History",
-  News: "News",
+  News: "Latest publications",
   OurWork: "Our Work",
   Partners: "The people and organizations we work with",
   Download: "Download PDF",
@@ -111,8 +111,7 @@ export const En = {
   Message: "Message",
   SendMessage: "Send",
   Location: "Location",
-  How_news_letters:
-    "Latest official reports from COSAMED on emergency situations",
+  How_news_letters: "Latest official reports on emergency situations",
   How_blogs: "Latest official news from COSAMED on emergency situations",
   How_comminicate: "Official press releases from COSAMED",
   How_report: "Our reports on health emergencies",
@@ -121,7 +120,7 @@ export const En = {
   Erreur_404: "Error 404",
   It_looks_404: "It appears that this URL does not exist.",
   Do_not_worry: "Please check your URL before updating the page.",
-  Important_Announcement:"Important Announcement",
+  Important_Announcement: "Important Announcement",
   complete_info:
     "COMPLETE THE INFORMATION BELOW IF YOU WISH TO BECOME A MEMBER OF COSAMED",
   Select_thematic: "Select theme",
@@ -159,6 +158,7 @@ export const En = {
   We_believe_in_management:
     "We believe in transparent management of our finances to maintain the trust of our partners and beneficiaries. Here is an overview of our income, expenses, and surplus for the last few years.",
   Media_resources: "Media and Resources",
+  Read_more: "Read more",
 };
 
 export const FR = {
@@ -168,7 +168,7 @@ export const FR = {
     "Votre vie privée est importante pour nous En cliquant sur le bouton 'Accepter', vous consentez à l'utilisation du 1er et cookies tiers (ou similaires) pour améliorer votre expérience Web, mesurer notre audience et collecter des données.",
   Your_privacy_important: "Votre vie privée est importante pour nous",
   Accept_cookies: "Accepter",
-  Important_Announcement:"Annonce importante",
+  Important_Announcement: "Annonce importante",
   Refuse: "Refuse",
   My_profile: "Mon profil",
   My_applications: "Mes candidatures",
@@ -211,8 +211,9 @@ export const FR = {
   Mental: "Santé mentale",
   PublicHealth: "Santé publique",
   Surveillance: "Surveillance des maladies",
-  Newsletters: "Bulletins d'information",
+  Newsletters: "Derniers Bulletins d'information",
   Reports: "Rapport de situation",
+  Read_more: "Lire la suite",
   Jobs: "Offres d'emploi",
   Other: "Autres documents",
   Press: "Presse",
@@ -248,7 +249,7 @@ export const FR = {
   Mission: "Mission",
   Vision: "Vision",
   History: "Historique",
-  News: "Actualités",
+  News: "Dernières publications",
   OurWork: "Notre travail",
   Partners: "Les personnes et organisations avec lesquelles nous travaillons",
   Download: "Télécharger le PDF",
@@ -279,8 +280,7 @@ export const FR = {
   Message: "Votre message",
   SendMessage: "Envoyer",
   Location: "Emplacement",
-  How_news_letters:
-    "Derniers rapports officiels de COSAMED sur les situations d’urgence",
+  How_news_letters: "Bulletins",
   How_blogs:
     "Dernières nouvelles officielles du COSAMED sur les situations d'urgence",
   How_comminicate: "Communiqués officiels de COSAMED",

@@ -17,7 +17,7 @@ const Footer = () => {
 
   return (
     <>
-      <footer className="text-white bg-gradient-to-r  p-4 bg-principal dark:bg-slate-800  font-montserrat">
+      <footer className="text-white bg-gradient-to-r mt-4  p-4 bg-principal dark:bg-slate-800  font-montserrat">
         <div className="container mx-auto grid md:grid-cols-4 gap-8">
           {/* Section "Qui sommes-nous?" */}
           <div>

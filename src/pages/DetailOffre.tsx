@@ -37,12 +37,12 @@ const DetailOffre = () => {
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
         <div className=" bg-gray-100 dark:bg-slate-900 w-full dark:text-white flex items-center justify-center p-6">
-          <div className="bg-white p-6 rounded-lg dark:bg-slate-800 dark:border dark:border-slate-700  dark:text-white shadow-lg w-full max-w-6xl">
+          <div className="bg-white p-6  dark:bg-slate-800 dark:border dark:border-slate-700  dark:text-white shadow-lg w-full">
             {/* Titre de l'offre */}
             {moment().format("YYYY-MM-DD") > data?.enddate && (
               <div className="">
                 <p
-                  className="bg-gradient-to-r bg-red-500 rounded p-2 flex items-center 
+                  className="bg-gradient-to-r bg-red-500 p-2 flex items-center 
                 justify-center text-white sm:text-sm md:text-sm dark:text-slate-200"
                 >
                   {t("Job_off")}
@@ -101,87 +101,95 @@ const DetailOffre = () => {
 
             {/* Détails sous forme de tableau */}
             <div className="overflow-x-auto mb-6 ">
-              <table className="table-auto border-collapse border border-gray-300 w-full text-sm text-left">
+              <table className="table-auto border-collapse border border-gray-300  dark:border-slate-700 w-full text-sm text-left">
                 <thead>
-                  <tr className="bg-gray-100">
-                    <th className="border border-gray-300 px-4 py-2">Détail</th>
-                    <th className="border border-gray-300 px-4 py-2">
+                  <tr className="bg-gray-100  dark:bg-slate-800">
+                    <th className="border border-gray-300 dark:border-slate-700  px-4 py-2">
+                      Détail
+                    </th>
+                    <th className="border border-gray-300 dark:border-slate-700  px-4 py-2">
                       Description
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="">
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700 px-4 py-2 font-semibold">
                       Titre du poste
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">
+                    <td className="border border-gray-300  dark:border-slate-700 px-4 py-2">
                       {data?.title}
                     </td>
                   </tr>
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2 font-semibold">
                       Besoin
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">1</td>
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2">
+                      1
+                    </td>
                   </tr>
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2 font-semibold">
                       Lieu de Prestation
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2">
                       {data?.place}
                     </td>
                   </tr>
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2 font-semibold">
                       Catégorie / Grade
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">VII</td>
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2">
+                      VII
+                    </td>
                   </tr>
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2 font-semibold">
                       Responsable Hiérarchique
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2">
                       Emergency Program Director
                     </td>
                   </tr>
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2 font-semibold">
                       Type de contrat
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2">
                       {data?.type}
                     </td>
                   </tr>
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2 font-semibold">
                       Statut
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2">
                       Éligible à la délocalisation
                     </td>
                   </tr>
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2 font-semibold">
                       Niveau de risque de Sauvegarde
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">3</td>
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2">
+                      3
+                    </td>
                   </tr>
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2 font-semibold">
                       Date de l’offre
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2">
                       {data?.startdate}
                     </td>
                   </tr>
                   <tr>
-                    <td className="border border-gray-300 px-4 py-2 font-semibold">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2 font-semibold">
                       Date de clôture
                     </td>
-                    <td className="border border-gray-300 px-4 py-2">
+                    <td className="border border-gray-300 dark:border-slate-700  px-4 py-2">
                       {data?.enddate}
                     </td>
                   </tr>

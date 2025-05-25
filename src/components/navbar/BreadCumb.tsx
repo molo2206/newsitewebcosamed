@@ -9,18 +9,24 @@ interface Props {
   secondTitle?: string;
 }
 
+const truncate = (text: string, maxLength = 2000) => {
+  if (!text) return "";
+  return text.length > maxLength ? text.slice(0, maxLength) + "…" : text;
+};
+
 const BreadCumb = ({ title, second, secondTitle }: Props) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white dark:bg-slate-900  p-2 "
+      className="bg-white dark:bg-slate-900"
     >
       <nav
-        className="flex items-center text-sm text-gray-600 dark:text-gray-300 gap-2 overflow-x-auto p-4"
+        className="flex items-center text-sm text-gray-600 dark:text-gray-300 gap-2 overflow-x-auto p-1"
         aria-label="Breadcrumb"
       >
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
@@ -55,8 +61,8 @@ const BreadCumb = ({ title, second, secondTitle }: Props) => {
             <li aria-current="page">
               <div className="flex items-center">
                 <span className="mx-2 text-gray-400">/</span>
-                <span className="ml-1 text-gray-500 dark:text-gray-400">
-                  {t(title)}
+                <span className="ml-1 text-gray-500 dark:text-gray-400 truncate max-w-[250px] block">
+                  {truncate(t(title))}
                 </span>
               </div>
             </li>

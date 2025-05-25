@@ -23,7 +23,8 @@ const Team = () => {
     description: "Gouvernance",
     keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
     ogTitle: "Cosamed asbl",
-    ogDescription: "Est une association à but non lucratif reconnue par le gouvernement congolais et composée de prestataires de santé allant des agents de santé communautaires aux médecins.",
+    ogDescription:
+      "Est une association à but non lucratif reconnue par le gouvernement congolais et composée de prestataires de santé allant des agents de santé communautaires aux médecins.",
     ogImage: "https://www.cosamed.org/",
     ogUrl: window.location.href,
   });
@@ -32,12 +33,15 @@ const Team = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white py-8">
+        <div className=" dark:bg-slate-900 w-full dark:text-white p-6">
           <div>
             <BreadCumb title={t("Reports")} />
             <section className="mb-10">
-              <header className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg text-white py-10">
-                <div className="max-w-6xl mx-auto px-4 text-center">
+              <header
+                className="bg-principal dark:bg-slate-800 dark:text-white 
+             text-white py-10"
+              >
+                <div className="p-6 mx-auto px-4 text-center">
                   <h1 className="text-4xl font-bold">
                     Rencontrez notre équipe
                   </h1>

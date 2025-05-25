@@ -1,15 +1,18 @@
-import Logo from "../../assets/logo1.png";
 import { useEffect, useState, useRef } from "react";
-import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ToastContainer } from "react-toastify";
-import CategoryServices from "../../services/CategoryServices";
-import useAsync from "../../hooks/useAsync";
-import CategoryCard from "../blogs/CategoryCard";
-import { useNavigate } from "react-router-dom";
 import ReactCountryFlag from "react-country-flag";
-import { useAuthContext } from "../../context";
+import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
+
+import useAsync from "../../hooks/useAsync";
+import { useAuthContext } from "../../context";
+import CategoryServices from "../../services/CategoryServices";
+
+import CategoryCard from "../blogs/CategoryCard";
+
+import Logo from "../../assets/logo1.png";
 
 interface Props {
   showMenu?: boolean;
@@ -107,9 +110,16 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
       className={`${
         showMenu ? "left-0" : "-left-[100%]"
       } fixed bottom-0 top-0 z-20 flex h-full w-[280px] py-10 flex-col justify-between
-        bg-principal dark:bg-slate-800 transition-all duration-200 md:hidden rounded-r-xl shadow-md`}
+    bg-principal dark:bg-slate-800 transition-all duration-300 ease-in-out md:hidden rounded-r-xl shadow-md`}
     >
-      {/* Profil centré */}
+      {/* 🟦 Logo de l'organisation */}
+      <div className="flex justify-center items-center mb-4 px-4">
+        <img
+          src={Logo} // Remplace par le chemin réel de ton logo
+          alt="Organization Logo"
+          className="h-16 object-contain"
+        />
+      </div>
       <div className="relative mt-2 flex flex-col items-center">
         <button
           onClick={toggleMenus}
@@ -131,12 +141,16 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
           </span>
         </div>
 
-        {/* Menu déroulant du profil */}
         {isDropdown && (
           <>
             <div
-              className="absolute left-1/2 -translate-x-1/2 mt-12 w-64 bg-principal dark:bg-slate-800 border border-gray-400 dark:border-slate-700 
-                         rounded-xl shadow-xl z-50 transition-all duration-200"
+              className="absolute mt-2 w-64 bg-principal dark:bg-slate-800 border border-gray-400 dark:border-slate-700 
+                rounded-xl shadow-xl z-50 transition-all duration-200"
+              style={{
+                top: "100%",
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
             >
               <div className="flex flex-col items-center justify-center p-4 space-y-2">
                 <span className="text-sm text-white dark:text-white text-center">
@@ -177,7 +191,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                   </li>
                 ) : (
                   <li
-                    onClick={() => handleLogout()}
+                    onClick={handleLogout}
                     className="px-4 py-3 hover:bg-hover rounded-xl dark:hover:bg-slate-700 cursor-pointer"
                   >
                     {t("Logout")}
@@ -195,7 +209,6 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
               </ul>
             </div>
 
-            {/* Fond pour fermer le menu quand on clique en dehors */}
             <div
               className="fixed inset-0 z-40"
               onClick={() => setIsDropdown(false)}
@@ -203,35 +216,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
           </>
         )}
       </div>
-
-      {/* Reste du menu */}
-      <div className="relative mt-5 text-sm dark:bg-slate-800 bg-principale h-full overflow-y-auto">
-        <div className="flex justify-between items-center px-4">
-          <div
-            onClick={() => {
-              navigate("/");
-              onClose?.();
-            }}
-            className="cursor-pointer"
-          >
-            <img src={Logo} alt="Logo" className="h-20" />
-          </div>
-
-          <div className="p-4">
-            {theme === "dark" ? (
-              <BiSolidSun
-                className="text-xl cursor-pointer text-white rounded-full border border-slate-400"
-                onClick={() => setTheme("light")}
-              />
-            ) : (
-              <BiSolidMoon
-                className="text-xl cursor-pointer text-white rounded-full border border-slate-400"
-                onClick={() => setTheme("dark")}
-              />
-            )}
-          </div>
-        </div>
-
+      <div className="relative mt- text-sm dark:bg-slate-800 bg-principale h-full overflow-y-auto">
         <ul className="space-y-4 p-6">
           <li
             onClick={() => {
@@ -277,7 +262,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/newsletters");
                     onClose?.();
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Newsletters")}
                 </li>
@@ -286,7 +271,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/reports");
                     onClose?.();
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Reports")}
                 </li>
@@ -295,7 +280,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/jobopenings");
                     onClose?.();
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Jobs")}
                 </li>
@@ -304,7 +289,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/projects");
                     onClose?.();
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Project")}
                 </li>
@@ -327,7 +312,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/load-data/communicated");
                     onClose?.();
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Press")}
                 </li>
@@ -336,7 +321,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/videos");
                     onClose?.();
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Videos")}
                 </li>
@@ -345,7 +330,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/blogs");
                     onClose?.();
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Blog")}
                 </li>
@@ -354,7 +339,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/gallery");
                     onClose?.();
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Gallery")}
                 </li>
@@ -363,7 +348,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/evements");
                     onClose?.();
                   }}
-                  className="cursor-pointer"
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Events")}
                 </li>
@@ -384,7 +369,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
               navigate("/data-loading/Ai4Mpox");
               onClose?.();
             }}
-            className="text-white font-medium cursor-pointer"
+            className="text-white font-medium cursor-pointer "
           >
             {t("AI4Mpox")}
           </li>
@@ -393,7 +378,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
               navigate("/data-loading/jobopenings");
               onClose?.();
             }}
-            className="text-white font-medium cursor-pointer"
+            className="text-white font-medium cursor-pointer "
           >
             {t("Jobs")}
           </li>
@@ -413,6 +398,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/about");
                     onClose?.();
                   }}
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("AboutUs")}
                 </li>
@@ -421,6 +407,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/contact");
                     onClose?.();
                   }}
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Contact")}
                 </li>
@@ -429,6 +416,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/partners");
                     onClose?.();
                   }}
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Partnerships")}
                 </li>
@@ -437,6 +425,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/team");
                     onClose?.();
                   }}
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Governance")}
                 </li>
@@ -445,67 +434,99 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/community/join");
                     onClose?.();
                   }}
+                  className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
                 >
                   {t("Becom_member")}
                 </li>
               </ul>
             )}
           </li>
-
-          <li
-            onClick={donatelink}
-            className="text-white font-bold cursor-pointer"
-          >
-            {t("Donate")}
-          </li>
-
-          {/* Sélecteur de langue */}
-          <li className="relative text-white">
-            <button
-              onClick={toggleDropdown}
-              className="flex items-center space-x-2"
-            >
-              <ReactCountryFlag
-                countryCode={selectedLanguage === "en" ? "US" : "FR"}
-                svg
-                style={{
-                  width: "1.5em",
-                  height: "1.5em",
-                }}
-                title={selectedLanguage === "en" ? "English" : "Français"}
-              />
-              <span>{selectedLanguage === "en" ? "English" : "Français"}</span>
-            </button>
-
-            {dropdownOpen && (
-              <ul className="absolute left-0 mt-2 w-28 rounded-md bg-principal dark:bg-slate-700 border border-gray-600 dark:border-slate-600 shadow-lg z-50">
-                <li
-                  onClick={() => selectLanguage("en")}
-                  className="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-hover rounded-md"
-                >
-                  <ReactCountryFlag
-                    countryCode="US"
-                    svg
-                    style={{ width: 24, height: 24 }}
-                  />
-                  English
-                </li>
-                <li
-                  onClick={() => selectLanguage("fr")}
-                  className="flex items-center gap-2 px-4 py-2 cursor-pointer hover:bg-hover rounded-md"
-                >
-                  <ReactCountryFlag
-                    countryCode="FR"
-                    svg
-                    style={{ width: 24, height: 24 }}
-                  />
-                  Français
-                </li>
-              </ul>
-            )}
-          </li>
         </ul>
       </div>
+
+      {/* Pied de menu : thème, langue, actions */}
+      <div className="mt-auto px-4 space-y-4">
+        {/* Thème */}
+        <div className="flex items-center justify-between">
+          <span className="text-white">{t("Theme")}</span>
+          <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+            {theme === "dark" ? (
+              <BiSolidSun className="text-yellow-400 w-6 h-6" />
+            ) : (
+              <BiSolidMoon className="text-white w-6 h-6 dark:bg-white" />
+            )}
+          </button>
+        </div>
+
+        {/* Langue */}
+        <div className="relative">
+          <button
+            onClick={toggleDropdown}
+            className="w-full px-4 py-2 bg-white dark:bg-slate-700 rounded-md flex justify-between items-center"
+          >
+            {selectedLanguage === "en" ? (
+              <ReactCountryFlag
+                countryCode="US"
+                svg
+                style={{ width: "1.5em", height: "1.5em" }}
+              />
+            ) : (
+              <ReactCountryFlag
+                countryCode="FR"
+                svg
+                style={{ width: "1.5em", height: "1.5em" }}
+              />
+            )}
+            <span className="ml-2 text-sm">
+              {selectedLanguage.toUpperCase()}
+            </span>
+          </button>
+          {dropdownOpen && (
+            <div className="absolute right-0 mt-2 bg-white dark:bg-slate-700 rounded-md shadow-md">
+              <div
+                onClick={() => selectLanguage("en")}
+                className="cursor-pointer px-4 py-2 hover:bg-hover"
+              >
+                <ReactCountryFlag
+                  countryCode="US"
+                  svg
+                  style={{ width: "1.5em", height: "1.5em" }}
+                />{" "}
+                English
+              </div>
+              <div
+                onClick={() => selectLanguage("fr")}
+                className="cursor-pointer px-4 py-2 hover:bg-hover"
+              >
+                <ReactCountryFlag
+                  countryCode="FR"
+                  svg
+                  style={{ width: "1.5em", height: "1.5em" }}
+                />{" "}
+                Français
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Boutons d’action */}
+        <div className="space-y-2">
+          <button
+            onClick={donatelink}
+            className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-green-700"
+          >
+            {t("Donate")}
+          </button>
+          <button
+            onClick={handleGoBack}
+            className="w-full bg-gray-300 text-black py-2 rounded-md hover:bg-gray-600"
+          >
+            {t("Back")}
+          </button>
+        </div>
+      </div>
+
+      <ToastContainer />
     </div>
   );
 };

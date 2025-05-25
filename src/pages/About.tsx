@@ -6,11 +6,10 @@ import { useTranslation } from "react-i18next";
 import BulletinLoad from "../components/blogs/BulletinLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import usePageSEO from "../components/Seo/usePageSEO";
+import { CheckCircle } from "lucide-react"; // Icône pour les valeurs
 
 function About() {
   const { data, loading } = useAsync(() => SettingsServices.getSettings());
-
-
   const { lang } = useAuthContext();
   const { t } = useTranslation();
 
@@ -30,117 +29,94 @@ function About() {
       {loading ? (
         Array.from(Array(20).keys()).map((i) => <BulletinLoad key={i} />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full ">
-          <BreadCumb title={t("AboutUs")} />
+        <div className="bg-gray-50 dark:bg-slate-900 w-full p-6">
+          <div className=" mx-auto px-4">
+            <BreadCumb title={t("AboutUs")} />
 
-          <section className="mb-10">
-            <header className="bg-principal dark:bg-slate-800 w-full dark:text-white rounded-lg text-white py-10">
-              <div className="max-w-6xl mx-auto px-4 text-center">
-                <h1 className="text-4xl font-bold">{t("AboutUs")}</h1>
+            {/* En-tête OMS style */}
+            <header className="bg-principal border dark:border-gray-700 dark:bg-slate-800 text-white p-6 bor mb-12">
+              <div className="text-center">
+                <h1 className="text-3xl md:text-4xl font-extrabold">
+                  {t("AboutUs")}
+                </h1>
               </div>
             </header>
 
-            <section className="bg-white dark:bg-slate-800 border p-6 rounded-lg shadow-md mb-10 mt-10">
-              <h2 className="text-2xl font-semibold dark:text-white text-gray-800 mb-4">
-                {t("AboutUs")}
-              </h2>
-              <p
-                className="text-gray-600 leading-relaxed dark:text-white font-light"
-                dangerouslySetInnerHTML={{
-                  __html: showingTranslateValue(data?.translations, lang)
-                    ?.about_us || "",
-                }}
-              ></p>
-            </section>
-
-            {/* Mission, Vision, Values */}
-            <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-              {/* Mission */}
-              <div className="bg-white border dark:bg-slate-800 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2 dark:text-white">
-                  {t("Mission")}
-                </h3>
+            {/* Sections */}
+            <section className="space-y-12">
+              {/* À propos */}
+              <div className="bg-white border dark:border-gray-700 p-6 dark:bg-slate-800">
+                <h2 className="text-2xl font-semibold text-blue-900 dark:text-white mb-4">
+                  {t("AboutUs")}
+                </h2>
                 <p
-                  className="text-gray-600 dark:text-white font-light"
+                  className="text-gray-700 dark:text-gray-200 leading-relaxed font-light"
                   dangerouslySetInnerHTML={{
-                    __html: showingTranslateValue(data?.translations, lang)
-                      ?.mission || "",
+                    __html:
+                      showingTranslateValue(data?.translations, lang)
+                        ?.about_us || "",
                   }}
                 ></p>
               </div>
 
-              {/* Vision */}
-              <div className="bg-white p-6 border rounded-lg shadow-md dark:bg-slate-800">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2 dark:text-white ">
-                  {t("Vision")}
-                </h3>
-                <p
-                  className="text-gray-600 dark:text-white font-light"
-                  dangerouslySetInnerHTML={{
-                    __html: showingTranslateValue(data?.translations, lang)
-                      ?.vision || "",
-                  }}
-                ></p>
-              </div>
+              {/* Mission, Vision, Valeurs */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Mission */}
+                <div className="bg-white border dark:border-gray-700 p-6 dark:bg-slate-800">
+                  <h3 className="text-xl font-semibold text-blue-900 dark:text-white mb-2">
+                    {t("Mission")}
+                  </h3>
+                  <p
+                    className="text-gray-700 dark:text-gray-200 font-light leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        showingTranslateValue(data?.translations, lang)
+                          ?.mission || "",
+                    }}
+                  ></p>
+                </div>
 
-              {/* Values */}
-              <div className="bg-white border dark:bg-slate-800 p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2 dark:text-white">
-                  {t("Our_Values")}
-                </h3>
-                <ul className="text-gray-600 list-disc ml-5 space-y-2 dark:text-white font-light">
-                  {[
-                    "Professionalism",
-                    "Responsibility",
-                    "Mutual_respect",
-                    "Gender_sensitivity",
-                    "Excellence",
-                    "Equity",
-                    "Inclusion",
-                    "Innovation",
-                  ].map((value, idx) => (
-                    <li key={idx}>{t(value)}</li>
-                  ))}
-                </ul>
+                {/* Vision */}
+                <div className="bg-white border dark:border-gray-700 dark:bg-slate-800 p-6">
+                  <h3 className="text-xl font-semibold text-blue-900 dark:text-white mb-2">
+                    {t("Vision")}
+                  </h3>
+                  <p
+                    className="text-gray-700 dark:text-gray-200 font-light leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        showingTranslateValue(data?.translations, lang)
+                          ?.vision || "",
+                    }}
+                  ></p>
+                </div>
+
+                {/* Valeurs */}
+                <div className="bg-white  p-6 border dark:border-gray-700 dark:bg-slate-800">
+                  <h3 className="text-xl font-semibold text-blue-900 dark:text-white mb-2">
+                    {t("Our_Values")}
+                  </h3>
+                  <ul className="text-gray-700 dark:text-gray-200 font-light space-y-2 list-none">
+                    {[
+                      "Professionalism",
+                      "Responsibility",
+                      "Mutual_respect",
+                      "Gender_sensitivity",
+                      "Excellence",
+                      "Equity",
+                      "Inclusion",
+                      "Innovation",
+                    ].map((value, idx) => (
+                      <li key={idx} className="flex items-center gap-2">
+                        <CheckCircle className="text-green-600 w-4 h-4" />
+                        {t(value)}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </section>
-          </section>
-
-          {/* Galerie d’images et pagination (optionnel, à décommenter si besoin) */}
-          {/* <section className="bg-white p-6 border rounded-lg shadow-md dark:bg-slate-800">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4 dark:text-white">
-              {t("Our_achievements")}
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {loading
-                ? Array.from(Array(20).keys()).map((i) => <BlogCardLoand key={i} />)
-                : currentMedia.map((item: any, index: number) => (
-                    <ImageRealisationCard
-                      onClick={() => openLightbox(index)}
-                      data={item}
-                      key={item.id || index}
-                    />
-                  ))}
-            </div>
-          </section>
-
-          <Pagination
-            postsPerPage={postsPerPage}
-            totalPasts={medias?.length || 0}
-            paginate={paginate}
-          />
-
-          <LightboxViewer
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-            currentIndex={currentIndex}
-            setCurrentIndex={setCurrentIndex}
-            images={currentMedia.map((item: any) => ({
-              src: item.cover,
-              caption: item.id,
-              alt: item.id,
-            }))}
-          /> */}
+          </div>
         </div>
       )}
     </>

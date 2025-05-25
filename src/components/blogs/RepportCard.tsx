@@ -1,41 +1,52 @@
-
 import { showingTranslateValue } from "../../utils/heleprs";
 import { useAuthContext } from "../../context";
 
-interface props {
+interface Props {
   report?: any;
 }
 
-const RepportCard = ({ report }: props) => {
+const RepportCard = ({ report }: Props) => {
   const { lang } = useAuthContext();
+
+  const translation = showingTranslateValue(report?.translations, lang);
+
   return (
-    <>
-      <div className="flex flex-col md:flex-row  items-start md:items-center justify-between border-b pb-4">
+    <div className="border-b border-gray-200 dark:border-slate-700 pb-6 mb-6">
+      <div className="flex flex-col md:flex-row justify-between md:items-center">
         <div>
+          {/* Titre */}
           <h3
-            className="text-lg font-medium text-principal dark:text-white hover:underline 
-            cursor-pointer"
+            className="text-xl font-semibold text-[#0072CE] dark:text-white hover:underline cursor-pointer"
             dangerouslySetInnerHTML={{
-              __html: showingTranslateValue(report?.translations, lang)?.title,
+              __html: translation?.title,
             }}
-          ></h3>
-          <p className="text-gray-500 text-sm dark:text-white">{report.date}</p>
+          />
+
+          {/* Date */}
+          <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">
+            {report?.date}
+          </p>
+
+          {/* Description */}
           <p
-            className="text-gray-700 mt-2 dark:text-white line-clamp-2"
+            className="text-gray-700 dark:text-gray-100 text-sm mt-3 line-clamp-2"
             dangerouslySetInnerHTML={{
-              __html: showingTranslateValue(report?.translations, lang)
-                ?.description,
+              __html: translation?.description,
             }}
-          ></p>
+          />
+        </div>
+
+        {/* Lien vers le rapport */}
+        <div className="mt-4 md:mt-0 md:ml-6">
+          <a
+            href={`/report/detail/${report?.id}`}
+            className="inline-block text-[#0072CE] hover:underline text-sm font-medium"
+          >
+            Lire le rapport →
+          </a>
         </div>
       </div>
-      <a
-        href={`/report/detail/` + report?.id}
-        className="mt-4 md:mt-0 text-principal hover:text-hover hover:underline"
-      >
-        Lire le rapport →
-      </a>
-    </>
+    </div>
   );
 };
 

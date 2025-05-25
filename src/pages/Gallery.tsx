@@ -39,10 +39,10 @@ const Gallery = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BulletinLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full ">
+        <div className="p-6 dark:bg-slate-900 w-full ">
           <BreadCumb title={t("Gallery")} />
           <section className="mb-10">
-            <header className="bg-principal dark:bg-slate-800 w-full dark:text-white rounded-lg text-white py-10">
+            <header className="bg-principal dark:bg-slate-800 w-full dark:text-white text-white py-10">
               <div className="max-w-6xl mx-auto px-4 text-center">
                 <h1 className="text-4xl font-bold">{t("Gallery")}</h1>
               </div>

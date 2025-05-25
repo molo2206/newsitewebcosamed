@@ -22,10 +22,10 @@ const Rapport = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BulletinLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full  ">
+        <div className="p-6 dark:bg-slate-900 w-full  ">
           <BreadCumb title={t("Reports")} />
           <section className="mb-10">
-            <header className="bg-principal dark:bg-slate-800 w-full dark:text-white rounded-lg text-white py-10">
+            <header className="bg-principal dark:bg-slate-800 w-full dark:text-white  text-white py-10">
               <div className="max-w-6xl mx-auto px-4 text-center">
                 <h1 className="text-4xl font-bold">{t("How_report")}</h1>
                 <p className="mt-4 text-lg">
@@ -36,7 +36,7 @@ const Rapport = () => {
             </header>
 
             {/* Main Content */}
-            <main className=" px-4 py-10">
+            <main className="py-8">
               {/* Intro Section */}
               <section className="mb-10 dark:bg-slate-900 w-full dark:text-white">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4 d w-full dark:text-white">
@@ -52,7 +52,7 @@ const Rapport = () => {
               </section>
 
               {/* Reports Section */}
-              <section className="bg-white dark:bg-slate-800 p-6 border rounded-lg shadow-md">
+              <section className="bg-white dark:bg-slate-800 p-6 border dark:border-slate-700 shadow-md">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 dark:text-white">
                   Rapports récents
                 </h2>

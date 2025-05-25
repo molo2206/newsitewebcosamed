@@ -1,69 +1,59 @@
-import BlogCard from "../components/blogs/BlogCard";
-import SimpleBannerBlog from "../components/simpleBanner/SimpleBannerBlog";
-import BlogServices from "../services/BlogsServices";
 import useAsync from "../hooks/useAsync";
-import BlogCardLoad from "../components/blogs/BlogCardLoad";
-import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
-import BreadCumb from "../components/navbar/BreadCumb";
-import { useState } from "react";
-import Pagination from "../components/Pagination/Pagination";
-import { useTranslation } from "react-i18next";
+import BlogServices from "../services/BlogsServices";
+import BlogCard from "../components/blogs/BlogCard";
+import BlogCardLoand from "../components/blogs/BlogCardLoad";
 
-const Blog = () => {
+export default function Blog() {
   const { data, loading } = useAsync(() => BlogServices.getBlog());
-  const { data: lastblog } = useAsync(() => BlogServices.lastBlog());
-  const { t } = useTranslation();
-
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 6;
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentBlogs = data?.slice(indexOfFirstPost, indexOfLastPost) || [];
-
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
-
-  if (loading && !data) {
-    // Chargement global : placeholder
-    return (
-      <div className="container mx-auto py-8">
-        <BlogDetailLoad />
-      </div>
-    );
-  }
-
   return (
-    <div className="container mx-auto dark:bg-slate-900 dark:text-white p-4">
-      <BreadCumb title={"Blog"} />
+    <div className=" mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-2">Publications</h1>
+      <p className="text-gray-600 mb-6">
+        If you cannot find a publication on our website, please search WHO's
+        publications repository directly.
+      </p>
 
-      {/* Bannière principale du dernier article */}
-      {lastblog && <SimpleBannerBlog blog={lastblog} />}
+      <div className="bg-gray-100 p-6 rounded-lg mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <input
+            type="text"
+            placeholder="Search by keyword"
+            className="p-2 border rounded"
+          />
+          <input
+            type="text"
+            placeholder="Health Topic"
+            className="p-2 border rounded"
+          />
+          <input
+            type="text"
+            placeholder="Countries/Areas"
+            className="p-2 border rounded"
+          />
+          <select className="p-2 border rounded">
+            <option>2022</option>
+            <option>2023</option>
+            <option>2024</option>
+            <option>2025</option>
+          </select>
+          <select className="p-2 border rounded">
+            <option>Publication type</option>
+          </select>
+          <input
+            type="text"
+            placeholder="Publishing Offices"
+            className="p-2 border rounded"
+          />
+        </div>
+      </div>
 
-      <h1 className="my-8 border-l-8 border-blue-600 pl-4 text-center text-3xl font-bold">
-        {t("How_blogs")}
-      </h1>
-
-      {/* Grille des articles */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {loading
-          ? Array.from({ length: postsPerPage }).map((_, i) => (
-              <BlogCardLoad key={i} />
-            ))
-          : currentBlogs.map((blog: any) => (
-              <BlogCard key={blog.id || blog.slug} blog={blog} />
+          ? Array.from({ length: 20 }).map((_, i) => <BlogCardLoand key={i} />)
+          : data?.map((item: any, index: number) => (
+              <BlogCard blog={item} key={index} />
             ))}
-      </section>
-
-      {/* Pagination */}
-      <div className="mt-8 flex justify-center">
-        <Pagination
-          postsPerPage={postsPerPage}
-          totalPasts={data?.length || 0}
-          paginate={paginate}
-        />
       </div>
     </div>
   );
-};
-
-export default Blog;
+}

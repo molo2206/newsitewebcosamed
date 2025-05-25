@@ -52,8 +52,8 @@ const InputSearch = ({
           placeholder={placeholder}
           onChange={onChange}
           onFocus={onFocus}
-          className="flex-1 p-4 w-full md:w-[400px] lg:w-[400px] border dark:text-white dark:bg-slate-900
-           border-slate-400 dark:border-slate-700 rounded-full focus:outline-none min-w-[10px] 
+          className="flex-1 p-4 w-full md:w-[300px] lg:w-[400px] border dark:text-white dark:bg-slate-900
+           border-slate-400 dark:border-slate-700 rounded-xl focus:outline-none min-w-[10px] 
            resize-none focus:ring focus:ring-slate-300"
         />
       )}

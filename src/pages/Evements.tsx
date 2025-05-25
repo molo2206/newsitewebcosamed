@@ -25,12 +25,12 @@ const Evements = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container">
+        <div className="p-1">
           <div className=" bg-white dark:bg-slate-900 dark:text-white  py-10 px-5">
             {/* Header */}
             <BreadCumb title={"Liste des Événements"} />
             <section className="mb-10  ">
-              <header className="bg-principal dark:bg-slate-800 w-full dark:text-white rounded-lg text-white py-10">
+              <header className="bg-principal dark:bg-slate-800 w-full dark:text-white text-white py-10">
                 <div className="max-w-6xl mx-auto px-4 text-center">
                   <h1 className="text-4xl font-bold">Liste des Événements</h1>
                   <p className="mt-4 text-lg">
@@ -41,7 +41,7 @@ const Evements = () => {
               </header>
               <div className="mt-10 py-8">
                 {/* Event List */}
-                <div className="bg-white p-6 rounded-lg shadow-lg border dark:bg-slate-800 dark:text-white ">
+                <div className="bg-white p-6  shadow-lg border dark:border-slate-700 dark:bg-slate-800 dark:text-white ">
                   <h2 className="text-2xl font-bold text-gray-700 mb-4 dark:text-white">
                     Événements à venir
                   </h2>

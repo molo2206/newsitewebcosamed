@@ -28,12 +28,12 @@ export const ImageBlogs = ({ data = [], loading }: Props) => {
 
   return (
     <div className="w-full">
-      <section className="container mx-auto p-2">
+      <section className="mx-auto">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
           {data.map((item, index) => (
             <div
               key={item.id || index}
-              className="aspect-square overflow-hidden rounded-lg relative cursor-pointer"
+              className="aspect-square overflow-hidden relative cursor-pointer"
               onClick={() => openLightbox(index)}
             >
               <img

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
 import { FaBars, FaUserCircle } from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
@@ -132,6 +132,31 @@ function Navbar() {
     navigate(`/community/join`);
   };
 
+  const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
+  const dropdownRefs = useRef<{ [key: string]: HTMLLIElement | null }>({});
+
+  const toggleSubMenu = (menuKey: string) => {
+    setOpenMenus((prev) => ({
+      ...Object.fromEntries(Object.keys(prev).map((key) => [key, false])), // ferme les autres
+      [menuKey]: !prev[menuKey],
+    }));
+  };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const isInsideAny = Object.keys(dropdownRefs.current).some((key) => {
+        const ref = dropdownRefs.current[key];
+        return ref && ref.contains(event.target as Node);
+      });
+
+      if (!isInsideAny) {
+        setOpenMenus({});
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <>
       <div className="">
@@ -140,165 +165,182 @@ function Navbar() {
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
           } left-0 right-0 lg:max-xl font-light bg-principal dark:bg-slate-800 text-white dark:border-t border-slate-700 border-primary/50`}
-        >
-          <nav className="flex items-center md:w-full justify-between p-2 h-18 lg:h-20 md:h-20 sm:h-12 dark:bg-slate-800 text-white">
+          >
+          <nav className="flex items-center md:w-full justify-between p-6 h-16 lg:h-20 md:h-20 sm:h-12 dark:bg-slate-800 text-white ">
             {/* logo */}
             {/* Logo selection */}
-            <div className="text-white cursor-pointer md:p-8 lg:p-12 flex justify-center items-center">
-              <div onClick={() => home()}>
+            <div className="text-white cursor-pointer py-4 md:py-6 lg:py-8 flex justify-center items-center">
+              <div
+                onClick={() => home()}
+                className="w-auto max-w-[180px] md:max-w-[220px] lg:max-w-[260px] transition-all duration-300"
+              >
                 <img
                   src={data?.logo1}
                   alt="Logo"
-                  className={`h-16 md:h-24 transition-all duration-300 ${
-                    sticky ? "opacity-100 scale-100" : "opacity-75 scale-90"
+                  className={`w-full h-auto object-contain transition-all duration-300 ${
+                    sticky ? "opacity-100 scale-100" : "opacity-80 scale-95"
                   }`}
                 />
               </div>
             </div>
+
             {/* Desktop menu selection */}
-            <div className="hidden md:flex justify-center font-light w-full">
+            <div className="hidden md:flex justify-center font-light w-full ">
               <ul className="flex items-center gap-8 justify-center font-semibold">
-                <li className="group cursor-pointer ">
-                  <a className="flex items-center gap-[2px] h-[40px] dark:text-white text-sm   hover:text-slate-300 ">
+                <li
+                  className=" cursor-pointer "
+                  ref={(el) => (dropdownRefs.current["themes"] = el)}
+                  onClick={() => toggleSubMenu("themes")}
+                >
+                  <a
+                    onClick={(e) => e.preventDefault()}
+                    className="flex items-center gap-[2px] h-[40px] dark:text-white text-sm   hover:text-slate-300 "
+                  >
                     {t("Themes")}
                   </a>
-                  <div
-                    className="dropdown icon absolute left-0 z-[99999] hidden w-full rounded-b-3xl bg-white text-black
-                 dark:bg-gray-800 dark:text-white p-2 t ext-black shadow-md group-hover:block"
-                  >
-                    <div className="grid grid-cols-4 gap-6 ">
-                      <div className="col-span-4">
-                        <p className=" text-xs">
-                          <div className=" grid grid-cols-4 mt-4 px-4 space-y-2">
+                  {openMenus["themes"] && (
+                    <div
+                      className="dropdown icon absolute left-0 z-[99999]  w-full bg-white text-black
+                     dark:bg-gray-800 dark:text-white p-2 mt-4 shadow-md"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="grid grid-cols-4 gap-6">
+                        <div className="col-span-4">
+                          <div className="grid grid-cols-4 mt-4 px-4 gap-4">
                             {cat.map((item: any, index: number) => (
                               <div key={index}>
                                 <CategoryCard cat={item} />
                               </div>
                             ))}
                           </div>
-                        </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </li>
-                <li className="group cursor-pointer ">
-                  <a className="flex items-center gap-[2px] h-[40px]  line-clamp-1 text-sm hover:text-slate-300 ">
+                <li
+                  ref={(el) => (dropdownRefs.current["emergency"] = el)}
+                  className="group cursor-pointer"
+                  onClick={() => toggleSubMenu("emergency")}
+                >
+                  <a
+                    className="flex items-center gap-[2px] h-[40px]  line-clamp-1 text-sm hover:text-slate-300 "
+                    onClick={(e) => e.preventDefault()}
+                  >
                     {t("Emergency")}
                   </a>
                   {/* dropdown full width section */}
-                  <div
-                    className="dropdown icon absolute left-0 z-[99999] hidden w-full rounded-b-3xl
-                  bg-white text-black
-                  dark:bg-gray-800 dark:text-white p-4 text-black shadow-md group-hover:block"
-                  >
-                    <div className="grid grid-cols-5 gap-5 ">
-                      <div className="col-span-5">
-                        <div className="grid grid-cols-5 ">
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                              w-full  rounded-full lg:text-sm font-light
-                              md:text-sm"
-                            onClick={navigateNewsletter}
-                          >
-                            {t("Newsletters")}
-                          </div>
+                  {openMenus["emergency"] && (
+                    <div
+                      className="dropdown icon absolute left-0 z-[99999]  w-full bg-white text-black
+                     dark:bg-gray-800 dark:text-white p-2 mt-4 shadow-md"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="grid grid-cols-4 gap-6">
+                        <div className="col-span-4">
+                          <div className="grid grid-cols-5 mt-4 px-4 gap-5">
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateNewsletter}
+                            >
+                              {t("Newsletters")}
+                            </div>
 
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
-                            onClick={navigateJobopen}
-                          >
-                            {t("Jobs")}
-                          </div>
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
-                            onClick={navigateProject}
-                          >
-                            {t("Project")}
-                          </div>
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
-                            onClick={navigateJobOpening}
-                          >
-                            {t("Careers")}
-                          </div>
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
-                            onClick={navigateReport}
-                          >
-                            {t("Reports")}
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateJobopen}
+                            >
+                              {t("Jobs")}
+                            </div>
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateProject}
+                            >
+                              {t("Project")}
+                            </div>
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateJobOpening}
+                            >
+                              {t("Careers")}
+                            </div>
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateReport}
+                            >
+                              {t("Reports")}
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </li>
-                <li className=" group cursor-pointer ">
+                <li
+                  ref={(el) => (dropdownRefs.current["newsroom"] = el)}
+                  className="group cursor-pointer"
+                  onClick={() => toggleSubMenu("newsroom")}
+                >
                   <a className="flex items-center gap-[2px] h-[40px] text-sm hover:text-slate-300 ">
                     {t("Newsroom")}
                   </a>
-                  <div
-                    className="dropdown icon  absolute left-0 z-[99999] hidden w-full rounded-b-3xl bg-white text-black
-                 dark:bg-gray-800 dark:text-white p-4 text-black shadow-md group-hover:block"
-                  >
-                    <div className="grid grid-cols-4 gap-4">
-                      <div className="col-span-4 ">
-                        <div className=" grid grid-cols-5 ">
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
-                            onClick={navigateCommunicated}
-                          >
-                            {t("Press")}
-                          </div>
+                  {openMenus["newsroom"] && (
+                    <div
+                      className="dropdown icon absolute left-0 z-[99999]  w-full bg-white text-black
+                     dark:bg-gray-800 dark:text-white p-2 mt-4 shadow-md"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="grid grid-cols-4 gap-6">
+                        <div className="col-span-4">
+                          <div className="grid grid-cols-5 mt-4 px-4 gap-5">
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateCommunicated}
+                            >
+                              {t("Press")}
+                            </div>
 
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
-                            onClick={navigateVideo}
-                          >
-                            {t("Videos")}
-                          </div>
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
-                            onClick={navigateBlog}
-                          >
-                            {t("Blog")}
-                          </div>
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateVideo}
+                            >
+                              {t("Videos")}
+                            </div>
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateBlog}
+                            >
+                              {t("Blog")}
+                            </div>
 
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
-                            onClick={navigateGallery}
-                          >
-                            {t("Gallery")}
-                          </div>
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateGallery}
+                            >
+                              {t("Gallery")}
+                            </div>
 
-                          <div
-                            className="hover:text-hover  p-4 dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
-                            onClick={navigateEvent}
-                          >
-                            {t("Events")}
+                            <div
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
+                              onClick={navigateEvent}
+                            >
+                              {t("Events")}
+                            </div>
                           </div>
-                        </div>
-                        <div className=" flex items-center justify-center py-2">
-                          <button
-                            onClick={handleGoBack}
-                            className="h-[60px] w-full rounded-lg 
-                              bg-principal  text-white  hover:text-white hover:bg-hover font-semibold text-center"
-                          >
-                            {t("Find_More")}
-                            <ToastContainer />
-                          </button>
+                          <div className=" flex items-center justify-center p-4">
+                            <button
+                              onClick={handleGoBack}
+                              className="h-[60px] w-full rounded-lg 
+                              bg-principal dark:bg-gray-700  text-white  hover:text-white hover:bg-hover font-semibold text-center"
+                            >
+                              {t("Find_More")}
+                              <ToastContainer />
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </li>
 
                 <li className=" group cursor-pointer">
@@ -317,37 +359,38 @@ function Navbar() {
                     {t("Jobs")}
                   </div>
                 </li>
-                <li className=" group cursor-pointer">
+                <li
+                  ref={(el) => (dropdownRefs.current["aboutUs"] = el)}
+                  className="group cursor-pointer"
+                  onClick={() => toggleSubMenu("aboutUs")}
+                >
                   <a className="flex items-center gap-[2px] h-[40px] text-sm  hover:text-slate-300 ">
                     {t("AboutUs")}
                   </a>
-                  <div
-                    className="dropdown icon absolute left-0 z-[99999] hidden w-full rounded-b-3xl
-                  bg-white text-black
-                  dark:bg-gray-800 dark:text-white p-4 t ext-black shadow-md group-hover:block"
-                  >
-                    <div className="grid grid-cols-4 gap-4">
-                      <div className="col-span-4 ">
-                        <p className=" text-sm ">
-                          <div className=" grid grid-cols-5 ">
+                  {openMenus["aboutUs"] && (
+                    <div
+                      className="dropdown icon absolute left-0 z-[99999]  w-full bg-white text-black
+                     dark:bg-gray-800 dark:text-white p-2 mt-4 shadow-md"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="grid grid-cols-4 gap-6">
+                        <div className="col-span-4">
+                          <div className="grid grid-cols-5 mt-4 px-4 gap-5">
                             <div
-                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              className="cursor-pointer  text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
                               onClick={navigateAbout}
                             >
                               {t("AboutUs")}
                             </div>
                             <div
-                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
                               onClick={navigateContact}
                             >
                               {" "}
                               {t("Contact")}
                             </div>
                             <div
-                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
-                             w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
                               onClick={navigatePartners}
                             >
                               {" "}
@@ -355,24 +398,22 @@ function Navbar() {
                             </div>
 
                             <div
-                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
-                            w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
                               onClick={navigateGouvernance}
                             >
                               {t("Governance")}
                             </div>
                             <div
-                              className="hover:text-hover  p-4  dark:text-white  text-principal cursor-pointer 
-                            w-full  rounded-full lg:text-sm font-light md:text-sm"
+                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-lg"
                               onClick={navigateCommunity}
                             >
                               {t("Becom_member")}
                             </div>
                           </div>
-                        </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </li>
 
                 <li className=" group relative cursor-pointer border border-slate-400 dark:border-slate-700 w-[140px] rounded-lg flex justify-center">

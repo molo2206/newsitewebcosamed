@@ -4,20 +4,12 @@ import BannerMission from "../components/bannerDetails/BannerMission";
 import Bulletin from "../components/blogs/Bulletin";
 
 import usePageSEO from "../components/Seo/usePageSEO";
-import useAsync from "../hooks/useAsync";
-import SimpleBannerCommunicated from "../components/simpleBanner/SimpleBannerCommunicated";
-import CommunicatedServices from "../services/CommunicatedServices";
-import BannerPartener from "../components/bannerDetails/BannerPartener";
-import AboutMediaHome from "./AboutMediaHome";
 import DonateBanner from "./DonateBanner";
 // import Visitors from "../hooks/Visitors";
 // import { useEffect } from "react";
 // import { useLocation } from "react-router-dom";
 
 const Home = () => {
-  const { data: lastCom } = useAsync(() =>
-    CommunicatedServices.getLastCommunicate()
-  );
   // const location = useLocation();
   // const { registervisitor } = Visitors();
   // useEffect(() => {
@@ -41,9 +33,6 @@ const Home = () => {
       <BannerMission />
       <Blogs />
       <Bulletin />
-      <SimpleBannerCommunicated commun={lastCom} />
-      <BannerPartener />
-      <AboutMediaHome />
       <DonateBanner />
     </div>
   );

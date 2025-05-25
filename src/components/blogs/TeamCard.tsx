@@ -6,7 +6,7 @@ const TeamCard = ({ team }: props) => {
     <>
       <div
         key={team?.index}
-        className="bg-white shadow-lg rounded-lg border dark:bg-slate-800  p-6 text-center hover:shadow-xl transition-shadow duration-300"
+        className="bg-white border dark:border-slate-700 dark:bg-slate-800  p-6 text-center hover:shadow-xl transition-shadow duration-300"
       >
         <img
           src={team?.image}
@@ -16,7 +16,6 @@ const TeamCard = ({ team }: props) => {
           {team?.full_name}
         </h3>
         <p className="text-gray-500 dark:text-white">{team?.fonction}</p>
-        
       </div>
     </>
   );

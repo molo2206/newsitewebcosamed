@@ -35,17 +35,17 @@ const Communicates = () => {
     <>
       {loading ? (
         // Affiche un loader global ou placeholder
-        <div className="container w-full dark:bg-slate-900 dark:text-white">
+        <div className="p-6 w-full dark:bg-slate-900 dark:text-white">
           {Array.from({ length: 6 }).map((_, idx) => (
             <BlogDetailLoad key={idx} />
           ))}
         </div>
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white px-4 sm:px-6 lg:px-8">
+        <div className="p-6 dark:bg-slate-900 w-full dark:text-white px-4 sm:px-6 lg:px-8">
           <BreadCumb title={t("Communicated")} />
 
           <section className="mb-10">
-            <header className="bg-principal dark:bg-slate-800 w-full dark:text-white rounded-lg text-white py-10 mb-6">
+            <header className="bg-principal dark:bg-slate-800 w-full dark:text-white text-white py-10 mb-6">
               <div className="max-w-6xl mx-auto px-4 text-center">
                 <h1 className="text-4xl font-bold">{t("How_comminicate")}</h1>
               </div>

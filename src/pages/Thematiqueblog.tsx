@@ -1,6 +1,5 @@
 import CategoryServices from "../services/CategoryServices";
 import useAsync from "../hooks/useAsync";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import { useParams } from "react-router-dom";
@@ -13,49 +12,92 @@ import Pagination from "../components/Pagination/Pagination";
 const Thematiqueblog = () => {
   const { id } = useParams();
   const { lang } = useAuthContext();
-  const { data, loading } = useAsync(() => CategoryServices.getblogCat(id), id);
+
+  const { data = [], loading } = useAsync(
+    () => CategoryServices.getblogCat(id),
+    id
+  );
   const { data: cat } = useAsync(() => CategoryServices.getOneCategory(id), id);
-  //Get current blog
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(12);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentBlogs = data.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
-    <>
+    <div className=" mx-auto p-6 dark:bg-slate-900 dark:text-white">
       {loading ? (
-        Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
+        Array.from({ length: 12 }).map((_, i) => <BlogDetailLoad key={i} />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white ">
-          <div>
-            <BreadCumb title={"Category"} />
-            <section className="mb-10 ">
-              <header className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg text-white py-10">
-                <div className="max-w-6xl mx-auto px-4 text-center">
-                  <h1 className="text-4xl font-bold">
-                    {showingTranslateValue(cat?.translations, lang)?.name}
-                  </h1>
-                </div>
-              </header>
-              {/* <SimpleBannerBlog img={Img1} /> */}
-              <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-10">
-                {loading
-                  ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
-                  : currentBlogs.map((item: any, index: number) => (
-                      <BlogThematiqueCard cat={item} key={index} />
-                    ))}
-              </div>
-            </section>
-            <Pagination
-              postsPerPage={postsPerPage}
-              totalPasts={data.length}
-              paginate={paginate}
-            />
+        <>
+          <BreadCumb title={"Category"} />
+
+          <div className="mb-12 text-center">
+            <h1 className="text-4xl font-bold mb-4">
+              {showingTranslateValue(cat?.translations, lang)?.name}
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              Browse all articles under this category.
+            </p>
           </div>
-        </div>
+
+          {/* Section de recherche type OMS */}
+          <div className="bg-gray-100 dark:bg-slate-800 p-6 rounded-lg mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              <input
+                type="text"
+                placeholder="Search by keyword"
+                className="p-2 border rounded"
+              />
+              <input
+                type="text"
+                placeholder="Health Topic"
+                className="p-2 border rounded"
+              />
+              <input
+                type="text"
+                placeholder="Countries/Areas"
+                className="p-2 border rounded"
+              />
+              <select className="p-2 border rounded">
+                <option>Year</option>
+              </select>
+              <select className="p-2 border rounded">
+                <option>Publication type</option>
+              </select>
+              <input
+                type="text"
+                placeholder="Publishing Offices"
+                className="p-2 border rounded"
+              />
+            </div>
+          </div>
+
+          {/* Grille des articles */}
+
+          {data.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+              {currentBlogs.map((item: any, index: number) => (
+                <BlogThematiqueCard cat={item} key={index} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-600 dark:text-gray-400">
+              Aucun article à afficher.
+            </p>
+          )}
+
+          {/* Pagination */}
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPasts={data.length}
+            paginate={paginate}
+          />
+        </>
       )}
-    </>
+    </div>
   );
 };
 

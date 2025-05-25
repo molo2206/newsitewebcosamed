@@ -61,7 +61,7 @@ const Offres = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full h-full dark:text-white ">
+        <div className="p-6 dark:bg-slate-900 w-full h-full dark:text-white ">
           <div>
             <BreadCumb title={"Offres"} />
 
@@ -88,7 +88,7 @@ const Offres = () => {
               </div>
 
               {/* Section Recherche */}
-              <div className="bg-white p-6 shadow-md rounded-md max-w-4xl mx-auto -mt-12 relative  dark:bg-slate-800">
+              <div className="bg-white p-6 shadow-md max-w-4xl mx-auto -mt-12 relative  dark:bg-slate-800">
                 <div className="flex items-center space-x-4">
                   <form
                     onSubmit={validation}

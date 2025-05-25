@@ -107,12 +107,15 @@ const DonateTrue = () => {
   };
   return (
     <div className=" w-full dark:text-white bg-white dark:bg-slate-900 ">
-      <div className="px-4 lg:px-14 max-w-screen-2xl mx-auto my-8  py-20">
-        <div className="flex space-x-4 px-8 items-center bg-slate-200 dark:bg-slate-800 justify-between rounded-md  h-[100px]">
+      <div
+        className=" mx-auto my-8  p-6
+    "
+      >
+        <div className="flex space-x-4 px-8 items-center bg-slate-200 dark:bg-slate-800 justify-between  h-[100px]">
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              className={`h-[60px] w-[800px] rounded-lg 
+              className={`h-[60px] w-[800px]
                             ${
                               currentTab === tab.id
                                 ? "bg-principal"

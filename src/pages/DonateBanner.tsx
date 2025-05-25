@@ -20,9 +20,9 @@ const DonateBanner = () => {
   const shortText = fullText.slice(0, 180) + (isLong ? "..." : "");
 
   return (
-    <div className="container flex flex-col lg:flex-row w-full mx-auto px-6 dark:bg-slate-900 py-2 rounded-xl overflow-hidden">
+    <div className="p-6 mt-4 bg-white flex flex-col lg:flex-row w-full mx-auto px-6 dark:bg-slate-900  overflow-hidden">
       {/* Left Section */}
-      <div className="w-full bg-gray-800 text-white flex-1 p-6 lg:p-16 flex flex-col justify-center rounded-l-xl">
+      <div className="w-full bg-gray-800 text-white flex-1 p-6 lg:p-16 flex flex-col justify-center ">
         <h1 className="text-4xl lg:text-5xl font-bold mb-6">
           Sauver une vie aujourd&apos;hui
         </h1>
@@ -59,7 +59,7 @@ const DonateBanner = () => {
           <button
             type="button"
             onClick={goToContact}
-            className="sm:w-full md:w-auto px-6 py-2 border border-principal text-principal rounded hover:bg-principal hover:text-white transition"
+            className="sm:w-full md:w-auto px-6 py-2 border border-principal text-white rounded hover:bg-principal hover:text-white transition"
           >
             Aller à la page contactez-nous
           </button>
@@ -67,7 +67,7 @@ const DonateBanner = () => {
       </div>
 
       {/* Right Section */}
-      <div className="flex-1 relative overflow-hidden rounded-r-xl">
+      <div className="flex-1 relative overflow-hidden ">
         <img
           src="https://apicosamed.cosamed.org/uploads/blogs/3b92d18aa7a6176dd37d372bc2f1eb71.png"
           alt="Happy child"

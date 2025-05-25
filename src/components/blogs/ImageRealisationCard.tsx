@@ -22,7 +22,7 @@ const ImageRealisationCard = ({ data, loading, onClick }: Props) => {
       key={data?.id}
       onClick={onClick}
       role="button"
-      className="relative group overflow-hidden rounded-lg shadow-md cursor-pointer transition-transform duration-300 hover:scale-105"
+      className="relative group overflow-hidden shadow-md cursor-pointer transition-transform duration-300 hover:scale-105"
     >
       <img
         src={data?.cover}

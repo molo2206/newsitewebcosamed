@@ -76,11 +76,11 @@ const ContactUs = () => {
     }
   };
   return (
-    <div className="container dark:bg-slate-900 w-full dark:text-white ">
+    <div className="p-6 dark:bg-slate-900 w-full dark:text-white ">
       <div>
         <BreadCumb title={"Blog"} />
         <section className="mb-10 ">
-          <header className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg text-white py-10">
+          <header className="bg-principal dark:bg-slate-800 dark:border-slate-700 dark:text-white  text-white p-6">
             <div className="max-w-6xl mx-auto px-4 text-center">
               <h1 className="md:text-xl lg:text-2xl font-bold">
                 {t("Contact_us")}
@@ -89,7 +89,7 @@ const ContactUs = () => {
           </header>
           <div className=" grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 ">
             {/* Left Section: Contact Information */}
-            <div className="bg-white border shadow-lg rounded-lg p-8 dark:bg-slate-800">
+            <div className="bg-white border dark:border-slate-700 p-8 dark:bg-slate-800">
               <h1 className="lg:text-2xl md:text-xl  font-bold text-gray-800 mb-6 dark:text-white">
                 Ce que nous pensons,
               </h1>
@@ -98,7 +98,7 @@ const ContactUs = () => {
                 projet à discuter ou simplement besoin d’informations, n’hésitez
                 pas à nous contacter. Vous pouvez également remplir notre
                 formulaire de contact et nous vous répondrons dans les plus
-                brefs délais. À très bientôt ! 😊
+                brefs délais. À très bientôt !
               </p>
               <ul className="space-y-4">
                 <li className="flex items-center">
@@ -170,7 +170,7 @@ const ContactUs = () => {
             </div>
 
             {/* Right Section: Contact Form */}
-            <div className="bg-white shadow-lg border rounded-lg p-8 dark:bg-slate-800">
+            <div className="bg-white  border dark:border-slate-700 p-8 dark:bg-slate-800">
               <p className="lg:text-xl md:text-sm font-light mb-2 font-base text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
                 {t("Send_message")}
               </p>

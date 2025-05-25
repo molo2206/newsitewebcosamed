@@ -8,7 +8,7 @@ const OffresCard = ({ job }: props) => {
     <>
       <div
         key={job.id}
-        className="bg-white border dark:bg-slate-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+        className="bg-white border dark:bg-slate-800 p-6  shadow-md hover:shadow-lg transition-shadow duration-300"
       >
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
           {job.title}

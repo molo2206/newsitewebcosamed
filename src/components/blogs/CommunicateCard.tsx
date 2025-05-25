@@ -33,56 +33,61 @@ const CommunicateCard = ({ communicate }: Props) => {
   return (
     <div
       key={communicate.id}
-      className="bg-white rounded-lg shadow-md overflow-hidden py-4 hover:shadow-lg transition-shadow border dark:bg-slate-800 cursor-pointer"
       onClick={goToAbout}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") goToAbout();
       }}
+      className="flex flex-col md:flex-row cursor-pointer  bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-md hover:shadow-lg transition-shadow overflow-hidden max-w-full md:max-w-3xl"
     >
+      {/* Image */}
       <img
         src={communicate.file}
         alt={`Image du communiqué ${communicate.id}`}
-        className="w-full h-48 object-cover"
         loading="lazy"
+        className="w-full h-48 md:w-36 md:h-36 object-cover flex-shrink-0"
       />
-      <div className="p-4">
-        <h2
-          className="sm:text-sm md:text-sm lg:text-sm font-semibold text-gray-800 line-clamp-1 dark:text-white"
-          dangerouslySetInnerHTML={{ __html: title }}
-        />
-        <p
-          className="text-gray-600 sm:text-sm md:text-sm lg:text-sm mb-4 line-clamp-2 dark:text-white"
-          dangerouslySetInnerHTML={{ __html: description }}
-        />
-        <div className="flex items-center justify-between text-gray-500 text-sm">
+
+      {/* Contenu texte */}
+      <div className="flex flex-col justify-between p-4 flex-grow">
+        <div>
+          <h2
+            className="text-gray-900 dark:text-white font-semibold text-lg line-clamp-1"
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
+          <p
+            className="text-gray-600 dark:text-gray-300 mt-1 line-clamp-3 text-sm"
+            dangerouslySetInnerHTML={{ __html: description }}
+          />
+        </div>
+
+        <div className="flex items-center justify-between mt-4 text-gray-500 dark:text-gray-400 text-sm">
           <div className="flex items-center space-x-2">
             <img
               src={communicate.author.image}
               alt={`Photo de ${communicate.author.full_name}`}
-              className="w-10 h-10 rounded-full object-cover"
               loading="lazy"
+              className="w-8 h-8 rounded-full object-cover"
             />
-            <span className="dark:text-white sm:text-sm md:text-sm lg:text-sm">
+            <span className="dark:text-white">
               Par {communicate.author.full_name}
             </span>
           </div>
-          <span className="dark:text-white sm:text-sm md:text-sm lg:text-sm">
-            {communicate.created}
-          </span>
+          <span className="dark:text-white">{communicate.created}</span>
         </div>
-      </div>
-      <div className="p-4 border-t text-center">
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            goToAbout();
-          }}
-          className="text-principal font-medium hover:underline sm:text-sm md:text-sm lg:text-sm"
-        >
-          Lire la suite
-        </button>
+
+        <div className="mt-4 text-right">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              goToAbout();
+            }}
+            className="text-principal font-medium hover:underline text-sm"
+          >
+            Lire la suite
+          </button>
+        </div>
       </div>
     </div>
   );

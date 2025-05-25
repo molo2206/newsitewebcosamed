@@ -109,15 +109,15 @@ const Rejoindre = () => {
     }
   };
   return (
-    <div className=" container py-4">
+    <div className="p-6">
       <BreadCumb title={"Rejoindre"} />
       <section className="mb-10 ">
-        <div className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg flex flex-col items-center justify-center text-white">
+        <div className="bg-principal dark:bg-slate-800 dark:text-white flex flex-col items-center justify-center text-white">
           <h1 className="text-3xl font-bold mb-10 mt-4">
             Comment dévenir membre de COSAMED
           </h1>
         </div>
-        <div className="px-4 h-[1000px] flex mt-2">
+        <div className=" h-[1000px] flex mt-2 border p-6">
           <div className=" pt-8 pb-16 lg:pt-16 lg:pb-24 w-[0%] md:w-[40%] sm-[0%] lg-[40%] md:block sm:hidden hidden">
             <div className=" md:block sm:hidden hidden">
               <div className="">
