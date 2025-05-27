@@ -14,6 +14,8 @@ import Members from "../hooks/Members";
 import BreadCumb from "../components/navbar/BreadCumb";
 import usePageSEO from "../components/Seo/usePageSEO";
 import { ApplyForm } from "../types";
+import InputFile from "../components/form/InputFile";
+import InputPdf from "../components/form/InputPdf";
 
 const Rejoindre = () => {
   const { t } = useTranslation();
@@ -108,329 +110,329 @@ const Rejoindre = () => {
       createMember(inputs, setInputs);
     }
   };
+
   return (
-    <div className="p-6">
-      <BreadCumb title={"Rejoindre"} />
-      <section className="mb-10 ">
-        <div className="bg-principal dark:bg-slate-800 dark:text-white flex flex-col items-center justify-center text-white">
-          <h1 className="text-3xl font-bold mb-10 mt-4">
-            Comment dévenir membre de COSAMED
-          </h1>
-        </div>
-        <div className=" h-[1000px] flex mt-2 border p-6">
-          <div className=" pt-8 pb-16 lg:pt-16 lg:pb-24 w-[0%] md:w-[40%] sm-[0%] lg-[40%] md:block sm:hidden hidden">
-            <div className=" md:block sm:hidden hidden">
-              <div className="">
-                <h2 className="lg:text-xl md:text-sm font-light mb-2 font-base text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
-                  {t("Condition")} DE COSAMED ASBL
+    <div className="min-h-screen bg-white  py-12 px-4 sm:px-6 lg:px-8 ">
+      <BreadCumb title={t("Rejoindre")} />
+      <div className="mt-4 mx-auto flex flex-col md:flex-row bg-white border shadow-md overflow-hidden">
+        {/* Left column: Conditions */}
+        <div className="bg-[#f0f2f5] p-6 md:w-2/5 border-r border-gray-200">
+          <h2 className="text-2xl font-semibold text-gray-800 text-center mb-6">
+            {t("Condition")} COSAMED ASBL
+          </h2>
+          <div className="space-y-6 text-gray-700 text-xl">
+            <div className="">
+              <div className=" mb-8 text-2xl">
+                <h2 className="text-md font-montserrat font-bold mb-2 dark:text-white">
+                  Avantages
                 </h2>
-                <div>
-                  <div className=" mb-8">
-                    <h2 className="text-md font-montserrat font-bold mb-2 dark:text-white">
-                      Avantages
-                    </h2>
-                    <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300 text-sm font-regular leading-5">
-                      Contribuer avec elements dansles publications mensuelles
-                      et annuelles de COSAMED;
-                    </li>
-                    <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300 text-sm font-regular leading-5">
-                      Participation privilegiée aux formations en personne comme
-                      en ligne oganisées par COSAMED;
-                    </li>
-                    <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                      Etre prioritaires dans les opportunités d'implémentation
-                      des programmes de COSAMED , suivant les critères de
-                      sélection qui varie selon les opportunités;
-                    </li>
-                    <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                      Representer COSAMED dans les evenements local, national,
-                      regional ou international suivant les demandes de
-                      participation adressées COSAMED;
-                    </li>
-                    <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                      Bénéficier des petites subventions accordées par COSAMED
-                      pour les recherches et solutions innovantes aux problèmes
-                      de santé;
-                    </li>
-                    <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                      Contribuer avec elements dansles publications mensuelles
-                      et annuelles de COSAMED;
-                    </li>
-                    <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                      Privilège de réduction des frais de partition aux
-                      événements annuels de COSAMED y compris la conférence
-                      annuelle et le well being event
-                    </li>
-                  </div>
-                  <div>
-                    <h2 className="text-md font-montserrat font-bold mb-2 dark:text-white">
-                      Les obligations
-                    </h2>
-                    <li className="text-gray-900  dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                      Défendre les intétets de COSAMED asbl;
-                    </li>
-                    <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                      Payer les cotisaions tels que fixé par l'ensemblé générale{" "}
-                      <span className="font-bold">25$</span>
-                    </li>
-                    <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                      Participer activement aux activitées de l'association;
-                    </li>
-                    <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                      Payer sa carte de membre{" "}
-                      <span className="font-bold">5$</span>
-                    </li>
-                    <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                      Proteger le patrimoine de l'association
-                    </li>
-                    <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                      S'abstenir de toute action qui compromettrait la bonne
-                      marche
-                    </li>
-                    <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                      Contribuer activement à la réalisation des objectifs
-                      poursuivis par l'association;
-                    </li>
-                    <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                      Respecter scrupuleusement les statuts et les règlements
-                      d'ordre interiur;
-                    </li>
-                  </div>
-                </div>
+                <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300 text-sm font-regular leading-5">
+                  Contribuer avec elements dansles publications mensuelles et
+                  annuelles de COSAMED;
+                </li>
+                <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300 text-sm font-regular leading-5">
+                  Participation privilegiée aux formations en personne comme en
+                  ligne oganisées par COSAMED;
+                </li>
+                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
+                  Etre prioritaires dans les opportunités d'implémentation des
+                  programmes de COSAMED , suivant les critères de sélection qui
+                  varie selon les opportunités;
+                </li>
+                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
+                  Representer COSAMED dans les evenements local, national,
+                  regional ou international suivant les demandes de
+                  participation adressées COSAMED;
+                </li>
+                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
+                  Bénéficier des petites subventions accordées par COSAMED pour
+                  les recherches et solutions innovantes aux problèmes de santé;
+                </li>
+                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
+                  Contribuer avec elements dansles publications mensuelles et
+                  annuelles de COSAMED;
+                </li>
+                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
+                  Privilège de réduction des frais de partition aux événements
+                  annuels de COSAMED y compris la conférence annuelle et le well
+                  being event
+                </li>
               </div>
-            </div>
-          </div>
-          <div className="flex-1 flex overflow-hidden">
-            <div className="flex-1 overflow-y-scroll">
-              <div className="block scrollbar-hide w-full flex-row gap-2 scroll-smooth col-span-3">
-                <div className="pt-8 pb-16 lg:pt-16 lg:pb-24">
-                  <div className="mx-auto w-full max-w-xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
-                    <div className="m-x-auto">
-                      <div>
-                        <p className="lg:text-xl md:text-sm font-light mb-2 font-base text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
-                          {t("complete_info")}
-                        </p>
-                      </div>
-                      <form
-                        className="mt-8 space-y-6 mb-8"
-                        onSubmit={validation}
-                      >
-                        <div className="space-y-px rounded-md items-center">
-                          <div className="grid grid-cols-1 gap-4">
-                            <Input
-                              required
-                              label={t("Select_thematic")}
-                              type="select"
-                              errors={errors.thematique}
-                              value={inputs.thematique}
-                              onFocus={() => hanldeError(null, `thematique`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "thematique")
-                              }
-                              options={data?.map((item: any) => ({
-                                label: showingTranslateValue(
-                                  item?.translations,
-                                  lang
-                                )?.value,
-                                value: item.id,
-                              }))}
-                            />
-                            <Input
-                              required
-                              label={t("Select_typemember")}
-                              type="select"
-                              errors={errors.typemembre}
-                              value={inputs.typemembre}
-                              onFocus={() => hanldeError(null, `typemembre`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "typemembre")
-                              }
-                              options={Type?.map((item: any) => ({
-                                label: showingTranslateValue(
-                                  item?.translations,
-                                  lang
-                                )?.name,
-                                value: item.id,
-                              }))}
-                            />
-                          </div>
-                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                            <Input
-                              required
-                              name="name"
-                              label={t("Name")}
-                              placeholder=""
-                              type="text"
-                              errors={errors.name}
-                              value={inputs.name}
-                              onFocus={() => hanldeError(null, `name`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "name")
-                              }
-                            />
-                            <Input
-                              required
-                              name="prename"
-                              label={t("Prename")}
-                              placeholder=""
-                              type="text"
-                              errors={errors.prename}
-                              value={inputs.prename}
-                              onFocus={() => hanldeError(null, `prename`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "prename")
-                              }
-                            />
-                            <Input
-                              required
-                              name="select"
-                              label={t("Select_Sexe")}
-                              type="select"
-                              value={inputs.sexe}
-                              errors={errors.sexe}
-                              onFocus={() => hanldeError(null, `sexe`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "sexe")
-                              }
-                              options={genres?.map((item: any) => ({
-                                label: item.label,
-                                value: item.value,
-                              }))}
-                            />
-                            <Input
-                              required
-                              name="phone"
-                              label={t("Phone")}
-                              type="phone"
-                              errors={errors.phone}
-                              value={inputs.phone}
-                              onFocus={() => hanldeError(null, `phone`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "phone")
-                              }
-                            />
-                            <Input
-                              required
-                              name="email"
-                              label="Email"
-                              placeholder=""
-                              type="email"
-                              errors={errors.email}
-                              value={inputs.email}
-                              onFocus={() => hanldeError(null, `email`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "email")
-                              }
-                            />
-                            <Input
-                              required
-                              name="select"
-                              label={t("Select_country")}
-                              type="select"
-                              value={inputs.country}
-                              errors={errors.country}
-                              onFocus={() => hanldeError(null, `country`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "country")
-                              }
-                              options={country?.map((item: any) => ({
-                                label: item.name,
-                                value: item.id,
-                              }))}
-                            />
-                            <Input
-                              required
-                              name="ville"
-                              label={t("City")}
-                              type="text"
-                              errors={errors.ville}
-                              value={inputs.ville}
-                              onFocus={() => hanldeError(null, `ville`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "ville")
-                              }
-                            />
-                            <Input
-                              required
-                              type={"text"}
-                              name="profession"
-                              label={t("Proffession")}
-                              placeholder=""
-                              errors={errors.profession}
-                              value={inputs.profession}
-                              onFocus={() => hanldeError(null, `profession`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "profession")
-                              }
-                            />
-                            <Input
-                              name="num_ordre"
-                              label={t("Order_number")}
-                              placeholder=""
-                              type="text"
-                              errors={errors.num_ordre}
-                              value={inputs.num_ordre}
-                              onFocus={() => hanldeError(null, `num_ordre`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "num_ordre")
-                              }
-                            />
-                            <Input
-                              type={"text"}
-                              name="corporation"
-                              label={t("Corporation")}
-                              placeholder=""
-                              errors={errors.corporation}
-                              value={inputs.corporation}
-                              onFocus={() => hanldeError(null, `corporation`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "corporation")
-                              }
-                            />
-                          </div>
-                          <div className="grid grid-cols-1 gap-4">
-                            <TextArea
-                              name="motif"
-                              placeholder=""
-                              type="text"
-                              value={inputs.motif}
-                              onFocus={() => hanldeError(null, `motif`)}
-                              onChange={(e: any) =>
-                                handleOnChange(e.target.value, "motif")
-                              }
-                              label={t("What_is_the_motivation")}
-                            />
-                          </div>
-                        </div>
-                        <Button loading={loadingForm} label={t("Soumettre")} />
-                        <div className="justify-center items-center">
-                          <div className="mb-2">
-                            <p className="text-sm font-montserrat text-slate-700 dark:text-slate-600 text-justify">
-                              En cliquant sur Continuer, vous acceptez notre{" "}
-                              <Link
-                                to="/confidentiality"
-                                className="text-principal font-bold"
-                                target="_blank"
-                              >
-                                Politique de confidentialité
-                              </Link>
-                              . Vous recevrez peut-être des notifications par
-                              texto ou par email de notre part.
-                            </p>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ marginTop: 20 }}>
-                  {/* <AuthFooter className={"mt-5"} /> */}
-                </div>
+              <div>
+                <h2 className="text-md font-montserrat font-bold mb-2 dark:text-white">
+                  Les obligations
+                </h2>
+                <li className="text-gray-900  dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
+                  Défendre les intétets de COSAMED asbl;
+                </li>
+                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
+                  Payer les cotisaions tels que fixé par l'ensemblé générale{" "}
+                  <span className="font-bold">25$</span>
+                </li>
+                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
+                  Participer activement aux activitées de l'association;
+                </li>
+                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
+                  Payer sa carte de membre <span className="font-bold">5$</span>
+                </li>
+                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
+                  Proteger le patrimoine de l'association
+                </li>
+                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
+                  S'abstenir de toute action qui compromettrait la bonne marche
+                </li>
+                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
+                  Contribuer activement à la réalisation des objectifs
+                  poursuivis par l'association;
+                </li>
+                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
+                  Respecter scrupuleusement les statuts et les règlements
+                  d'ordre interiur;
+                </li>
               </div>
             </div>
           </div>
         </div>
-      </section>
+
+        {/* Right column: Form */}
+        <div className="p-6">
+          <h2 className="text-xl font-semibold text-center text-gray-800 mb-6">
+            {t("complete_info")}
+          </h2>
+          <form className="mt-8 space-y-6 mb-8" onSubmit={validation}>
+            <div className="space-y-px rounded-md items-center">
+              <div className="grid grid-cols-1 gap-4">
+                <Input
+                  required
+                  label={t("Select_thematic")}
+                  type="select"
+                  errors={errors.thematique}
+                  value={inputs.thematique}
+                  onFocus={() => hanldeError(null, `thematique`)}
+                  onChange={(e: any) =>
+                    handleOnChange(e.target.value, "thematique")
+                  }
+                  options={data?.map((item: any) => ({
+                    label: showingTranslateValue(item?.translations, lang)
+                      ?.value,
+                    value: item.id,
+                  }))}
+                />
+                <Input
+                  required
+                  label={t("Select_typemember")}
+                  type="select"
+                  errors={errors.typemembre}
+                  value={inputs.typemembre}
+                  onFocus={() => hanldeError(null, `typemembre`)}
+                  onChange={(e: any) =>
+                    handleOnChange(e.target.value, "typemembre")
+                  }
+                  options={Type?.map((item: any) => ({
+                    label: showingTranslateValue(item?.translations, lang)
+                      ?.name,
+                    value: item.id,
+                  }))}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                <Input
+                  required
+                  name="name"
+                  label={t("Name")}
+                  placeholder=""
+                  type="text"
+                  errors={errors.name}
+                  value={inputs.name}
+                  onFocus={() => hanldeError(null, `name`)}
+                  onChange={(e: any) => handleOnChange(e.target.value, "name")}
+                />
+                <Input
+                  required
+                  name="prename"
+                  label={t("Prename")}
+                  placeholder=""
+                  type="text"
+                  errors={errors.prename}
+                  value={inputs.prename}
+                  onFocus={() => hanldeError(null, `prename`)}
+                  onChange={(e: any) =>
+                    handleOnChange(e.target.value, "prename")
+                  }
+                />
+                <Input
+                  required
+                  name="select"
+                  label={t("Select_Sexe")}
+                  type="select"
+                  value={inputs.sexe}
+                  errors={errors.sexe}
+                  onFocus={() => hanldeError(null, `sexe`)}
+                  onChange={(e: any) => handleOnChange(e.target.value, "sexe")}
+                  options={genres?.map((item: any) => ({
+                    label: item.label,
+                    value: item.value,
+                  }))}
+                />
+                <Input
+                  required
+                  name="phone"
+                  label={t("Phone")}
+                  type="phone"
+                  errors={errors.phone}
+                  value={inputs.phone}
+                  onFocus={() => hanldeError(null, `phone`)}
+                  onChange={(e: any) => handleOnChange(e.target.value, "phone")}
+                />
+                <Input
+                  required
+                  name="email"
+                  label="Email"
+                  placeholder=""
+                  type="email"
+                  errors={errors.email}
+                  value={inputs.email}
+                  onFocus={() => hanldeError(null, `email`)}
+                  onChange={(e: any) => handleOnChange(e.target.value, "email")}
+                />
+                <Input
+                  required
+                  name="select"
+                  label={t("Select_country")}
+                  type="select"
+                  value={inputs.country}
+                  errors={errors.country}
+                  onFocus={() => hanldeError(null, `country`)}
+                  onChange={(e: any) =>
+                    handleOnChange(e.target.value, "country")
+                  }
+                  options={country?.map((item: any) => ({
+                    label: item.name,
+                    value: item.id,
+                  }))}
+                />
+                <Input
+                  required
+                  name="ville"
+                  label={t("City")}
+                  type="text"
+                  errors={errors.ville}
+                  value={inputs.ville}
+                  onFocus={() => hanldeError(null, `ville`)}
+                  onChange={(e: any) => handleOnChange(e.target.value, "ville")}
+                />
+                <Input
+                  required
+                  type={"text"}
+                  name="profession"
+                  label={t("Proffession")}
+                  placeholder=""
+                  errors={errors.profession}
+                  value={inputs.profession}
+                  onFocus={() => hanldeError(null, `profession`)}
+                  onChange={(e: any) =>
+                    handleOnChange(e.target.value, "profession")
+                  }
+                />
+                <Input
+                  name="num_ordre"
+                  label={t("Order_number")}
+                  placeholder=""
+                  type="text"
+                  errors={errors.num_ordre}
+                  value={inputs.num_ordre}
+                  onFocus={() => hanldeError(null, `num_ordre`)}
+                  onChange={(e: any) =>
+                    handleOnChange(e.target.value, "num_ordre")
+                  }
+                />
+                <Input
+                  type={"text"}
+                  name="corporation"
+                  label={t("Corporation")}
+                  placeholder=""
+                  errors={errors.corporation}
+                  value={inputs.corporation}
+                  onFocus={() => hanldeError(null, `corporation`)}
+                  onChange={(e: any) =>
+                    handleOnChange(e.target.value, "corporation")
+                  }
+                />
+              </div>
+              <div className="py-4">
+                <div className="mb-4 border rounded-lg p-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
+                    <InputPdf
+                      required
+                      name="cv"
+                      label="Sélectionner votre lettre"
+                      placeholder=""
+                      type="file"
+                      errors={errors.cv}
+                      onFocus={() => hanldeError(null, `cv`)}
+                      onChange={(e: any) => {
+                        handleOnChange(e.target.files[0], "cv");
+                      }}
+                    />
+                    <InputPdf
+                      required
+                      name="cover_letter"
+                      label="Sélectionner carte d'identité"
+                      placeholder=""
+                      type="file"
+                      errors={errors.cover_letter}
+                      onFocus={() => hanldeError(null, `cover_letter`)}
+                      onChange={(e: any) => {
+                        handleOnChange(e.target.files[0], "cover_letter");
+                      }}
+                    />
+                    <InputFile
+                      required
+                      name="carte"
+                      label="Sélectionner votre dossier académique"
+                      placeholder=""
+                      type="file"
+                      errors={errors.cv}
+                      onFocus={() => hanldeError(null, `carte`)}
+                      onChange={(e: any) => {
+                        handleOnChange(e.target.files[0], "carte");
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-1 gap-4">
+                <TextArea
+                  name="motif"
+                  placeholder=""
+                  type="text"
+                  value={inputs.motif}
+                  onFocus={() => hanldeError(null, `motif`)}
+                  onChange={(e: any) => handleOnChange(e.target.value, "motif")}
+                  label={t("What_is_the_motivation")}
+                />
+              </div>
+            </div>
+            <Button loading={loadingForm} label={t("Soumettre")} />
+            <div className="justify-center items-center">
+              <div className="mb-2">
+                <p className="text-sm font-montserrat text-slate-700 dark:text-slate-600 text-justify">
+                  En cliquant sur Continuer, vous acceptez notre{" "}
+                  <Link
+                    to="/confidentiality"
+                    className="text-principal font-bold"
+                    target="_blank"
+                  >
+                    Politique de confidentialité
+                  </Link>
+                  . Vous recevrez peut-être des notifications par texto ou par
+                  email de notre part.
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

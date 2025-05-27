@@ -38,24 +38,24 @@ const TouteslesQuestionsDon = () => {
     navigate("/contact"); // Remplace "/about" par la route cible
   };
   const { data, loading } = useAsync(() => BlogServices.getBlog());
-  console.log(data)
+  console.log(data);
   //Get current blog
   return (
     <>
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white ">
+        <div className="p-6 dark:bg-slate-900 w-full dark:text-white ">
           <div>
             <BreadCumb title={"Toutes les questions sur le don"} />
             <section className="mb-10">
               <SimpleBannerQuestionsDon />
-              <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
+              <h1 className=" mb-8  py-2 pl-2 text-center text-xl font-bold">
                 Trouvez des réponses à vos questions les plus fréquentes
                 concernant les dons.
               </h1>
               <section
-                className="bg-white  p-6 rounded-lg shadow-md dark:border-slate-50  border
+                className="bg-white  p-6 shadow-md dark:border-slate-50  border
                dark:bg-slate-800"
               >
                 <h2 className="text-2xl font-semibold text-gray-800 mb-4 dark:text-white">

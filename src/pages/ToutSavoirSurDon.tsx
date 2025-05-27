@@ -64,31 +64,23 @@ const ToutSavoirSurDon = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white ">
+        <div className="p-6 dark:bg-slate-900 w-full dark:text-white ">
           <div>
             <BreadCumb title={"Obtenir toutes les informations sur le don"} />
             <section className="mb-10">
               <SimpleBannerToutSavoir />
-              <h1 className=" mb-8 border-l-8 py-2 pl-2 text-center text-3xl font-bold">
+              <h1 className=" mb-8 py-2 pl-2 text-center text-xl font-bold">
                 Découvrez l'impact de votre générosité et comment vos
                 contributions changent des vies.
               </h1>
-
-              {/* <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {loading
-                  ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
-                  : currentBlogs.map((item: any, index: number) => (
-                      <BlogCard blog={item} key={index} />
-                    ))}
-              </div> */}
-              <section className="py-16 px-6 md:px-12 lg:px-24 bg-white dark:bg-slate-900 w-full dark:text-white">
-                <h2 className="text-2xl font-semibold text-center mb-8">
+              <section className="bg-white dark:bg-slate-900 w-full dark:text-white">
+                <h2 className="text-xl  text-center mb-8">
                   Pourquoi choisir le don régulier ?
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {/* Benefit 1 */}
-                  <div className="p-6 border rounded-lg shadow-sm hover:shadow-lg transition">
-                    <h3 className="text-lg font-bold text-blue-600 mb-2">
+                  <div className="p-6 border shadow-sm hover:shadow-lg transition">
+                    <h3 className="text-lg font-bold text-principal mb-2">
                       Simplicité
                     </h3>
                     <p>
@@ -97,8 +89,8 @@ const ToutSavoirSurDon = () => {
                     </p>
                   </div>
                   {/* Benefit 2 */}
-                  <div className="p-6 border rounded-lg shadow-sm hover:shadow-lg transition">
-                    <h3 className="text-lg font-bold text-blue-600 mb-2">
+                  <div className="p-6 border  shadow-sm hover:shadow-lg transition">
+                    <h3 className="text-lg font-bold text-principal mb-2">
                       Impact durable
                     </h3>
                     <p>
@@ -107,8 +99,8 @@ const ToutSavoirSurDon = () => {
                     </p>
                   </div>
                   {/* Benefit 3 */}
-                  <div className="p-6 border rounded-lg shadow-sm hover:shadow-lg transition">
-                    <h3 className="text-lg font-bold text-blue-600 mb-2">
+                  <div className="p-6 border  shadow-sm hover:shadow-lg transition">
+                    <h3 className="text-lg font-bold text-principal mb-2">
                       Flexibilité
                     </h3>
                     <p>
@@ -120,7 +112,7 @@ const ToutSavoirSurDon = () => {
               </section>
 
               {/* Call to Action Section */}
-              <section className="bg-blue-100 py-16 px-6 md:px-12 lg:px-24 text-center border rounded-lg dark:bg-slate-900 w-full dark:text-white">
+              <section className="bg-blue-100 p-6 mt-8 text-center border dark:bg-slate-900 w-full dark:text-white">
                 <h2 className="text-2xl font-semibold mb-6">
                   Prêt à faire la différence ?
                 </h2>

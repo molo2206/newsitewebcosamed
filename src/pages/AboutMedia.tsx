@@ -56,11 +56,11 @@ const AboutMedia = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="container dark:bg-slate-900 w-full dark:text-white ">
+        <div className="p-6 dark:bg-slate-900 w-full dark:text-white ">
           <div>
             <BreadCumb title={t("Media_resources")} />
             <section className="mb-10 ">
-              <header className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg text-white py-10">
+              <header className="bg-principal dark:bg-slate-800 dark:text-white text-white py-10">
                 <div className="max-w-6xl mx-auto px-4 text-center">
                   <h1 className="md:text-xl lg:text-2xl font-bold">
                     {" "}
@@ -79,7 +79,7 @@ const AboutMedia = () => {
                 {ressources.map((ressource, index) => (
                   <div
                     key={index}
-                    className="bg-white dark:bg-slate-800  rounded-lg shadow-md border p-6 hover:shadow-lg transition-shadow"
+                    className="bg-white dark:bg-slate-800 shadow-md border p-6 hover:shadow-lg transition-shadow"
                   >
                     <h2 className="text-md font-semibold text-gray-800 mb-3 dark:text-white">
                       {ressource.title}
@@ -96,7 +96,7 @@ const AboutMedia = () => {
                   </div>
                 ))}
               </section>
-              <section className="bg-gray-100  rounded-lg py-12 mt-10 dark:bg-slate-800">
+              <section className="bg-gray-100   py-12 mt-10 dark:bg-slate-800">
                 <div className="max-w-6xl mx-auto px-2">
                   <h2 className="text-xl font-light text-gray-800 mb-8 dark:text-white">
                     {t("Media_testimonials")}

@@ -2,9 +2,9 @@ import BreadCumb from "../components/navbar/BreadCumb";
 
 const Confidentialite = () => {
   return (
-    <div className="container dark:bg-slate-900 w-full dark:text-white ">
+    <div className="p-6 dark:bg-slate-900 w-full dark:text-white ">
       <BreadCumb title={"Confidentialité"} />
-      <header className="bg-principal dark:bg-slate-800 dark:text-white rounded-lg text-white py-10">
+      <header className="bg-principal dark:bg-slate-800 dark:text-white text-white py-10">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="md:text-xl lg:text-2xl font-bold">
             Politique de Confidentialité
