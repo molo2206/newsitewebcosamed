@@ -112,11 +112,11 @@ const Rejoindre = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white  py-12 px-4 sm:px-6 lg:px-8 ">
+    <div className="p-6 dark:bg-slate-900 bg-white  py-12 px-4 sm:px-6 lg:px-8 ">
       <BreadCumb title={t("Rejoindre")} />
-      <div className="mt-4 mx-auto flex flex-col md:flex-row bg-white border shadow-md overflow-hidden">
+      <div className="mt-4 mx-auto flex flex-col md:flex-row bg-white border dark:border-slate-700 shadow-md overflow-hidden">
         {/* Left column: Conditions */}
-        <div className="bg-[#f0f2f5] p-6 md:w-2/5 border-r border-gray-200">
+        <div className="bg-[#f0f2f5] dark:bg-slate-800 p-6 md:w-3/5 border-r dark:border-slate-700">
           <h2 className="text-2xl font-semibold text-gray-800 text-center mb-6">
             {t("Condition")} COSAMED ASBL
           </h2>
@@ -195,7 +195,7 @@ const Rejoindre = () => {
         </div>
 
         {/* Right column: Form */}
-        <div className="p-6">
+        <div className="p-6 dark:bg-slate-800">
           <h2 className="text-xl font-semibold text-center text-gray-800 mb-6">
             {t("complete_info")}
           </h2>

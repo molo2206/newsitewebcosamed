@@ -13,8 +13,8 @@ interface UserStore {
   logout: () => void;
 }
 
-export const useUserStore = create<UserStore>((set) => ({
+export const useUserStore = create<UserStore>((set:any) => ({
   user: null,
-  setUser: (user) => set({ user }),
+  setUser: (user:any) => set({ user }),
   logout: () => set({ user: null }),
 }));

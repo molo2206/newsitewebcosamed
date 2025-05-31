@@ -25,7 +25,6 @@ const BlogCard = ({ blog }: Props) => {
     : "";
   const { t } = useTranslation();
   return (
-   
     <div className="border dark:border-gray-700 p-4 bg-gray-50 dark:bg-slate-900 dark:text-white hover:shadow">
       <img
         src={blog?.image}
@@ -42,7 +41,7 @@ const BlogCard = ({ blog }: Props) => {
       <div className="mt-3 flex space-x-4 text-sm">
         <a
           onClick={() => goToDetail()}
-          className="text-blue-700 font-medium dark:text-gray-200 cursor-pointer"
+          className="text-principal font-medium dark:text-gray-200 cursor-pointer"
         >
           {t("Read_more")}
         </a>

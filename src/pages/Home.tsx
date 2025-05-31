@@ -5,17 +5,8 @@ import Bulletin from "../components/blogs/Bulletin";
 
 import usePageSEO from "../components/Seo/usePageSEO";
 import DonateBanner from "./DonateBanner";
-// import Visitors from "../hooks/Visitors";
-// import { useEffect } from "react";
-// import { useLocation } from "react-router-dom";
 
 const Home = () => {
-  // const location = useLocation();
-  // const { registervisitor } = Visitors();
-  // useEffect(() => {
-  //   registervisitor(location);
-  // }, []);
-
   usePageSEO({
     title: "Acceuil | COSAMED ASBL",
     description: "Acceuil",

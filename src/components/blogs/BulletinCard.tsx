@@ -23,7 +23,7 @@ const BulletinCard = ({ bulletin }: Props) => {
       <img
         src={bulletin.image}
         alt={translated?.title}
-        className="h-40 w-auto mb-2 mx-auto"
+        className="h-60 w-auto mb-2 mx-auto"
       />
       <p className="text-sm text-gray-500 dark:text-white ">
         {translated?.month}-{translated?.year}
@@ -37,7 +37,7 @@ const BulletinCard = ({ bulletin }: Props) => {
           target="_blank"
           rel="noopener noreferrer"
           download
-          className="text-blue-700 dark:text-white  font-medium"
+          className="text-principal dark:text-white  font-medium"
         >
           {t("Download")}
         </a>
@@ -46,7 +46,7 @@ const BulletinCard = ({ bulletin }: Props) => {
             e.stopPropagation();
             goToDetail();
           }}
-          className="text-blue-700 font-medium dark:text-white cursor-pointer"
+          className="text-principal font-medium dark:text-white cursor-pointer"
         >
           {t("Read_more")}
         </a>
