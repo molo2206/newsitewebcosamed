@@ -97,14 +97,24 @@ const EventCard = ({ event, images = [] }: props) => {
           className="w-full  sm:w-full lg:w-1/3 max-h-[400px] overflow-hidden  hover:shadow-md transition-shadow duration-300 cursor-pointer"
           onClick={() => openLightbox(0)}
         >
-          <div className="relative aspect-video sm:aspect-[4/3] lg:aspect-square">
+          {/* <div className="relative aspect-[3/3] sm:aspect-video lg:aspect-square bg-white">
             <img
               src={event?.image || "/default-event.jpg"}
               alt={
                 showingTranslateValue(event?.translations, lang)?.title ||
                 "Event image"
               }
-              className="absolute inset-0 w-full h-full lg:object-contain object-contain"
+              className="absolute inset-0 w-full h-full object-contain sm:object-cover"
+            />
+          </div> */}
+          <div className="relative w-full aspect-[4/3] bg-white flex items-center justify-center">
+            <img
+              src={event?.image || "/default-event.jpg"}
+              alt={
+                showingTranslateValue(event?.translations, lang)?.title ||
+                "Event image"
+              }
+              className=" lg:max-w-full lg:max-h-full object-contain sm:object-cover"
             />
           </div>
         </div>

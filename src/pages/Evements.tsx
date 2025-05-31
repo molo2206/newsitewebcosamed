@@ -19,7 +19,6 @@ const Evements = () => {
   const currentBlogs = data.slice(indexOfFirstPost, indexOfLastPost);
   const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
 
-
   return (
     <>
       {loading ? (
@@ -32,11 +31,11 @@ const Evements = () => {
             <section className="mb-10  ">
               <header className="bg-principal dark:bg-slate-800 w-full dark:text-white text-white py-8">
                 <div className="max-w-6xl mx-auto px-4 text-center">
-                  <h1 className="text-4xl font-bold">Liste des Événements</h1>
-                  <p className="mt-4 text-lg">
+                  <h1 className="text-lg font-bold">
+                    {" "}
                     Découvrez tous les événements à venir et réservez votre
                     place dès maintenant.
-                  </p>
+                  </h1>
                 </div>
               </header>
               <div className="mt-6 ">
