@@ -1,5 +1,4 @@
 import Spinner from "react-bootstrap/Spinner";
-import { FaSearch } from "react-icons/fa";
 interface props {
   onClick?: any;
   label?: any;
@@ -7,7 +6,7 @@ interface props {
   loading?: boolean | any;
 }
 
-const ButtonSearch = ({ onClick, label, type, loading }: props) => {
+const ButtonDonate = ({ onClick, label, type, loading }: props) => {
   return (
     <button
       disabled={loading}
@@ -15,13 +14,13 @@ const ButtonSearch = ({ onClick, label, type, loading }: props) => {
       type={type || "submit"}
       className={`px-3 ${
         loading ? "cursor-not-allowed opacity-50" : ""
-      } p-4 bg-principal text-white rounded-full flex items-center justify-center w-9 h-9 md:w-9 md:h-9 hover:bg-hover dark:text-white dark:bg-slate-900`}
+      } bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold rounded-md px-10 py-3 shadow-md transition-colors`}
     >
       {label}
-      <FaSearch size={14} className=" flex item-center " />
+
       <Spinner color="red" variant="primary" animation="border" />
     </button>
   );
 };
 
-export default ButtonSearch;
+export default ButtonDonate;

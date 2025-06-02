@@ -108,26 +108,26 @@ const UpdateEmail = () => {
       {!user ? (
         <LoginPage />
       ) : (
-        <div className="container min-h-screen flex flex-col items-center bg-gray-100 p-4 w-full dark:bg-slate-900   bg-white ">
+        <div className=" min-h-screen flex flex-col items-center bg-gray-100 p-6 w-full dark:bg-slate-900   bg-white ">
           <div className="w-full">
             <img
               src="https://apicosamed.cosamed.org/uploads/media/bg-profile-38acc387.jpg" // Remplacez par votre URL d'image
               alt="Banner"
-              className="w-full object-cover h-72 rounded-md"
+              className="w-full object-cover h-72 "
             />
           </div>
-          <div className="w-full max-w-6xl bg-white rounded-lg shadow-md dark:bg-slate-800  p-4 mt-[-4rem]">
+          <div className="w-full max-w-6xl bg-white shadow-md dark:bg-slate-800  p-4 mt-[-4rem]">
             <h2 className="text-lg font-bold border-b-2 border-gray-300 pb-2 mb-4">
               Informations
             </h2>
             {loadingForm ? (
               Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
             ) : (
-              <div>
+              <div className="">
                 <div className="">
                   {!user?.image ? (
                     <FaUserCircle
-                      className="md:w-40 md:h-40 w-16 h-16 rounded-full "
+                      className="md:w-38 md:h-38 w-16 h-16 rounded-full "
                       size={24}
                     />
                   ) : (
@@ -138,12 +138,12 @@ const UpdateEmail = () => {
                           : inputs?.image
                       }
                       alt=""
-                      className="md:w-40 md:h-40 w-16 h-16 rounded-full "
+                      className="md:w-38 md:h-38 w-16 h-16 rounded-full "
                     />
                   )}
                 </div>
                 {/* Information and Form */}
-                <div className="mt-8">
+                <div className="mt-4">
                   <form
                     className="grid grid-cols-1 md:grid-cols-2 gap-6"
                     onSubmit={validation}

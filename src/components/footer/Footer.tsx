@@ -159,7 +159,7 @@ const Footer = () => {
               </h3>
               <button
                 onClick={donatelink}
-                className="mt-4 sm:w-full md:w-full bg-red-500 text-white px-2 py-2 rounded "
+                className="sm:inline-block bg-red-500 text-white text-[12px] font-semibold px-4 py-2 rounded-md"
               >
                 {t("Donate")}
               </button>
@@ -171,7 +171,7 @@ const Footer = () => {
             </h3>
             <button
               onClick={donatelink}
-              className="mt-4 sm:w-full md:w-full bg-red-500 text-white px-2 py-2 rounded "
+              className="sm:inline-block bg-red-500 text-white text-[12px] font-semibold px-4 py-2 rounded-md"
             >
               {t("Donate")}
             </button>

@@ -165,7 +165,7 @@ function Navbar() {
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
           } left-0 right-0 lg:max-xl font-light bg-principal dark:bg-slate-800 text-white dark:border-t border-slate-700 border-primary/50`}
-          >
+        >
           <nav className="flex items-center md:w-full justify-between p-6 h-16 lg:h-20 md:h-20 sm:h-12 dark:bg-slate-800 text-white ">
             {/* logo */}
             {/* Logo selection */}
@@ -206,7 +206,7 @@ function Navbar() {
                     >
                       <div className="grid grid-cols-4 gap-6">
                         <div className="col-span-4">
-                          <div className="grid grid-cols-4 mt-4 px-4 gap-4">
+                          <div className="h-80 overflow-y-auto grid grid-cols-6 mt-4 p-4 gap-4">
                             {cat.map((item: any, index: number) => (
                               <div key={index}>
                                 <CategoryCard cat={item} />
@@ -416,11 +416,10 @@ function Navbar() {
                   )}
                 </li>
 
-                <li className=" group relative cursor-pointer border border-slate-400 dark:border-slate-700 w-[140px] rounded-lg flex justify-center">
+                <li className=" group relative cursor-pointer border border-slate-400 dark:border-gray-100 w-[140px] rounded-md flex justify-center">
                   <div className="relative hidden md:block">
-                    {/* Bouton principal */}
                     <button
-                      className="flex items-center gap-2 bg-principale text-sm text-white px-4 py-2 rounded"
+                      className="flex items-center gap-2 bg-principale text-[12px] text-white px-4 py-2 rounded"
                       onClick={toggleDropdown}
                     >
                       <ReactCountryFlag
@@ -440,10 +439,10 @@ function Navbar() {
                     {dropdownOpen && (
                       <div
                         className="absolute right-0 mt-1 w-[140px]  bg-principal  dark:bg-slate-800 dark:border border-slate-700
-                         rounded-lg shadow-lg z-20"
+                         rounded-lg shadow-lg z-40"
                       >
                         <button
-                          className="flex items-center gap-2 w-full text-sm md:text-sm px-4 py-2 hover:bg-hover rounded text-white"
+                          className="flex items-center gap-2 w-full text-[12px] md:text-[12px] px-4 py-2 hover:bg-hover rounded text-white"
                           onClick={() => selectLanguage("en")}
                         >
                           <ReactCountryFlag
@@ -458,7 +457,7 @@ function Navbar() {
                           English
                         </button>
                         <button
-                          className="flex items-center gap-2 w-full px-4 py-2 text-sm md:text-sm hover:bg-hover rounded"
+                          className="flex items-center gap-2 w-full px-4 py-2 text-[12px] md:text-[12px] hover:bg-hover rounded"
                           onClick={() => selectLanguage("fr")}
                         >
                           <ReactCountryFlag
@@ -479,13 +478,13 @@ function Navbar() {
                 <div className="px-6 flex">
                   {theme === "dark" ? (
                     <BiSolidSun
-                      size={30}
+                      size={25}
                       className="text-sm cursor-pointer rounded-full border border-slate-400 dark:border-slate-700 "
                       onClick={() => setTheme("light")}
                     />
                   ) : (
                     <BiSolidMoon
-                      size={30}
+                      size={25}
                       className="text-sm cursor-pointer rounded-full border border-slate-400 dark:border-slate-700"
                       onClick={() => setTheme("dark")}
                     />
@@ -511,8 +510,8 @@ function Navbar() {
                   {isDropdown && (
                     <>
                       <div
-                        className="absolute left-1/2 -translate-x-1/2 mt-3 w-64 bg-principal dark:bg-slate-800 border border-gray-400 dark:border-slate-700 
-                 rounded-xl shadow-xl z-50 transition-all duration-200"
+                        className="absolute left-1/2 -translate-x-1/2 mt-3 w-64 bg-principal dark:bg-slate-800 border border-principal dark:border-slate-700 
+                 shadow-xl z-50 transition-all duration-200"
                       >
                         <div className="flex flex-col items-center justify-center p-4 space-y-2">
                           {/* {!user?.image ? (
@@ -542,27 +541,27 @@ function Navbar() {
                                 "/recruiting/cosamed/job_openings/accountsettings"
                               )
                             }
-                            className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer rounded-b"
+                            className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer "
                           >
                             {t("My_profile")}
                           </li>
                           <li
                             onClick={() => navigate("/job_openings/userHome")}
-                            className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                            className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer"
                           >
                             {t("My_applications")}
                           </li>
                           {!user ? (
                             <li
                               onClick={() => navigate("/auth/signin")}
-                              className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                              className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer"
                             >
                               {t("Login")}
                             </li>
                           ) : (
                             <li
                               onClick={handleLogout}
-                              className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                              className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer"
                             >
                               {t("Logout")}
                             </li>
@@ -573,7 +572,7 @@ function Navbar() {
                                 "/recruiting/cosamed/job_openings/register"
                               )
                             }
-                            className="px-4 py-3 hover:bg-hover  rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                            className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer"
                           >
                             {t("Register")}
                           </li>

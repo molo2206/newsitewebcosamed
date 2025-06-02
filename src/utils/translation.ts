@@ -199,7 +199,7 @@ export const FR = {
   Emergency: "Urgences sanitaires",
   Newsroom: "Centre des medias",
   Ouractions: "Notre action",
-  Donate: "FAITES UN DON",
+  Donate: "DON",
   Healthnews: "Infos santé",
   Attack: "Attaques sur le système de santé(SSA)",
   Blanket: "Couverture Sanitaire Universelle (CSU)",

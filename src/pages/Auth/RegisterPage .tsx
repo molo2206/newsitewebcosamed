@@ -4,6 +4,7 @@ import Input from "../../components/form/Input";
 import RegisterUser from "../../hooks/RegisterUser";
 import Button from "../../components/form/Button";
 import { ApplyForm } from "../../types";
+import InputPassword from "../../components/form/InputPassword";
 
 const RegisterPage = () => {
   const { t } = useTranslation();
@@ -48,21 +49,21 @@ const RegisterPage = () => {
     }
   };
   return (
-    <div className="container min-h-screen flex flex-col items-center bg-gray-100 p-4 w-full dark:bg-slate-900   bg-white ">
+    <div className=" min-h-screen flex flex-col items-center bg-gray-100 p-6 w-full dark:bg-slate-900   bg-white ">
       <div className="w-full">
         <img
           src="https://apicosamed.cosamed.org/uploads/blogs/505259756244493872b7709a8a01b536.png" // Remplacez par votre URL d'image
           alt="Banner"
-          className="w-full object-cover h-72 rounded-md"
+          className="w-full object-cover h-80"
         />
       </div>
 
       {/* Formulaire de connexion */}
-      <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-slate-800  p-4 mt-[-4rem] ">
+      <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800  p-4 mt-[-4rem] ">
         <h2 className="lg:text-xl md:text-xl font-light mb-4  text-center">
           Créez votre compte gratuitement
         </h2>
-        <form className="w-full max-w-sm space-y-4" onSubmit={validation}>
+        <form className="w-full max-w-sm space-y-4" onSubmit={validation}> 
           <Input
             required
             name="full_name"
@@ -92,7 +93,7 @@ const RegisterPage = () => {
             value={inputs.email}
             onChange={(e: any) => handleOnChange(e.target.value, "email")}
           />
-          <Input
+          <InputPassword
             required
             name="password"
             label={t("Password")}
@@ -102,7 +103,7 @@ const RegisterPage = () => {
             value={inputs.password}
             onChange={(e: any) => handleOnChange(e.target.value, "password")}
           />
-          <Input
+          <InputPassword
             required
             name="password_confirmation"
             label={t("Confirm_password")}
@@ -127,11 +128,11 @@ const RegisterPage = () => {
             En cliquant sur{" "}
             <span className="font-semibold">"Créer mon compte"</span>, vous
             acceptez les{" "}
-            <a href="#" className="text-principal hover:underline">
+            <a href="/confidentiality" className="text-principal hover:underline">
               Conditions Générales d’Utilisation
             </a>{" "}
             et notre{" "}
-            <a href="#" className="text-principal hover:underline">
+            <a href="/confidentiality" className="text-principal hover:underline">
               Politique de confidentialité
             </a>
             .

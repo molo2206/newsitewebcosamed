@@ -6,9 +6,9 @@ import CountryService from "../services/CountryServices";
 import useAsync from "../hooks/useAsync";
 import { ButtonMoney } from "../components/cards/ButtonMoney";
 import { CardElement } from "@stripe/react-stripe-js";
-import Button from "../components/form/Button";
 import Donate from "../hooks/Donate";
 import { ApplyForm } from "../types";
+import ButtonDonate from "../components/form/ButtonDonate";
 
 const CARD_OPTIONS: any = {
   iconStyle: "solid",
@@ -111,24 +111,24 @@ const DonateTrue = () => {
         className=" mx-auto my-8  p-6
     "
       >
-        <div className="flex space-x-4 px-8 items-center bg-slate-200 dark:bg-slate-800 justify-between  h-[100px]">
+        <div className="flex space-x-4 px-8 items-center bg-[#f0f4f8] dark:bg-slate-800 justify-between h-[80px]">
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              className={`h-[60px] w-[800px]
-                            ${
-                              currentTab === tab.id
-                                ? "bg-principal"
-                                : "bg-white"
-                            } text-black  hover:bg-hover hover:text-white font-extrabold text-center`}
+              className={`flex-1 max-w-[180px] h-[50px] rounded-lg font-semibold transition-colors duration-300
+        ${
+          currentTab === tab.id
+            ? "bg-principal text-white shadow-md"
+            : "bg-white text-principal hover:bg-[#007acc] hover:text-white"
+        }
+      `}
               onClick={() => onChangeTab(tab)}
             >
-              {/* h-[40px] w-[180px] rounded-lg 
-              bg-white text-principal hover:bg-hover hover:text-white font-extrabold text-center */}
               {tab.title}
             </button>
           ))}
         </div>
+
         {currentTab === 1 && (
           <div className="flex flex-col mt-4  h-full w-full bg-slate-100 dark:bg-slate-800">
             <div className=" grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
@@ -183,9 +183,8 @@ const DonateTrue = () => {
                     </h2>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                    {buttonMoney.map((item: any, index: number) => (
+                    {buttonMoney.map((item: any) => (
                       <ButtonMoney
-                        id={index}
                         key={item.value}
                         value={inputs.amount === item.value ? true : false}
                         label={item.label}
@@ -298,63 +297,52 @@ const DonateTrue = () => {
                       plateformes de messagerie comme WhatsApp.
                     </label>
                   </div>
-                  <div className="flex flex-col items-center justify-center mt-4  h-full w-full">
-                    <div className=" grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
-                      <div className=" col-span-2 col-lg-8 col-md-8 px-2 py-8 ">
-                        <div>
-                          <h2 className="font-montserrat mb-2 text-left text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
-                            Votre don mensuel
-                          </h2>
-                          <p className="font-montserrat mb-2 text-left text-xl  font-medium tracking-tight text-gray-900 dark:text-white">
-                            Vous êtes sur le point de faire un don
-                          </p>
-                          <div className=" mt-8">
-                            <CardElement
-                              className="w-full  font-montserrat  bg-transparent dark:bg-slate-900
-                             rounded-md text-slate-900 border py-8 px-4  dark:text-white
-                              border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
-                              options={CARD_OPTIONS}
-                            />
-                          </div>
+                  <div className="flex flex-col items-center justify-center h-full w-full bg-white dark:bg-[#0b1f3f] py-10 rounded-lg shadow-md">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+                      <div className="col-span-2 px-6 py-6 bg-[#f9fafb] dark:bg-[#142d57] rounded-lg shadow-sm">
+                        <h2 className="font-sans mb-3 text-left text-3xl font-semibold text-[#0b1f3f] dark:text-white leading-snug">
+                          Votre don mensuel
+                        </h2>
+                        <p className="font-sans mb-6 text-left text-lg font-normal text-[#334e68] dark:text-[#cbd5e1]">
+                          Vous êtes sur le point de faire un don
+                        </p>
+                        <div className="mt-6">
+                          <CardElement
+                            className="w-full font-sans bg-white dark:bg-[#1e3a8a] rounded-md text-[#0b1f3f] dark:text-white border border-[#cbd5e1] dark:border-[#2c5282] py-6 px-5 focus:outline-none focus:ring-2 focus:ring-[#3b82f6] transition-shadow"
+                            options={CARD_OPTIONS}
+                          />
                         </div>
                       </div>
-                      <div className=" col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 py-10">
-                        <div className=" mx-auto relative mb-12 cursor-pointer">
-                          <div
-                            className=" text-center px-4 py-1 rounded-md md:w-3/4 mx-auto absolute left-0 right-0 
-             -top-12 dark:bg-slate-800 dark:text-slate-200 "
-                          ></div>
+
+                      <div className="col-span-1 flex flex-col items-center justify-center px-4 py-10">
+                        <div className="relative w-full max-w-xs mx-auto cursor-pointer">
                           <img
                             src="https://apicosamed.cosamed.org/uploads/blogs/card.png"
-                            alt=""
-                            className="  transition-all duration-300 rounded-md"
+                            alt="Carte de paiement"
+                            className="transition-transform duration-300 rounded-lg shadow-lg hover:scale-105"
                           />
-                          <div
-                            className=" text-center px-4 py-1 
-            bg-white shadow-lg rounded-md md:w-3/4
-             mx-auto absolute left-0 right-0 
-             -bottom-16 dark:bg-slate-800 dark:text-slate-200 "
-                          >
-                            <div className=" flex items-center justify-center gap-8 ">
-                              <a
-                                href="https://stripe.com/gb/legal/privacy-center#which-stripe-entities-are-involved"
-                                className=" font-bold text-stripe hover:text-neutral-700"
-                              >
-                                Powered Stripe
-                              </a>
-                            </div>
+                          <div className="absolute bottom-[-4rem] left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#142d57] shadow-lg rounded-md px-6 py-2 w-3/4 text-center">
+                            <a
+                              href="https://stripe.com/gb/legal/privacy-center#which-stripe-entities-are-involved"
+                              className="text-sm font-semibold text-[#3b82f6] hover:text-[#1e40af]"
+                            >
+                              Powered by Stripe
+                            </a>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <Button
-                      label={`${t("make_donation")} ${
-                        inputs?.amount === "Autre"
-                          ? inputs?.custom_amount
-                          : inputs?.amount
-                      } ${inputs?.amount && "USD"}`}
-                      loading={loading}
-                    />
+
+                    <div className="mt-10 w-full max-w-3xl flex justify-center">
+                      <ButtonDonate
+                        label={`${t("make_donation")} ${
+                          inputs?.amount === "Autre"
+                            ? inputs?.custom_amount
+                            : inputs?.amount
+                        } ${inputs?.amount && "USD"}`}
+                        loading={loading}
+                      />
+                    </div>
                   </div>
                 </form>
               </div>
@@ -375,14 +363,6 @@ const DonateTrue = () => {
                       Permet de fournir le soin de santé primaire et secondiare
                       à 35 personnes souffrant.
                     </h3>
-                    {/* <div className=" flex items-center justify-center gap-8 ">
-                      <a
-                        href=""
-                        className=" font-bold text-brandPrimary hover:text-neutral-700"
-                      >
-                        Readmore
-                      </a>
-                    </div> */}
                   </div>
                 </div>
               </div>
@@ -442,9 +422,8 @@ const DonateTrue = () => {
                     </h2>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                    {buttonMoney.map((item: any, index: number) => (
+                    {buttonMoney.map((item: any) => (
                       <ButtonMoney
-                        id={index}
                         key={item.value}
                         value={inputs.amount === item.value ? true : false}
                         label={item.label}
@@ -557,63 +536,52 @@ const DonateTrue = () => {
                       plateformes de messagerie comme WhatsApp.
                     </label>
                   </div>
-                  <div className="flex flex-col items-center justify-center mt-4  h-full w-full">
-                    <div className=" grid grid-cols-1 md:grid-cols-3 sm:grid-cols-3 lg:grid-cols-3 row">
-                      <div className=" col-span-2 col-lg-8 col-md-8 px-2 py-8 ">
-                        <div>
-                          <h2 className="font-montserrat mb-2 text-left text-2xl sm:text-3xl font-bold  text-gray-900 dark:text-white">
-                            Votre don mensuel
-                          </h2>
-                          <p className="font-montserrat mb-2 text-left text-xl  font-medium  text-gray-900 dark:text-white">
-                            Vous êtes sur le point de faire un don
-                          </p>
-                          <div className=" mt-8">
-                            <CardElement
-                              className="w-full  font-montserrat  bg-transparent dark:bg-slate-900
-                             rounded-md text-slate-900 border py-8 px-4  dark:text-white
-                              border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
-                              options={CARD_OPTIONS}
-                            />
-                          </div>
+                  <div className="flex flex-col items-center justify-center h-full w-full bg-white dark:bg-[#0b1f3f] py-10 rounded-lg shadow-md">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+                      <div className="col-span-2 px-6 py-6 bg-[#f9fafb] dark:bg-[#142d57] rounded-lg shadow-sm">
+                        <h2 className="font-sans mb-3 text-left text-3xl font-semibold text-[#0b1f3f] dark:text-white leading-snug">
+                          Votre don ponctuel
+                        </h2>
+                        <p className="font-sans mb-6 text-left text-lg font-normal text-[#334e68] dark:text-[#cbd5e1]">
+                          Vous êtes sur le point de faire un don
+                        </p>
+                        <div className="mt-6">
+                          <CardElement
+                            className="w-full font-sans bg-white dark:bg-[#1e3a8a] rounded-md text-[#0b1f3f] dark:text-white border border-[#cbd5e1] dark:border-[#2c5282] py-6 px-5 focus:outline-none focus:ring-2 focus:ring-[#3b82f6] transition-shadow"
+                            options={CARD_OPTIONS}
+                          />
                         </div>
                       </div>
-                      <div className=" col-span-1 md:col-lg-4 col-md-4 gap-3 px-4 py-10">
-                        <div className=" mx-auto relative mb-12 cursor-pointer">
-                          <div
-                            className=" text-center px-4 py-1 rounded-md md:w-3/4 mx-auto absolute left-0 right-0 
-             -top-12 dark:bg-slate-800 dark:text-slate-200 "
-                          ></div>
+
+                      <div className="col-span-1 flex flex-col items-center justify-center px-4 py-10">
+                        <div className="relative w-full max-w-xs mx-auto cursor-pointer">
                           <img
                             src="https://apicosamed.cosamed.org/uploads/blogs/card.png"
-                            alt=""
-                            className="  transition-all duration-300 rounded-md"
+                            alt="Carte de paiement"
+                            className="transition-transform duration-300 rounded-lg shadow-lg hover:scale-105"
                           />
-                          <div
-                            className=" text-center px-4 py-1 
-            bg-white shadow-lg rounded-md md:w-3/4
-             mx-auto absolute left-0 right-0 
-             -bottom-16 dark:bg-slate-800 dark:text-slate-200 "
-                          >
-                            <div className=" flex items-center justify-center gap-8 ">
-                              <a
-                                href="https://stripe.com/gb/legal/privacy-center#which-stripe-entities-are-involved"
-                                className=" font-bold text-stripe hover:text-neutral-700"
-                              >
-                                Powered Stripe
-                              </a>
-                            </div>
+                          <div className="absolute bottom-[-4rem] left-1/2 transform -translate-x-1/2 bg-white dark:bg-[#142d57] shadow-lg rounded-md px-6 py-2 w-3/4 text-center">
+                            <a
+                              href="https://stripe.com/gb/legal/privacy-center#which-stripe-entities-are-involved"
+                              className="text-sm font-semibold text-[#3b82f6] hover:text-[#1e40af]"
+                            >
+                              Powered by Stripe
+                            </a>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <Button
-                      label={`${t("make_donation")} ${
-                        inputs?.amount === "Autre"
-                          ? inputs?.custom_amount
-                          : inputs?.amount
-                      } ${inputs?.amount && "USD"}`}
-                      loading={loading}
-                    />
+
+                    <div className="mt-10 w-full max-w-3xl flex justify-center">
+                      <ButtonDonate
+                        label={`${t("make_donation")} ${
+                          inputs?.amount === "Autre"
+                            ? inputs?.custom_amount
+                            : inputs?.amount
+                        } ${inputs?.amount && "USD"}`}
+                        loading={loading}
+                      />
+                    </div>
                   </div>
                 </form>
               </div>

@@ -27,7 +27,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ cat }) => {
     <div
       onClick={handleClick}
       role="link"
-      className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+      className="cursor-pointer transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
     >
       <div className="flex items-center gap-4">
         {cat?.icon && (

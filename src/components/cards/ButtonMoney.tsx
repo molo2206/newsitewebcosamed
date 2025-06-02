@@ -1,35 +1,34 @@
-interface props {
-  value?: any;
-  label?: any;
-  onchange?:any;
-  id?:any;
+interface Props {
+  value?: boolean;
+  label?: string;
+  onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  id?: string;
 }
 
-export const ButtonMoney = ({ value,label,onchange,id }: props) => {
+export const ButtonMoney = ({ value, label, onchange, id }: Props) => {
   return (
-    <div>
-      <div className="relative ">
+    <div className="w-full mx-auto">
+      <div className="relative">
         <input
-          className="text-white  peer hidden focus:ring-blue-300 border-gray-800 peer rounded-lg w-6 h-6 absolute top-7 left-4 "
-           id={id}
-        //   name="custom-checkbox"
+          id={id}
           type="checkbox"
           checked={value}
           onChange={onchange}
+          className="peer hidden"
         />
         <label
-          className="w-full h-full  cursor-pointer flex flex-row justify-between items-center border rounded-lg p-4  
-  active:bg-hover 
-  peer-focus:outline-none peer-focus:ring ring-blue-100 
-  border-principal peer-checked:bg-principal peer-checked:text-white
-  bg-blue-100z"
           htmlFor={id}
+          className={`
+            w-full cursor-pointer flex items-center justify-center
+            border border-[#3b82f6] dark:border-[#60a5fa] rounded-md px-4 py-2
+            bg-white dark:bg-principal text-[#0b1f3f] dark:text-white
+            transition-all duration-200 ease-in-out text-sm sm:text-base
+            peer-checked:bg-hover dark:peer-checked:bg-[#2563eb]
+            peer-checked:text-white shadow-sm hover:shadow-md
+            focus:outline-none focus:ring-2 focus:ring-blue-200
+          `}
         >
-          <div className="flex flex-row justify-center items-center w-[380px] ml-10 mr-4">
-            <div>
-              <h3 className="font-bold text-xl ">{label}</h3>
-            </div>
-          </div>
+          <span className="font-medium truncate">{label}</span>
         </label>
       </div>
     </div>

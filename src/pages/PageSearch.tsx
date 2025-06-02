@@ -4,18 +4,19 @@ import { useAuthContext } from "../context";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import CardSearch from "../components/cards/CardSearch";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
+import BlogCardLoad from "../components/blogs/BlogCardLoad";
+import BreadCumb from "../components/navbar/BreadCumb";
 
 const PageSearch = () => {
   const [searchParams] = useSearchParams();
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState<any>(
     searchParams.get("page") || 1
   );
   const { lang } = useAuthContext();
-
   const location = useLocation();
-  const { data , loading} = useAsync(
+
+  const { data, loading } = useAsync(
     () =>
       SearchServices.create(
         {
@@ -26,80 +27,74 @@ const PageSearch = () => {
       ),
     [location.key, currentPage]
   );
+
   const fetchNextPrevTasks = (link: any) => {
     const url = new URL(link);
-    navigation(
+    navigate(
       `/search?q=${searchParams.get("q")}&page=${url.searchParams.get("page")}`
     );
     setCurrentPage(url.searchParams.get("page"));
   };
-  const renderPaginationLinks = () => {
-    return (
-      <nav
-        className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-        aria-label="Pagination"
-      >
-        <ul className=" flex relative ">
-          {data?.links?.map((link: any, index: number) => (
-            <li key={index}>
-              <a
-                onClick={() => fetchNextPrevTasks(link?.url)}
-                aria-current="page"
-                className={`cursor-pointer relative z-10 inline-flex items-center
-                 ${
-                   link?.active
-                     ? "bg-principal text-white"
-                     : "border-principal border-[1px] text-principal"
-                 } px-4 py-2 text-sm font-semibold
-                  focus:z-20 focus-visible:outline 
-                  focus-visible:outline-2 focus-visible:outline-offset-2
-                   focus-visible:outline-indigo-600 ${
-                     !link?.url && "disabled"
-                   }`}
-              >
-                {link.label
-                  .replace("&laquo;", "")
-                  .replace("Previous", "<<")
-                  .replace("&raquo;", "")
-                  .replace("Next", ">>")}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    );
-  };
+
+  const renderPaginationLinks = () => (
+    <nav className="mt-8" aria-label="Pagination">
+      <ul className="inline-flex items-center gap-1">
+        {data?.links?.map((link: any, index: number) => (
+          <li key={index}>
+            <button
+              onClick={() => link?.url && fetchNextPrevTasks(link.url)}
+              disabled={!link?.url}
+              className={`px-3 py-1.5 text-sm rounded border transition ${
+                link?.active
+                  ? "bg-principal text-white"
+                  : "border-principal text-principal hover:bg-principal/10"
+              } disabled:opacity-50 disabled:cursor-not-allowed`}
+            >
+              {link.label
+                .replace("&laquo;", "")
+                .replace("Previous", "←")
+                .replace("&raquo;", "")
+                .replace("Next", "→")}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+
   return (
-    <div className="container  dark:bg-slate-900 w-full dark:text-white">
-      <div className=" px-4 lg:px-14 max-w-screen-2xl mx-auto my-8  py-20">
-        <div className=" md:w-12/12 mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-          <div className="  ">
-            <h2 className=" md:text-5xl sm:text-2xl text-principal text-neutralDGray font-bold mb-4 ">
-              {/* {t("media")} */}
-              Résultat de la recherche
-            </h2>
-          </div>
-          <div className="">
-            <p className=" md:text-3xl sm:text-xl">
-              Votre recherche a généré
-              <span className=" px-2 text-principal">
-                {data?.total} résultat(s).
-              </span>
-            </p>
-          </div>
+    <div className="p-6 w-full dark:bg-slate-900 dark:text-white">
+      <BreadCumb title={"Resultat"} />
+      <div className="mx-auto py-4">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <h2 className="text-2xl font-bold text-principal">
+            Résultat de la recherche
+          </h2>
+          <p className="text-base text-gray-700 dark:text-gray-300">
+            Votre recherche a généré
+            <span className="text-principal font-semibold px-2">
+              {data?.total} résultat(s)
+            </span>
+          </p>
         </div>
-        <div className=" py-6">
-          <div>
-            {loading
-              ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
-              : data?.data?.map((items: any) => <CardSearch blog={items} />)}
-            <div className=" flex relative justify-center items-center">
-              {renderPaginationLinks()}
-            </div>
-          </div>
+
+        {/* Résultats */}
+        <div className="flex flex-col gap-4">
+          {loading
+            ? Array.from({ length: 10 }, (_, i) => <BlogCardLoad key={i} />)
+            : data?.data?.map((item: any) => (
+                <CardSearch blog={item} key={item.id} />
+              ))}
+        </div>
+
+        {/* Pagination */}
+        <div className="flex justify-center items-center">
+          {renderPaginationLinks()}
         </div>
       </div>
     </div>
   );
 };
+
 export default PageSearch;

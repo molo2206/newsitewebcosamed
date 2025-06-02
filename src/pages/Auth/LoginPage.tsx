@@ -5,6 +5,7 @@ import Input from "../../components/form/Input";
 import UseLogin from "../../hooks/LoginUser";
 import Button from "../../components/form/Button";
 import { ApplyForm } from "../../types";
+import InputPassword from "../../components/form/InputPassword";
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigation = useNavigate();
@@ -35,17 +36,17 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container min-h-screen flex flex-col items-center bg-gray-100 p-4 w-full dark:bg-slate-900   bg-white ">
+    <div className="p-6 min-h-screen flex flex-col items-center bg-gray-100 w-full dark:bg-slate-900   bg-white ">
       <div className="w-full">
         <img
           src="https://apicosamed.cosamed.org/uploads/blogs/505259756244493872b7709a8a01b536.png" // Remplacez par votre URL d'image
           alt="Banner"
-          className="w-full object-cover h-72 rounded-md"
+          className="w-full object-cover h-80 "
         />
       </div>
 
       {/* Formulaire de connexion */}
-      <div className="w-full max-w-sm bg-white rounded-lg shadow-md dark:bg-slate-800  p-4 mt-[-4rem]">
+      <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem]">
         <h2 className="text-center text-xl font-semibold mb-6">Connexion</h2>
         <form className="w-full max-w-sm space-y-4" onSubmit={validation}>
           <Input
@@ -58,14 +59,13 @@ const LoginPage = () => {
             onChange={(e: any) => handleOnChange(e.target.value, "email")}
             onFocus={() => hanldeError(null, `email`)}
           />
-          <Input
+          <InputPassword
             name="password"
             label={t("Password")}
             placeholder=""
             type="password"
             errors={errors.password}
             value={inputs.password}
-            onFocus={() => hanldeError(null, `password`)}
             onChange={(e: any) => handleOnChange(e.target.value, "password")}
           />
           <div className="text-right text-sm text-principa cursor-pointer hover:underline">
