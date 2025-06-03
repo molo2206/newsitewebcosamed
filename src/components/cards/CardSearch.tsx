@@ -13,7 +13,10 @@ const CardSearch = ({ blog }: Props) => {
   const isBulletin = !!blog?.file;
 
   const title = showingTranslateValue(blog?.translations, lang)?.title;
-  const description = showingTranslateValue(blog?.translations, lang)?.description;
+  const description = showingTranslateValue(
+    blog?.translations,
+    lang
+  )?.description;
   const slug = showingTranslateValue(blog?.translations, lang)?.slug;
 
   const link = isNews
@@ -26,39 +29,25 @@ const CardSearch = ({ blog }: Props) => {
 
   return (
     <Link to={link} className="block group">
-      <div className="flex flex-col sm:flex-row gap-4 py-4">
-        {/* Image */}
-        <div className="sm:w-1/3 w-full">
-          <img
-            src={blog?.image}
-            alt={title}
-            className="w-full h-40 sm:h-48 object-cover shadow-md transition duration-300 "
-          />
-        </div>
-
-        {/* Content */}
-        <div className="sm:w-2/3 w-full flex flex-col justify-between">
-          {/* Label */}
+      <div className="bg-gray-100 p-4 sm:p-6 border-blue-900 dark:bg-slate-800 mb-6 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center shadow-sm">
+        <img
+          src={blog?.image}
+          alt={title}
+          className="w-full sm:w-60 h-40 sm:h-48 object-cover shadow-md"
+        />
+        <div className="flex flex-col w-full">
           {label && (
             <span className="inline-block mb-2 text-xs font-semibold text-blue-700 bg-blue-100 px-3 py-1 rounded-full w-fit">
               {label}
             </span>
           )}
-
-          {/* Title */}
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
-            {title}
-          </h2>
-
-          {/* Description */}
+          <h2 className="text-lg font-bold text-blue-900 mb-2">{title}</h2>
           <p
             className="text-sm text-gray-700 dark:text-gray-300 font-montserrat line-clamp-4"
             dangerouslySetInnerHTML={{ __html: description }}
           ></p>
         </div>
       </div>
-
-      {/* Divider */}
       <div className="border-t border-principal"></div>
     </Link>
   );

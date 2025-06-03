@@ -10,7 +10,7 @@ import BlogCardLoand from "../components/blogs/BlogCardLoad";
 const Videos = () => {
   const [allvideos, setAllvideos] = useState([]);
   const { data: lastblog, loading } = useAsync(() => BlogServices.lastBlog());
-  console.log(lastblog)
+  console.log(lastblog);
 
   useEffect(() => {
     fetch(BASE_YOUTUBE)
@@ -59,6 +59,7 @@ const Videos = () => {
                 postsPerPage={postsPerPage}
                 totalPasts={allvideos.length}
                 paginate={paginate}
+                currentPage={currentPage}
               />
             </div>
           </>

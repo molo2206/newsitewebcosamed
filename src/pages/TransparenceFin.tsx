@@ -82,6 +82,7 @@ const TransparenceFin = () => {
                   postsPerPage={postsPerPage}
                   totalPasts={data.length}
                   paginate={paginate}
+                  currentPage={currentPage}
                 />
               </section>
             </section>

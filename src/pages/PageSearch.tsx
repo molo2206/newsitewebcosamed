@@ -37,27 +37,33 @@ const PageSearch = () => {
   };
 
   const renderPaginationLinks = () => (
-    <nav className="mt-8" aria-label="Pagination">
-      <ul className="inline-flex items-center gap-1">
-        {data?.links?.map((link: any, index: number) => (
-          <li key={index}>
-            <button
-              onClick={() => link?.url && fetchNextPrevTasks(link.url)}
-              disabled={!link?.url}
-              className={`px-3 py-1.5 text-sm rounded border transition ${
-                link?.active
-                  ? "bg-principal text-white"
-                  : "border-principal text-principal hover:bg-principal/10"
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
-            >
-              {link.label
-                .replace("&laquo;", "")
-                .replace("Previous", "←")
-                .replace("&raquo;", "")
-                .replace("Next", "→")}
-            </button>
-          </li>
-        ))}
+    <nav className="mt-10 flex justify-center" aria-label="Pagination">
+      <ul className="inline-flex flex-wrap items-center gap-2">
+        {data?.links?.map((link: any, index: number) => {
+          const label = link.label
+            .replace("&laquo;", "")
+            .replace("Previous", "← Précédent")
+            .replace("&raquo;", "")
+            .replace("Next", "Suivant →");
+
+          return (
+            <li key={index}>
+              <button
+                onClick={() => link?.url && fetchNextPrevTasks(link.url)}
+                disabled={!link?.url}
+                className={`px-4 py-2 text-sm md:text-base font-medium rounded-md border transition-all duration-200
+                ${
+                  link?.active
+                    ? "bg-principal text-white shadow-md"
+                    : "border-gray-300 text-principal hover:bg-principal/10 hover:text-principal"
+                }
+                disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                <span dangerouslySetInnerHTML={{ __html: label }} />
+              </button>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
@@ -80,7 +86,7 @@ const PageSearch = () => {
         </div>
 
         {/* Résultats */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 container">
           {loading
             ? Array.from({ length: 10 }, (_, i) => <BlogCardLoad key={i} />)
             : data?.data?.map((item: any) => (

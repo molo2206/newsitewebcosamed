@@ -114,8 +114,9 @@ const AboutMedia = () => {
               </section>
               <Pagination
                 postsPerPage={postsPerPage}
-                totalPasts={datas.length}
+                totalPasts={data.length}
                 paginate={paginate}
+                currentPage={currentPage}
               />
             </section>
           </div>

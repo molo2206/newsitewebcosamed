@@ -64,6 +64,7 @@ import CookieConsent from "./pages/Cookies/CookieConsent";
 import Confidentialite from "./pages/Confidentialite";
 import JobApplicationForm_Data from "./pages/JobApplicationForm_Data";
 import Ai4Mpox from "./pages/Ai4Mpox";
+import SearchResultsPage from "./pages/SearchResultsPage";
 
 function App() {
   const Home = React.lazy(() => import("./pages/Home"));
@@ -151,6 +152,7 @@ function App() {
               <Route path="/team" element={<Team />}></Route>
               <Route path="/transparence" element={<TransparenceFin />}></Route>
               <Route path="/importancedon" element={<ImportanceDon />}></Route>
+              <Route path="/search-results-page" element={<SearchResultsPage />}></Route>
               <Route
                 path="/confidentiality"
                 element={<Confidentialite />}

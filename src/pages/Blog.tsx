@@ -18,7 +18,7 @@ export default function Blog() {
     <div className=" mx-auto p-6">
       <h1 className="text-3xl font-bold mb-2">Publications</h1>
       <p className="text-gray-600 mb-6">
-        If you cannot find a publication on our website, please search WHO's
+        If you cannot find a publication on our website, please search COSAMED's
         publications repository directly.
       </p>
 
@@ -58,6 +58,7 @@ export default function Blog() {
         postsPerPage={postsPerPage}
         totalPasts={data.length}
         paginate={paginate}
+        currentPage={currentPage}
       />
     </div>
   );

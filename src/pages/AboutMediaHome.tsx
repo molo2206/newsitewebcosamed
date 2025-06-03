@@ -7,7 +7,9 @@ import TestimonyCard from "../components/blogs/TestimonyCard";
 import { useTranslation } from "react-i18next";
 
 const AboutMediaHome = () => {
-  const { data: datas = [], loading } = useAsync(() => TestimonyServices.getTestimony());
+  const { data: datas = [], loading } = useAsync(() =>
+    TestimonyServices.getTestimony()
+  );
   const { t } = useTranslation();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,12 +24,14 @@ const AboutMediaHome = () => {
   const ressources = [
     {
       title: "Communiqués de presse",
-      description: "Découvrez nos derniers communiqués de presse et annonces officielles.",
+      description:
+        "Découvrez nos derniers communiqués de presse et annonces officielles.",
       link: "/load-data/communicated",
     },
     {
       title: "Rapports annuels",
-      description: "Consultez nos rapports annuels pour une vision complète de nos activités.",
+      description:
+        "Consultez nos rapports annuels pour une vision complète de nos activités.",
       link: "/data-loading/reports",
     },
     {
@@ -42,7 +46,8 @@ const AboutMediaHome = () => {
     },
     {
       title: "Blog & Articles",
-      description: "Lisez des articles sur les tendances de l'industrie et nos innovations.",
+      description:
+        "Lisez des articles sur les tendances de l'industrie et nos innovations.",
       link: "/data-loading/blogs",
     },
   ];
@@ -65,7 +70,9 @@ const AboutMediaHome = () => {
             {t("Media_resources")}
           </h1>
           <p className="text-gray-600 mt-4 lg:text-xl md:text-xl font-light dark:text-white">
-            Accédez à une sélection complète de documents, communiqués, images et plus encore. Tout ce dont vous avez besoin pour comprendre nos actions et nos engagements.
+            Accédez à une sélection complète de documents, communiqués, images
+            et plus encore. Tout ce dont vous avez besoin pour comprendre nos
+            actions et nos engagements.
           </p>
         </header>
 
@@ -79,8 +86,13 @@ const AboutMediaHome = () => {
               <h2 className="lg:text-xl md:text-xl text-gray-800 mb-3 dark:text-white">
                 {ressource.title}
               </h2>
-              <p className="text-gray-600 mb-4 dark:text-white">{ressource.description}</p>
-              <a href={ressource.link} className="text-principal font-medium hover:underline">
+              <p className="text-gray-600 mb-4 dark:text-white">
+                {ressource.description}
+              </p>
+              <a
+                href={ressource.link}
+                className="text-principal font-medium hover:underline"
+              >
                 En savoir plus →
               </a>
             </div>
@@ -102,7 +114,12 @@ const AboutMediaHome = () => {
         </section>
 
         {/* Pagination */}
-        <Pagination postsPerPage={postsPerPage} totalPasts={datas.length} paginate={paginate} />
+        <Pagination
+          postsPerPage={postsPerPage}
+          totalPasts={currentTestimonials.length}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
       </div>
     </section>
   );

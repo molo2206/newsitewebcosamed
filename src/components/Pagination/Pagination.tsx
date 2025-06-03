@@ -1,49 +1,40 @@
-interface props {
-  postsPerPage?: any;
-  totalPasts?: any;
-  paginate?: any;
+interface Props {
+  postsPerPage: number;
+  totalPasts: number;
+  paginate: (pageNumber: number) => void;
+  currentPage: number;
 }
 
-const Pagination = ({ postsPerPage, totalPasts, paginate }: props) => {
+const Pagination = ({ postsPerPage, totalPasts, paginate, currentPage }: Props) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPasts / postsPerPage); i++) {
     pageNumbers.push(i);
   }
+
   return (
-    <div className="flex items-center rounded-md justify-between border-t border-gray-200 mt-10 dark:bg-slate-800  text-slate-400 dark:text-white px-4 py-3 sm:px-6">
-      <div className="sm:flex sm:flex-1 sm:items-center sm:justify-between">
-        <div>
-          <p style={{fontSize:11}} className="text-sm text-gray-700  dark:text-white ">
-            Showing <span className="font-medium">1</span> to{" "}
-            <span className="font-medium">10</span> of{" "}
-            <span className="font-medium">{totalPasts}</span> results
-          </p>
-        </div>
-        <div>
-          <nav
-            className="isolate inline-flex -space-x-px rounded-md shadow-sm"
-            aria-label="Pagination"
-          >
-            {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-            {pageNumbers.map((number) => (
-              <ul>
-                <li key={number}>
-                  <a 
-                    style={{fontSize:10}}
-                    onClick={() => paginate(number)}
-                    
-                    aria-current="page"
-                    className="cursor-pointer relative z-10 inline-flex items-center bg-principal px-4 py-2 font-semibold
-                     text-white focus:z-20 focus-visible:outline focus-visible:outline-2 
-                     focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:bg-slate-800 border rounded-lg"
-                  >
-                    {number}
-                  </a>
-                </li>
-              </ul>
-            ))}
-          </nav>
-        </div>
+    <div className="flex items-center justify-between border-t border-gray-200 mt-10 dark:bg-slate-800 text-slate-400 dark:text-white px-4 py-3 sm:px-6">
+      <div className="flex-1 flex items-center justify-between">
+        <p className="text-sm text-gray-700 dark:text-white">
+          Affichage de <span className="font-medium">1</span> à{" "}
+          <span className="font-medium">{postsPerPage}</span> sur{" "}
+          <span className="font-medium">{totalPasts}</span> résultats
+        </p>
+        <nav className="inline-flex -space-x-px rounded-md" aria-label="Pagination">
+          {pageNumbers.map((number) => (
+            <button
+              key={number}
+              onClick={() => paginate(number)}
+              className={`mx-1 px-3 py-1.5 text-sm rounded-md border font-medium transition-all duration-200
+                ${
+                  number === currentPage
+                    ? "bg-principal text-white border-principal shadow"
+                    : "text-gray-700 border-gray-300 hover:bg-gray-100 dark:text-white dark:bg-slate-800 dark:border-gray-600"
+                }`}
+            >
+              {number}
+            </button>
+          ))}
+        </nav>
       </div>
     </div>
   );

@@ -57,6 +57,7 @@ const Evements = () => {
               postsPerPage={postsPerPage}
               totalPasts={data.length}
               paginate={paginate}
+              currentPage={currentPage}
             />
           </div>
         </div>

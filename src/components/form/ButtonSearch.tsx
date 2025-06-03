@@ -1,25 +1,31 @@
 import Spinner from "react-bootstrap/Spinner";
 import { FaSearch } from "react-icons/fa";
-interface props {
-  onClick?: any;
-  label?: any;
-  type?: any;
-  loading?: boolean | any;
+
+interface Props {
+  onClick?: () => void;
+  label?: string;
+  type?: "submit" | "button";
+  loading?: boolean;
 }
 
-const ButtonSearch = ({ onClick, label, type, loading }: props) => {
+const ButtonSearch = ({ onClick, label = "Search", type = "submit", loading = false }: Props) => {
   return (
     <button
       disabled={loading}
       onClick={onClick}
-      type={type || "submit"}
-      className={`px-3 ${
+      type={type}
+      className={`flex items-center justify-center gap-3 px-4 py-2 rounded-lg font-medium text-sm text-white bg-principal dark:bg-slate-800 border dark:border-slate-700 ${
         loading ? "cursor-not-allowed opacity-50" : ""
-      } p-4 bg-principal text-white rounded-full flex items-center justify-center w-9 h-9 md:w-9 md:h-9 hover:bg-hover dark:text-white dark:bg-slate-900`}
+      }`}
     >
-      {label}
-      <FaSearch size={14} className=" flex item-center " />
-      <Spinner color="red" variant="primary" animation="border" />
+      {loading ? (
+        <Spinner animation="border" size="sm" />
+      ) : (
+        <>
+          <span>{label}</span>
+          <FaSearch size={14} />
+        </>
+      )}
     </button>
   );
 };

@@ -70,6 +70,7 @@ const Rapport = () => {
             postsPerPage={postsPerPage}
             totalPasts={data.length}
             paginate={paginate}
+            currentPage={currentPage}
           />
           <section className="mt-16 text-center bg-blue-50 dark:bg-slate-800 p-10 rounded-lg">
             <h2 className="text-2xl font-semibold text-gray-800 dark:text-white ">

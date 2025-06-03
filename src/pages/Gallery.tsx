@@ -65,10 +65,11 @@ const Gallery = () => {
               </div>
             </section>
             <Pagination
-              postsPerPage={postsPerPage}
-              totalPasts={datas.length}
-              paginate={paginate}
-            />
+                postsPerPage={postsPerPage}
+                totalPasts={currentMedia.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
           </section>
           <LightboxViewer
             isOpen={isOpen}

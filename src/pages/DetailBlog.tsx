@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import useAsync from "../hooks/useAsync";
 import BlogServices from "../services/BlogsServices";
-import { showingTranslateValue } from "../utils/heleprs";
+import { limittext, showingTranslateValue } from "../utils/heleprs";
 import { useAuthContext } from "../context";
 
 // Components
@@ -59,27 +59,25 @@ const DetailBlog = () => {
           <BlogDetailLoad key={index} />
         ))
       ) : (
-        <div className="lg:p-6 mx-auto w-full dark:text-white">
-          <main className="lg:py-10 px-4 sm:px-6 lg:px-8 mx-auto dark:text-white font-sans">
+        <div className="p-6 mx-auto w-full dark:text-white">
+          <main className="px-4 sm:px-6 lg:px-8 mx-auto dark:text-white font-sans">
             <BreadCumb
-              title={showingTranslateValue(data?.translations, lang)?.title}
+              title={limittext(
+                showingTranslateValue(data?.translations, lang)?.title,
+                23
+              )}
               second="/data-loading/blogs"
               secondTitle="Blog"
             />
-
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6">
-              {/* CONTENU PRINCIPAL */}
               <article className="lg:col-span-8 space-y-6">
-                {/* TITRE */}
                 <h1
-                  className="text-3xl font-bold leading-tight text-gray-900 dark:text-white"
+                  className="lg:text-3xl font-bold leading-tight text-gray-900 dark:text-white"
                   dangerouslySetInnerHTML={{
                     __html: showingTranslateValue(data?.translations, lang)
                       ?.title,
                   }}
                 />
-
-                {/* CATÉGORIE */}
                 {data?.category && (
                   <span className="inline-block bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-white text-xs font-semibold px-3 py-1 rounded">
                     {
@@ -89,7 +87,6 @@ const DetailBlog = () => {
                   </span>
                 )}
 
-                {/* IMAGE */}
                 {data?.image && (
                   <img
                     src={data.image}
@@ -97,8 +94,6 @@ const DetailBlog = () => {
                     className="w-full max-h-[500px] object-cover  border dark:border-slate-700"
                   />
                 )}
-
-                {/* CONTENU */}
                 <div className="prose prose-lg dark:prose-invert max-w-none">
                   <ImageBlogs data={data?.allimages} />
                   <div
@@ -114,8 +109,6 @@ const DetailBlog = () => {
                     }}
                   />
                 </div>
-
-                {/* AUTEUR */}
                 <div className="mt-6 flex items-center gap-4 border-t pt-6 dark:border-slate-600">
                   {data?.author?.image && (
                     <img
@@ -139,7 +132,6 @@ const DetailBlog = () => {
                   </div>
                 </div>
 
-                {/* PARTAGE RÉSEAUX */}
                 <div className="mt-10 border-t pt-6 dark:border-slate-600">
                   <h2 className="text-md font-semibold mb-3">
                     {t("Share_on")}
@@ -175,8 +167,6 @@ const DetailBlog = () => {
                   </div>
                 </div>
               </article>
-
-              {/* SIDEBAR */}
               <aside className="lg:col-span-4 space-y-6">
                 <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm p-4">
                   <h3 className="text-lg font-semibold mb-4">{t("News")}</h3>
@@ -210,8 +200,9 @@ const DetailBlog = () => {
                   </ul>
                   <Pagination
                     postsPerPage={postsPerPage}
-                    totalPasts={recentPost.length}
+                    totalPasts={data.length}
                     paginate={paginate}
+                    currentPage={currentPage}
                   />
                 </div>
               </aside>

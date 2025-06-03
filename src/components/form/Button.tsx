@@ -14,7 +14,7 @@ const Button = ({ onClick, label, type, loading }: props) => {
       type={type || "submit"}
       className={`px-3 ${
         loading ? "cursor-not-allowed opacity-50" : ""
-      } py-2 rounded-full font-light w-full text-white bg-principal md:text-sm lg:text-sm dark:bg-slate-800 border dark:border-slate-700`}
+      } py-2 rounded-md font-light w-full text-white bg-principal md:text-sm lg:text-sm dark:bg-slate-800 border dark:border-slate-700`}
     >
       {label}
 

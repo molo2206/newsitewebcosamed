@@ -69,6 +69,7 @@ const Communicates = () => {
               postsPerPage={postsPerPage}
               totalPasts={data.length}
               paginate={paginate}
+              currentPage={currentPage}
             />
           )}
         </div>

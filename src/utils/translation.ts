@@ -158,7 +158,7 @@ export const En = {
   Media_testimonials: "Media Testimonials",
   We_believe_in_management:
     "We believe in transparent management of our finances to maintain the trust of our partners and beneficiaries. Here is an overview of our income, expenses, and surplus for the last few years.",
-  Media_resources: "Media and Resources",
+  Media_resources: "Media and ...",
   Read_more: "Read more",
 };
 
@@ -325,5 +325,5 @@ export const FR = {
   Subscribe_to_receive:
     "Inscrivez-vous pour recevoir les dernières offres d'emploi directemen dans votre boîte mail.",
   Media_testimonials: "Témoignages des médias",
-  Media_resources: "Médias et ressources",
+  Media_resources: "Médias et ress ...",
 };

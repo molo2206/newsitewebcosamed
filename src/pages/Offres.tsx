@@ -157,11 +157,12 @@ const Offres = () => {
                     ))}
               </div>
             </section>
-            <Pagination
-              postsPerPage={postsPerPage}
-              totalPasts={data.length}
-              paginate={paginate}
-            />
+           <Pagination
+                postsPerPage={postsPerPage}
+                totalPasts={data.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
             <section className="mt-16 text-center bg-blue-50 p-10 rounded-lg">
               <h2 className="text-2xl font-semibold text-gray-800">
                 Restez informé

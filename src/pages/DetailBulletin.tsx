@@ -4,7 +4,7 @@ import { FaDownload } from "react-icons/fa";
 
 import useAsync from "../hooks/useAsync";
 import BulletinServices from "../services/BulletinServices";
-import { showingTranslateValue } from "../utils/heleprs";
+import { limittext, showingTranslateValue } from "../utils/heleprs";
 import { useAuthContext } from "../context";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
@@ -27,7 +27,7 @@ const DetailBulletin = () => {
         <div className="bg-white dark:bg-slate-900 p-6 ">
           <div className="bg-white dark:bg-slate-800 border  p-6 w-full max-auto">
             <BreadCumb
-              title="Détail du bulletin"
+              title={limittext(showingTranslateValue(data?.translations, lang)?.title,5)}
               second="/data-loading/newsletters"
               secondTitle="Bulletins"
             />
