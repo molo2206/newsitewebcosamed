@@ -6,7 +6,7 @@ const Footer = () => {
   const { t } = useTranslation();
   const navigation = useNavigate();
   const donatelink = () => {
-    navigation("/donation"); // new line
+    navigation("/data-loading/newsletters"); 
   };
 
   function getDate() {
@@ -159,9 +159,9 @@ const Footer = () => {
               </h3>
               <button
                 onClick={donatelink}
-                className="sm:inline-block bg-red-500 text-white text-[12px] font-semibold px-4 py-2 rounded-md"
+                className="sm:inline-block bg-hover text-white text-[12px] font-semibold px-4 py-2 rounded-md"
               >
-                {t("Donate")}
+                {t("Newsletters")}
               </button>
             </div>
           </div>
@@ -171,15 +171,15 @@ const Footer = () => {
             </h3>
             <button
               onClick={donatelink}
-              className="sm:inline-block bg-red-500 text-white text-[12px] font-semibold px-4 py-2 rounded-md"
+              className="sm:inline-block bg-hover text-white text-[12px] font-semibold px-4 py-2 rounded-md"
             >
-              {t("Donate")}
+              {t("Newsletters")}
             </button>
           </div>
         </div>
         <div className="flex flex-col items-center mt-4">
-          <p className=" text-sm">
-            © {getDate()} Workday, Inc. Tous droits réservés.
+          <p className=" text-md font-semibold">
+            © {getDate()} COSAMED asbl
           </p>
           <br />
         </div>

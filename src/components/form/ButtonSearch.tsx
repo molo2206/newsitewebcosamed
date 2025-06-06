@@ -14,7 +14,7 @@ const ButtonSearch = ({ onClick, label = "Search", type = "submit", loading = fa
       disabled={loading}
       onClick={onClick}
       type={type}
-      className={`flex items-center justify-center gap-3 px-4 py-2 rounded-lg font-medium text-sm text-white bg-principal dark:bg-slate-800 border dark:border-slate-700 ${
+      className={`flex items-center justify-center animate-wave gap-3 px-4 py-2 rounded-lg font-medium text-[12px] text-white bg-principal dark:bg-slate-800 border dark:border-slate-700 ${
         loading ? "cursor-not-allowed opacity-50" : ""
       }`}
     >
@@ -23,7 +23,7 @@ const ButtonSearch = ({ onClick, label = "Search", type = "submit", loading = fa
       ) : (
         <>
           <span>{label}</span>
-          <FaSearch size={14} />
+          <FaSearch size={10} className="animate-wiggle"/>
         </>
       )}
     </button>

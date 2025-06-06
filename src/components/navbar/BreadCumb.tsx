@@ -23,7 +23,7 @@ const BreadCumb = ({ title, second, secondTitle }: Props) => {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-white dark:bg-slate-900"
+      className="dark:bg-slate-900"
     >
       <nav
         className="flex items-center text-sm text-gray-600 dark:text-gray-300 gap-2 overflow-x-auto p-1"

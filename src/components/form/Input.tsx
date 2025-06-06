@@ -31,7 +31,7 @@ const Input = ({
       {type === "select" ? (
         <select
           name={name}
-          style={{ height: 44 }}
+          style={{ height: 40 }}
           value={value}
           onChange={onChange}
           onFocus={onFocus}

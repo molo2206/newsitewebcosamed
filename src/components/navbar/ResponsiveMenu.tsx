@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import ReactCountryFlag from "react-country-flag";
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
-
+import { FaChevronDown } from "react-icons/fa";
 import useAsync from "../../hooks/useAsync";
 import { useAuthContext } from "../../context";
 import CategoryServices from "../../services/CategoryServices";
@@ -13,6 +13,7 @@ import CategoryServices from "../../services/CategoryServices";
 import CategoryCard from "../blogs/CategoryCard";
 
 import Logo from "../../assets/logo1.png";
+import DonateModal from "../../pages/modal/DonateModal";
 
 interface Props {
   showMenu?: boolean;
@@ -94,10 +95,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
   };
 
   // Navigation helpers
-  const donatelink = () => {
-    navigate("/donation");
-    onClose?.();
-  };
+  const [showDonate, setShowDonate] = useState(false);
 
   const handleGoBack = () => {
     navigate("/aboutmedia");
@@ -112,29 +110,39 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
       } fixed bottom-0 top-0 z-20 flex h-full w-[280px] py-10 flex-col justify-between
     bg-principal dark:bg-slate-800 transition-all duration-300 ease-in-out md:hidden rounded-r-xl shadow-md`}
     >
-      {/* 🟦 Logo de l'organisation */}
       <div className="flex justify-center items-center mb-4 px-4">
         <img
-          src={Logo} // Remplace par le chemin réel de ton logo
+          src={Logo}
           alt="Organization Logo"
           className="h-16 object-contain"
         />
       </div>
+
       <div className="relative mt-2 flex flex-col items-center">
         <button
           onClick={toggleMenus}
-          className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden focus:outline-none"
+          className="flex flex-col items-center focus:outline-none"
         >
-          {!user?.image ? (
-            <FaUserCircle className="text-principal w-10 h-10" />
-          ) : (
-            <img
-              src={user.image}
-              alt="Profil"
-              className="w-10 h-10 rounded-full object-cover"
-            />
-          )}
+          {/* Avatar utilisateur */}
+          <div className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden flex items-center justify-center">
+            {!user?.image ? (
+              <FaUserCircle className="text-principal w-10 h-10" />
+            ) : (
+              <img
+                src={user.image}
+                alt="Profil"
+                className="w-10 h-10 rounded-full object-cover"
+              />
+            )}
+          </div>
+
+          <FaChevronDown
+            className={`mt-1 w-3 h-3 text-white transition-transform duration-300 ${
+              isDropdown ? "rotate-180" : "rotate-0"
+            }`}
+          />
         </button>
+
         <div className="mt-1 text-center">
           <span className="text-sm text-white dark:text-white">
             {user?.email}
@@ -144,20 +152,13 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
         {isDropdown && (
           <>
             <div
-              className="absolute mt-2 w-64 bg-principal dark:bg-slate-800 border border-gray-400 dark:border-slate-700 
-                rounded-xl shadow-xl z-50 transition-all duration-200"
+              className="absolute mt-2 w-64 bg-principal rounded-md dark:bg-slate-800 border border-gray-200 dark:border-slate-700 z-50 transition-all duration-200"
               style={{
                 top: "100%",
                 left: "50%",
                 transform: "translateX(-50%)",
               }}
             >
-              <div className="flex flex-col items-center justify-center p-4 space-y-2">
-                <span className="text-sm text-white dark:text-white text-center">
-                  {user?.email}
-                </span>
-              </div>
-
               <ul className="text-sm text-white dark:text-white">
                 <li
                   onClick={() => {
@@ -166,7 +167,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     );
                     onClose?.();
                   }}
-                  className="px-4 py-3 hover:bg-hover rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                  className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
                 >
                   {t("My_profile")}
                 </li>
@@ -175,7 +176,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/job_openings/userHome");
                     onClose?.();
                   }}
-                  className="px-4 py-3 hover:bg-hover rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                  className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
                 >
                   {t("My_applications")}
                 </li>
@@ -185,14 +186,14 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                       navigate("/auth/signin");
                       onClose?.();
                     }}
-                    className="px-4 py-3 hover:bg-hover rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                    className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
                   >
                     {t("Login")}
                   </li>
                 ) : (
                   <li
                     onClick={handleLogout}
-                    className="px-4 py-3 hover:bg-hover rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                    className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
                   >
                     {t("Logout")}
                   </li>
@@ -202,13 +203,14 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/recruiting/cosamed/job_openings/register");
                     onClose?.();
                   }}
-                  className="px-4 py-3 hover:bg-hover rounded-xl dark:hover:bg-slate-700 cursor-pointer"
+                  className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
                 >
                   {t("Register")}
                 </li>
               </ul>
             </div>
 
+            {/* Clic en dehors pour fermer le menu */}
             <div
               className="fixed inset-0 z-40"
               onClick={() => setIsDropdown(false)}
@@ -216,6 +218,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
           </>
         )}
       </div>
+
       <div className="relative mt- text-sm dark:bg-slate-800 bg-principale h-full overflow-y-auto">
         <ul className="space-y-4 p-6">
           <li
@@ -239,7 +242,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
             {openMenu === "themes" && (
               <ul className="mt-2 pl-4 space-y-2 w-full max-h-60 overflow-y-auto">
                 {category?.map((item: any, index: number) => (
-                  <li key={index} onClick={()=>onClose?.()} >
+                  <li key={index} onClick={() => onClose?.()}>
                     <CategoryCard cat={item} />
                   </li>
                 ))}
@@ -511,12 +514,20 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
 
         {/* Boutons d’action */}
         <div className="space-y-2">
-          <button
-            onClick={donatelink}
-            className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-green-700"
-          >
-            {t("Donate")}
-          </button>
+          <>
+            {" "}
+            <button
+              onClick={() => setShowDonate(true)}
+              className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-green-700"
+            >
+              {t("Donate")}
+            </button>
+            <DonateModal
+              isOpen={showDonate}
+              onClose={() => setShowDonate(false)}
+            />
+          </>
+
           <button
             onClick={handleGoBack}
             className="w-full bg-gray-300 text-black py-2 rounded-md hover:bg-gray-600"

@@ -7,7 +7,11 @@ import useAsync from "../../hooks/useAsync";
 import { showingTranslateValue } from "../../utils/heleprs";
 import { useAuthContext } from "../../context";
 import { useState } from "react";
-
+import DonateModal from "../../pages/modal/DonateModal";
+import {
+  HeartHandshake,
+  PlayCircleIcon,
+} from "lucide-react";
 const NavbarFirst = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -21,6 +25,7 @@ const NavbarFirst = () => {
   const eventInTime = data?.in;
   const eventOutTime = data?.out;
   const eventTitle = showingTranslateValue(data?.translations, lang)?.title;
+  const [showDonate, setShowDonate] = useState(false);
 
   return (
     <div className="bg-white dark:bg-slate-800 border-blue-100 shadow-md p-6">
@@ -28,20 +33,28 @@ const NavbarFirst = () => {
         <div className="flex-shrink-0">
           <ButtonSearch
             onClick={() => navigate("/search-results-page")}
-            label="Rechercher"
+            label={t("Search")}
           />
         </div>
         <div className="ml-auto flex items-center gap-3 flex-shrink-0">
-          <button
-            onClick={() => navigate("/donation")}
-            className="bg-red-500 text-white text-sm font-semibold px-2 py-2 rounded-md whitespace-nowrap"
-          >
-            {t("Donate")}
-          </button>
+          <>
+            <button
+              onClick={() => setShowDonate(true)}
+              className="bg-red-500 text-white text-[11px]  font-semibold px-2 py-2 rounded-md whitespace-nowrap flex items-center gap-1"
+            >
+              <HeartHandshake className="w-4 h-4 text-white animate-beat hover:animate-beat" />
+              {t("Donate")}
+            </button>
+            <DonateModal
+              isOpen={showDonate}
+              onClose={() => setShowDonate(false)}
+            />
+          </>
           <button
             onClick={() => navigate("/aboutmedia")}
-            className="bg-hover text-white text-sm font-semibold px-2 py-2 rounded-md whitespace-nowrap"
+            className="bg-hover text-white text-[11px] font-semibold px-2 py-2 rounded-md whitespace-nowrap flex items-center gap-2"
           >
+            <PlayCircleIcon className="w-4 h-4 text-white animate-wave  animate-wave" />
             {t("Media_resources")}
           </button>
         </div>

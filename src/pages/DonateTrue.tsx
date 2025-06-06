@@ -186,7 +186,7 @@ const DonateTrue = () => {
                     {buttonMoney.map((item: any) => (
                       <ButtonMoney
                         key={item.value}
-                        value={inputs.amount === item.value ? true : false}
+                        checked={inputs.amount === item.value ? true : false}
                         label={item.label}
                         onchange={() => handleOnChange(item.value, "amount")}
                       />
@@ -425,7 +425,7 @@ const DonateTrue = () => {
                     {buttonMoney.map((item: any) => (
                       <ButtonMoney
                         key={item.value}
-                        value={inputs.amount === item.value ? true : false}
+                        checked={inputs.amount === item.value ? true : false}
                         label={item.label}
                         onchange={() => handleOnChange(item.value, "amount")}
                       />

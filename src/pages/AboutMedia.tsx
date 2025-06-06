@@ -2,49 +2,63 @@ import BreadCumb from "../components/navbar/BreadCumb";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import SettingsServices from "../services/SettingsServices";
 import useAsync from "../hooks/useAsync";
-import TestimonyServices from "../services/TestimonyServices";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
-import TestimonyCard from "../components/blogs/TestimonyCard";
 import { useTranslation } from "react-i18next";
+import { BASE_YOUTUBE } from "../utils/heleprs";
+import CardVideo from "../components/cards/CardVideo";
+
 const AboutMedia = () => {
   const { data, loading } = useAsync(() => SettingsServices.getSettings());
-  const { data: datas } = useAsync(() => TestimonyServices.getTestimony());
   console.log(data);
+  const [allvideos, setAllvideos] = useState([]);
+
+  useEffect(() => {
+    fetch(BASE_YOUTUBE)
+      .then((response) => response.json())
+      .then((resJson) => {
+        const result = resJson.items.map((doc: any) => ({
+          ...doc,
+          VideoLink: "https://www.youtube.com/embed/" + doc.id.videoId,
+        }));
+        setAllvideos(result);
+      });
+  }, []);
+  console.log(allvideos);
   const { t } = useTranslation();
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(2);
+  const [postsPerPage] = useState(4);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentTestimonials = datas.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+  const currentVideos = allvideos.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const ressources = [
     {
-      title: "Communiqués de presse",
+      title: "COMMUNIQUÉS DE PRESSE",
       description:
         "Découvrez nos derniers communiqués de presse et annonces officielles.",
       link: "/load-data/communicated",
     },
     {
-      title: "Rapports annuels",
+      title: "RAPPORTS ANNUELS",
       description:
         "Consultez nos rapports annuels pour une vision complète de nos activités.",
       link: "/data-loading/reports",
     },
     {
-      title: "Galerie multimédia",
+      title: "GALERIE MULTIMÉDIA",
       description: "Accédez à notre banque d'images, vidéos et graphiques.",
-      link: "/data-loading/videos",
+      link: "/data-loading/gallery",
     },
     {
-      title: "Événements",
+      title: "ÉVÉNEMENTS",
       description: "Explorez nos événements passés et à venir.",
       link: "/evements",
     },
     {
-      title: "Blog & Articles",
+      title: "BLOG & ARTICLES",
       description:
         "Lisez des articles sur les tendances de l'industrie et nos innovations.",
       link: "/data-loading/blogs",
@@ -56,70 +70,65 @@ const AboutMedia = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className="p-6 dark:bg-slate-900 w-full dark:text-white ">
-          <div>
-            <BreadCumb title={t("Media_resources")} />
-            <section className="mb-10 ">
-              <header className="bg-principal dark:bg-slate-800 dark:text-white text-white py-10">
-                <div className="max-w-6xl mx-auto px-4 text-center">
-                  <h1 className="md:text-xl lg:text-2xl font-bold">
-                    {" "}
-                    {t("Media_resources")}
-                  </h1>
-                </div>
-                <p className="text-white mt-4 sm:text-sm md:text-sm lg:text-xl font-light dark:text-white px-4">
-                  Accédez à une sélection complète de documents, communiqués,
-                  images et plus encore. Tout ce dont vous avez besoin pour
-                  comprendre nos actions et nos engagements.
-                </p>
-              </header>
+        <div className="p-6 bg-white dark:bg-slate-900 text-gray-900 dark:text-white w-full">
+          <BreadCumb title={t("Media_resources")} />
 
-              {/* Resources Section */}
-              <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-2">
-                {ressources.map((ressource, index) => (
-                  <div
-                    key={index}
-                    className="bg-white dark:bg-slate-800 shadow-md border p-6 hover:shadow-lg transition-shadow"
+          <section className="text-center p-6 bg-principal dark:bg-slate-800 text-white">
+            <h1 className="text-xl md:text-xl font-extrabold uppercase tracking-wide">
+              RESSOURCES MÉDIAS
+            </h1>
+            <p className="mt-4 text-sm max-w-3xl mx-auto">
+              Accédez aux communiqués, rapports, vidéos et plus encore.
+            </p>
+          </section>
+
+          <section className=" mx-auto p-2 bg-gray-100  dark:bg-slate-800 mt-6">
+            <h2 className="text-xl text-center font-bold uppercase mb-6 text-principal dark:text-white mt-2">
+              NOS RESSOURCES
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+              {ressources.map((ressource, index) => (
+                <div
+                  key={index}
+                  className="bg-gray-50 dark:bg-slate-800 border-l-4 border-principal p-6 hover:shadow-md transition-shadow"
+                >
+                  <h3 className="text-lg font-semibold uppercase mb-2 text-principal dark:text-white">
+                    {ressource.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                    {ressource.description}
+                  </p>
+                  <a
+                    href={ressource.link}
+                    className="text-principal hover:underline font-medium text-sm"
                   >
-                    <h2 className="text-md font-semibold text-gray-800 mb-3 dark:text-white">
-                      {ressource.title}
-                    </h2>
-                    <p className="text-gray-600 mb-4 dark:text-white text-sm ">
-                      {ressource.description}
-                    </p>
-                    <a
-                      href={ressource.link}
-                      className="text-principal text-sm font-medium hover:underline"
-                    >
-                      En savoir plus →
-                    </a>
-                  </div>
-                ))}
-              </section>
-              <section className="bg-gray-100   py-12 mt-10 dark:bg-slate-800">
-                <div className="max-w-6xl mx-auto px-2">
-                  <h2 className="text-xl font-light text-gray-800 mb-8 dark:text-white">
-                    {t("Media_testimonials")}
-                  </h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {loading
-                      ? Array.from(Array(20).keys()).map(() => (
-                          <BlogCardLoand />
-                        ))
-                      : currentTestimonials.map((item: any, index: number) => (
-                          <TestimonyCard testimony={item} key={index} />
-                        ))}
-                  </div>
+                    En savoir plus →
+                  </a>
                 </div>
-              </section>
-              <Pagination
-                postsPerPage={postsPerPage}
-                totalPasts={data.length}
-                paginate={paginate}
-                currentPage={currentPage}
-              />
-            </section>
-          </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="bg-gray-100 dark:bg-slate-800 p-6 mt-6">
+            <div className=" mx-auto">
+              <h2 className="text-xl font-extrabold uppercase text-center mb-10 text-principal dark:text-white">
+                VIDÉOS RÉCENTES
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {currentVideos.map((item: any, index: number) => (
+                  <CardVideo items={item} key={index} />
+                ))}
+              </div>
+              <div className="mt-8 flex justify-center">
+                <Pagination
+                  postsPerPage={postsPerPage}
+                  totalPasts={allvideos.length}
+                  paginate={paginate}
+                  currentPage={currentPage}
+                />
+              </div>
+            </div>
+          </section>
         </div>
       )}
     </>

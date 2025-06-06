@@ -24,6 +24,7 @@ const Rejoindre = () => {
   const { data: Type } = useAsync(() => TypeMemberService.getTypMember());
   const { data: country } = useAsync(() => CountryService.getCountry());
   const { createMember, loading: loadingForm } = Members();
+
   const genres = [
     {
       value: "Masculin",
@@ -34,6 +35,7 @@ const Rejoindre = () => {
       label: "Feminin",
     },
   ];
+  
   usePageSEO({
     title: "Nous rejoindre",
     description: "Nous rejoindre",

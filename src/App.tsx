@@ -66,6 +66,7 @@ import JobApplicationForm_Data from "./pages/JobApplicationForm_Data";
 import Ai4Mpox from "./pages/Ai4Mpox";
 import SearchResultsPage from "./pages/SearchResultsPage";
 
+
 function App() {
   const Home = React.lazy(() => import("./pages/Home"));
   const Gallery = React.lazy(() => import("./pages/Gallery"));

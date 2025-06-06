@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next"; 
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import DonateModal from "./modal/DonateModal";
 
 const DonateBanner = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
 
-  const handleDonateClick = () => {
-    navigate("/donation");
-  };
+  const [showDonate, setShowDonate] = useState(false);
 
   const goToContact = () => {
     navigate("/contact");
@@ -48,13 +47,18 @@ const DonateBanner = () => {
         )}
 
         <div className="flex flex-col sm:flex-row items-center gap-4">
-          <button
-            type="button"
-            onClick={handleDonateClick}
-            className="sm:w-full md:w-auto bg-red-500 hover:bg-red-600 transition-colors text-white px-6 py-2 rounded"
-          >
-            {t("Donate")}
-          </button>
+          <>
+            <button
+              onClick={() => setShowDonate(true)}
+              className="sm:w-full md:w-auto bg-red-500 hover:bg-red-600 transition-colors text-white px-6 py-2 rounded"
+            >
+              {t("Donate")}
+            </button>
+            <DonateModal
+              isOpen={showDonate}
+              onClose={() => setShowDonate(false)}
+            />
+          </>
 
           <button
             type="button"

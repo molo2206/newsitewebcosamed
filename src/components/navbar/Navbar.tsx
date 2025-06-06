@@ -56,11 +56,11 @@ function Navbar() {
   const navigate = useNavigate();
 
   const handleGoBack = () => {
-    navigate("/aboutmedia"); // new line
+    navigate("/aboutmedia");
   };
 
   const home = () => {
-    navigate("/"); // new line
+    navigate("/");
   };
 
   const [theme, setTheme] = useState(
@@ -81,7 +81,7 @@ function Navbar() {
   };
 
   const navigateNewsletter = () => {
-    navigate(`/data-loading/newsletters`); // Remplace "/about" par la route cible
+    navigate(`/data-loading/newsletters`);
   };
 
   const navigateJobopen = () => {
@@ -141,6 +141,7 @@ function Navbar() {
       [menuKey]: !prev[menuKey],
     }));
   };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const isInsideAny = Object.keys(dropdownRefs.current).some((key) => {
@@ -164,27 +165,21 @@ function Navbar() {
           style={{ zIndex: 2 }}
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
-          } left-0 right-0 lg:max-xl font-light bg-principal dark:bg-slate-800 text-white dark:border-t border-slate-700 border-primary/50`}
+          } left-0 right-0 font-light bg-principal dark:bg-slate-800 text-white border-t dark:border-slate-700 border-primary/50`}
         >
-          <nav className="flex items-center md:w-full justify-between p-6 h-16 lg:h-20 md:h-20 sm:h-12 dark:bg-slate-800 text-white ">
-            {/* logo */}
-            {/* Logo selection */}
-            <div className="text-white cursor-pointer py-4 md:py-6 lg:py-8 flex justify-center items-center">
-              <div
-                onClick={() => home()}
-                className="w-auto max-w-[180px] md:max-w-[220px] lg:max-w-[260px] transition-all duration-300"
-              >
-                <img
-                  src={data?.logo1}
-                  alt="Logo"
-                  className={`w-full h-auto object-contain transition-all duration-300 ${
-                    sticky ? "opacity-100 scale-100" : "opacity-80 scale-95"
-                  }`}
-                />
-              </div>
+          <nav className="flex items-center justify-between px-4 md:px-8 h-16 lg:h-20">
+            <div
+              onClick={home}
+              className="cursor-pointer w-auto max-w-[120px] sm:max-w-[150px] md:max-w-[180px] lg:max-w-[220px] xl:max-w-[260px] transition-all duration-300"
+            >
+              <img
+                src={data?.logo1}
+                alt="Logo"
+                className={`w-full h-auto object-contain transition-all duration-300 ${
+                  sticky ? "opacity-100 scale-100" : "opacity-80 scale-95"
+                }`}
+              />
             </div>
-
-            {/* Desktop menu selection */}
             <div className="hidden md:flex justify-center font-light w-full ">
               <ul className="flex items-center gap-8 justify-center font-semibold">
                 <li

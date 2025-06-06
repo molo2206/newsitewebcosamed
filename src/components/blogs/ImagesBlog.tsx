@@ -9,7 +9,7 @@ const ImagesBlog = ({ blogImage,onClick }: props) => {
         <div className="overflow-hidden  hovering">
           <img
             src={blogImage?.image}
-            
+            onContextMenu={(e) => e.preventDefault()}
             alt="not found"
             className="mx-auto h-[80px] w-full  rounded-md
             object-cover "

@@ -27,7 +27,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ cat }) => {
     <div
       onClick={handleClick}
       role="link"
-      className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+      className="cursor-pointer transition  hover:bg-gray-100  dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-2 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
     >
       <div className="flex items-center gap-4">
         {cat?.icon && (
@@ -39,12 +39,12 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ cat }) => {
         )}
 
         <div className="flex flex-col">
-          <h3 className="text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white">
+          <h3 className="text-sm text-white lg:text-base md:text-base font-semibold sm:text-gray-900 dark:sm:text-white">
             {translated?.name || "Catégorie"}
           </h3>
 
           {cat?.description && (
-            <p className="text-xs sm:text-sm text-white sm:text-gray-600 dark:sm:text-gray-300 mt-1 line-clamp-2">
+            <p className="text-sm sm:text-sm text-white sm:text-gray-600 dark:sm:text-gray-300 mt-1 line-clamp-2">
               {cat.description}
             </p>
           )}

@@ -14,7 +14,7 @@ const ButtonDonate = ({ onClick, label, type, loading }: props) => {
       type={type || "submit"}
       className={`px-3 ${
         loading ? "cursor-not-allowed opacity-50" : ""
-      } bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold rounded-md px-10 py-3 shadow-md transition-colors`}
+      } bg-principal hover:bg-hover text-white font-semibold rounded-md px-10 py-3 shadow-md transition-colors`}
     >
       {label}
 

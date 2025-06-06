@@ -1,7 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Autoplay,
+} from "swiper/modules";
 import { CiCalendar } from "react-icons/ci";
-import { LuUser } from "react-icons/lu";
 import useAsync from "../../hooks/useAsync";
 import BlogServices from "../../services/BlogsServices";
 import { showingTranslateValue } from "../../utils/heleprs";
@@ -22,13 +27,13 @@ const Hero = () => {
       {loading ? (
         Array.from(Array(20).keys()).map((_, idx) => <HomeLoad key={idx} />)
       ) : (
-        <div className="h-[650px] w-full relative group">
+        <div className="h-full w-full relative group">
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
             navigation
             pagination={{ clickable: true }}
             scrollbar={{ draggable: true }}
-            autoplay={{ delay: 4000, disableOnInteraction: false }}
+            autoplay={{ delay: 10000, disableOnInteraction: false }}
             spaceBetween={0}
             slidesPerView={1}
             className="h-full"
@@ -36,19 +41,16 @@ const Hero = () => {
             {data?.map((items: any, idx: number) => (
               <SwiperSlide key={idx}>
                 <div
-                  className="relative w-full h-[700px] bg-cover  bg-center"
+                  className="relative w-full h-[900px] bg-cover  bg-center"
                   style={{ backgroundImage: `url(${items?.image})` }}
                 >
-                  {/* Overlay sombre sur toute la hauteur */}
                   <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
-                  {/* Gradient fondu en bas pour meilleure lisibilité */}
                   <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black via-transparent"></div>
-
-                  {/* Contenu texte aligné en bas */}
                   <div className="relative z-10 container h-full flex flex-col justify-end pb-20  text-white">
                     <div className="mb-2 text-sm uppercase tracking-wider text-principal font-semibold">
-                      <a className=" bg-white p-2"
+                      <a
+                        className=" bg-white p-2"
                         href="#"
                         dangerouslySetInnerHTML={{
                           __html: showingTranslateValue(
@@ -90,7 +92,11 @@ const Hero = () => {
                         <span>{items?.publication_date}</span>
                       </span>
                       <span className="flex items-center space-x-1">
-                        <LuUser />
+                        <img
+                          src={items.author.image}
+                          alt={items.full_name}
+                          className="w-8 h-8 rounded-full object-cover"
+                        />
                         <span>{items?.author?.full_name}</span>
                       </span>
                     </div>

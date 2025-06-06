@@ -28,6 +28,7 @@ const ImageRealisationCard = ({ data, loading, onClick }: Props) => {
         src={data?.cover}
         alt="Image réalisation"
         className="w-full h-48 object-cover"
+        onContextMenu={(e) => e.preventDefault()}
       />
 
       {/* Overlay */}

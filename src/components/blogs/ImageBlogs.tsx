@@ -40,6 +40,7 @@ export const ImageBlogs = ({ data = [], loading }: Props) => {
                 src={item.image}
                 alt={item.id}
                  loading="lazy"
+                 onContextMenu={(e) => e.preventDefault()}
                 className="w-full h-full object-cover transition duration-300 hover:scale-105"
               />
             </div>

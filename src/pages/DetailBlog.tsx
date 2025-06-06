@@ -60,11 +60,11 @@ const DetailBlog = () => {
         ))
       ) : (
         <div className="p-6 mx-auto w-full dark:text-white">
-          <main className="px-4 sm:px-6 lg:px-8 mx-auto dark:text-white font-sans">
+          <main className=" lg:px-8 mx-auto dark:text-white font-sans">
             <BreadCumb
               title={limittext(
                 showingTranslateValue(data?.translations, lang)?.title,
-                23
+                18
               )}
               second="/data-loading/blogs"
               secondTitle="Blog"
@@ -91,7 +91,7 @@ const DetailBlog = () => {
                   <img
                     src={data.image}
                     alt="Image du blog"
-                    className="w-full max-h-[500px] object-cover  border dark:border-slate-700"
+                    className="w-full max-h-full object-cover  border dark:border-slate-700"
                   />
                 )}
                 <div className="prose prose-lg dark:prose-invert max-w-none">
