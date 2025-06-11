@@ -27,55 +27,19 @@ const Thematiqueblog = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className=" mx-auto p-6 dark:bg-slate-900 dark:text-white">
+    <div className="min-h-screen mx-auto p-6 flex flex-col">
       {loading ? (
         Array.from({ length: 12 }).map((_, i) => <BlogDetailLoad key={i} />)
       ) : (
         <>
           <BreadCumb title={"Category"} />
 
-          <div className="mb-12 text-center">
-            <h1 className="text-4xl font-bold mb-4">
+          <div className="mb-12  bg-principal dark:bg-slate-800 p-6  shadow-md">
+            <h1 className="text-2xl font-bold text-white mb-4">
+              Publications{" "}
               {showingTranslateValue(cat?.translations, lang)?.name}
             </h1>
-            <p className="text-gray-600 dark:text-gray-300">
-              Browse all articles under this category.
-            </p>
           </div>
-
-          {/* Section de recherche type OMS */}
-          <div className="bg-gray-100 dark:bg-slate-800 p-6 rounded-lg mb-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              <input
-                type="text"
-                placeholder="Search by keyword"
-                className="p-2 border rounded"
-              />
-              <input
-                type="text"
-                placeholder="Health Topic"
-                className="p-2 border rounded"
-              />
-              <input
-                type="text"
-                placeholder="Countries/Areas"
-                className="p-2 border rounded"
-              />
-              <select className="p-2 border rounded">
-                <option>Year</option>
-              </select>
-              <select className="p-2 border rounded">
-                <option>Publication type</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Publishing Offices"
-                className="p-2 border rounded"
-              />
-            </div>
-          </div>
-
-          {/* Grille des articles */}
 
           {data.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
@@ -85,7 +49,10 @@ const Thematiqueblog = () => {
             </div>
           ) : (
             <p className="text-center text-gray-600 dark:text-gray-400">
-              Aucun article à afficher.
+              Aucun article à afficher sur la thématique{" "}
+              {showingTranslateValue(cat?.translations, lang)?.name ??
+                "inconnue"}
+              .
             </p>
           )}
 

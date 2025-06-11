@@ -23,15 +23,15 @@ const BlogThematiqueCard = ({ cat }: props) => {
   const { t } = useTranslation();
   return (
     <>
-      <div className="border p-4 bg-gray-50 hover:shadow">
+      <div className="border dark:border-slate-700  p-4 bg-gray-50 dark:bg-slate-800  hover:shadow">
         <img
           src={cat?.image}
           alt={showingTranslateValue(cat?.translations, lang)?.title}
           className="h-40 w-full object-cover transition-transform  duration-300 group-hover:scale-105"
         />
-        <p className="text-sm text-gray-500">{formattedDate}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-200 py-4">{formattedDate}</p>
         <p
-          className="font-medium text-sm text-gray-800 mt-1 line-clamp-2"
+          className="font-medium text-sm text-gray-800 dark:text-gray-100 mt-1 line-clamp-2"
           dangerouslySetInnerHTML={{
             __html: showingTranslateValue(cat?.translations, lang)?.title || "",
           }}

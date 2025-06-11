@@ -42,7 +42,6 @@ const CardVideo = ({ items }: CardVideoProps) => {
           ></iframe>
         </div>
 
-        {/* Titre et bouton partager */}
         <div className="p-4 flex items-start justify-between">
           <h2 className="text-gray-900 dark:text-white font-semibold text-base line-clamp-2 max-w-[90%]">
             {items?.snippet?.title}
@@ -63,12 +62,10 @@ const CardVideo = ({ items }: CardVideoProps) => {
         )}
       </div>
 
-      {/* ✅ Modal affichant la vidéo en grand */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-80 backdrop-blur-sm flex items-center justify-center px-4 py-8">
           <div className="relative w-full max-w-5xl bg-white dark:bg-slate-800 shadow-lg overflow-hidden">
 
-            {/* Bouton Fermer visible sur tous les écrans */}
             <button
               onClick={() => setShowModal(false)}
               aria-label="Fermer la vidéo"
@@ -78,7 +75,6 @@ const CardVideo = ({ items }: CardVideoProps) => {
               <X size={22} />
             </button>
 
-            {/* Iframe responsive */}
             <div className="relative w-full h-0" style={{ paddingBottom: "56.25%" }}>
               <iframe
                 src={items?.VideoLink}

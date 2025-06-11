@@ -41,7 +41,7 @@ const Hero = () => {
             {data?.map((items: any, idx: number) => (
               <SwiperSlide key={idx}>
                 <div
-                  className="relative w-full h-[900px] bg-cover  bg-center"
+                  className="relative w-full h-[550px] bg-cover  bg-center"
                   style={{ backgroundImage: `url(${items?.image})` }}
                 >
                   <div className="absolute inset-0 bg-black bg-opacity-40"></div>

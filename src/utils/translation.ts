@@ -45,7 +45,7 @@ export const En = {
   Mental: "Mental Health",
   PublicHealth: "Public health",
   Surveillance: "Disease surveillance",
-  Newsletters: "Latest Newsletters",
+  Newsletters: "Latest News Bulletins",
   Reports: "Status report",
   Jobs: "Jobs",
   Other: "Other documents",

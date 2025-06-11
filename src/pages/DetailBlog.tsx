@@ -96,7 +96,7 @@ const DetailBlog = () => {
                 )}
                 <div className="prose prose-lg dark:prose-invert max-w-none">
                   <ImageBlogs data={data?.allimages} />
-                  <div
+                  <div className ="md:text-[14px] text-[12px] lg:text-[13px] font-semibold"
                     dangerouslySetInnerHTML={{
                       __html: showingTranslateValue(data?.translations, lang)
                         ?.documentation,

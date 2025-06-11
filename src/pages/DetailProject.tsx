@@ -31,18 +31,23 @@ const DetailProject = () => {
       </>
     );
 
+  const truncate = (text: string, maxLength = 2000) => {
+    if (!text) return "";
+    return text.length > maxLength ? text.slice(0, maxLength) + "…" : text;
+  };
+
   return (
     <div className=" dark:bg-slate-900 text-gray-800 dark:text-gray-100 p-6 md:px-8">
       {/* Fil d'ariane */}
       <BreadCumb
         title={translation?.title}
         second={"/load-data/communicated"}
-        secondTitle={t("Project")}
+        secondTitle={truncate(t("Project"), 50)}
       />
 
       {/* En-tête */}
       <div className=" mx-auto text-center my-10">
-        <h1 className="text-3xl font-bold text-[#0072CE] mb-2 leading-snug">
+        <h1 className="text-2xl font-bold text-[#0072CE] mb-2 leading-snug">
           {translation?.title}
         </h1>
         <p className="text-sm text-gray-600 dark:text-gray-400">

@@ -356,3 +356,13 @@ a.disabled {
   pointer-events: none;
   cursor: default;
 }
+
+@keyframes zoomInSlow {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+

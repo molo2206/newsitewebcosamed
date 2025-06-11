@@ -10,7 +10,7 @@ interface props {
   errors: any;
   onFocus?: any;
 }
-const Input = ({
+const InputBlog = ({
   label,
   type,
   onChange,
@@ -37,9 +37,7 @@ const Input = ({
           onFocus={onFocus}
           className="w-full bg-transparent dark:bg-slate-900 rounded-md text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
         >
-          <option value={""} defaultChecked>
-            ...
-          </option>
+         
           {options?.map((item: any, index: number) => (
             <option key={index} value={item?.value} defaultChecked>
               {item?.label}
@@ -70,4 +68,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default InputBlog;

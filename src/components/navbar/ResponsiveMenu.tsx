@@ -265,7 +265,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/newsletters");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Newsletters")}
                 </li>
@@ -274,7 +274,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/reports");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Reports")}
                 </li>
@@ -283,7 +283,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/jobopenings");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Jobs")}
                 </li>
@@ -292,7 +292,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/projects");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Project")}
                 </li>
@@ -315,7 +315,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/load-data/communicated");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Press")}
                 </li>
@@ -324,7 +324,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/videos");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Videos")}
                 </li>
@@ -333,7 +333,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/blogs");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Blog")}
                 </li>
@@ -342,7 +342,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/data-loading/gallery");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Gallery")}
                 </li>
@@ -351,14 +351,14 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/evements");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Events")}
                 </li>
                 <li>
                   <button
                     onClick={handleGoBack}
-                    className="w-full mt-2 py-2 bg-hover text-white rounded-lg"
+                    className="w-full mt-2 py-2 bg-hover text-white "
                   >
                     {t("Find_More")}
                     <ToastContainer />
@@ -401,7 +401,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/about");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("AboutUs")}
                 </li>
@@ -410,7 +410,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/contact");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Contact")}
                 </li>
@@ -419,7 +419,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/partners");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Partnerships")}
                 </li>
@@ -428,7 +428,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/team");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Governance")}
                 </li>
@@ -437,7 +437,7 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/community/join");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent rounded-lg"
+                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
                 >
                   {t("Becom_member")}
                 </li>

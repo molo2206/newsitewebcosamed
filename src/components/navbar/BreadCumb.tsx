@@ -50,7 +50,7 @@ const BreadCumb = ({ title, second, secondTitle }: Props) => {
                   to={second}
                   className="ml-1 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-white transition"
                 >
-                  {t(secondTitle || "")}
+                  {t(secondTitle || "" )}
                 </Link>
               </div>
             </li>
@@ -62,7 +62,7 @@ const BreadCumb = ({ title, second, secondTitle }: Props) => {
               <div className="flex items-center">
                 <span className="mx-2 text-gray-400">/</span>
                 <span className="ml-1 text-gray-500 dark:text-gray-400 truncate max-w-[250px] block">
-                  {truncate(t(title))}
+                  {truncate(t(title),10)}
                 </span>
               </div>
             </li>
