@@ -3,12 +3,20 @@ import CategoryServices from "../services/CategoryServices";
 import BreadCumb from "../components/navbar/BreadCumb";
 import BlogCard from "../components/blogs/BlogCard";
 import { useTranslation } from "react-i18next";
+import Pagination from "../components/Pagination/Pagination";
+import { useState } from "react";
 
 const Ai4Mpox = () => {
   const { data = [] } = useAsync(
     () => CategoryServices.getblogCat("9ef6c1d3-3d17-43bb-bd25-d3230b476ff6"),
     "9ef6c1d3-3d17-43bb-bd25-d3230b476ff6"
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(4);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentBulletins = data.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
   const { t } = useTranslation();
   return (
     <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
@@ -75,7 +83,7 @@ const Ai4Mpox = () => {
             </h2>
             {data.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {data.map((item: any) => (
+                 {currentBulletins.map((item: any) => (
                   <BlogCard key={item.id || item.slug} blog={item} />
                 ))}
               </div>
@@ -85,6 +93,12 @@ const Ai4Mpox = () => {
               </p>
             )}
           </div>
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPasts={data.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
         </section>
 
         {/* Footer CTA */}
