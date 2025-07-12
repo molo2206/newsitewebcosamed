@@ -18,7 +18,7 @@ const Footer = () => {
   const getDate = () => new Date().getFullYear();
 
   return (
-    <footer className="text-white bg-[#0067b8] py-8 font-montserrat">
+    <footer className="text-white bg-principal py-8 font-montserrat dark:border-slate-700 bg-principal dark:bg-slate-800 text-white border-primary/50">
       <div className="container mx-auto grid md:grid-cols-6 gap-8 px-4">
         {/* QUI SOMMES-NOUS */}
         <div>

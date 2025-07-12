@@ -178,9 +178,21 @@ function Navbar() {
           style={{ zIndex: 2 }}
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
-          } left-0 right-0 font-light bg-principal dark:bg-slate-800 text-white border-t dark:border-slate-700 border-primary/50`}
+          } left-0 right-0 font-light  border-t dark:border-slate-700 bg-principal dark:bg-slate-800 text-white border-primary/50`}
         >
           <nav className="flex items-center justify-between px-4 md:px-8 h-16 lg:h-20">
+            <div
+              onClick={home}
+              className="cursor-pointer w-[140px] sm:w-[160px] md:w-[200px] lg:w-[180px] xl:w-[180px] flex justify-center"
+            >
+              <img
+                src={data?.logo1}
+                alt="Logo COSAMED"
+                className="max-w-full h-auto object-contain brightness-110 contrast-110"
+                loading="lazy"
+              />
+            </div>
+
             <div className="hidden md:flex justify-center font-light w-full ">
               <ul className="flex items-center gap-8 justify-center font-semibold">
                 <li
