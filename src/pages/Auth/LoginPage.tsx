@@ -6,11 +6,13 @@ import UseLogin from "../../hooks/LoginUser";
 import Button from "../../components/form/Button";
 import { ApplyForm } from "../../types";
 import InputPassword from "../../components/form/InputPassword";
+import { FcGoogle } from "react-icons/fc";  // import icône Google
+
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigation = useNavigate();
   const Register = () => {
-    navigation("/recruiting/cosamed/job_openings/register"); // new line
+    navigation("/recruiting/cosamed/job_openings/register");
   };
   const { Login, loading: loadingForm } = UseLogin();
   const { inputs, errors, handleOnChange, hanldeError } =
@@ -35,13 +37,19 @@ const LoginPage = () => {
     }
   };
 
+  // Fonction exemple au clic bouton Google
+  const handleGoogleLogin = () => {
+    // Intégrer ici la logique OAuth Google ou redirection
+    alert("Login avec Google à implémenter !");
+  };
+
   return (
-    <div className="p-6 min-h-screen flex flex-col items-center bg-gray-100 w-full dark:bg-slate-900   bg-white ">
+    <div className="p-6 min-h-screen flex flex-col items-center bg-gray-100 w-full dark:bg-slate-900 bg-white">
       <div className="w-full">
         <img
-          src="https://apicosamed.cosamed.org/uploads/blogs/505259756244493872b7709a8a01b536.png" // Remplacez par votre URL d'image
+          src="https://apicosamed.cosamed.org/uploads/blogs/505259756244493872b7709a8a01b536.png"
           alt="Banner"
-          className="w-full object-cover h-80 "
+          className="w-full object-cover h-80"
         />
       </div>
 
@@ -68,16 +76,30 @@ const LoginPage = () => {
             value={inputs.password}
             onChange={(e: any) => handleOnChange(e.target.value, "password")}
           />
-          <div className="text-right text-sm text-principa cursor-pointer hover:underline">
+          <div className="text-right text-sm text-principal cursor-pointer hover:underline">
             <a href="/auth/forgot-password">Mot de passe oublié ?</a>
           </div>
           <Button label={t("Login")} loading={loadingForm} />
         </form>
 
+        {/* Bouton Continuer avec Google */}
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={handleGoogleLogin}
+            className="flex items-center justify-center gap-2 w-full max-w-sm border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+            type="button"
+          >
+            <FcGoogle className="w-6 h-6" />
+            <span className="text-gray-700 dark:text-gray-200 font-medium">
+              Continuer avec Google
+            </span>
+          </button>
+        </div>
+
         {/* Lien supplémentaire */}
         <div className="mt-4 text-sm text-center">
-          <p className="text-sm  mb-6">
-            <p className="mt-6 text-gray-500 text-sm">
+          <p className="text-sm mb-6">
+            <span className="mt-6 text-gray-500 text-sm">
               Vous n’avez pas encore de compte ?{" "}
               <span
                 onClick={Register}
@@ -85,7 +107,7 @@ const LoginPage = () => {
               >
                 S’inscrire
               </span>
-            </p>
+            </span>
           </p>
         </div>
       </div>

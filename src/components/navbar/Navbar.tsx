@@ -161,6 +161,19 @@ function Navbar() {
   return (
     <>
       <div className="">
+        {!user && (
+          <div className="bg-blue-50 border border-blue-200 text-sm text-blue-900 flex justify-between items-center p-2  ">
+            <p>Connectez-vous pour une meilleure expérience sur le site.</p>
+            <button className="flex items-center bg-blue-600 text-white text-sm px-4 py-1.5 rounded hover:bg-blue-700">
+              <img
+                src="https://www.google.com/favicon.ico"
+                alt="Google icon"
+                className="w-4 h-4 mr-2"
+              />
+              Continuer
+            </button>
+          </div>
+        )}
         <header
           style={{ zIndex: 2 }}
           className={`header__sticky ${
@@ -168,18 +181,6 @@ function Navbar() {
           } left-0 right-0 font-light bg-principal dark:bg-slate-800 text-white border-t dark:border-slate-700 border-primary/50`}
         >
           <nav className="flex items-center justify-between px-4 md:px-8 h-16 lg:h-20">
-            <div
-              onClick={home}
-              className="cursor-pointer w-auto max-w-[120px] sm:max-w-[150px] md:max-w-[180px] lg:max-w-[220px] xl:max-w-[260px] transition-all duration-300"
-            >
-              <img
-                src={data?.logo1}
-                alt="Logo"
-                className={`w-full h-auto object-contain transition-all duration-300 ${
-                  sticky ? "opacity-100 scale-100" : "opacity-80 scale-95"
-                }`}
-              />
-            </div>
             <div className="hidden md:flex justify-center font-light w-full ">
               <ul className="flex items-center gap-8 justify-center font-semibold">
                 <li
@@ -488,7 +489,8 @@ function Navbar() {
                 <div className="relative mt-2">
                   <button
                     onClick={toggleMenu}
-                    className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden focus:outline-none"
+                    className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden focus:outline-none hover:bg-gray-400 transition"
+                    aria-label="User menu"
                   >
                     {!user?.image ? (
                       <FaUserCircle className="text-principal w-10 h-10" />
@@ -501,62 +503,55 @@ function Navbar() {
                     )}
                   </button>
 
-                  {/* Menu déroulant */}
                   {isDropdown && (
                     <>
                       <div
-                        className="absolute left-1/2 -translate-x-1/2 mt-3 w-64 bg-principal dark:bg-slate-800 border border-principal dark:border-slate-700 
-                 shadow-xl z-50 transition-all duration-200"
+                        className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50
+                   origin-top-right animate-scale-in"
                       >
-                        <div className="flex flex-col items-center justify-center p-4 space-y-2">
-                          {/* {!user?.image ? (
-                            <FaUserCircle className="text-gray-600 dark:text-white w-12 h-12" />
+                        <div className="flex flex-col items-center p-4 border-b border-gray-200 dark:border-gray-700">
+                          {!user?.image ? (
+                            <FaUserCircle className="text-gray-500 dark:text-gray-300 w-12 h-12" />
                           ) : (
                             <img
                               src={user.image}
                               alt="Profil"
                               className="w-12 h-12 rounded-full object-cover"
                             />
-                          )} */}
-                          <span className=" dark:text-white text-center">
-                            <a
-                              style={{ fontSize: "12px" }}
-                              href="#"
-                              className=" line-clamp-0"
-                            >
-                              {user?.email}
-                            </a>
+                          )}
+                          <span className="mt-2 text-sm font-semibold text-gray-900 dark:text-gray-100 truncate max-w-full text-center">
+                            {user?.email}
                           </span>
                         </div>
 
-                        <ul className="text-sm text-white dark:text-white">
+                        <ul className="py-2 text-gray-700 dark:text-gray-300 text-sm">
                           <li
                             onClick={() =>
                               navigate(
                                 "/recruiting/cosamed/job_openings/accountsettings"
                               )
                             }
-                            className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer "
+                            className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                           >
                             {t("My_profile")}
                           </li>
                           <li
                             onClick={() => navigate("/job_openings/userHome")}
-                            className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer"
+                            className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                           >
                             {t("My_applications")}
                           </li>
                           {!user ? (
                             <li
                               onClick={() => navigate("/auth/signin")}
-                              className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer"
+                              className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                             >
                               {t("Login")}
                             </li>
                           ) : (
                             <li
                               onClick={handleLogout}
-                              className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer"
+                              className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                             >
                               {t("Logout")}
                             </li>
@@ -567,13 +562,14 @@ function Navbar() {
                                 "/recruiting/cosamed/job_openings/register"
                               )
                             }
-                            className="p-4 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer"
+                            className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                           >
                             {t("Register")}
                           </li>
                         </ul>
                       </div>
 
+                      {/* Overlay pour fermer au clic en dehors */}
                       <div
                         className="fixed inset-0 z-40"
                         onClick={() => setIsDropdown(false)}

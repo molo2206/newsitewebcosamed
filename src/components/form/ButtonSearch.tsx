@@ -8,13 +8,18 @@ interface Props {
   loading?: boolean;
 }
 
-const ButtonSearch = ({ onClick, label = "Search", type = "submit", loading = false }: Props) => {
+const ButtonSearch = ({
+  onClick,
+  label = "Chercher!",
+  type = "submit",
+  loading = false,
+}: Props) => {
   return (
     <button
       disabled={loading}
       onClick={onClick}
       type={type}
-      className={`flex items-center justify-center animate-wave gap-3 px-4 py-2 rounded-lg font-medium text-[12px] text-white bg-principal dark:bg-slate-800 border dark:border-slate-700 ${
+      className={`flex items-center justify-center gap-2 px-4 py-2 rounded-md text-xs font-bold text-white bg-[#0067b8] hover:bg-[#005aa1] transition-all duration-200 ${
         loading ? "cursor-not-allowed opacity-50" : ""
       }`}
     >
@@ -23,7 +28,7 @@ const ButtonSearch = ({ onClick, label = "Search", type = "submit", loading = fa
       ) : (
         <>
           <span>{label}</span>
-          <FaSearch size={10} className="animate-wiggle"/>
+          <FaSearch className="w-3 h-3" />
         </>
       )}
     </button>

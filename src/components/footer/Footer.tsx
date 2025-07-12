@@ -1,190 +1,119 @@
 import { useTranslation } from "react-i18next";
-
 import { useNavigate } from "react-router-dom";
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn,
+  FaEnvelope,
+} from "react-icons/fa";
 
 const Footer = () => {
   const { t } = useTranslation();
   const navigation = useNavigate();
+
   const donatelink = () => {
-    navigation("/data-loading/newsletters"); 
+    navigation("/donate");
   };
 
-  function getDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    return `${year}`;
-  }
+  const getDate = () => new Date().getFullYear();
 
   return (
-    <>
-      <footer className="text-white bg-gradient-to-r mt-4  p-4 bg-principal dark:bg-slate-800  font-montserrat">
-        <div className="container mx-auto grid md:grid-cols-4 gap-8">
-          {/* Section "Qui sommes-nous?" */}
-          <div>
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold sm:font-semibold mb-4">
-              QUI SOMMES-NOUS
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm"
-                  href="/about"
-                >
-                  A propos
-                </a>
-              </li>
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm"
-                  href="/team"
-                >
-                  Gouvernance et direction
-                </a>
-              </li>
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href="/transparence"
-                >
-                  Financements et donateurs
-                </a>
-              </li>
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href="/importancedon"
-                >
-                  A quoi servent vos dons
-                </a>
-              </li>
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href="/toutsavoirsurledon"
-                >
-                  Tout savoir sur le don régulier
-                </a>
-              </li>
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href="/questions-don"
-                >
-                  Toutes les questions sur le don
-                </a>
-              </li>
-            </ul>
-          </div>
-          {/* Section "Notre Travail" */}
-          <div>
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4 line-clamp-1">
-              NOTRE TRAVAIL
-            </h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href=""
-                >
-                  Aide sanitaire
-                </a>
-              </li>
-              <li>
-                {" "}
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href=""
-                >
-                  Assistance et services humanitaires
-                </a>
-              </li>
-            </ul>
-          </div>
-          {/* Section "Médias et Ressources" */}
-          <div>
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4 line-clamp-1">
-              MÉDIAS & RESSOURCES
-            </h3>
-            <ul className=" space-y-2">
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href="/load-data/communicated"
-                >
-                  Communiqués de presse
-                </a>
-              </li>
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href="/data-loading/blogs"
-                >
-                  Publications
-                </a>
-              </li>
-            </ul>
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mt-6 mb-4">
-              IMPLIQUEZ-VOUS
-            </h3>
-            <ul className="">
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href="/job_openings"
-                >
-                  Carrières
-                </a>
-              </li>
-              {/* <li>Collaborez avec nous</li> */}
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href="/community/join"
-                >
-                  Devenez volontaire ou membre de COSAMED
-                </a>
-              </li>
-              <li>
-                <a
-                  className="font-light lg:text-sm sm:text-sm md:text-sm line-clamp-1"
-                  href="/confidentiality"
-                >
-                  Politique de Confidentialité
-                </a>
-              </li>
-            </ul>
-            <div className="md:hidden">
-              <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4">
-                URGENCE
-              </h3>
+    <footer className="text-white bg-[#0067b8] py-8 font-montserrat">
+      <div className="container mx-auto grid md:grid-cols-6 gap-8 px-4">
+        {/* QUI SOMMES-NOUS */}
+        <div>
+          <h3 className="font-bold mb-4">QUI SOMMES-NOUS</h3>
+          <ul className="space-y-2 text-sm">
+            <li><a href="/about">A propos</a></li>
+            <li><a href="/team">Gouvernance et direction</a></li>
+            <li><a href="/transparence">Financements & transparence</a></li>
+            <li><a href="/histoire">Notre histoire</a></li>
+            <li><a href="/partenaires">Nos partenaires</a></li>
+          </ul>
+        </div>
+
+        {/* NOS ACTIONS */}
+        <div>
+          <h3 className="font-bold mb-4">NOS ACTIONS</h3>
+          <ul className="space-y-2 text-sm">
+            <li><a href="/aide-sanitaire">Aide sanitaire</a></li>
+            <li><a href="/urgences">Urgences humanitaires</a></li>
+            <li><a href="/renforcement">Renforcement communautaire</a></li>
+          </ul>
+        </div>
+
+        {/* MÉDIAS & PUBLICATIONS */}
+        <div>
+          <h3 className="font-bold mb-4">MÉDIAS & PUBLICATIONS</h3>
+          <ul className="space-y-2 text-sm">
+            <li><a href="/data-loading/blogs">Actualités</a></li>
+            <li><a href="/load-data/communicated">Communiqués de presse</a></li>
+          </ul>
+        </div>
+
+        {/* IMPLIQUEZ-VOUS */}
+        <div>
+          <h3 className="font-bold mb-4">IMPLIQUEZ-VOUS</h3>
+          <ul className="space-y-2 text-sm">
+            <li><a href="/job_openings">Carrières</a></li>
+            <li><a href="/community/join">Devenir volontaire</a></li>
+            <li>
               <button
                 onClick={donatelink}
-                className="sm:inline-block bg-hover text-white text-[12px] font-semibold px-4 py-2 rounded-md"
+                className="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 text-sm rounded"
               >
-                {t("Newsletters")}
+                Faire un don
               </button>
-            </div>
-          </div>
-          <div className=" hidden md:block">
-            <h3 className="lg:text-sm sm:text-sm md:text-sm font-bold mb-4">
-              URGENCE
-            </h3>
-            <button
-              onClick={donatelink}
-              className="sm:inline-block bg-hover text-white text-[12px] font-semibold px-4 py-2 rounded-md"
-            >
-              {t("Newsletters")}
-            </button>
+            </li>
+            <li><a href="/contact">Nous contacter</a></li>
+          </ul>
+        </div>
+
+        {/* POLITIQUES */}
+        <div>
+          <h3 className="font-bold mb-4">POLITIQUES</h3>
+          <ul className="space-y-2 text-sm">
+            <li><a href="/confidentiality">Confidentialité</a></li>
+            <li><a href="/terms">Conditions d’utilisation</a></li>
+            <li><a href="/don-policy">Politique de dons</a></li>
+            <li><a href="/code">Code de conduite</a></li>
+            <li><a href="/accessibility">Accessibilité</a></li>
+            <li><a href="/cookies">Politique de cookies</a></li>
+          </ul>
+        </div>
+
+        {/* CONTACT & URGENCE */}
+        <div>
+          <h3 className="font-bold mb-4">CONTACT & URGENCE</h3>
+          <p className="text-sm mb-2">Besoin d’aide ? Contactez-nous à :</p>
+          <a
+            href="mailto:cosamed17@gmail.com"
+            className="text-sm text-white underline"
+          >
+            cosamed17@gmail.com
+          </a>
+          <div className="flex gap-4 mt-4 text-white text-lg">
+            <a href="https://facebook.com" target="_blank" rel="noreferrer">
+              <FaFacebookF />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer">
+              <FaTwitter />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer">
+              <FaLinkedinIn />
+            </a>
+            <a href="mailto:cosamed17@gmail.com">
+              <FaEnvelope />
+            </a>
           </div>
         </div>
-        <div className="flex flex-col items-center mt-4">
-          <p className=" text-md font-semibold">
-            © {getDate()} COSAMED asbl
-          </p>
-          <br />
-        </div>
-      </footer>
-    </>
+      </div>
+
+      {/* Footer bottom */}
+      <div className="mt-10 text-center text-sm text-white border-t border-white/20 pt-4">
+        © {getDate()} COSAMED asbl — Tous droits réservés | Une ONG engagée pour la santé publique et la dignité humaine.
+      </div>
+    </footer>
   );
 };
 

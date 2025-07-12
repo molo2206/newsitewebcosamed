@@ -5,6 +5,7 @@ import RegisterUser from "../../hooks/RegisterUser";
 import Button from "../../components/form/Button";
 import { ApplyForm } from "../../types";
 import InputPassword from "../../components/form/InputPassword";
+import { FcGoogle } from "react-icons/fc"; // import icône Google
 
 const RegisterPage = () => {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ const RegisterPage = () => {
       phone: "",
       password_confirmation: "",
     });
+
   const validation = (e: any) => {
     e.preventDefault();
 
@@ -48,22 +50,28 @@ const RegisterPage = () => {
       registeruser(inputs);
     }
   };
+
+  // Exemple fonction clic Google
+  const handleGoogleRegister = () => {
+    alert("Inscription avec Google à implémenter !");
+  };
+
   return (
-    <div className=" min-h-screen flex flex-col items-center bg-gray-100 p-6 w-full dark:bg-slate-900   bg-white ">
+    <div className="min-h-screen flex flex-col items-center bg-gray-100 p-6 w-full dark:bg-slate-900 bg-white">
       <div className="w-full">
         <img
-          src="https://apicosamed.cosamed.org/uploads/blogs/505259756244493872b7709a8a01b536.png" // Remplacez par votre URL d'image
+          src="https://apicosamed.cosamed.org/uploads/blogs/505259756244493872b7709a8a01b536.png"
           alt="Banner"
           className="w-full object-cover h-80"
         />
       </div>
 
-      {/* Formulaire de connexion */}
-      <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800  p-4 mt-[-4rem] ">
-        <h2 className="lg:text-xl md:text-xl font-light mb-4  text-center">
+      {/* Formulaire d'inscription */}
+      <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem]">
+        <h2 className="lg:text-xl md:text-xl font-light mb-4 text-center">
           Créez votre compte gratuitement
         </h2>
-        <form className="w-full max-w-sm space-y-4" onSubmit={validation}> 
+        <form className="w-full max-w-sm space-y-4" onSubmit={validation}>
           <Input
             required
             name="full_name"
@@ -128,23 +136,44 @@ const RegisterPage = () => {
             En cliquant sur{" "}
             <span className="font-semibold">"Créer mon compte"</span>, vous
             acceptez les{" "}
-            <a href="/confidentiality" className="text-principal hover:underline">
+            <a
+              href="/confidentiality"
+              className="text-principal hover:underline"
+            >
               Conditions Générales d’Utilisation
             </a>{" "}
             et notre{" "}
-            <a href="/confidentiality" className="text-principal hover:underline">
+            <a
+              href="/confidentiality"
+              className="text-principal hover:underline"
+            >
               Politique de confidentialité
             </a>
             .
           </div>
           <Button label={t("Register")} loading={loadingForm} />
-          <div className="text-center mt-4 text-sm">
-            Vous avez déjà un compte ?{" "}
-            <a href="/auth/signin" className="text-principal hover:underline">
-              Se connecter
-            </a>
-          </div>
         </form>
+
+        {/* Bouton Continuer avec Google */}
+        <div className="mt-6 flex justify-center">
+          <button
+            onClick={handleGoogleRegister}
+            type="button"
+            className="flex items-center justify-center gap-2 w-full max-w-sm border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+          >
+            <FcGoogle className="w-6 h-6" />
+            <span className="text-gray-700 dark:text-gray-200 font-medium">
+              Continuer avec Google
+            </span>
+          </button>
+        </div>
+
+        <div className="text-center mt-4 text-sm">
+          Vous avez déjà un compte ?{" "}
+          <a href="/auth/signin" className="text-principal hover:underline">
+            Se connecter
+          </a>
+        </div>
       </div>
     </div>
   );
