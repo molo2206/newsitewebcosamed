@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
 import { FaBars, FaUserCircle } from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
 import useSticky from "../../hooks/useSticky";
@@ -13,135 +12,61 @@ import useAsync from "../../hooks/useAsync";
 import CategoryCard from "../blogs/CategoryCard";
 import { useNavigate } from "react-router-dom";
 import { FaXmark } from "react-icons/fa6";
+import { useLanguageContext } from "../../context/LanguageContext"; // ✅ Contexte langue
+import { Globe } from "lucide-react";
 
 function Navbar() {
-  const { handleLanguageChange } = useAuthContext();
-
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
-
-  useEffect(() => {
-    const browserLang = navigator.language || navigator.languages[0];
-    const lang = browserLang.startsWith("en") ? "en" : "fr";
-
-    setSelectedLanguage(lang);
-    handleLanguageChange(lang);
-  }, []);
-
-  const selectLanguage = (language: any) => {
-    setSelectedLanguage(language);
-    setDropdownOpen(false);
-    handleLanguageChange(language);
-  };
-
   const { t } = useTranslation();
   const { sticky } = useSticky();
+  const { user, removeSession } = useAuthContext();
+  const navigate = useNavigate();
+
+  const { language, setLanguage } = useLanguageContext();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
   const [isDropdown, setIsDropdown] = useState(false);
+  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
   const toggleMenu = () => setIsDropdown(!isDropdown);
 
-  const { user, removeSession } = useAuthContext();
+  const [showMenu, setShowMenu] = useState(false);
+  const toggleMe = () => setShowMenu(!showMenu);
+
+  const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
+  const dropdownRefs = useRef<{ [key: string]: HTMLLIElement | null }>({});
+
+  const { data: cat } = useAsync(() => CategoryServices.getCategory());
+  const { data } = useAsync(() => SettingsServices.getSettings());
+
+  const toggleSubMenu = (menuKey: string) => {
+    setOpenMenus((prev) => ({
+      ...Object.fromEntries(Object.keys(prev).map((key) => [key, false])),
+      [menuKey]: !prev[menuKey],
+    }));
+  };
+
   const handleLogout = () => {
     removeSession();
     navigate("/auth/signin", { replace: true });
   };
 
-  const { data: cat } = useAsync(() => CategoryServices.getCategory());
-  const { data } = useAsync(() => SettingsServices.getSettings());
-
-  const [showMenu, setShowMenu] = useState(false);
-  const element = document.documentElement;
-
-  const navigate = useNavigate();
-
-  const handleGoBack = () => {
-    navigate("/aboutmedia");
-  };
-
-  const home = () => {
-    navigate("/");
-  };
-
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
-  );
-
-  useEffect(() => {
-    if (theme === "dark") {
-      element.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      element.classList.remove("dark");
-      localStorage.removeItem("theme");
-    }
-  }, [theme]);
-  const toggleMe = () => {
-    setShowMenu(!showMenu);
-  };
-
-  const navigateNewsletter = () => {
-    navigate(`/data-loading/newsletters`);
-  };
-
-  const navigateJobopen = () => {
-    navigate(`/data-loading/jobopenings`);
-  };
-
-  const navigateProject = () => {
-    navigate(`/projects`);
-  };
-
-  const navigateJobOpening = () => {
-    navigate(`/job_openings`);
-  };
-  const navigateReport = () => {
-    navigate(`/data-loading/reports`);
-  };
-
-  const navigateCommunicated = () => {
-    navigate(`/load-data/communicated`);
-  };
-  const navigateVideo = () => {
-    navigate(`/data-loading/videos`);
-  };
-  const navigateBlog = () => {
-    navigate(`/data-loading/blogs`);
-  };
-
-  const navigateGallery = () => {
-    navigate(`/data-loading/gallery`);
-  };
-  const navigateEvent = () => {
-    navigate(`/evements`);
-  };
-
-  const navigateAbout = () => {
-    navigate(`/about`);
-  };
-  const navigateContact = () => {
-    navigate(`/contact`);
-  };
-  const navigatePartners = () => {
-    navigate(`/partners`);
-  };
-  const navigateGouvernance = () => {
-    navigate(`/team`);
-  };
-  const navigateCommunity = () => {
-    navigate(`/community/join`);
-  };
-
-  const [openMenus, setOpenMenus] = useState<{ [key: string]: boolean }>({});
-  const dropdownRefs = useRef<{ [key: string]: HTMLLIElement | null }>({});
-
-  const toggleSubMenu = (menuKey: string) => {
-    setOpenMenus((prev) => ({
-      ...Object.fromEntries(Object.keys(prev).map((key) => [key, false])), // ferme les autres
-      [menuKey]: !prev[menuKey],
-    }));
-  };
-
+  const handleGoBack = () => navigate("/aboutmedia");
+  const home = () => navigate("/");
+  const navigateNewsletter = () => navigate(`/data-loading/newsletters`);
+  const navigateJobopen = () => navigate(`/data-loading/jobopenings`);
+  const navigateProject = () => navigate(`/projects`);
+  const navigateJobOpening = () => navigate(`/job_openings`);
+  const navigateReport = () => navigate(`/data-loading/reports`);
+  const navigateCommunicated = () => navigate(`/load-data/communicated`);
+  const navigateVideo = () => navigate(`/data-loading/videos`);
+  const navigateBlog = () => navigate(`/data-loading/blogs`);
+  const navigateGallery = () => navigate(`/data-loading/gallery`);
+  const navigateEvent = () => navigate(`/evements`);
+  const navigateAbout = () => navigate(`/about`);
+  const navigateContact = () => navigate(`/contact`);
+  const navigatePartners = () => navigate(`/partners`);
+  const navigateGouvernance = () => navigate(`/team`);
+  const navigateCommunity = () => navigate(`/community/join`);
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const isInsideAny = Object.keys(dropdownRefs.current).some((key) => {
@@ -158,17 +83,25 @@ function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Langue : sélection
+  const selectLanguage = (lang: string) => {
+    setLanguage(lang);
+    setDropdownOpen(false);
+  };
+
   return (
     <>
       <div className="">
         {!user && (
           <div className="bg-blue-50 border border-blue-200 text-sm text-blue-900 flex justify-between items-center p-2  ">
-            <p>Connectez-vous pour une meilleure expérience sur le site.</p>
+            <p className=" text-sm">
+              Connectez-vous pour une meilleure expérience sur le site.
+            </p>
             <button className="flex items-center bg-blue-600 text-white text-sm px-4 py-1.5 rounded hover:bg-blue-700">
               <img
                 src="https://www.google.com/favicon.ico"
                 alt="Google icon"
-                className="w-4 h-4 mr-2"
+                className="w-4 h-4 mr-2 p-2"
               />
               Continuer
             </button>
@@ -237,7 +170,6 @@ function Navbar() {
                   >
                     {t("Emergency")}
                   </a>
-                  {/* dropdown full width section */}
                   {openMenus["emergency"] && (
                     <div
                       className="dropdown icon absolute left-0 z-[99999]  w-full bg-white text-black
@@ -423,85 +355,66 @@ function Navbar() {
                     </div>
                   )}
                 </li>
-
-                <li className=" group relative cursor-pointer border border-slate-400 dark:border-gray-100 w-[140px] rounded-md flex justify-center">
+                <li className="group relative cursor-pointer w-[140px] rounded-md flex justify-center">
                   <div className="relative hidden md:block">
                     <button
-                      className="flex items-center gap-2 bg-principale text-[12px] text-white px-4 py-2 rounded"
+                      className="bg-white text-principal px-3 py-2 text-xs font-semibold rounded-md flex items-center gap-1"
                       onClick={toggleDropdown}
                     >
+                      <Globe className="w-4 h-4" />
                       <ReactCountryFlag
-                        countryCode={selectedLanguage === "en" ? "GB" : "FR"}
+                        countryCode={language === "fr" ? "FR" : "GB"}
                         svg
-                        style={{
-                          width: "1.2em",
-                          height: "1.2em",
-                        }}
-                        title={selectedLanguage === "en" ? "English" : "French"}
+                        style={{ width: "1.2em", height: "1.2em" }}
+                        title={language === "fr" ? "Français" : "English"}
                       />
-                      {selectedLanguage === "en" ? "English" : "French"}
-                      <span className="ml-2 px-2">▼</span>
+                      <span>{language.toUpperCase()}</span>
+                      <span className="ml-1">▼</span>
                     </button>
 
-                    {/* Dropdown */}
                     {dropdownOpen && (
-                      <div
-                        className="absolute right-0 mt-1 w-[140px]  bg-principal  dark:bg-slate-800 dark:border border-slate-700
-                          shadow-lg z-40"
-                      >
+                      <div className="absolute right-0 mt-1 w-[140px] bg-principal dark:bg-slate-800 dark:border border-slate-700 shadow-lg z-40 rounded-md">
                         <button
-                          className="flex items-center gap-2 w-full text-[12px] md:text-[12px] px-4 py-2 hover:bg-hover rounded text-white"
+                          className={`flex items-center gap-2 w-full px-4 py-2 text-xs font-semibold rounded-md ${
+                            language === "en"
+                              ? "bg-hover text-white"
+                              : "text-white hover:bg-hover"
+                          }`}
                           onClick={() => selectLanguage("en")}
                         >
                           <ReactCountryFlag
                             countryCode="GB"
                             svg
-                            style={{
-                              width: "1.2em",
-                              height: "1.2em",
-                            }}
+                            style={{ width: "1.2em", height: "1.2em" }}
                             title="English"
                           />
                           English
                         </button>
                         <button
-                          className="flex items-center gap-2 w-full px-4 py-2 text-[12px] md:text-[12px] hover:bg-hover rounded"
+                          className={`flex items-center gap-2 w-full px-4 py-2 text-xs font-semibold rounded-md ${
+                            language === "fr"
+                              ? "bg-hover text-white"
+                              : "text-white hover:bg-hover"
+                          }`}
                           onClick={() => selectLanguage("fr")}
                         >
                           <ReactCountryFlag
                             countryCode="FR"
                             svg
-                            style={{
-                              width: "1.2em",
-                              height: "1.2em",
-                            }}
-                            title="French"
+                            style={{ width: "1.2em", height: "1.2em" }}
+                            title="Français"
                           />
-                          French
+                          Français
                         </button>
                       </div>
                     )}
                   </div>
                 </li>
-                <div className="px-6 flex">
-                  {theme === "dark" ? (
-                    <BiSolidSun
-                      size={25}
-                      className="text-sm cursor-pointer rounded-full border border-slate-400 dark:border-slate-700 "
-                      onClick={() => setTheme("light")}
-                    />
-                  ) : (
-                    <BiSolidMoon
-                      size={25}
-                      className="text-sm cursor-pointer rounded-full border border-slate-400 dark:border-slate-700"
-                      onClick={() => setTheme("dark")}
-                    />
-                  )}
-                </div>
+
                 <div className="relative mt-2">
                   <button
                     onClick={toggleMenu}
-                    className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden focus:outline-none hover:bg-gray-400 transition"
+                    className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden focus:outline-none hover:bg-gray-400 transition"
                     aria-label="User menu"
                   >
                     {!user?.image ? (
@@ -528,7 +441,7 @@ function Navbar() {
                             <img
                               src={user.image}
                               alt="Profil"
-                              className="w-12 h-12 rounded-full object-cover"
+                              className="w-8 h-8 rounded-full object-cover"
                             />
                           )}
                           <span className="mt-2 text-sm font-semibold text-gray-900 dark:text-gray-100 truncate max-w-full text-center">

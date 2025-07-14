@@ -1,17 +1,28 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Search, Home, Mail } from "lucide-react";
 
 const Error404 = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [query, setQuery] = useState("");
+  const [counter, setCounter] = useState(60);
 
+  // Countdown timer + auto redirect
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const interval = setInterval(() => {
+      setCounter((prev) => prev - 1);
+    }, 1000);
+
+    const timeout = setTimeout(() => {
       navigate("/");
-    }, 60000); // redirection après 60 secondes
-    return () => clearTimeout(timer);
+    }, 60000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
   }, [navigate]);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -22,53 +33,63 @@ const Error404 = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center text-center px-6 bg-white dark:bg-slate-900">
-      <div className="backdrop-blur-md bg-white/60 dark:bg-slate-800 p-10 shadow-lg dark:shadow-lg max-w-xl w-full">
-        <img
-          src="../assets/4041.svg"
-          alt="404 Illustration"
-          className="w-64 h-40 mb-6 mx-auto animate-pulse hover:animate-wiggl"
-        />
-        <h1 className="mt-6 text-3xl md:text-5xl font-extrabold animate-pulse hover:animate-wiggle leading-tight text-principa bg-gradient-to-r from-principal bg-clip-text text-transparent transition">
+    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-4">
+      <div className="bg-white/70 dark:bg-slate-800/80 shadow-xl rounded-lg p-8 max-w-lg w-full text-center backdrop-blur-md">
+        <h1 className="text-4xl md:text-5xl font-bold text-principal dark:text-white animate-fade-in-down">
           {t("Erreur_404")}
         </h1>
 
-        <p className="mt-2 text-lg italic text-gray-400">{t("It looks 404")}</p>
+        <p className="mt-3 text-base text-gray-500 dark:text-gray-300 italic">
+          {t("It looks 404")}
+        </p>
 
-        <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
           {t("You tried to access")}:{" "}
-          <code className="bg-gray-200 dark:bg-gray-700 rounded px-2 py-1">
+          <code className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-sm">
             {window.location.pathname}
           </code>
         </p>
 
-        <form onSubmit={handleSearch} className="mt-6 w-full max-w-sm mx-auto">
+        <form
+          onSubmit={handleSearch}
+          className="mt-6 flex items-center gap-2 max-w-md mx-auto"
+        >
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("Search...")}
-            className="px-4 py-2 w-full rounded-md  border border-gray-300 dark:text-black dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-principal"
+            className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-principal focus:outline-none dark:text-black"
           />
+          <button
+            type="submit"
+            title={t("Search")}
+            className="bg-principal text-white p-2 rounded hover:bg-[#155dbb] transition"
+          >
+            <Search size={18} />
+          </button>
         </form>
 
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
+        <div className="mt-6 flex justify-center gap-4 flex-wrap">
           <button
             onClick={() => navigate("/")}
-            className="px-6 py-2 bg-principal text-white font-semibold rounded-md hover:bg-[#155dbb] transition"
+            className="flex items-center gap-2 px-5 py-2 bg-principal text-white font-semibold rounded-md hover:bg-[#155dbb] transition"
           >
+            <Home size={16} />
             {t("Home")}
           </button>
+
           <button
             onClick={() => navigate("/contact")}
-            className="px-6 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-white font-semibold rounded-md hover:bg-gray-300 dark:hover:bg-gray-700 transition"
+            className="flex items-center gap-2 px-5 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white font-semibold rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition"
           >
+            <Mail size={16} />
             {t("Contact")}
           </button>
         </div>
 
-        <p className="text-xs text-gray-400 mt-4">
-          {t("Redirecting to home in 60 seconds...")}
+        <p className="mt-4 text-xs text-gray-500 dark:text-gray-400">
+          {t("Redirecting to home in")} {counter} {t("seconds")}...
         </p>
       </div>
     </div>

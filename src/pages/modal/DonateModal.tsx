@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
@@ -10,6 +11,7 @@ import { ButtonMoney } from "../../components/cards/ButtonMoney";
 import Donate from "../../hooks/Donate";
 import { ApplyForm } from "../../types";
 import ButtonDonate from "../../components/form/ButtonDonate";
+import { buttonMoney, currency, tabs } from "../../utils/heleprs";
 
 interface DonateModalProps {
   isOpen: boolean;
@@ -47,24 +49,6 @@ const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => {
   const elements = useElements();
 
   const { data: country } = useAsync(() => CountryService.getCountry());
-
-  const buttonMoney = [
-    { value: "10", label: "10 €" },
-    { value: "20", label: "20 €" },
-    { value: "50", label: "50 €" },
-    { value: "100", label: "100 €" },
-    { value: "Autre", label: "Autre" },
-  ];
-
-  const currency = [
-    { value: "USD", label: "USD" },
-    { value: "EURO", label: "EURO" },
-  ];
-
-  const tabs = [
-    { id: 1, title: "Don mensuel" },
-    { id: 2, title: "Don ponctuel" },
-  ];
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
     useValidation<ApplyForm>({
@@ -117,11 +101,18 @@ const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4 sm:p-6">
-      <div className="bg-white dark:bg-slate-800 p-6 shadow-xl max-w-xl w-full relative overflow-auto max-h-[90vh] flex flex-col gap-6">
+  return ReactDOM.createPortal(
+    <div className="fixed inset-0 z-[100] bg-black bg-opacity-50 flex items-center justify-center p-4 sm:p-6">
+      <div className="bg-white dark:bg-slate-800 p-6 shadow-xl max-w-xl w-full relative overflow-auto max-h-[90vh] flex flex-col gap-6 rounded-xl">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
@@ -439,7 +430,8 @@ const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => {
           </form>
         )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

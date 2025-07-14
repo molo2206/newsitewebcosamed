@@ -95,6 +95,23 @@ export const Type = [
     label: 'Press Release',
   },
 ];
+export const buttonMoney = [
+  { value: '10', label: '10 €' },
+  { value: '20', label: '20 €' },
+  { value: '50', label: '50 €' },
+  { value: '100', label: '100 €' },
+  { value: 'Autre', label: 'Autre' },
+];
+
+export const currency = [
+  { value: 'USD', label: 'USD' },
+  { value: 'EURO', label: 'EURO' },
+];
+
+export const tabs = [
+  { id: 1, title: 'Don mensuel' },
+  { id: 2, title: 'Don ponctuel' },
+];
 
 export const Years = (() => {
   const startYear = 2023;

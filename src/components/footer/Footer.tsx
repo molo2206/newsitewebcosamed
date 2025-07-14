@@ -14,7 +14,6 @@ const Footer = () => {
   const donatelink = () => {
     navigation("/donate");
   };
-
   const getDate = () => new Date().getFullYear();
 
   return (

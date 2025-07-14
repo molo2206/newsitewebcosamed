@@ -22,9 +22,9 @@ export const ButtonMoney = ({ checked, label, onchange, id }: Props) => {
           className={`
             w-full cursor-pointer flex items-center justify-center
             border border-[#3b82f6] dark:border-[#60a5fa] rounded-md px-4 py-2
-            bg-white dark:bg-principal text-[#0b1f3f] dark:text-white
+            bg-white dark:bg-slate-900 text-[#0b1f3f] dark:text-white
             transition-all duration-200 ease-in-out text-sm sm:text-base
-            peer-checked:bg-hover dark:peer-checked:bg-hover
+            peer-checked:bg-principal dark:peer-checked:bg-principal
             peer-checked:text-white shadow-sm hover:shadow-md
             focus:outline-none focus:ring-2 focus:ring-blue-200
           `}
