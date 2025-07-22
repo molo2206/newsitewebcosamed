@@ -1,19 +1,18 @@
 import SettingsServices from "../services/SettingsServices";
 import useAsync from "../hooks/useAsync";
 import { showingTranslateValue } from "../utils/heleprs";
-import { useAuthContext } from "../context";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import BulletinLoad from "../components/blogs/BulletinLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
+import { useLanguageContext } from "../context/LanguageContext";
 const Vision = () => {
   const { data, loading } = useAsync(() => SettingsServices.getSettings());
-  const { lang } = useAuthContext();
   const { t } = useTranslation();
   const navigate = useNavigate();
-
+  const { language: lang } = useLanguageContext();
   const goToAbout = () => {
-    navigate("/contact"); // Remplace "/about" par la route cible
+    navigate("/contact");
   };
   return (
     <>
@@ -30,7 +29,6 @@ const Vision = () => {
             </header>
             <div className=" bg-white py-10 px-5 dark:bg-slate-900 dark:text-white ">
               <div className="">
-                {/* Section Vision */}
                 <section className="bg-white dark:bg-slate-800 w-full dark:text-white border p-6 rounded-lg shadow-md mb-12">
                   <h2 className="text-3xl font-semibold text-gray-800 mb-4 dark:text-white">
                     {t("Vision")}
@@ -43,7 +41,6 @@ const Vision = () => {
                     }}
                   ></p>
                 </section>
-                {/* Section Mission */}
                 <section className="bg-white dark:bg-slate-800 w-full  border p-6 rounded-lg shadow-md mb-12">
                   <h2 className="text-3xl font-semibold text-gray-800 mb-4 dark:text-white">
                     {t("Mission")}

@@ -5,7 +5,7 @@ import useSticky from "../../hooks/useSticky";
 import SettingsServices from "../../services/SettingsServices";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";
-import { useAuthContext } from "../../context";
+import { useAuthContext, useThemeContext } from "../../context";
 import { ToastContainer } from "react-toastify";
 import CategoryServices from "../../services/CategoryServices";
 import useAsync from "../../hooks/useAsync";
@@ -14,13 +14,17 @@ import { useNavigate } from "react-router-dom";
 import { FaXmark } from "react-icons/fa6";
 import { useLanguageContext } from "../../context/LanguageContext"; // ✅ Contexte langue
 import { Globe } from "lucide-react";
+import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
+import LoginPopup from "../modal/LoginPopup";
+import HelpPopup from "../modal/HelpPopup";
+import AuthService from "../../services/AuthService";
 
 function Navbar() {
   const { t } = useTranslation();
   const { sticky } = useSticky();
   const { user, removeSession } = useAuthContext();
   const navigate = useNavigate();
-
+  const { settings, toggleTheme } = useThemeContext();
   const { language, setLanguage } = useLanguageContext();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -66,7 +70,8 @@ function Navbar() {
   const navigatePartners = () => navigate(`/partners`);
   const navigateGouvernance = () => navigate(`/team`);
   const navigateCommunity = () => navigate(`/community/join`);
-  
+  const [showLanguageButton, setShowLanguageButton] = useState(true);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const isInsideAny = Object.keys(dropdownRefs.current).some((key) => {
@@ -82,31 +87,56 @@ function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+  const languageRef = useRef<HTMLDivElement>(null);
 
-  // Langue : sélection
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || window.pageYOffset;
+      // Si scrollTop === 0 (tout en haut), on cache le bouton langue
+      // Sinon on l'affiche
+      if (scrollTop === 0) {
+        setShowLanguageButton(false);
+      } else {
+        setShowLanguageButton(true);
+      }
+    };
+
+    // Écoute scroll
+    window.addEventListener("scroll", handleScroll);
+
+    // Initial check au chargement
+    handleScroll();
+
+    // Nettoyage event listener
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const selectLanguage = (lang: string) => {
     setLanguage(lang);
     setDropdownOpen(false);
+  };
+  const [showPopup, setShowPopup] = useState(true);
+  const handleHelpClick = () => {
+    // Rediriger vers la page contact ou ouvrir un chat
+    window.location.href = "/contact";
   };
 
   return (
     <>
       <div className="">
         {!user && (
-          <div className="bg-blue-50 border border-blue-200 text-sm text-blue-900 flex justify-between items-center p-2  ">
-            <p className=" text-sm">
-              Connectez-vous pour une meilleure expérience sur le site.
-            </p>
-            <button className="flex items-center bg-blue-600 text-white text-sm px-4 py-1.5 rounded hover:bg-blue-700">
-              <img
-                src="https://www.google.com/favicon.ico"
-                alt="Google icon"
-                className="w-4 h-4 mr-2 p-2"
-              />
-              Continuer
-            </button>
-          </div>
+          <LoginPopup
+            isOpen={showPopup}
+            onClose={() => setShowPopup(false)}
+            onContinue={() => {
+              AuthService.loginWithGoogle();
+              setShowPopup(false);
+            }}
+          />
         )}
+        <HelpPopup onHelpClick={handleHelpClick} />
         <header
           style={{ zIndex: 2 }}
           className={`header__sticky ${
@@ -355,25 +385,35 @@ function Navbar() {
                     </div>
                   )}
                 </li>
-                <li className="group relative cursor-pointer w-[140px] rounded-md flex justify-center">
-                  <div className="relative hidden md:block">
+                <div className="flex items-center bg-white dark:bg-slate-800 border dark:border-slate-700 px-2 py-2 rounded-md shadow-sm">
+                  <div
+                    className={`relative hidden md:flex items-center transition-all duration-300 ${
+                      showLanguageButton
+                        ? "w-[140px] opacity-100"
+                        : "w-0 opacity-0"
+                    }`} /* enlever overflow-hidden */
+                  >
                     <button
-                      className="bg-white text-principal px-3 py-2 text-xs font-semibold rounded-md flex items-center gap-1"
+                      className="bg-white dark:bg-slate-800 border dark:border-slate-700 text-gray-700 dark:text-gray-300 px-2 py-1 text-xs font-semibold flex items-center gap-1 w-full justify-center rounded-md shadow-sm hover:shadow-md transition-shadow"
                       onClick={toggleDropdown}
+                      style={{
+                        pointerEvents: showLanguageButton ? "auto" : "none",
+                      }}
+                      aria-label="Select language"
                     >
-                      <Globe className="w-4 h-4" />
+                      <Globe className="w-3 h-3" />
                       <ReactCountryFlag
                         countryCode={language === "fr" ? "FR" : "GB"}
                         svg
-                        style={{ width: "1.2em", height: "1.2em" }}
+                        style={{ width: "1em", height: "1em" }}
                         title={language === "fr" ? "Français" : "English"}
                       />
-                      <span>{language.toUpperCase()}</span>
-                      <span className="ml-1">▼</span>
+                      <span className="text-xs">{language.toUpperCase()}</span>
+                      <span className="ml-1 text-xs">▼</span>
                     </button>
 
                     {dropdownOpen && (
-                      <div className="absolute right-0 mt-1 w-[140px] bg-principal dark:bg-slate-800 dark:border border-slate-700 shadow-lg z-40 rounded-md">
+                       <div className="absolute right-0 top-full mt-1 w-[140px] bg-principal dark:bg-slate-800 dark:border border-slate-700 shadow-lg z-40 rounded-md">
                         <button
                           className={`flex items-center gap-2 w-full px-4 py-2 text-xs font-semibold rounded-md ${
                             language === "en"
@@ -409,102 +449,150 @@ function Navbar() {
                       </div>
                     )}
                   </div>
-                </li>
 
-                <div className="relative mt-2">
-                  <button
-                    onClick={toggleMenu}
-                    className="w-8 h-8 rounded-full bg-gray-300 overflow-hidden focus:outline-none hover:bg-gray-400 transition"
-                    aria-label="User menu"
+                  <div
+                    className={`border-l border-principal dark:border-gray-600 h-5 transition-all duration-300 ${
+                      showLanguageButton
+                        ? "w-px mx-3 opacity-100"
+                        : "w-0 mx-0 opacity-0"
+                    }`}
+                  />
+
+                  <div
+                    className={`flex items-center transition-all duration-500 ease-in-out ${
+                      showLanguageButton
+                        ? "gap-3 justify-end flex-grow"
+                        : "gap-2 justify-start flex-grow"
+                    }`}
+                    style={{ minWidth: 0 }}
                   >
-                    {!user?.image ? (
-                      <FaUserCircle className="text-principal w-10 h-10" />
-                    ) : (
-                      <img
-                        src={user.image}
-                        alt="Profil"
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                    )}
-                  </button>
-
-                  {isDropdown && (
-                    <>
-                      <div
-                        className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50
-                   origin-top-right animate-scale-in"
+                    {/* MENU UTILISATEUR */}
+                    <div className="relative flex items-center justify-center">
+                      <button
+                        onClick={toggleMenu}
+                        className="rounded-full overflow-hidden focus:outline-none bg-gray-300 hover:bg-gray-400 transition shadow-sm hover:shadow-md focus-visible:ring-2 focus-visible:ring-principal flex items-center justify-center w-7 h-7"
+                        aria-label="User menu"
                       >
-                        <div className="flex flex-col items-center p-4 border-b border-gray-200 dark:border-gray-700">
-                          {!user?.image ? (
-                            <FaUserCircle className="text-gray-500 dark:text-gray-300 w-12 h-12" />
-                          ) : (
-                            <img
-                              src={user.image}
-                              alt="Profil"
-                              className="w-8 h-8 rounded-full object-cover"
-                            />
-                          )}
-                          <span className="mt-2 text-sm font-semibold text-gray-900 dark:text-gray-100 truncate max-w-full text-center">
-                            {user?.email}
-                          </span>
-                        </div>
+                        {!user?.image ? (
+                          <FaUserCircle className="text-gray-500 w-6 h-6" />
+                        ) : (
+                          <img
+                            src={user.image}
+                            alt="Profil"
+                            className="w-6 h-6 rounded-full object-cover"
+                          />
+                        )}
+                      </button>
 
-                        <ul className="py-2 text-gray-700 dark:text-gray-300 text-sm">
-                          <li
-                            onClick={() =>
-                              navigate(
-                                "/recruiting/cosamed/job_openings/accountsettings"
-                              )
-                            }
-                            className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                      {isDropdown && (
+                        <>
+                          <div
+                            className="absolute left-0 top-full mt-1 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50 origin-top-right animate-scale-in"
+                            style={{ minWidth: "14rem" }}
                           >
-                            {t("My_profile")}
-                          </li>
-                          <li
-                            onClick={() => navigate("/job_openings/userHome")}
-                            className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
-                          >
-                            {t("My_applications")}
-                          </li>
-                          {!user ? (
-                            <li
-                              onClick={() => navigate("/auth/signin")}
-                              className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
-                            >
-                              {t("Login")}
-                            </li>
-                          ) : (
-                            <li
-                              onClick={handleLogout}
-                              className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
-                            >
-                              {t("Logout")}
-                            </li>
-                          )}
-                          <li
-                            onClick={() =>
-                              navigate(
-                                "/recruiting/cosamed/job_openings/register"
-                              )
-                            }
-                            className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
-                          >
-                            {t("Register")}
-                          </li>
-                        </ul>
-                      </div>
+                            <div className="flex flex-col items-center p-4 border-b shadow-sm hover:shadow-md border-gray-200 dark:border-gray-700">
+                              {!user?.image ? (
+                                <FaUserCircle className="text-gray-500 dark:text-gray-300 w-12 h-12" />
+                              ) : (
+                                <img
+                                  src={user.image}
+                                  alt="Profil"
+                                  className="w-8 h-8 rounded-full object-cover"
+                                />
+                              )}
+                              <span className="mt-2 text-[10px] font-semibold text-gray-900 dark:text-gray-100 truncate max-w-full text-center">
+                                {user?.email}
+                              </span>
+                            </div>
 
-                      {/* Overlay pour fermer au clic en dehors */}
-                      <div
-                        className="fixed inset-0 z-40"
-                        onClick={() => setIsDropdown(false)}
-                      />
-                    </>
-                  )}
+                            <ul className="py-2 text-gray-700 dark:text-gray-300 text-sm">
+                              <li
+                                onClick={() =>
+                                  navigate(
+                                    "/recruiting/cosamed/job_openings/accountsettings"
+                                  )
+                                }
+                                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                              >
+                                {t("My_profile")}
+                              </li>
+                              <li
+                                onClick={() =>
+                                  navigate("/job_openings/userHome")
+                                }
+                                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                              >
+                                {t("My_applications")}
+                              </li>
+                              {!user ? (
+                                <li
+                                  onClick={() => navigate("/auth/signin")}
+                                  className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                                >
+                                  {t("Login")}
+                                </li>
+                              ) : (
+                                <li
+                                  onClick={handleLogout}
+                                  className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                                >
+                                  {t("Logout")}
+                                </li>
+                              )}
+                              <li
+                                onClick={() =>
+                                  navigate(
+                                    "/recruiting/cosamed/job_openings/register"
+                                  )
+                                }
+                                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                              >
+                                {t("Register")}
+                              </li>
+                            </ul>
+                          </div>
+
+                          <div
+                            className="fixed inset-0 z-40"
+                            onClick={() => setIsDropdown(false)}
+                          />
+                        </>
+                      )}
+                    </div>
+
+                    {/* TOGGLE THEME */}
+                    <div
+                      className="cursor-pointer rounded-full border border-slate-400 dark:border-slate-700 text-principal p-[3px] transition-transform transform hover:scale-110 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-principal focus:outline-none"
+                      onClick={toggleTheme}
+                      title={
+                        settings.theme === "dark"
+                          ? t("Switch to light mode")
+                          : t("Switch to dark mode")
+                      }
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          toggleTheme();
+                        }
+                      }}
+                      aria-label={
+                        settings.theme === "dark"
+                          ? "Switch to light mode"
+                          : "Switch to dark mode"
+                      }
+                    >
+                      {settings.theme === "dark" ? (
+                        <BiSolidSun size={12} />
+                      ) : (
+                        <BiSolidMoon size={12} />
+                      )}
+                    </div>
+                  </div>
                 </div>
               </ul>
             </div>
-            {/* Mobile menu header */}
             <div className="md:hidden flex items gap-4 p-4">
               <button
                 onClick={toggleMe}
@@ -516,11 +604,9 @@ function Navbar() {
                   <FaBars className=" h-6 w-6 " />
                 )}
               </button>
-              {/* Avatar utilisateur */}
             </div>
           </nav>
         </header>
-        {/* Mobile menu section  dropdown */}
         <ResponsiveMenu
           showMenu={showMenu}
           onClose={() => setShowMenu(false)}

@@ -3,16 +3,16 @@ import {
   downloadFileWithProgress,
   showingTranslateValue,
 } from "../../utils/heleprs";
-import { useAuthContext } from "../../context";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { useLanguageContext } from "../../context/LanguageContext";
 
 interface Props {
   bulletin?: any;
 }
 
 const BulletinCard = ({ bulletin }: Props) => {
-  const { lang } = useAuthContext();
+  const { language: lang } = useLanguageContext();
   const navigate = useNavigate();
 
   const goToDetail = () => {

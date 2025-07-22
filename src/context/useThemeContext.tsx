@@ -1,58 +1,71 @@
-import {
+import React, {
   ReactNode,
   createContext,
   useCallback,
   useContext,
   useState,
   useEffect,
-} from 'react';
+} from "react";
 
-const ThemeContext = createContext<any>({});
+interface ThemeSettingsType {
+  theme: "light" | "dark";
+}
 
-export const ThemeSettings = {
-  theme: { light: 'light', dark: 'dark' },
-};
+interface ThemeContextType {
+  settings: ThemeSettingsType;
+  toggleTheme: () => void;
+  setSettings: React.Dispatch<React.SetStateAction<ThemeSettingsType>>;
+}
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+
+const LOCAL_STORAGE_KEY = "user-theme";
 
 export function useThemeContext() {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error('useThemeContext must be used within an ThemeProvider');
+    throw new Error("useThemeContext must be used within a ThemeProvider");
   }
   return context;
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [settings, setSettings] = useState({
-    theme: ThemeSettings.theme.light,
+  const [settings, setSettings] = useState<ThemeSettingsType>(() => {
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (savedTheme === "dark" || savedTheme === "light") {
+        return { theme: savedTheme };
+      } else {
+        // Utiliser la préférence système si aucune valeur sauvegardée
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        return { theme: prefersDark ? "dark" : "light" };
+      }
+    }
+    return { theme: "light" };
   });
 
   const toggleTheme = useCallback(() => {
     setSettings((prev) => {
-      const newTheme =
-        prev.theme === ThemeSettings.theme.dark
-          ? ThemeSettings.theme.light
-          : ThemeSettings.theme.dark;
-      return { ...prev, theme: newTheme };
+      const newTheme = prev.theme === "dark" ? "light" : "dark";
+      if (typeof window !== "undefined") {
+        localStorage.setItem(LOCAL_STORAGE_KEY, newTheme);
+      }
+      return { theme: newTheme };
     });
   }, []);
 
-  // Appliquer la classe 'dark' sur <html>
   useEffect(() => {
-    if (settings.theme === ThemeSettings.theme.dark) {
-      document.documentElement.classList.add('dark');
+    if (settings.theme === "dark") {
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [settings.theme]);
 
   return (
-    <ThemeContext.Provider
-      value={{
-        settings,
-        toggleTheme,
-        setSettings,
-      }}
-    >
+    <ThemeContext.Provider value={{ settings, toggleTheme, setSettings }}>
       {children}
     </ThemeContext.Provider>
   );

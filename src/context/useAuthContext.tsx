@@ -11,6 +11,7 @@ import { useToasts } from "react-toast-notifications";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import i18n from "../i18n";
+
 const AuthContext = createContext<any>({});
 
 export function useAuthContext() {
@@ -21,7 +22,9 @@ export function useAuthContext() {
   return context;
 }
 
-const authSessionKey = "_DICI_AUTH";
+const authSessionUserKey = "_DICI_AUTH_USER";
+const authSessionRegisterKey = "_DICI_AUTH_REGISTER";
+const authSessionForgetPasswordKey = "_DICI_AUTH_FORGET_PASSWORD";
 const authToken = "_DICI_TOKEN";
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -32,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [logo2, setLogo2] = useState(null);
   const [selectedRole, setSelectedRole] = useState<any>(null);
   const [selectedType, setSelectedType] = useState<any>(null);
-  const [lang, setLang] = useState<any | null>('en')
+  const [lang, setLang] = useState<any | null>("en");
   const [image, setImage] = useState(null);
   const [image1, setImage1] = useState(null);
   const [image2, setImage2] = useState(null);
@@ -44,15 +47,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [modalDelete, showModalDelete] = useState(false);
   const [imageUrl, setImageUrl] = useState(null);
   const [redict, setRedirect] = useState("");
-  // const { i18n } = useTranslation();
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false);
   const navigation = useNavigate();
-  /**
-   * toggle language dropdown
-   */
+
+  // Initialise la langue depuis le cookie au montage uniquement
   useEffect(() => {
-    setLang(Cookies.get("i18next"));
-  }, [lang]);
+    const cookieLang = Cookies.get("i18next");
+    if (cookieLang) {
+      setLang(cookieLang);
+    }
+  }, []);
+
   const toggleDropDown = () => {
     setDropDownOpen(!dropDownOpen);
   };
@@ -66,7 +71,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     i18n.changeLanguage(lang);
     setLang(lang);
     toggleDropDown();
-    //alert(lang)
   };
 
   const toggleModal = () => {
@@ -99,27 +103,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSelected(data);
     navigation(route);
   };
+
   const [token, setToken] = useState(
     localStorage.getItem(authToken)
-      ? JSON.parse(localStorage.getItem(authToken) || "")
+      ? JSON.parse(localStorage.getItem(authToken)!)
       : undefined
   );
   const [user, setUser] = useState(
-    localStorage.getItem(authSessionKey)
-      ? JSON.parse(localStorage.getItem(authSessionKey) || "{}")
+    localStorage.getItem(authSessionUserKey)
+      ? JSON.parse(localStorage.getItem(authSessionUserKey)!)
       : undefined
   );
   const [register, setRegister] = useState(
-    localStorage.getItem(authSessionKey)
-      ? JSON.parse(localStorage.getItem(authSessionKey) || "{}")
+    localStorage.getItem(authSessionRegisterKey)
+      ? JSON.parse(localStorage.getItem(authSessionRegisterKey)!)
+      : undefined
+  );
+  const [forgetpassword, setForgetPassword] = useState(
+    localStorage.getItem(authSessionForgetPasswordKey)
+      ? JSON.parse(localStorage.getItem(authSessionForgetPasswordKey)!)
       : undefined
   );
 
-  const [forgetpassword, setForgetPassword] = useState(
-    localStorage.getItem(authSessionKey)
-      ? JSON.parse(localStorage.getItem(authSessionKey) || "{}")
-      : undefined
-  );
   const { addToast } = useToasts();
 
   const errorNotification = (message: string) => {
@@ -134,40 +139,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem(authToken, JSON.stringify(token));
       setToken(token);
     },
-    [setToken]
+    []
   );
 
   const saveUser = useCallback(
     (user: object) => {
-      localStorage.setItem(authSessionKey, JSON.stringify(user));
+      localStorage.setItem(authSessionUserKey, JSON.stringify(user));
       setUser(user);
     },
-    [setUser]
+    []
   );
 
   const saveRegister = useCallback(
     (register: object) => {
-      localStorage.setItem(authSessionKey, JSON.stringify(register));
+      localStorage.setItem(authSessionRegisterKey, JSON.stringify(register));
       setRegister(register);
     },
-    [setRegister]
+    []
   );
 
   const saveForgetPassword = useCallback(
     (forgetpassword: object) => {
-      localStorage.setItem(authSessionKey, JSON.stringify(forgetpassword));
+      localStorage.setItem(authSessionForgetPasswordKey, JSON.stringify(forgetpassword));
       setForgetPassword(forgetpassword);
     },
-    [setForgetPassword]
+    []
   );
+
   const removeSession = useCallback(() => {
-    localStorage.removeItem(authSessionKey);
+    localStorage.removeItem(authSessionUserKey);
+    localStorage.removeItem(authSessionRegisterKey);
+    localStorage.removeItem(authSessionForgetPasswordKey);
     localStorage.removeItem(authToken);
     setRegister(undefined);
     setUser(undefined);
     setForgetPassword(undefined);
     setToken(undefined);
-  }, [setUser, setToken]);
+  }, []);
 
   return (
     <AuthContext.Provider

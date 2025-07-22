@@ -112,7 +112,7 @@ const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => {
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 z-[100] bg-black bg-opacity-50 flex items-center justify-center p-4 sm:p-6">
-      <div className="bg-white dark:bg-slate-800 p-6 shadow-xl max-w-xl w-full relative overflow-auto max-h-[90vh] flex flex-col gap-6 rounded-xl">
+      <div className="bg-white dark:bg-slate-800 p-6 shadow-xl max-w-xl w-full relative overflow-auto max-h-[90vh] flex flex-col gap-6 ">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"

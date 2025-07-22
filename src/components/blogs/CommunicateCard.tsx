@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { showingTranslateValue } from "../../utils/heleprs";
-import { useAuthContext } from "../../context";
+import { useLanguageContext } from "../../context/LanguageContext";
 
 interface Props {
   communicate?: {
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const CommunicateCard = ({ communicate }: Props) => {
-  const { lang } = useAuthContext();
+  const { language: lang } = useLanguageContext();
   const navigate = useNavigate();
 
   const goToAbout = () => {
@@ -27,8 +27,10 @@ const CommunicateCard = ({ communicate }: Props) => {
 
   if (!communicate) return null;
 
-  const title = showingTranslateValue(communicate.translations, lang)?.title || "";
-  const description = showingTranslateValue(communicate.translations, lang)?.description || "";
+  const title =
+    showingTranslateValue(communicate.translations, lang)?.title || "";
+  const description =
+    showingTranslateValue(communicate.translations, lang)?.description || "";
 
   return (
     <div

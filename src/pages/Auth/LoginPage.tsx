@@ -6,21 +6,26 @@ import UseLogin from "../../hooks/LoginUser";
 import Button from "../../components/form/Button";
 import { ApplyForm } from "../../types";
 import InputPassword from "../../components/form/InputPassword";
-import { FcGoogle } from "react-icons/fc";  // import icône Google
+import { FcGoogle } from "react-icons/fc";
+import AuthService from "../../services/AuthService";
 
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigation = useNavigate();
+
   const Register = () => {
     navigation("/recruiting/cosamed/job_openings/register");
   };
-  const { Login, loading: loadingForm } = UseLogin();
+
+  const { Login, loading: loadingForm, redirectUrl } = UseLogin();
+
   const { inputs, errors, handleOnChange, hanldeError } =
     useValidation<ApplyForm>({
-      username: "",
+      email: "",
       password: "",
     });
-  const validation = (e: any) => {
+
+  const validation = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     let valide = true;
@@ -33,14 +38,18 @@ const LoginPage = () => {
       valide = false;
     }
     if (valide) {
-      Login(inputs);
+      Login(inputs)
+        .then(() => {
+          navigation(redirectUrl);
+        })
+        .catch(() => {
+          // erreur gérée dans UseLogin
+        });
     }
   };
 
-  // Fonction exemple au clic bouton Google
   const handleGoogleLogin = () => {
-    // Intégrer ici la logique OAuth Google ou redirection
-    alert("Login avec Google à implémenter !");
+    AuthService.loginWithGoogle();
   };
 
   return (
@@ -53,7 +62,6 @@ const LoginPage = () => {
         />
       </div>
 
-      {/* Formulaire de connexion */}
       <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem]">
         <h2 className="text-center text-xl font-semibold mb-6">Connexion</h2>
         <form className="w-full max-w-sm space-y-4" onSubmit={validation}>
@@ -65,7 +73,7 @@ const LoginPage = () => {
             errors={errors.email}
             value={inputs.email}
             onChange={(e: any) => handleOnChange(e.target.value, "email")}
-            onFocus={() => hanldeError(null, `email`)}
+            onFocus={() => hanldeError(null, "email")}
           />
           <InputPassword
             name="password"
@@ -82,12 +90,12 @@ const LoginPage = () => {
           <Button label={t("Login")} loading={loadingForm} />
         </form>
 
-        {/* Bouton Continuer avec Google */}
         <div className="mt-6 flex justify-center">
           <button
             onClick={handleGoogleLogin}
             className="flex items-center justify-center gap-2 w-full max-w-sm border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
             type="button"
+            aria-label="Continuer avec Google"
           >
             <FcGoogle className="w-6 h-6" />
             <span className="text-gray-700 dark:text-gray-200 font-medium">
@@ -96,7 +104,6 @@ const LoginPage = () => {
           </button>
         </div>
 
-        {/* Lien supplémentaire */}
         <div className="mt-4 text-sm text-center">
           <p className="text-sm mb-6">
             <span className="mt-6 text-gray-500 text-sm">

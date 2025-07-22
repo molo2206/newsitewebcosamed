@@ -65,7 +65,8 @@ import Confidentialite from "./pages/Confidentialite";
 import JobApplicationForm_Data from "./pages/JobApplicationForm_Data";
 import Ai4Mpox from "./pages/Ai4Mpox";
 import SearchResultsPage from "./pages/SearchResultsPage";
-
+import GoogleCallback from "./pages/Auth/GoogleCallback";
+import OAuthSuccess from "./pages/Auth/OAuthSuccess";
 
 function App() {
   const Home = React.lazy(() => import("./pages/Home"));
@@ -91,12 +92,12 @@ function App() {
             <Route element={<Layout />}>
               <Route element={<PrivateLayout />}>
                 <Route
-                  path="/job_openings/userHome"
-                  element={<OurCandidate />}
-                ></Route>
-                <Route
                   path="/recruiting/cosamed/job_openings/accountsettings"
                   element={<UpdateEmail />}
+                ></Route>
+                <Route
+                  path="/job_openings/userHome"
+                  element={<OurCandidate />}
                 ></Route>
                 <Route
                   path="/recruiting/cosamed/job_openings/updateContactInfo"
@@ -120,6 +121,8 @@ function App() {
                 <Route path="auth/signup" element={<SignupPage />}></Route>
                 <Route path="/auth/put-otp" element={<Otp />}></Route>
                 <Route path="/auth/otp" element={<ValidateOTP />}></Route>
+                <Route path="/auth/callback" element={<GoogleCallback />} />
+                <Route path="/oauth/success" element={<OAuthSuccess />} />
                 <Route
                   path="/auth/change-password"
                   element={<NewPassword />}
@@ -153,7 +156,10 @@ function App() {
               <Route path="/team" element={<Team />}></Route>
               <Route path="/transparence" element={<TransparenceFin />}></Route>
               <Route path="/importancedon" element={<ImportanceDon />}></Route>
-              <Route path="/search-results-page" element={<SearchResultsPage />}></Route>
+              <Route
+                path="/search-results-page"
+                element={<SearchResultsPage />}
+              ></Route>
               <Route
                 path="/confidentiality"
                 element={<Confidentialite />}

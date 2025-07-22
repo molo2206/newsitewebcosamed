@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 const BlogDetailLoad = () => {
   return (
     <>
-    <div className="p-4 shadow-lg">
+    <div className="p-4 shadow-lg ">
       <div className=" overflow-hidden">
         <Skeleton count={1} width="100%" height={200} />
       </div>

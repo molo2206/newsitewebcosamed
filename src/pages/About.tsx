@@ -1,16 +1,17 @@
 import SettingsServices from "../services/SettingsServices";
 import useAsync from "../hooks/useAsync";
 import { showingTranslateValue } from "../utils/heleprs";
-import { useAuthContext } from "../context";
 import { useTranslation } from "react-i18next";
 import BulletinLoad from "../components/blogs/BulletinLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import usePageSEO from "../components/Seo/usePageSEO";
+import { useLanguageContext } from "../context/LanguageContext";
 
 const About = () => {
   const { data, loading } = useAsync(() => SettingsServices.getSettings());
-  const { lang } = useAuthContext();
+  const { language: lang } = useLanguageContext();
   const { t } = useTranslation();
+  const translations = showingTranslateValue(data?.translations, lang);
 
   usePageSEO({
     title: t("AboutUs"),
@@ -23,97 +24,109 @@ const About = () => {
     ogUrl: window.location.href,
   });
 
-  const translations = showingTranslateValue(data?.translations, lang);
-
   return loading ? (
     Array.from({ length: 8 }).map((_, i) => <BulletinLoad key={i} />)
   ) : (
     <main className="bg-white dark:bg-slate-900 w-full">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <BreadCumb title={t("AboutUs")} />
-        <section className="bg-[#0067b8] dark:bg-slate-800 text-white  shadow-md mb-12 p-10 text-center">
-          <h1 className="text-3xl sm:text-xl font-extrabold uppercase tracking-wide">
+
+        <section className="bg-principal dark:bg-slate-800 text-white shadow-md mb-12 p-10 text-center">
+          <h1 className="text-xl sm:text-2xl font-bold uppercase tracking-widest">
             {t("AboutUs")}
           </h1>
-          <p className="mt-4 text-sm sm:text-base max-w-2xl mx-auto font-light opacity-90">
-            Nous œuvrons pour une santé équitable, inclusive et durable pour
-            tous.
-          </p>
         </section>
 
-        <section className="bg-gray-50 dark:bg-slate-800 p-6 rounded-lg border dark:border-slate-700 shadow-sm mb-16">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-            {t("WhoWeAre")}
-          </h2>
-          <p
-            className="prose max-w-none text-gray-700 dark:text-gray-200 leading-relaxed font-light [&_p]:my-2 [&_br]:hidden"
-            dangerouslySetInnerHTML={{
-              __html: translations?.about_us || "",
-            }}
-          />
-        </section>
-
-        <section className="flex flex-col md:flex-row items-center gap-10 mb-16 bg-white dark:bg-slate-800 p-8 rounded-lg shadow-md border dark:border-slate-700">
-          <div className="md:w-1/2">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-              {t("Mission")}
-            </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16 max-w-6xl mx-auto">
+          <div className="space-y-6">
             <p
-              className="prose max-w-none text-gray-700 dark:text-gray-200 leading-relaxed font-light [&_p]:my-2 [&_br]:hidden"
+              className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm sm:text-base font-light [&_strong]:font-normal [&_b]:font-normal"
+              dangerouslySetInnerHTML={{ __html: translations?.about_us || "" }}
+            />
+            <span className="inline-block bg-blue-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
+              {t("Mission")}
+            </span>
+            <img
+              src="https://apicosamed.cosamed.org/uploads/media/94b5bde6de888ddf9cde6748ad2523d1.png"
+              alt="Mission COSAMED"
+              className="w-full h-[300px] object-cover shadow-md"
+            />
+            <p
+              className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm sm:text-base font-light [&_strong]:font-normal [&_b]:font-normal"
               dangerouslySetInnerHTML={{ __html: translations?.mission || "" }}
             />
           </div>
-          <div className="md:w-1/2 flex justify-center">
-            <img
-              src="/assets/images/mission.svg"
-              alt="Mission illustration"
-              className="w-3/4 max-w-sm"
-            />
-          </div>
-        </section>
 
-        <section className="flex flex-col-reverse md:flex-row items-center gap-10 mb-16 bg-white dark:bg-slate-800 p-8 rounded-lg shadow-md border dark:border-slate-700">
-          <div className="md:w-1/2 flex justify-center">
-            <img
-              src="/assets/images/vision.svg"
-              alt="Vision illustration"
-              className="w-3/4 max-w-sm"
-            />
-          </div>
-          <div className="md:w-1/2">
-            <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
+          <div className="space-y-6">
+            <span className="inline-block bg-blue-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
               {t("Vision")}
-            </h3>
+            </span>
+            <img
+              src="https://apicosamed.cosamed.org/uploads/media/d0b4e54ddd9f0982db522becb8041071.png"
+              alt="Vision COSAMED"
+              className="w-full h-[300px] object-cover shadow-md"
+            />
             <p
-              className="prose max-w-none text-gray-700 dark:text-gray-200 leading-relaxed font-light [&_p]:my-2 [&_br]:hidden"
+              className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm sm:text-base font-light [&_strong]:font-normal [&_b]:font-normal"
               dangerouslySetInnerHTML={{ __html: translations?.vision || "" }}
             />
+            <span className="inline-block bg-blue-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
+              {t("OurDomains", "Domaines d'activité")}
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {[
+                "Éducation sanitaire",
+                "Offre de services de soins de santé",
+                "Recherche et numerique",
+              ].map((domain, i) => (
+                <div
+                  key={i}
+                  className="flex items-start gap-3 bg-gray-50 dark:bg-slate-800 p-4 dark:border-slate-600"
+                >
+                  <p className="text-gray-700 dark:text-gray-200 text-sm  leading-snug font-light">
+                    {domain}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
-        </section>
+        </div>
 
-        <section className="bg-gray-100 dark:bg-slate-700 py-12 px-6 rounded-lg shadow-md mb-16 border dark:border-slate-600">
-          <h3 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-8">
-            {t("Our_Values")}
+        <section className="bg-gray-100 dark:bg-slate-800 p-6 shadow-md mb-10">
+          <h3 className="text-xl font-bold text-center text-gray-800 dark:text-white mb-8">
+            {t("OurAddresses", "Nos adresses")}
           </h3>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6  mx-auto text-left">
             {[
-              { key: "Professionalism", icon: "👨‍⚕️" },
-              { key: "Responsibility", icon: "✅" },
-              { key: "Mutual_respect", icon: "🤝" },
-              { key: "Gender_sensitivity", icon: "♀️" },
-              { key: "Excellence", icon: "🌟" },
-              { key: "Equity", icon: "⚖️" },
-              { key: "Inclusion", icon: "🌍" },
-              { key: "Innovation", icon: "💡" },
-            ].map((val, i) => (
+              {
+                city: "Kinshasa",
+                address: "Avenue des Huileries 10, Gombe, Kinshasa",
+                phone: "+243 900 000 001",
+              },
+              {
+                city: "Lubumbashi",
+                address: "Boulevard Kamanyola 15, Lubumbashi",
+                phone: "+243 900 000 002",
+              },
+              {
+                city: "Goma",
+                address: "Rue de la Paix 22, Goma",
+                phone: "+243 900 000 003",
+              },
+            ].map((loc, i) => (
               <div
                 key={i}
-                className="flex flex-col items-center bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 p-4 rounded-md hover:shadow transition-all"
+                className="flex flex-col gap-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 p-6 hover:shadow-sm transition"
               >
-                <div className="text-3xl mb-2">{val.icon}</div>
-                <span className="text-sm font-medium text-gray-800 dark:text-white">
-                  {t(val.key)}
-                </span>
+                <h4 className="text-base font-medium text-gray-800 dark:text-white">
+                  {loc.city}
+                </h4>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  {loc.address}
+                </p>
+                <p className="text-sm text-gray-700 dark:text-gray-300">
+                  {loc.phone}
+                </p>
               </div>
             ))}
           </div>

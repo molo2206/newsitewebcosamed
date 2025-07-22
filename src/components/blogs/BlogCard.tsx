@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../context";
 import { showingTranslateValue } from "../../utils/heleprs";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useTranslation } from "react-i18next";
+import { useLanguageContext } from "../../context/LanguageContext";
 
 interface Props {
   blog?: any;
 }
 
 const BlogCard = ({ blog }: Props) => {
-  const { lang } = useAuthContext();
+const { language: lang } = useLanguageContext();
   const navigate = useNavigate();
   const { t } = useTranslation();
 

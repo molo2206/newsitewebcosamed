@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { showingTranslateValue } from "../../utils/heleprs";
-import { useAuthContext } from "../../context";
+import { useLanguageContext } from "../../context/LanguageContext";
 
 interface CategoryCardProps {
   cat?: {
@@ -13,8 +13,8 @@ interface CategoryCardProps {
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ cat }) => {
   const navigate = useNavigate();
-  const { lang } = useAuthContext();
 
+  const { language: lang } = useLanguageContext();
   const translated = showingTranslateValue(cat?.translations, lang);
 
   const handleClick = () => {

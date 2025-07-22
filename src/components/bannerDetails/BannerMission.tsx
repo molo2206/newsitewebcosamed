@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import SettingsServices from "../../services/SettingsServices";
-import { useAuthContext } from "../../context";
 import useAsync from "../../hooks/useAsync";
 import { showingTranslateValue } from "../../utils/heleprs";
+import { useLanguageContext } from "../../context/LanguageContext";
 
 const BannerMission = () => {
-  const { lang } = useAuthContext();
+  const { language: lang } = useLanguageContext();
   const { t } = useTranslation();
   const { data } = useAsync(() => SettingsServices.getSettings());
 

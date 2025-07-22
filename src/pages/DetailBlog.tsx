@@ -12,15 +12,14 @@ import BreadCumb from "../components/navbar/BreadCumb";
 import Error404 from "./Error404";
 import { ImageBlogs } from "../components/blogs/ImageBlogs";
 import usePageSEO from "../components/Seo/usePageSEO";
-import Pagination from "../components/Pagination/Pagination";
 
 import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { useLanguageContext } from "../context/LanguageContext";
 
 const DetailBlog = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { slug } = useParams();
-  const { lang } = useAuthContext();
+  const { language: lang } = useLanguageContext();
 
   const { data, error, loading } = useAsync(
     () => BlogServices.oneBlogs(slug),
