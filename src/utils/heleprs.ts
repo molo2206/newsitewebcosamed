@@ -1,6 +1,7 @@
 import moment from 'moment';
 import { loadStripe } from '@stripe/stripe-js';
 import i18n from '../i18n';
+import { useEffect, useRef, useState } from 'react';
 export const showingTranslateValue = (data: any, lang: string = 'en') => {
   let langue = lang === 'fr-FR' || lang === 'fr' ? 'fr' : 'en';
   let result = data?.find((item: any) => item.locale === langue);
@@ -143,6 +144,29 @@ export const Months = [
 export const date_format = (data: any) => {
   return moment(data).format('DD/MM/YYYY');
 };
+
+export default function useClickOutside(
+  ref: React.RefObject<HTMLElement>,
+  handler: (event: MouseEvent | TouchEvent) => void,
+  active = true
+) {
+  useEffect(() => {
+    if (!active) return;
+
+    const listener = (event: MouseEvent | TouchEvent) => {
+      if (!ref.current || ref.current.contains(event.target as Node)) return;
+      handler(event);
+    };
+
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listener);
+
+    return () => {
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listener);
+    };
+  }, [ref, handler, active]);
+}
 
 export const BASE_URL = 'https://apicosamed.cosamed.org/api';
 export const API = 'AIzaSyBQHKFXv5xfbXVDz3E0mX_UfgOnPEqZ0Po';

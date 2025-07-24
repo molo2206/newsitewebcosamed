@@ -23,50 +23,32 @@ export default function Blog() {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { lang } = useAuthContext();
   const location = useLocation();
+  const { lang } = useAuthContext();
 
   const [searchParams] = useSearchParams();
   const initialType = searchParams.get("type") || "";
-
-  useEffect(() => {
-    if (initialType) {
-      handleOnChange(initialType, "type");
-    }
-  }, [initialType]);
-
-  useEffect(() => {
-    const match = Type.find((t) => `/${t.value}` === location.pathname);
-    if (match && inputs.type !== match.value) {
-      handleOnChange(match.value, "type");
-    }
-  }, [location.pathname]);
 
   const { inputs, errors, handleOnChange, hanldeError } =
     useValidation<ApplyForm>({
       keyword: "",
       year: "",
       category: "",
+      type: "",
     });
 
-  // Utilisation du hook avec année et catégorie
   const { blogs: filteredBlogs, loading: loadingYear } = useBlogsByYear({
     year: inputs.year || "",
     category: inputs.category || "",
   });
 
   const [currentPage, setCurrentPage] = useState(1);
-
   const postsPerPage = 12;
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
 
-  // Si filtre année ou catégorie, on utilise les blogs filtrés, sinon tous
-  const safeBlogs = inputs.year || inputs.category ? filteredBlogs : allBlogs;
-
-  const currentBlogs = safeBlogs.slice(indexOfFirstPost, indexOfLastPost);
-
-  const paginate = (page: number) => setCurrentPage(page);
+  const filtered = inputs.year || inputs.category ? filteredBlogs : allBlogs;
+  const currentBlogs = filtered.slice(indexOfFirstPost, indexOfLastPost);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,21 +60,42 @@ export default function Blog() {
     navigate("/search-results-page?q=" + encodeURIComponent(keyword));
   };
 
+  const paginate = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 200, behavior: "smooth" });
+  };
+
+  // Synchronisation avec l'URL si /article, /report, etc.
+  useEffect(() => {
+    const typeInPath = Type.find((t) => `/${t.value}` === location.pathname);
+    if (typeInPath && inputs.type !== typeInPath.value) {
+      handleOnChange(typeInPath.value, "type");
+    }
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (initialType) {
+      handleOnChange(initialType, "type");
+    }
+  }, [initialType]);
+
   return (
     <div className="min-h-screen mx-auto p-6 flex flex-col">
-      <h1 className="text-3xl font-bold mb-2">Publications</h1>
-      <p className="text-gray-600 mb-6 dark:text-gray-400">
-        If you cannot find a publication on our website, please search COSAMED's
-        publications repository directly.
+      <h1 className="text-3xl font-bold mb-2 text-principal">
+        {t("Publications")}
+      </h1>
+      <p className="text-gray-600 mb-6 dark:text-gray-400 max-w-3xl">
+        Use filters to find relevant publications across COSAMED topics
       </p>
 
+      {/* Zone de filtrage */}
       <div className="bg-gray-100 p-6 dark:bg-slate-800 mb-12 rounded-lg shadow">
         <form
           onSubmit={handleSubmit}
           className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"
         >
           <Input
-            label="Select health topic"
+            label={t("Select health topic")}
             type="select"
             value={inputs.category}
             errors={errors.category}
@@ -100,19 +103,19 @@ export default function Blog() {
               label: showingTranslateValue(item?.translations, lang)?.name,
               value: item.id,
             }))}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            onChange={(e: any) => {
               handleOnChange(e.target.value, "category");
               setCurrentPage(1);
             }}
           />
 
           <InputBlog
-            label="Select a year"
+            label={t("Select a year")}
             type="select"
             value={inputs.year}
             errors={errors.year}
             onFocus={() => hanldeError(null, "year")}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            onChange={(e: any) => {
               handleOnChange(e.target.value, "year");
               setCurrentPage(1);
             }}
@@ -123,7 +126,7 @@ export default function Blog() {
           />
 
           <Input
-            label="Select publication type"
+            label={t("Select publication type")}
             type="select"
             value={inputs.type}
             errors={errors.type}
@@ -131,13 +134,10 @@ export default function Blog() {
               label: item.label,
               value: item.value,
             }))}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            onChange={(e: any) => {
               const selectedType = e.target.value;
               handleOnChange(selectedType, "type");
-
-              if (selectedType) {
-                navigate(`/${selectedType}`);
-              }
+              if (selectedType) navigate(`/${selectedType}`);
             }}
           />
 
@@ -148,20 +148,19 @@ export default function Blog() {
             type="text"
             value={inputs.keyword}
             errors={errors.keyword}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              handleOnChange(e.target.value, "keyword")
-            }
+            onChange={(e: any) => handleOnChange(e.target.value, "keyword")}
           />
         </form>
       </div>
 
+      {/* Résultat */}
       {!loadingAll && !loadingYear && currentBlogs.length > 0 && (
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-400 mb-4">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
           {inputs.year || inputs.category
-            ? `Publications filtrées${
-                inputs.year ? ` pour l'année ${inputs.year}` : ""
-              }${inputs.category ? ` et la catégorie sélectionnée` : ""}`
-            : "Toutes les publications"}
+            ? `${t("Filtered publications")}${
+                inputs.year ? ` (${inputs.year})` : ""
+              }`
+            : t("All publications")}
         </h2>
       )}
 
@@ -176,20 +175,17 @@ export default function Blog() {
       </div>
 
       {!loadingAll && !loadingYear && currentBlogs.length === 0 && (
-        <p className="text-gray-500 text-center col-span-4 mt-6">
+        <p className="text-gray-500 text-center mt-8 text-base">
           {inputs.year || inputs.category
-            ? `Aucune donnée trouvée${
-                inputs.year ? ` pour l'année ${inputs.year}` : ""
-              }${inputs.category ? ` et la catégorie sélectionnée` : ""}.`
-            : "Aucune donnée disponible pour le moment."}
+            ? t("No data found for selected filters")
+            : t("No publications available yet")}
         </p>
       )}
 
-      {/* Pagination */}
-      {!loadingAll && !loadingYear && safeBlogs.length > postsPerPage && (
+      {!loadingAll && !loadingYear && filtered.length > postsPerPage && (
         <Pagination
           postsPerPage={postsPerPage}
-          totalPasts={safeBlogs.length}
+          totalPasts={filtered.length}
           paginate={paginate}
           currentPage={currentPage}
         />

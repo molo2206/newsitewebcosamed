@@ -15,7 +15,7 @@ export default function Blogs() {
         <h2 className="text-xl font-semibold">{t("News")}</h2>
         <div
           onClick={() => navigate("/data-loading/blogs")}
-          className="text-sm text-blue-700 font-medium cursor-pointer"
+          className="text-sm text-principal font-medium cursor-pointer"
         >
           {t("All")} →
         </div>

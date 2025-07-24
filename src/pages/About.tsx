@@ -49,7 +49,7 @@ const About = () => {
             <img
               src="https://apicosamed.cosamed.org/uploads/media/94b5bde6de888ddf9cde6748ad2523d1.png"
               alt="Mission COSAMED"
-              className="w-full h-[300px] object-cover shadow-md"
+              className="w-full h-[300px] object-cover rounded-md shadow-md"
             />
             <p
               className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm sm:text-base font-light [&_strong]:font-normal [&_b]:font-normal"
@@ -64,7 +64,7 @@ const About = () => {
             <img
               src="https://apicosamed.cosamed.org/uploads/media/d0b4e54ddd9f0982db522becb8041071.png"
               alt="Vision COSAMED"
-              className="w-full h-[300px] object-cover shadow-md"
+              className="w-full h-[300px] object-cover rounded-md shadow-md"
             />
             <p
               className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm sm:text-base font-light [&_strong]:font-normal [&_b]:font-normal"
@@ -92,7 +92,7 @@ const About = () => {
           </div>
         </div>
 
-        <section className="bg-gray-100 dark:bg-slate-800 p-6 shadow-md mb-10">
+        <section className="bg-gray-100 dark:bg-slate-800 p-6 shadow-md mb-10 rounded-md">
           <h3 className="text-xl font-bold text-center text-gray-800 dark:text-white mb-8">
             {t("OurAddresses", "Nos adresses")}
           </h3>
@@ -116,7 +116,7 @@ const About = () => {
             ].map((loc, i) => (
               <div
                 key={i}
-                className="flex flex-col gap-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-600 p-6 hover:shadow-sm transition"
+                className="flex flex-col gap-2 bg-white dark:bg-slate-800 rounded-md border border-gray-200 dark:border-slate-600 p-6 hover:shadow-sm transition"
               >
                 <h4 className="text-base font-medium text-gray-800 dark:text-white">
                   {loc.city}

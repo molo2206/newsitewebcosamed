@@ -1,67 +1,109 @@
 import { useNavigate } from "react-router-dom";
+import {
+  FaBriefcase,
+  FaUsers,
+  FaLightbulb,
+  FaExclamationTriangle,
+} from "react-icons/fa";
+import { useState } from "react";
+import BreadCumb from "../components/navbar/BreadCumb";
 
 const Carriere = () => {
   const navigate = useNavigate();
+  const [showWarning, setShowWarning] = useState(true);
 
   const goToJobOpportunities = () => {
     navigate("/data-loading/jobopenings");
   };
 
   return (
-    <div className="p-6 font-sans text-gray-800 dark:text-white">
-      {/* En-tête visuel */}
+    <div className="p-6 font-sans text-gray-800 dark:text-white min-h-screen flex flex-col gap-12">
+      <BreadCumb title={"Carrière"} />
       <header
-        className="bg-cover bg-center h-72 flex items-center justify-center py-12"
+        className="relative h-72 flex items-center justify-center rounded-md overflow-hidden shadow-lg"
         style={{
           backgroundImage:
             "url('https://apicosamed.cosamed.org/uploads/blogs/3b92d18aa7a6176dd37d372bc2f1eb71.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
-        <h1 className="text-white text-3xl md:text-4xl font-bold bg-principal/50 px-4 py-2 rounded shadow-sm">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0072CE]/80 to-[#003C70]/80 animate-gradient-x"></div>
+        <h1 className="relative text-white text-xl md:text-2xl font-extrabold px-6 py-3 rounded bg-principal/70 backdrop-blur-sm shadow-lg max-w-3xl text-center">
           Des carrières qui sauvent des vies
         </h1>
       </header>
 
-      {/* Introduction */}
-      <section className="bg-white dark:bg-slate-900 py-8 ">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-4 text-[#0072CE]">
+      {/* Introduction en colonnes avec icônes */}
+      <section className="bg-white dark:bg-slate-900 py-2 rounded-md shadow-md mx-auto">
+        <div className="text-center mb-10 px-4">
+          <h2 className="text-xl font-extrabold mb-4 text-[#0072CE]">
             Rejoignez notre mission de l'éducation sanitaire
           </h2>
-          <p className="text-lg leading-relaxed mb-6">
+          <p className="text-[13px] max-w-3xl mx-auto leading-relaxed text-gray-700 dark:text-gray-300">
             Vous souhaitez aider les personnes dans le besoin ? Le Conseil sur
             la santé et l'Académie de médecine apportent des solutions
             novatrices en situation d'urgence sanitaire.
           </p>
-         
         </div>
-      </section>
-
-      {/* Appel à l'action final */}
-      <section className="bg-white dark:bg-slate-900 py-16 px-6">
-        <div className="max-w-xl mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-6 text-[#0072CE]">
-            Envie de rejoindre notre équipe ?
-          </h2>
+        <div className="flex flex-col md:flex-row gap-8 justify-center px-6">
+          {[
+            {
+              icon: (
+                <FaBriefcase size={20} className="text-principal mx-auto" />
+              ),
+              title: "Opportunités d'emploi",
+              desc: "Découvrez les postes qui correspondent à vos compétences et aspirations.",
+            },
+            {
+              icon: <FaUsers size={20} className="text-principal mx-auto" />,
+              title: "Rejoindre l'équipe",
+              desc: "Participez activement à notre mission humanitaire et éducative.",
+            },
+            {
+              icon: (
+                <FaLightbulb size={20} className="text-principal mx-auto" />
+              ),
+              title: "Innovations et Projets",
+              desc: "Contribuez à des projets innovants pour améliorer la santé publique.",
+            },
+          ].map(({ icon, title, desc }, i) => (
+            <div
+              key={i}
+              className="flex-1 bg-[#F9FAFB] dark:bg-slate-800 rounded-lg p-6 shadow hover:shadow-lg transition cursor-default"
+            >
+              {icon}
+              <h3 className="text-[13px] font-semibold mt-4 mb-2 text-center">
+                {title}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-center text-[12px]">
+                {desc}
+              </p>
+            </div>
+          ))}
           <button
             onClick={goToJobOpportunities}
-            className="bg-[#0072CE] text-white px-6 py-3 rounded hover:bg-blue-700 transition"
+            className="bg-principal text-white text-[15px] px-8 py-4 rounded-md font-semibold hover:bg-hover transition-shadow shadow-md hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-400"
           >
             Voir les opportunités d'emploi
           </button>
         </div>
       </section>
 
-      {/* Avertissement */}
-      <section className="bg-gray-100 dark:bg-slate-700 py-10 px-4">
-        <div className="max-w-2xl mx-auto p-6 rounded-lg text-center">
-          <p className="text-sm text-gray-800 dark:text-white">
-            ⚠️ <strong>Mise en garde :</strong> COSAMED ne demande jamais de
-            frais pour un recrutement. Méfiez-vous des fausses offres diffusées
-            en ligne ou par e-mail.
-          </p>
+      {/* Aide urgente */}
+      <section className="max-w-3xl mx-auto bg-yellow-50 dark:bg-yellow-900 border-l-4 border-yellow-600 dark:border-yellow-600 p-6 rounded-md shadow-md flex items-center gap-4">
+        <FaExclamationTriangle
+          size={30}
+          className="text-yellow-600 dark:text-yellow-600"
+        />
+        <div>
+          <h3 className="font-bold text-[14px] text-center mb-2">
+            COSAMED ne demande jamais de frais pour un recrutement. Méfiez-vous
+            des fausses offres diffusées en ligne ou par e-mail.
+          </h3>
         </div>
       </section>
+     
     </div>
   );
 };

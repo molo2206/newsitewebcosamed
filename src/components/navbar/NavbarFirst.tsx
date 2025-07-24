@@ -68,18 +68,18 @@ const NavbarFirst = () => {
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="bg-white dark:bg-slate-800 border dark:border-slate-700 text-gray-700 dark:text-gray-300 px-3 py-2 text-xs font-semibold rounded-md flex items-center gap-1"
             >
-              <Globe className="w-4 h-4" />
-              <ReactCountryFlag
+              <Globe className="w-5 h-5" />
+              <ReactCountryFlag className="rounded-md"
                 countryCode={language === "fr" ? "FR" : "GB"}
                 svg
-                style={{ width: "1.2em", height: "1.2em" }}
+                style={{ width: "1.5em", height: "1.5em" }}
               />
               <span>{language.toUpperCase()}</span>
               <span className="ml-1">▼</span>
             </button>
 
             {dropdownOpen && (
-              <div className="absolute left-0 top-full  w-[100px] bg-principal dark:bg-slate-800 dark:border border-slate-700 shadow-lg z-40 rounded-md">
+              <div className="absolute left-0 top-full mt-1  w-[106px] bg-principal dark:bg-slate-800 dark:border border-slate-700 shadow-lg z-40 rounded-md">
                 <button
                   className={`flex items-center gap-2 w-full px-4 py-2 text-xs font-semibold rounded-md  ${
                     language === "en"
@@ -88,10 +88,10 @@ const NavbarFirst = () => {
                   }`}
                   onClick={() => selectLanguage("en")}
                 >
-                  <ReactCountryFlag
+                  <ReactCountryFlag className="rounded-md"
                     countryCode="GB"
                     svg
-                    style={{ width: "1.2em", height: "1.2em" }}
+                    style={{ width: "1.5em", height: "1.5em" }}
                   />
                   English
                 </button>
@@ -103,10 +103,10 @@ const NavbarFirst = () => {
                   }`}
                   onClick={() => selectLanguage("fr")}
                 >
-                  <ReactCountryFlag
+                  <ReactCountryFlag className="rounded-md"
                     countryCode="FR"
                     svg
-                    style={{ width: "1.2em", height: "1.2em" }}
+                    style={{ width: "1.5em", height: "1.5em" }}
                   />
                   Français
                 </button>

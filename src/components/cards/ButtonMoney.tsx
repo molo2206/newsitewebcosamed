@@ -21,8 +21,8 @@ export const ButtonMoney = ({ checked, label, onchange, id }: Props) => {
           htmlFor={id}
           className={`
             w-full cursor-pointer flex items-center justify-center
-            border border-[#3b82f6] dark:border-[#60a5fa] rounded-md px-4 py-2
-            bg-white dark:bg-slate-900 text-[#0b1f3f] dark:text-white
+            border border-slate-100 dark:border-slate-100 rounded-md px-4 py-2
+            bg-white dark:bg-slate-900 dark:border-slate-700  text-[#0b1f3f] dark:text-gray-300
             transition-all duration-200 ease-in-out text-sm sm:text-base
             peer-checked:bg-principal dark:peer-checked:bg-principal
             peer-checked:text-white shadow-sm hover:shadow-md

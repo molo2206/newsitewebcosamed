@@ -111,8 +111,8 @@ const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 z-[100] bg-black bg-opacity-50 flex items-center justify-center p-4 sm:p-6">
-      <div className="bg-white dark:bg-slate-800 p-6 shadow-xl max-w-xl w-full relative overflow-auto max-h-[90vh] flex flex-col gap-6 ">
+    <div className="fixed inset-0 z-[100] bg-black bg-opacity-50 flex items-center justify-center rounded-md p-4 sm:p-6">
+      <div className="bg-white dark:bg-slate-800 p-6 shadow-xl max-w-xl w-full rounded-md relative overflow-auto max-h-[90vh] flex flex-col gap-6 ">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
@@ -273,12 +273,12 @@ const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => {
               <input
                 type="checkbox"
                 id="accept"
-                className="w-5 h-5 text-blue-600 rounded"
+                className="w-4 h-4 text-blue-600 rounded-md"
                 required
               />
               <label
                 htmlFor="accept"
-                className="text-sm text-gray-900 dark:text-gray-300"
+                className="text-[11px] text-gray-900 dark:text-gray-300"
               >
                 J’autorise COSAMED à traiter mes données pour m’envoyer des
                 communications.
@@ -394,12 +394,12 @@ const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => {
               />
             </div>
 
-            <div>
+            <div className="">
               <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
                 Carte bancaire
               </label>
               <div className="border rounded-md p-3 bg-white shadow-sm">
-                <CardElement options={CARD_OPTIONS} />
+                <CardElement options={CARD_OPTIONS} className="  " />
               </div>
             </div>
 
@@ -407,12 +407,12 @@ const DonateModal: React.FC<DonateModalProps> = ({ isOpen, onClose }) => {
               <input
                 type="checkbox"
                 id="accept"
-                className="w-5 h-5 text-blue-600 rounded"
+                className="w-4 h-4 text-blue-600 rounded"
                 required
               />
               <label
                 htmlFor="accept"
-                className="text-sm text-gray-900 dark:text-gray-300"
+                className="text-[11px] text-gray-900 dark:text-gray-300"
               >
                 J’autorise COSAMED à traiter mes données pour m’envoyer des
                 communications.

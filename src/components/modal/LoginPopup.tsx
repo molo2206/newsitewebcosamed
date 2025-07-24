@@ -29,7 +29,7 @@ export default function LoginPopup({
     <>
       {/* Overlay */}
       <div
-        className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm transition-opacity "
         onClick={onClose}
         aria-hidden="true"
       />
@@ -41,9 +41,9 @@ export default function LoginPopup({
         aria-labelledby="login-popup-title"
         tabIndex={-1}
         ref={popupRef}
-        className="fixed inset-0 flex items-center justify-center z-50 px-4 outline-none"
+        className="fixed inset-0 flex items-center justify-center z-50 px-4 outline-none rounded-md"
       >
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700  shadow-xl max-w-md w-full p-6 sm:p-8 relative animate-fade-in">
+        <div className="bg-white dark:bg-slate-900 border rounded-md border-slate-200 dark:border-slate-700  shadow-xl max-w-md w-full p-6 sm:p-8 relative animate-fade-in">
           {/* Bouton fermeture */}
           <button
             onClick={onClose}
@@ -66,22 +66,15 @@ export default function LoginPopup({
               />
             </svg>
           </button>
-
-          {/* Icône utilisateur */}
-          <div className="flex justify-center mb-5">
-            <FaUserCircle className="text-principal dark:text-white w-10 h-10" />
-          </div>
-
-          {/* Titre */}
           <h2
             id="login-popup-title"
-            className="text-center text-[22px] font-bold text-gray-900 dark:text-white mb-1"
+            className="text-center text-[16px] font-bold text-gray-900 dark:text-white mb-1"
           >
             Se connecter à COSAMED
           </h2>
 
           {/* Description */}
-          <p className="text-center text-gray-600 dark:text-gray-400 text-sm mb-6">
+          <p className="text-center text-gray-600 dark:text-gray-400 text-[12px] mb-6">
             Connectez-vous pour interagir et accéder aux fonctionnalités.
           </p>
 
@@ -90,12 +83,12 @@ export default function LoginPopup({
             <button
               type="button"
               onClick={handleGoogleContinue}
-              className="w-full inline-flex items-center justify-center gap-3 bg-principal hover:bg-hover text-white text-sm font-semibold px-6 py-3 rounded-md shadow-sm transition focus:outline-none focus:ring-2 focus:ring-principal"
+              className="w-full inline-flex items-center justify-center gap-3 bg-principal hover:bg-hover text-white text-[12px] font-semibold px-6 py-3 rounded-md shadow-sm transition focus:outline-none focus:ring-2 focus:ring-principal"
             >
               <img
                 src="https://www.google.com/favicon.ico"
                 alt="Google icon"
-                className="w-5 h-5"
+                className="w-4 h-4"
                 loading="lazy"
               />
               Continuer avec Google

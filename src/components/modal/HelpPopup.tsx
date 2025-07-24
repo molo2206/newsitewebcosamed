@@ -25,16 +25,13 @@ export default function HelpPopup({ onHelpClick }: HelpPopupProps) {
 
   return (
     <>
-      {/* Overlay */}
       <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 "
         onClick={() => setIsVisible(false)}
       />
 
-      {/* Popup */}
-      <div className="fixed inset-0 flex items-center justify-center z-50 px-4">
-        <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 shadow-2xl max-w-md w-full p-6 relative transition-all">
-          {/* Bouton Fermer */}
+      <div className="fixed inset-0 flex items-center justify-center z-50 px-4 ">
+        <div className="bg-white dark:bg-slate-900 rounded-md border border-gray-200 dark:border-slate-700  shadow-2xl max-w-md w-full p-6 relative transition-all">
           <button
             onClick={() => setIsVisible(false)}
             className="absolute top-4 right-4 text-gray-400 hover:text-principal dark:hover:text-white focus:outline-none"
@@ -56,30 +53,27 @@ export default function HelpPopup({ onHelpClick }: HelpPopupProps) {
             </svg>
           </button>
 
-          {/* Illustration */}
           <div className="w-20 h-20 mx-auto mb-4">
             <img
               src="https://apicosamed.cosamed.org/uploads/logo/popup.png"
               alt="Support icon"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-contain rounded-xl shadow-md"
               loading="lazy"
             />
           </div>
 
-          {/* Texte principal */}
           <h3 className="text-xl font-semibold text-center text-gray-800 dark:text-white mb-2">
             {t("Besoin d’aide ou assistance ?")}
           </h3>
-          <p className="text-sm text-center text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-[11px] text-center text-gray-600 dark:text-gray-400 mb-6">
             {t(
               "Vous naviguez depuis un moment. Si vous avez une urgence ou une question, notre équipe est disponible pour vous aider."
             )}
           </p>
 
-          {/* Boutons */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button
-              className="w-full sm:w-auto bg-principal hover:bg-hover text-white px-5 py-2 rounded-md font-medium transition focus:outline-none focus:ring-2 focus:ring-principal"
+              className="w-full sm:w-auto bg-principal dark:bg-slate-800 hover:bg-hover text-[10px] text-white px-5 py-2 rounded-md font-medium transition focus:outline-none focus:ring-2 focus:ring-principal"
               onClick={() => {
                 setIsVisible(false);
                 onHelpClick();
@@ -88,7 +82,7 @@ export default function HelpPopup({ onHelpClick }: HelpPopupProps) {
               {t("Contact_us")}
             </button>
             <button
-              className="w-full sm:w-auto border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-gray-300 px-5 py-2 rounded-md font-medium hover:bg-gray-100 dark:hover:bg-slate-700 transition"
+              className="w-full sm:w-auto border border-gray-300 text-[10px] dark:border-slate-600 text-gray-700 dark:text-gray-300 px-5 py-2 rounded-md font-medium hover:bg-gray-100 dark:hover:bg-slate-700 transition"
               onClick={() => setIsVisible(false)}
             >
               {t("Fermer")}

@@ -51,7 +51,10 @@ const Bulletin = () => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentBulletins = data.slice(indexOfFirstPost, indexOfLastPost);
 
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({ top: 200, behavior: "smooth" });
+  };
 
   const validation = (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,21 +67,29 @@ const Bulletin = () => {
   };
 
   return (
-    <>
+    <div className="p-6 w-full min-h-screen dark:bg-slate-900 dark:text-white">
       {loading ? (
-        Array.from({ length: 20 }).map((_, i) => <BulletinLoad key={i} />)
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {Array.from({ length: 10 }).map((_, i) => (
+            <BulletinLoad key={i} />
+          ))}
+        </div>
       ) : (
-        <div className="p-6 dark:bg-slate-900 w-full dark:text-white">
+        <>
           <BreadCumb title={t("Bulletins")} />
+
           <section className="mb-10">
-            <h1 className="text-3xl font-bold mb-2">{t("How_news_letters")}</h1>
-            <p className="text-gray-600 mb-6">
+            <h1 className="text-3xl font-bold mb-2 text-principal">
+              {t("How_news_letters")}
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-3xl">
               {t(
                 "If you cannot find a publication on our website, please search COSAMED's publications repository directly."
               )}
             </p>
 
-            <div className="bg-gray-100 p-6 dark:bg-slate-800 mb-12">
+            {/* Zone de filtrage */}
+            <div className="bg-gray-100 p-6 rounded-lg shadow dark:bg-slate-800 mb-12">
               <form
                 onSubmit={validation}
                 className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"
@@ -89,14 +100,11 @@ const Bulletin = () => {
                   value={inputs.year}
                   errors={errors.year}
                   onFocus={() => hanldeError(null, "year")}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  onChange={(e: any) => {
                     handleOnChange(e.target.value, "year");
                     setCurrentPage(1);
                   }}
-                  options={Years.map((item) => ({
-                    label: item.label,
-                    value: item.value,
-                  }))}
+                  options={Years}
                 />
 
                 <Input
@@ -104,14 +112,11 @@ const Bulletin = () => {
                   type="select"
                   value={inputs.month}
                   errors={errors.month}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  onChange={(e: any) => {
                     handleOnChange(e.target.value, "month");
                     setCurrentPage(1);
                   }}
-                  options={Months.map((item) => ({
-                    label: item.label,
-                    value: item.value,
-                  }))}
+                  options={Months}
                 />
 
                 <Input
@@ -119,11 +124,8 @@ const Bulletin = () => {
                   type="select"
                   value={inputs.type}
                   errors={errors.type}
-                  options={Type.map((item) => ({
-                    label: item.label,
-                    value: item.value,
-                  }))}
-                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  options={Type}
+                  onChange={(e: any) => {
                     const selectedType = e.target.value;
                     handleOnChange(selectedType, "type");
                     if (selectedType) {
@@ -139,35 +141,54 @@ const Bulletin = () => {
                   type="text"
                   value={inputs.keyword}
                   errors={errors.keyword}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  onChange={(e: any) =>
                     handleOnChange(e.target.value, "keyword")
                   }
                 />
               </form>
             </div>
 
-            {error && <p className="text-red-500 mb-4">{error}</p>}
+            {error && (
+              <p className="text-red-500 mb-4">{t("Error_loading_data")}</p>
+            )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-5">
+            {/* Résumé des filtres actifs */}
+            {(inputs.year || inputs.month) && (
+              <p className="mb-6 text-sm text-gray-700 dark:text-gray-300">
+                {t("Showing results for")}{" "}
+                <span className="font-semibold">
+                  {inputs.month && `${t(inputs.month)}, `}
+                  {inputs.year}
+                </span>
+              </p>
+            )}
+
+            {/* Résultats */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {currentBulletins.length === 0 ? (
-                <p>{t("No bulletins found.")}</p>
+                <p className="text-gray-500 text-center col-span-4">
+                  {t("No bulletins found.")}
+                </p>
               ) : (
                 currentBulletins.map((item: any, index: number) => (
-                  <BulletinCard bulletin={item} key={index} />
+                  <BulletinCard bulletin={item} key={item.id ?? index} />
                 ))
               )}
             </div>
           </section>
 
-          <Pagination
-            postsPerPage={postsPerPage}
-            totalPasts={data.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        </div>
+          {/* Pagination */}
+          {data.length > postsPerPage && (
+            <Pagination
+              postsPerPage={postsPerPage}
+              totalPasts={data.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
+          )}
+        </>
       )}
-    </>
+    </div>
   );
 };
 

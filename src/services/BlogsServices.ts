@@ -1,7 +1,6 @@
 import requests from './Instance';
 
 const BlogServices = {
-
   getBlog: async () => {
     const currentYear = new Date().getFullYear();
     return requests.get(`/public/blogs-year?year=${currentYear}`);
@@ -26,6 +25,31 @@ const BlogServices = {
 
   lastBlog: async () => {
     return requests.get(`/public/lastblog`);
+  },
+
+  getComments: async (blogId: any) => {
+    return requests.get(`/blogs/${blogId}/comments`);
+  },
+
+  getLikes: async (blogId: any) => {
+    return requests.get(`/blogs/${blogId}/likes`);
+  },
+
+  postComment: async (body: any) => {
+    return requests.post(`/comments`, body, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+  },
+  likeBlog: async (body: any) => {
+    return requests.post(`/likes`, body, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   },
 };
 

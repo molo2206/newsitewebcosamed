@@ -6,19 +6,31 @@ import SettingsServices from "../../services/SettingsServices";
 import ReactCountryFlag from "react-country-flag";
 import { useTranslation } from "react-i18next";
 import { useAuthContext, useThemeContext } from "../../context";
-import { ToastContainer } from "react-toastify";
 import CategoryServices from "../../services/CategoryServices";
 import useAsync from "../../hooks/useAsync";
 import CategoryCard from "../blogs/CategoryCard";
 import { useNavigate } from "react-router-dom";
 import { FaXmark } from "react-icons/fa6";
-import { useLanguageContext } from "../../context/LanguageContext"; // ✅ Contexte langue
+import { useLanguageContext } from "../../context/LanguageContext";
 import { Globe } from "lucide-react";
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
 import LoginPopup from "../modal/LoginPopup";
 import HelpPopup from "../modal/HelpPopup";
 import AuthService from "../../services/AuthService";
-
+import {
+  FaNewspaper,
+  FaVideo,
+  FaBlog,
+  FaImages,
+  FaCalendarAlt,
+} from "react-icons/fa";
+import {
+  FaEnvelopeOpenText,
+  FaBriefcase,
+  FaProjectDiagram,
+  FaUserTie,
+  FaFileAlt,
+} from "react-icons/fa";
 function Navbar() {
   const { t } = useTranslation();
   const { sticky } = useSticky();
@@ -53,7 +65,6 @@ function Navbar() {
     navigate("/auth/signin", { replace: true });
   };
 
-  const handleGoBack = () => navigate("/aboutmedia");
   const home = () => navigate("/");
   const navigateNewsletter = () => navigate(`/data-loading/newsletters`);
   const navigateJobopen = () => navigate(`/data-loading/jobopenings`);
@@ -87,7 +98,6 @@ function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-  const languageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -179,9 +189,7 @@ function Navbar() {
                         <div className="col-span-4">
                           <div className="h-60 overflow-y-auto grid grid-cols-6 mt-2 p-4 gap-4">
                             {cat.map((item: any, index: number) => (
-                              <div key={index}>
-                                <CategoryCard cat={item} />
-                              </div>
+                              <CategoryCard key={index} cat={item} />
                             ))}
                           </div>
                         </div>
@@ -209,36 +217,93 @@ function Navbar() {
                       <div className="grid grid-cols-4 gap-6">
                         <div className="col-span-4">
                           <div className="grid grid-cols-5 mt-4 px-4 gap-5">
+                            {/* Newsletters */}
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateNewsletter}
                             >
-                              {t("Newsletters")}
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaEnvelopeOpenText className="text-sm text-principal" />
+                                <span className="text-[13px]">
+                                  {t("Newsletters")}
+                                </span>
+                              </div>
+                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
+                                {t("Stay updated with our monthly highlights")}
+                              </p>
+                            </div>
+
+                            {/* Jobs */}
+                            <div
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+                              onClick={navigateJobopen}
+                            >
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaBriefcase className="text-sm text-green-600" />
+                                <span className="text-[13px]">{t("Jobs")}</span>
+                              </div>
+                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
+                                {t("Open job opportunities and internships")}
+                              </p>
                             </div>
 
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
-                              onClick={navigateJobopen}
-                            >
-                              {t("Jobs")}
-                            </div>
-                            <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateProject}
                             >
-                              {t("Project")}
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaProjectDiagram className="text-sm text-principal" />
+                                <span className="text-[13px]">
+                                  {t("Project")}
+                                </span>
+                              </div>
+                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
+                                {t("Explore our ongoing humanitarian projects")}
+                              </p>
                             </div>
+
+                            {/* Careers */}
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateJobOpening}
                             >
-                              {t("Careers")}
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaUserTie className="text-sm text-hover" />
+                                <span className="text-[13px]">
+                                  {t("Careers")}
+                                </span>
+                              </div>
+                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
+                                {t("Career paths and talent development")}
+                              </p>
                             </div>
+
+                            {/* Reports */}
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateReport}
                             >
-                              {t("Reports")}
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaFileAlt className="text-sm text-red-500" />
+                                <span className="text-[13px]">
+                                  {t("Reports")}
+                                </span>
+                              </div>
+                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
+                                {t(
+                                  "Download our latest research and impact reports"
+                                )}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -263,49 +328,85 @@ function Navbar() {
                       <div className="grid grid-cols-4 gap-6">
                         <div className="col-span-4">
                           <div className="grid grid-cols-5 mt-4 px-4 gap-5">
+                            {/* Press */}
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateCommunicated}
                             >
-                              {t("Press")}
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaNewspaper className="text-sm text-principal" />
+                                <span className="text-[13px]">
+                                  {t("Press")}
+                                </span>
+                              </div>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t(
+                                  "Access press releases and media statements"
+                                )}
+                              </p>
                             </div>
 
+                            {/* Videos */}
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateVideo}
                             >
-                              {t("Videos")}
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaVideo className="text-sm text-red-500" />
+                                <span className="text-[13px]">
+                                  {t("Videos")}
+                                </span>
+                              </div>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t(
+                                  "Watch our latest field reports and interviews"
+                                )}
+                              </p>
                             </div>
+
+                            {/* Blog */}
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateBlog}
                             >
-                              {t("Blog")}
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaBlog className="text-sm text-emerald-500" />
+                                <span className="text-[13px]">{t("Blog")}</span>
+                              </div>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t("Insights, stories and expert opinions")}
+                              </p>
                             </div>
 
+                            {/* Gallery */}
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateGallery}
                             >
-                              {t("Gallery")}
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaImages className="text-sm text-principal" />
+                                <span className="text-[13px]">
+                                  {t("Gallery")}
+                                </span>
+                              </div>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t("Browse photo stories from the field")}
+                              </p>
                             </div>
-
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateEvent}
                             >
-                              {t("Events")}
+                              <div className="flex items-center gap-2 mb-1">
+                                <FaCalendarAlt className="text-sm text-yellow-500" />
+                                <span className="text-[13px]">
+                                  {t("Events")}
+                                </span>
+                              </div>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t("See upcoming conferences and campaigns")}
+                              </p>
                             </div>
-                          </div>
-                          <div className=" flex items-center justify-center p-4">
-                            <button
-                              onClick={handleGoBack}
-                              className="h-[60px] w-full  
-                              bg-principal dark:bg-gray-700  text-white  hover:text-white hover:bg-hover font-semibold text-center"
-                            >
-                              {t("Find_More")}
-                              <ToastContainer />
-                            </button>
                           </div>
                         </div>
                       </div>
@@ -344,40 +445,89 @@ function Navbar() {
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div className="grid grid-cols-4 gap-6">
-                        <div className="col-span-4">
-                          <div className="grid grid-cols-5 mt-4 px-4 gap-5">
+                        <div className="col-span-4 ">
+                          <div className="grid grid-cols-5 mt-4 px-4 gap-5 ">
+                            {/* About Us */}
                             <div
-                              className="cursor-pointer  text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateAbout}
                             >
-                              {t("AboutUs")}
-                            </div>
-                            <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
-                              onClick={navigateContact}
-                            >
-                              {" "}
-                              {t("Contact")}
-                            </div>
-                            <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
-                              onClick={navigatePartners}
-                            >
-                              {" "}
-                              {t("Partnerships")}
+                              <h4 className="mb-1 text-[13px]">
+                                {t("AboutUs")}
+                              </h4>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t(
+                                  "Learn about our mission, vision and history"
+                                )}
+                              </p>
                             </div>
 
+                            {/* Contact */}
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+                              onClick={navigateContact}
+                            >
+                              <h4 className="mb-1 text-[13px]">
+                                {t("Contact")}
+                              </h4>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t(
+                                  "Reach out to our support or coordination team"
+                                )}
+                              </p>
+                            </div>
+
+                            {/* Partnerships */}
+                            <div
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+                              onClick={navigatePartners}
+                            >
+                              <h4 className="mb-1 text-[13px]">
+                                {t("Partnerships")}
+                              </h4>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t(
+                                  "Discover our strategic partners and collaborators"
+                                )}
+                              </p>
+                            </div>
+
+                            {/* Governance */}
+                            <div
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateGouvernance}
                             >
-                              {t("Governance")}
+                              <h4 className="mb-1 text-[13px]">
+                                {t("Governance")}
+                              </h4>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t(
+                                  "Meet our leadership and governance structure"
+                                )}
+                              </p>
                             </div>
+
+                            {/* Become Member */}
                             <div
-                              className="cursor-pointer text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent "
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
                               onClick={navigateCommunity}
                             >
-                              {t("Becom_member")}
+                              <h4 className="mb-1 text-[13px]">
+                                {t("Becom_member")}
+                              </h4>
+                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
+                                {t("Join our community and make a difference")}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -391,7 +541,7 @@ function Navbar() {
                       showLanguageButton
                         ? "w-[140px] opacity-100"
                         : "w-0 opacity-0"
-                    }`} /* enlever overflow-hidden */
+                    }`}
                   >
                     <button
                       className="bg-white dark:bg-slate-800 border dark:border-slate-700 text-gray-700 dark:text-gray-300 px-2 py-1 text-xs font-semibold flex items-center gap-1 w-full justify-center rounded-md shadow-sm hover:shadow-md transition-shadow"
@@ -401,21 +551,20 @@ function Navbar() {
                       }}
                       aria-label="Select language"
                     >
-                      <Globe className="w-3 h-3" />
                       <ReactCountryFlag
+                        className=" rounded-md"
                         countryCode={language === "fr" ? "FR" : "GB"}
                         svg
-                        style={{ width: "1em", height: "1em" }}
+                        style={{ width: "1.8em", height: "1.8em" }}
                         title={language === "fr" ? "Français" : "English"}
                       />
-                      <span className="text-xs">{language.toUpperCase()}</span>
+                      <span className="text-ms">{language.toUpperCase()}</span>
                       <span className="ml-1 text-xs">▼</span>
                     </button>
-
                     {dropdownOpen && (
-                       <div className="absolute right-0 top-full mt-1 w-[140px] bg-principal dark:bg-slate-800 dark:border border-slate-700 shadow-lg z-40 rounded-md">
+                      <div className="absolute right-0 top-full mt-1 w-[140px] bg-principal dark:bg-slate-800 dark:border border-slate-700 shadow-lg z-40 rounded-md">
                         <button
-                          className={`flex items-center gap-2 w-full px-4 py-2 text-xs font-semibold rounded-md ${
+                          className={`flex items-center gap-3 w-full px-4 py-2 text-[11px] font-semibold rounded-md ${
                             language === "en"
                               ? "bg-hover text-white"
                               : "text-white hover:bg-hover"
@@ -423,15 +572,16 @@ function Navbar() {
                           onClick={() => selectLanguage("en")}
                         >
                           <ReactCountryFlag
+                            className="rounded-md"
                             countryCode="GB"
                             svg
-                            style={{ width: "1.2em", height: "1.2em" }}
+                            style={{ width: "1.8em", height: "1.8em" }}
                             title="English"
                           />
                           English
                         </button>
                         <button
-                          className={`flex items-center gap-2 w-full px-4 py-2 text-xs font-semibold rounded-md ${
+                          className={`flex items-center gap-3 w-full px-4 py-2 text-[11px] font-semibold rounded-md ${
                             language === "fr"
                               ? "bg-hover text-white"
                               : "text-white hover:bg-hover"
@@ -439,9 +589,10 @@ function Navbar() {
                           onClick={() => selectLanguage("fr")}
                         >
                           <ReactCountryFlag
+                            className="rounded-md"
                             countryCode="FR"
                             svg
-                            style={{ width: "1.2em", height: "1.2em" }}
+                            style={{ width: "1.8em", height: "1.8em" }}
                             title="Français"
                           />
                           Français
@@ -466,7 +617,6 @@ function Navbar() {
                     }`}
                     style={{ minWidth: 0 }}
                   >
-                    {/* MENU UTILISATEUR */}
                     <div className="relative flex items-center justify-center">
                       <button
                         onClick={toggleMenu}
@@ -487,7 +637,7 @@ function Navbar() {
                       {isDropdown && (
                         <>
                           <div
-                            className="absolute left-0 top-full mt-1 w-56 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50 origin-top-right animate-scale-in"
+                            className="absolute left-50 top-full mt-4 w-56 bg-white dark:bg-slate-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50 origin-top-right animate-scale-in"
                             style={{ minWidth: "14rem" }}
                           >
                             <div className="flex flex-col items-center p-4 border-b shadow-sm hover:shadow-md border-gray-200 dark:border-gray-700">
@@ -560,9 +710,8 @@ function Navbar() {
                       )}
                     </div>
 
-                    {/* TOGGLE THEME */}
                     <div
-                      className="cursor-pointer rounded-full border border-slate-400 dark:border-slate-700 text-principal p-[3px] transition-transform transform hover:scale-110 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-principal focus:outline-none"
+                      className="cursor-pointer rounded-full border border-slate-400 dark:border-slate-700 dark:text-gray-200 text-principal p-[3px] transition-transform transform hover:scale-110 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-principal focus:outline-none"
                       onClick={toggleTheme}
                       title={
                         settings.theme === "dark"

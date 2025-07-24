@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import {  useNavigate } from "react-router-dom";
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
 import useValidation from "../hooks/useValidation";
@@ -18,13 +19,15 @@ import usePageSEO from "../components/Seo/usePageSEO";
 import SettingsServices from "../services/SettingsServices";
 import useAsync from "../hooks/useAsync";
 import { ApplyForm } from "../types";
+import DonateModal from "./modal/DonateModal";
 
 const ContactUs = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const { createContact, loading: loadingForm } = Contact();
   const { data } = useAsync(() => SettingsServices.getSettings());
   const { data: dataadress } = useAsync(() => SettingsServices.getAdresse());
-  // console.log(data);
+
   usePageSEO({
     title: "Contact-nous",
     description: "Contact-nous",
@@ -44,228 +47,291 @@ const ContactUs = () => {
       phone: "",
       message: "",
     });
+
   const validation = (e: any) => {
     e.preventDefault();
-
     let valide = true;
-    if (!inputs.first_name) {
-      hanldeError(t("Error_First_name"), "first_name");
-      valide = false;
-    }
-    if (!inputs.last_name) {
-      hanldeError(t("Error_Last_name"), "last_name");
-      valide = false;
-    }
-    if (!inputs.email) {
-      hanldeError(t("Error_Email"), "email");
-      valide = false;
-    }
-
-    if (!inputs.phone) {
-      hanldeError(t("Error_Phone"), "phone");
-      valide = false;
-    }
-
-    if (!inputs.message) {
-      hanldeError(t("Error_Message"), "message");
-      valide = false;
-    }
-
+    if (!inputs.first_name) hanldeError(t("Error_First_name"), "first_name");
+    if (!inputs.last_name) hanldeError(t("Error_Last_name"), "last_name");
+    if (!inputs.email) hanldeError(t("Error_Email"), "email");
+    if (!inputs.phone) hanldeError(t("Error_Phone"), "phone");
+    if (!inputs.message) hanldeError(t("Error_Message"), "message");
     if (valide) {
       createContact(inputs, setInputs);
     }
   };
+  const [showDonate, setShowDonate] = useState(false);
   return (
     <div className="p-6 dark:bg-slate-900 w-full dark:text-white ">
-      <div>
-        <BreadCumb title={"Blog"} />
-        <section className="mb-10 ">
-          <header className="bg-principal dark:bg-slate-800 dark:border-slate-700 dark:text-white  text-white p-6">
-            <div className="max-w-6xl mx-auto px-4 text-center">
-              <h1 className="md:text-xl lg:text-2xl font-bold">
-                {t("Contact_us")}
-              </h1>
-            </div>
-          </header>
-          <div className=" grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 ">
-            {/* Left Section: Contact Information */}
-            <div className="bg-white border dark:border-slate-700 p-8 dark:bg-slate-800">
-              <h1 className="lg:text-2xl md:text-xl  font-bold text-gray-800 mb-6 dark:text-white">
-                Ce que nous pensons,
-              </h1>
-              <p className=" font-light lg:text-sm mb-6 dark:text-white">
-                Nous sommes à votre écoute ! Que vous ayez une question, un
-                projet à discuter ou simplement besoin d’informations, n’hésitez
-                pas à nous contacter. Vous pouvez également remplir notre
-                formulaire de contact et nous vous répondrons dans les plus
-                brefs délais. À très bientôt !
-              </p>
-              <ul className="space-y-4">
-                <li className="flex items-center">
-                  <span
-                    className="w-8 h-8 flex items-center justify-center 
-               bg-blue-100 dark:bg-white text-principal rounded-full mr-4"
-                  >
-                    <FaEnvelope />
-                  </span>
-                  <span className="text-gray-700 lg:text-sm md:text-sm font-light dark:text-white">
-                    <a href="mailto:cosamed17@gmail.com">
-                      {dataadress?.emails}
-                    </a>
-                  </span>
-                </li>
-                <li className="flex items-center">
-                  <span className="w-8 h-8 flex items-center justify-center dark:bg-white bg-blue-100 text-principal rounded-full mr-4">
-                    <FaPhone />
-                  </span>
-                  <span className="text-gray-700 font-light  lg:text-sm md:text-sm dark:text-white">
-                    <a href={"tel:" + dataadress?.phones}>
-                      {dataadress?.phones}
-                    </a>
-                  </span>
-                </li>
-                <li className="flex items-center">
-                  <span className="w-8 h-8 flex items-center justify-center bg-blue-100 text-principal rounded-full mr-4">
-                    <FaMapMarkerAlt />
-                  </span>
-                  <span className="text-gray-700 font-light lg:text-sm md:text-sm dark:text-white">
-                    {dataadress?.adresse +
-                      "/" +
-                      dataadress?.city +
-                      "/" +
-                      dataadress?.country?.name}
-                  </span>
-                </li>
-              </ul>
+      <BreadCumb title={"Blog"} />
+      <section className="mb-10 ">
+        <header className="bg-principal dark:bg-slate-800 text-white p-6">
+          <div className="max-w-6xl mx-auto px-4 text-center">
+            <h1 className="md:text-xl lg:text-2xl font-bold">
+              {t("Contact_us")}
+            </h1>
+          </div>
+        </header>
 
-              {/* Social Media Links */}
-              <div className="mt-8 ">
-                <h2 className="text-lg font-semibold lg:text-sm md:text-sm  text-gray-800 mb-4 dark:text-white">
-                  {t("Follow_use")}
-                </h2>
-                <div className="flex space-x-4">
-                  <a
-                    href={JSON.parse(data?.social_links || "{}")?.facebook}
-                    target="blank"
-                    className="w-10 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600"
-                  >
-                    <FaFacebook />
-                  </a>
-                  <a
-                    href={JSON.parse(data?.social_links || "{}")?.twitter}
-                    target="blank"
-                    className="w-10 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600"
-                  >
-                    <FaTwitter />
-                  </a>
-                  <a
-                    href={JSON.parse(data?.social_links || "{}")?.linkedin}
-                    target="blank"
-                    className="w-10 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600"
-                  >
-                    <FaLinkedin />
-                  </a>
-                </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+          {/* Left Section */}
+          <div className="bg-white border dark:border-slate-700 p-8 dark:bg-slate-800 rounded-md">
+            <h1 className="text-[16px] font-bold text-gray-800 mb-6 dark:text-white">
+              Pourquoi nous contacter ?
+            </h1>
+            <p className="font-light lg:text-sm mb-6 dark:text-white">
+              <div className="mt-1">
+                <ul className="list-disc pl-5 space-y-2 text-gray-700 dark:text-gray-300 text-[12px]">
+                  <li>Faire une demande de partenariat ou d’intervention</li>
+                  <li>Devenir volontaire ou rejoindre notre équipe</li>
+                  <li>Proposer un don ou un soutien logistique</li>
+                  <li>Poser une question ou signaler une situation urgente</li>
+                </ul>
+              </div>
+            </p>
+
+            <ul className="space-y-4">
+              <li className="flex items-center ">
+                <span className="w-8 h-8 flex items-center justify-center bg-blue-100 dark:bg-white text-principal rounded-full mr-4">
+                  <FaEnvelope />
+                </span>
+                <a
+                  href={`mailto:${dataadress?.emails}`}
+                  className="text-gray-700 text-[12px] dark:text-white "
+                >
+                  {dataadress?.emails}
+                </a>
+              </li>
+              <li className="flex items-center">
+                <span className="w-8 h-8 flex items-center justify-center bg-blue-100 dark:bg-white text-principal rounded-full mr-4">
+                  <FaPhone />
+                </span>
+                <a
+                  href={`tel:${dataadress?.phones}`}
+                  className="text-gray-700 text-[12px] dark:text-white"
+                >
+                  {dataadress?.phones}
+                </a>
+              </li>
+              <li className="flex items-center">
+                <span className="w-8 h-8 flex items-center justify-center bg-blue-100 text-principal rounded-full mr-4">
+                  <FaMapMarkerAlt />
+                </span>
+                <span className="text-gray-700 text-[12px] font-normal dark:text-white">
+                  {dataadress?.adresse}/{dataadress?.city}/
+                  {dataadress?.country?.name}
+                </span>
+              </li>
+            </ul>
+
+            <div className="mt-6">
+              <h3 className="font-semibold text-[12px] dark:text-white">
+                Heures d'ouverture
+              </h3>
+              <p className="text-gray-600 text-[12px] dark:text-gray-300">
+                Jours ouvrables, du lundi au vendredi : 08h00 - 17h00
+              </p>
+              <p className="text-gray-600 text-[12px] dark:text-gray-300">
+                Samedi : Fermé
+              </p>
+              <p className="text-gray-600 ttext-[12px] dark:text-gray-300">
+                Dimanche : Fermé
+              </p>
+              <p className="text-[12px] text-gray-400 mt-1">
+                Délai de réponse moyen : 24h - 48h
+              </p>
+            </div>
+
+            <div className="mt-6 w-full h-[400px] rounded-md overflow-hidden border dark:border-slate-700">
+              <iframe
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(
+                  `${dataadress?.adresse}, ${dataadress?.city}, ${dataadress?.country?.name}`
+                )}&t=&z=13&ie=UTF8&iwloc=&output=embed`}
+                width="100%"
+                height="100%"
+                className="rounded-md"
+                loading="lazy"
+              ></iframe>
+            </div>
+            <div className="mt-6 bg-red-50 dark:bg-gray-700 p-4 rounded-md border border-red-300 dark:border-red-200">
+              <h3 className="text-[12px] font-bold text-red-700 dark:text-red-200 mb-2">
+                Besoin d’une aide urgente ?
+              </h3>
+              <p className="text-[12px] text-red-800 dark:text-red-100">
+                Appelez-nous directement au{" "}
+                <a
+                  href="tel:+243992036566"
+                  className="font-semibold underline hover:text-red-600"
+                >
+                  +243 992 036 566
+                </a>{" "}
+                ou écrivez à{" "}
+                <a
+                  href="mailto:info@cosamed.org"
+                  className="font-semibold underline hover:text-red-600"
+                >
+                  info@cosamed.org
+                </a>
+                .
+              </p>
+            </div>
+
+            <div className="mt-8">
+              <h2 className="text-[12px] font-semibold text-gray-800 mb-4 dark:text-white">
+                {t("Follow_use")}
+              </h2>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href={JSON.parse(data?.social_links || "{}")?.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  title="Suivez-nous sur Facebook"
+                  className="w-8 h-8 flex items-center justify-center rounded-full text-white bg-[#1877F2] hover:bg-[#145ecf] transition duration-300 shadow-md hover:shadow-lg"
+                >
+                  <FaFacebook size={15} />
+                </a>
+                <a
+                  href={JSON.parse(data?.social_links || "{}")?.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter"
+                  title="Suivez-nous sur Twitter"
+                  className="w-8 h-8 flex items-center justify-center rounded-full text-white bg-[#1DA1F2] hover:bg-[#0d8ddc] transition duration-300 shadow-md hover:shadow-lg"
+                >
+                  <FaTwitter size={15} />
+                </a>
+                <a
+                  href={JSON.parse(data?.social_links || "{}")?.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  title="Suivez-nous sur LinkedIn"
+                  className="w-8 h-8 flex items-center justify-center rounded-full text-white bg-[#0077B5] hover:bg-[#005f91] transition duration-300 shadow-md hover:shadow-lg"
+                >
+                  <FaLinkedin size={15} />
+                </a>
+                <a
+                  href={`https://wa.me/${dataadress?.phones?.replace(
+                    /\D/g,
+                    ""
+                  )}`}
+                  target="_blank"
+                  className="inline-flex items-center px-4 py-2 bg-green-600 dark:bg-green-900 text-white text-[11px] font-semibold rounded-md hover:bg-green-600 transition"
+                >
+                  Discuter sur WhatsApp
+                </a>
               </div>
             </div>
+          </div>
 
-            {/* Right Section: Contact Form */}
-            <div className="bg-white  border dark:border-slate-700 p-8 dark:bg-slate-800">
-              <p className="lg:text-xl md:text-sm font-light mb-2 font-base text-center text-slate-800 dark:text-light-gray-500 mt-2 dark:text-white">
-                {t("Send_message")}
-              </p>
-              <form className="mt-8 space-y-6 mb-8" onSubmit={validation}>
-                <div className="space-y-px rounded-md items-center">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                    <Input
-                      name="first_name"
-                      label={t("Name")}
-                      placeholder=""
-                      type="text"
-                      errors={errors.first_name}
-                      value={inputs.first_name}
-                      onFocus={() => hanldeError(null, `first_name`)}
-                      onChange={(e: any) =>
-                        handleOnChange(e.target.value, "first_name")
-                      }
-                    />
-                    <Input
-                      name="last_name"
-                      label={t("Prename")}
-                      placeholder=""
-                      type="text"
-                      errors={errors.last_name}
-                      value={inputs.last_name}
-                      onFocus={() => hanldeError(null, `last_name`)}
-                      onChange={(e: any) =>
-                        handleOnChange(e.target.value, "last_name")
-                      }
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 gap-4">
-                    <Input
-                      name="email"
-                      label={t("Enter_email")}
-                      placeholder=""
-                      type="text"
-                      errors={errors.email}
-                      value={inputs.email}
-                      onFocus={() => hanldeError(null, `email`)}
-                      onChange={(e: any) =>
-                        handleOnChange(e.target.value, "email")
-                      }
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 gap-4">
-                    <Input
-                      name="phone"
-                      label={t("Phone")}
-                      placeholder=""
-                      type="phone"
-                      errors={errors.phone}
-                      value={inputs.phone}
-                      onFocus={() => hanldeError(null, `phone`)}
-                      onChange={(e: any) =>
-                        handleOnChange(e.target.value, "phone")
-                      }
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 gap-4">
-                    <TextArea
-                      name="message"
-                      placeholder={t("Message")}
-                      type="text"
-                      value={inputs.message}
-                      onFocus={() => hanldeError(null, `message`)}
-                      onChange={(e: any) =>
-                        handleOnChange(e.target.value, "message")
-                      }
-                      label={t("Message")}
-                    />
-                  </div>
-                </div>
-                <Button label={t("SendMessage")} loading={loadingForm} />
-                <div className="justify-center items-center">
-                  <div className="mb-2">
-                    <p className="text-sm font-montserrat text-slate-700 dark:text-white text-justify">
-                      {t("Politic_clic")}
-                      <Link
-                        to="/confidentiality"
-                        className="text-principal font-bold"
-                        target="_blank"
-                      >
-                        {t("To_clic_politic")}
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              </form>
+          {/* Right Section */}
+          <div className="bg-white border dark:border-slate-700 p-8 dark:bg-slate-800 rounded-md">
+            <p className="text-[16px] font-semibold font-light mb-2 text-center dark:text-white">
+              {t("Send_message")}
+            </p>
+            <p className="text-[14px] text-gray-600 dark:text-gray-300 mb-4  text-center">
+              Nous répondons aux messages rédigés en français, anglais et
+              swahili.
+            </p>
+            
+            <form className="mt-4 space-y-6" onSubmit={validation}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  name="first_name"
+                  label={t("Name")}
+                  errors={errors.first_name}
+                  value={inputs.first_name}
+                  onFocus={() => hanldeError(null, "first_name")}
+                  onChange={(e: any) =>
+                    handleOnChange(e.target.value, "first_name")
+                  }
+                />
+                <Input
+                  name="last_name"
+                  label={t("Prename")}
+                  errors={errors.last_name}
+                  value={inputs.last_name}
+                  onFocus={() => hanldeError(null, "last_name")}
+                  onChange={(e: any) =>
+                    handleOnChange(e.target.value, "last_name")
+                  }
+                />
+              </div>
+              <Input
+                name="email"
+                label={t("Enter_email")}
+                errors={errors.email}
+                value={inputs.email}
+                onFocus={() => hanldeError(null, "email")}
+                onChange={(e: any) => handleOnChange(e.target.value, "email")}
+              />
+              <Input
+                name="phone"
+                label={t("Phone")}
+                errors={errors.phone}
+                value={inputs.phone}
+                onFocus={() => hanldeError(null, "phone")}
+                onChange={(e: any) => handleOnChange(e.target.value, "phone")}
+              />
+              <TextArea
+                name="message"
+                label={t("Message")}
+                value={inputs.message}
+                onFocus={() => hanldeError(null, "message")}
+                onChange={(e: any) => handleOnChange(e.target.value, "message")}
+              />
+              <Button label={t("SendMessage")} loading={loadingForm} />
+            </form>
+            <div className="mt-10">
+              <h3 className="text-[13px] font-semibold dark:text-white mb-4">
+                Questions fréquentes
+              </h3>
+              <ul className="space-y-4 text-[12px] text-gray-700 dark:text-gray-300">
+                <li>
+                  <strong>Comment devenir membre de Cosamed ?</strong>
+                  <br />
+                  Vous pouvez remplir le formulaire de demande d’adhésion
+                  disponible dans la section{" "}
+                  <p
+                    onClick={() => navigate(`/community/join`)}
+                    className="text-principal underline cursor-pointer"
+                  >
+                    Rejoignez-nous
+                  </p>
+                </li>
+                <li>
+                  <strong>Comment puis-je faire un don ?</strong>
+                  <br />
+                  Consultez notre page{" "}
+                  <p
+                    onClick={() => setShowDonate(true)}
+                    className="text-principal underline cursor-pointer"
+                  >
+                    Faire un don
+                  </p>{" "}
+                  pour les différentes options de soutien.
+                </li>
+                <DonateModal
+                  isOpen={showDonate}
+                  onClose={() => setShowDonate(false)}
+                />
+                <li>
+                  <strong>Est-ce que Cosamed recrute actuellement ?</strong>
+                  <br />
+                  Les offres sont publiées dans la section{" "}
+                  <p
+                    onClick={() => navigate("/data-loading/jobopenings")}
+                    className="text-principal underline cursor-pointer"
+                  >
+                    Carrières
+                  </p>
+                </li>
+              </ul>
             </div>
           </div>
-        </section>
-      </div>
-
-      <br />
+        </div>
+      </section>
     </div>
   );
 };
