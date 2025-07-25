@@ -18,6 +18,9 @@ import { useLanguageContext } from "../context/LanguageContext";
 
 import useBlogLikes from "../hooks/useBlogLikes";
 import useBlogComments from "../hooks/useBlogComments";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 const DetailBlog = () => {
   const { t } = useTranslation();
@@ -70,7 +73,7 @@ const DetailBlog = () => {
 
   const handlePostComment = () => {
     if (!user?.id) {
-      alert(t("Please log in to comment."));
+      navigate("/auth/signin", { replace: true });
       return;
     }
     if (!commentText.trim()) return;
@@ -79,7 +82,37 @@ const DetailBlog = () => {
     setCommentText("");
   };
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
+  const visibleCount = 5;
+  const [visibleComments, setVisibleComments] = useState(visibleCount);
+  const [editingCommentId, setEditingCommentId] = useState(null);
+  const [editedText, setEditedText] = useState("");
 
+  const handleEditComment = (comment: any) => {
+    setEditingCommentId(comment.id);
+    setEditedText(comment.content);
+  };
+
+  const handleDeleteComment = (id: any) => {
+    // Appelle la méthode de suppression
+  };
+
+  const handleCancelEdit = () => {
+    setEditingCommentId(null);
+    setEditedText("");
+  };
+
+  const handleSaveEdit = async (id: any) => {
+    if (!editedText.trim()) return;
+
+    try {
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour :", error);
+    }
+  };
+
+  const handleShowMore = () => {
+    setVisibleComments((prev) => prev + 3); // Affiche 3 de plus à chaque clic
+  };
   return (
     <>
       {loading ? (
@@ -150,11 +183,11 @@ const DetailBlog = () => {
                       <img
                         src={data.author.image}
                         alt={data.author.full_name}
-                        className="w-14 h-14 rounded-full object-cover"
+                        className="w-10 h-10 rounded-full object-cover"
                       />
                     )}
                     <div>
-                      <p className="font-semibold text-gray-800 dark:text-white">
+                      <p className="font-semibold text-gray-800 dark:text-white text-sm">
                         {data.author.full_name}
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -258,17 +291,22 @@ const DetailBlog = () => {
                     </div>
                   )}
                 </div>
-
                 <div className="mt-6">
-                  <h3 className="text-lg font-bold mb-2">{t("Comments")}</h3>
-                  {commentsLoading && <p>{t("Loading comments...")}</p>}
+                  <h3 className="text-lg font-bold mb-2">
+                    {t("Comments")} ({comments.length})
+                  </h3>
+
+                  {commentsLoading && (
+                    <p>{t("Chargement des commentaires...")}</p>
+                  )}
                   {!commentsLoading && comments.length === 0 && (
                     <p className="text-sm text-gray-500">
-                      {t("No comments yet")}
+                      {t("Aucun commentaire pour le moment")}
                     </p>
                   )}
 
-                  <div className="flex items-center gap-2 mt-4 border-t pt-4">
+                  {/* Zone saisie commentaire */}
+                  <div className="flex items-start gap-3 mt-4 border-t pt-4">
                     {user?.image ? (
                       <img
                         src={user.image}
@@ -276,58 +314,132 @@ const DetailBlog = () => {
                         className="w-10 h-10 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
+                      <div className="w-10 h-10 bg-gray-200 rounded-full" />
                     )}
-                    <input
-                      type="text"
-                      placeholder={t("Write a comment...")}
-                      className="flex-1 bg-gray-100 dark:bg-slate-700 px-4 py-2 rounded-full text-sm text-gray-800 dark:text-white focus:outline-none"
-                      value={commentText}
-                      onChange={(e) => setCommentText(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") handlePostComment();
-                      }}
-                      disabled={!user}
-                    />
-                    <button
-                      className="bg-blue-400 hover:bg-blue-500 text-white px-4 py-1.5 rounded-full text-sm font-medium"
-                      onClick={handlePostComment}
-                      disabled={!commentText.trim() || !user}
-                    >
-                      {t("Post")}
-                    </button>
+                    <div className="flex-1">
+                      <textarea
+                        name="comment"
+                        placeholder={t("Écrivez un commentaire...")}
+                        className="w-full bg-gray-100 dark:bg-slate-700 px-4 py-2 rounded-2xl text-sm text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                        value={commentText}
+                        onChange={(e) => setCommentText(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault();
+                            handlePostComment();
+                          }
+                        }}
+                        rows={1}
+                        autoComplete="on"
+                        autoCorrect="on"
+                        spellCheck={true}
+                      />
+                      <div className="mt-2 text-right">
+                        <button
+                          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-medium"
+                          onClick={handlePostComment}
+                          disabled={!commentText.trim() || !user}
+                        >
+                          {t("Publier")}
+                        </button>
+                      </div>
+                    </div>
                   </div>
 
+                  {/* Liste commentaires */}
                   <div className="space-y-4 mt-4">
-                    {comments.map((comment) => (
+                    {comments.slice(0, visibleComments).map((comment) => (
                       <div
                         key={comment.id}
-                        className="bg-gray-100 dark:bg-slate-700 p-4 rounded-md"
+                        className="bg-gray-100 dark:bg-slate-700 p-4 rounded-xl transition-all duration-200 hover:shadow-sm"
                       >
-                        <div className="flex items-start gap-3">
-                          {comment.user?.image && (
-                            <img
-                              src={comment.user.image}
-                              alt={comment.user.full_name}
-                              className="w-10 h-10 rounded-full object-cover"
-                            />
-                          )}
-                          <div>
-                            <p className="font-semibold">
-                              {comment.user?.full_name || "Anonymous"}
-                            </p>
-                            <p className="text-xs text-gray-500">
-                              {new Date(
-                                comment.created_at
-                              ).toLocaleDateString()}
-                            </p>
-                            <p className="mt-1 text-sm text-gray-800 dark:text-gray-200">
-                              {comment.content}
-                            </p>
+                        <div className="flex flex-col sm:flex-row gap-3">
+                          <img
+                            src={comment.user?.image || "/placeholder.jpg"}
+                            alt={comment.user?.full_name || "Anonymous"}
+                            className="w-10 h-10 rounded-full object-cover"
+                          />
+                          <div className="flex-1">
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <p className="font-semibold text-sm">
+                                  {comment.user?.full_name || "Anonymous"}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                  {dayjs(comment.created_at).fromNow()}
+                                  {comment.updated_at !==
+                                    comment.created_at && (
+                                    <span className="ml-2 text-gray-400">
+                                      ({t("modifié")})
+                                    </span>
+                                  )}
+                                </p>
+                              </div>
+
+                              {user?.id === comment.user?.id && (
+                                <div className="flex gap-2 text-xs text-blue-500">
+                                  {editingCommentId === comment.id ? (
+                                    <>
+                                      <button
+                                        onClick={() =>
+                                          handleSaveEdit(comment.id)
+                                        }
+                                      >
+                                        {t("Sauvegarder")}
+                                      </button>
+                                      <button onClick={handleCancelEdit}>
+                                        {t("Annuler")}
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <button
+                                        onClick={() =>
+                                          handleEditComment(comment)
+                                        }
+                                      >
+                                        {t("Éditer")}
+                                      </button>
+                                      <button
+                                        onClick={() =>
+                                          handleDeleteComment(comment.id)
+                                        }
+                                      >
+                                        {t("Supprimer")}
+                                      </button>
+                                    </>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+
+                            {editingCommentId === comment.id ? (
+                              <textarea
+                                value={editedText}
+                                onChange={(e) => setEditedText(e.target.value)}
+                                className="w-full mt-2 px-3 py-1 text-sm rounded-md border border-gray-300 focus:outline-none focus:ring focus:ring-blue-400"
+                                rows={2}
+                              />
+                            ) : (
+                              <p className="mt-1 text-sm text-gray-800 dark:text-gray-200">
+                                {comment.content}
+                              </p>
+                            )}
                           </div>
                         </div>
                       </div>
                     ))}
+
+                    {visibleComments < comments.length && (
+                      <div className="text-center mt-2">
+                        <button
+                          onClick={handleShowMore}
+                          className="text-sm text-blue-500 hover:underline"
+                        >
+                          {t("Voir plus de commentaires")}
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </article>

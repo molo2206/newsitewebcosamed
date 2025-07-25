@@ -48,7 +48,7 @@ const Hero = () => {
 
                   <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black via-transparent"></div>
                   <div className="relative z-10 container h-full flex flex-col justify-end pb-20  text-white">
-                    <div className="mb-2 text-sm uppercase tracking-wider text-principal font-semibold">
+                    <div className="mb-2 text-[10px] uppercase tracking-wider text-principal font-semibold">
                       <a
                         className=" bg-white p-2"
                         href="#"
@@ -75,7 +75,7 @@ const Hero = () => {
                           bg-gradient-to-r from-purple-400 via-pink-500 to-red-500
                           bg-clip-text text-white line-clamp-2"
                       >
-                        <span
+                        <span className=" "
                           dangerouslySetInnerHTML={{
                             __html: showingTranslateValue(
                               items?.translations,

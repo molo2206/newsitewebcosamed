@@ -6,11 +6,13 @@ import Button from "../../components/form/Button";
 import { ApplyForm } from "../../types";
 import InputPassword from "../../components/form/InputPassword";
 import { FcGoogle } from "react-icons/fc"; // import icône Google
+import AuthService from "../../services/AuthService";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const { t } = useTranslation();
   const { registeruser, loading: loadingForm } = RegisterUser();
-
+  const navigate = useNavigate();
   const { inputs, errors, handleOnChange, hanldeError } =
     useValidation<ApplyForm>({
       full_name: "",
@@ -51,9 +53,8 @@ const RegisterPage = () => {
     }
   };
 
-  // Exemple fonction clic Google
-  const handleGoogleRegister = () => {
-    alert("Inscription avec Google à implémenter !");
+  const handleGoogleLogin = () => {
+    AuthService.loginWithGoogle();
   };
 
   return (
@@ -66,9 +67,8 @@ const RegisterPage = () => {
         />
       </div>
 
-      {/* Formulaire d'inscription */}
-      <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem]">
-        <h2 className="lg:text-xl md:text-xl font-light mb-4 text-center">
+      <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem] rounded-md">
+        <h2 className="lg:text-[14px] md:text-[14px]font-light mb-4 text-center font-semibold">
           Créez votre compte gratuitement
         </h2>
         <form className="w-full max-w-sm space-y-4" onSubmit={validation}>
@@ -126,13 +126,13 @@ const RegisterPage = () => {
             <input
               type="checkbox"
               id="marketing"
-              className="mr-2 focus:ring focus:ring-gray-100"
+              className="mr-2 focus:ring focus:ring-gray-100 text-[12px]"
             />
-            <label htmlFor="marketing" className="text-sm text-gray-600">
+            <label htmlFor="marketing" className="text-[12px] text-gray-600">
               Je ne souhaite pas recevoir les communications de COSAMED
             </label>
           </div>
-          <div className="text-sm text-gray-500 mb-4">
+          <div className="text-[12px] text-gray-500 mb-4">
             En cliquant sur{" "}
             <span className="font-semibold">"Créer mon compte"</span>, vous
             acceptez les{" "}
@@ -154,23 +154,25 @@ const RegisterPage = () => {
           <Button label={t("Register")} loading={loadingForm} />
         </form>
 
-        {/* Bouton Continuer avec Google */}
         <div className="mt-6 flex justify-center">
           <button
-            onClick={handleGoogleRegister}
+            onClick={handleGoogleLogin}
             type="button"
             className="flex items-center justify-center gap-2 w-full max-w-sm border border-gray-300 dark:border-gray-600 rounded-md px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
           >
             <FcGoogle className="w-6 h-6" />
-            <span className="text-gray-700 dark:text-gray-200 font-medium">
+            <span className="text-gray-700 dark:text-gray-200 text-[11px]">
               Continuer avec Google
             </span>
           </button>
         </div>
 
-        <div className="text-center mt-4 text-sm">
+        <div className="text-center mt-4 text-[12px]">
           Vous avez déjà un compte ?{" "}
-          <a href="/auth/signin" className="text-principal hover:underline">
+          <a
+            onClick={() => navigate("/auth/signin")}
+            className="text-principal  cursor-pointer"
+          >
             Se connecter
           </a>
         </div>

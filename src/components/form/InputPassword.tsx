@@ -32,7 +32,7 @@ const InputPassword = ({
 
   return (
     <div className="block">
-      <label className="text-sm font-montserrat items-center justify-center sm:text-md font-semibold tracking-tight text-gray-900 dark:text-white">
+      <label className="text-[11px] font-montserrat items-center justify-center font-semibold tracking-tight text-gray-900 dark:text-white">
         {label}
         {required && <span className="text-red-500 ml-2">*</span>}
       </label>

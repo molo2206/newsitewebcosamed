@@ -34,16 +34,16 @@ const BannerMission = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={cardVariants}
-            className="relative bg-white dark:bg-slate-800 border-l-4 border-principal shadow p-6 rounded-lg dark:border-principal/70"
+            className="relative bg-white dark:bg-slate-800 border-l-4 border-principal shadow p-6 rounded-md dark:border-principal/70"
           >
             <div className="flex items-center mb-4">
               <FaRegLightbulb className="text-principal w-4 h-4 mr-2" />
-              <h2 className="text-xl md:text-xl font-bold text-gray-800 dark:text-white">
+              <h2 className=" text-[16px] font-bold text-gray-800 dark:text-white">
                 {t("Mission")}
               </h2>
             </div>
             <p
-              className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed"
+              className="text-[14px]  text-slate-700 dark:text-slate-200 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: mission }}
             />
           </motion.div>
@@ -55,16 +55,16 @@ const BannerMission = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={cardVariants}
-            className="relative bg-white dark:bg-slate-800 border-l-4 border-principal shadow p-6 rounded-lg dark:border-principal"
+            className="relative bg-white dark:bg-slate-800 border-l-4 border-principal shadow p-6 rounded-md dark:border-principal"
           >
             <div className="flex items-center mb-4">
               <FaEye className="text-principal w-4 h-4 mr-2" />
-              <h2 className="text-xl md:text-xl font-bold text-gray-800 dark:text-white">
+              <h2 className="text-[16px]  font-bold text-gray-800 dark:text-white">
                 {t("Vision")}
               </h2>
             </div>
             <p
-              className="text-sm text-slate-700 dark:text-slate-200 leading-relaxed"
+              className="text-[14px] text-slate-700 dark:text-slate-200 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: vision }}
             />
           </motion.div>

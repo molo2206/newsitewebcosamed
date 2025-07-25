@@ -62,8 +62,8 @@ const LoginPage = () => {
         />
       </div>
 
-      <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem]">
-        <h2 className="text-center text-xl font-semibold mb-6">Connexion</h2>
+      <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem] rounded-md">
+        <h2 className="text-center text-[14px] font-semibold mb-6">Connexion</h2>
         <form className="w-full max-w-sm space-y-4" onSubmit={validation}>
           <Input
             name="email"
@@ -84,7 +84,7 @@ const LoginPage = () => {
             value={inputs.password}
             onChange={(e: any) => handleOnChange(e.target.value, "password")}
           />
-          <div className="text-right text-sm text-principal cursor-pointer hover:underline">
+          <div className="text-right text-[12px] text-principal cursor-pointer hover:underline">
             <a href="/auth/forgot-password">Mot de passe oublié ?</a>
           </div>
           <Button label={t("Login")} loading={loadingForm} />
@@ -98,15 +98,15 @@ const LoginPage = () => {
             aria-label="Continuer avec Google"
           >
             <FcGoogle className="w-6 h-6" />
-            <span className="text-gray-700 dark:text-gray-200 font-medium">
+            <span className="text-gray-700 dark:text-gray-200 font-medium text-[11px]">
               Continuer avec Google
             </span>
           </button>
         </div>
 
-        <div className="mt-4 text-sm text-center">
+        <div className="mt-4 text-center">
           <p className="text-sm mb-6">
-            <span className="mt-6 text-gray-500 text-sm">
+            <span className="mt-6 text-gray-500 text-[12px]">
               Vous n’avez pas encore de compte ?{" "}
               <span
                 onClick={Register}

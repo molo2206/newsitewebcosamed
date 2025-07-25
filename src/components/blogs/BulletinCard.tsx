@@ -62,11 +62,11 @@ const BulletinCard = ({ bulletin }: Props) => {
         />
       </div>
 
-      <p className="text-xs text-gray-500 dark:text-gray-400">
+      <p className=" text-[11px] text-gray-500 dark:text-gray-400">
         {translation?.month}-{translation?.year}
       </p>
 
-      <h3 className="font-semibold text-sm text-gray-800 dark:text-gray-200 mt-1 line-clamp-2">
+      <h3 className="font-semibold text-[13px] text-gray-800 dark:text-gray-200 mt-1 line-clamp-2">
         {translation?.title}
       </h3>
 
@@ -76,10 +76,10 @@ const BulletinCard = ({ bulletin }: Props) => {
             e.stopPropagation();
             handleDownload();
           }}
-          className="flex items-center gap-2 text-principal font-medium dark:text-white hover:underline disabled:opacity-60"
+          className="flex items-center gap-2 text-principal text-[13px] dark:text-white hover:underline disabled:opacity-60"
           disabled={progress !== null}
         >
-          <FaDownload className="w-4 h-4" />
+          <FaDownload className="text-[14px]" />
           {progress !== null
             ? `${t("Downloading")}... ${progress}%`
             : t("Download")}
@@ -90,7 +90,7 @@ const BulletinCard = ({ bulletin }: Props) => {
             e.stopPropagation();
             goToDetail();
           }}
-          className="text-principal font-medium dark:text-white hover:underline cursor-pointer"
+          className="text-principal text-[13px] dark:text-white  hover:underline cursor-pointer"
         >
           {t("Read_more")}
         </span>

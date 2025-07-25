@@ -13,44 +13,23 @@ const DonateBanner = () => {
   const goToContact = () => {
     navigate("/contact");
   };
-
-  const fullText = `Si vous souhaitez devenir partenaire de notre organisation et rejoindre notre réseau d'excellence, contactez-nous dès aujourd'hui.`;
-  const isLong = fullText.length > 180;
-  const shortText = fullText.slice(0, 180) + (isLong ? "..." : "");
-
   return (
     <div className="p-6 mt-4 bg-white flex flex-col lg:flex-row w-full mx-auto px-6 dark:bg-slate-900  overflow-hidden">
       {/* Left Section */}
       <div className="w-full bg-gray-800 text-white flex-1 p-6 lg:p-16 flex flex-col justify-center ">
-        <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+        <h1 className="text-2xl lg:text-3xl font-bold mb-6">
           Sauver une vie aujourd&apos;hui
         </h1>
-        <p className="mb-8 text-lg">
+        <p className="mb-8 text-[15px]">
           Remarque&nbsp;: Vous serez dirigé vers la page de soutien. Démarrez le
           processus de donation en cliquant sur ce bouton.
         </p>
-
-        {/* Texte extensible (voir plus / voir moins) */}
-        <p className="mb-6 text-base md:text-lg leading-relaxed">
-          {expanded ? fullText : shortText}
-        </p>
-        {isLong && (
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="mb-6 text-principal font-semibold hover:underline focus:outline-none focus:ring-2 focus:ring-principal"
-            aria-expanded={expanded}
-            aria-label={expanded ? "Voir moins" : "Voir plus"}
-            type="button"
-          >
-            {expanded ? "Voir moins" : "Voir plus"}
-          </button>
-        )}
 
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <>
             <button
               onClick={() => setShowDonate(true)}
-              className="sm:w-full md:w-auto bg-red-500 hover:bg-red-600 transition-colors text-white px-6 py-2 rounded"
+              className="sm:w-full md:w-auto bg-red-500 hover:bg-red-600 text-[12px] transition-colors text-white px-6 py-2 rounded"
             >
               {t("Donate")}
             </button>
@@ -63,7 +42,7 @@ const DonateBanner = () => {
           <button
             type="button"
             onClick={goToContact}
-            className="sm:w-full md:w-auto px-6 py-2 border border-principal text-white rounded hover:bg-principal hover:text-white transition"
+            className="sm:w-full md:w-auto px-6 py-2 text-[12px] border border-principal text-white rounded hover:bg-principal hover:text-white transition"
           >
             Aller à la page contactez-nous
           </button>
