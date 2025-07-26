@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useAuthContext } from "../context";
 import AuthService from "../services/AuthService";
-import { useSearchParams } from "react-router-dom";
 
 export default function UseLogin() {
   const [loading, setLoading] = useState(false);
-  const [searchParams] = useSearchParams();
 
   const {
     saveSession,
@@ -14,12 +12,9 @@ export default function UseLogin() {
     successNotification,
   } = useAuthContext();
 
-  // Redirection vers paramètre next ou page actuelle ou page d'accueil
-  const redirectUrl =
-    searchParams.get("next") || window.location.pathname || "/";
-
   const Login = (body: any) => {
     setLoading(true);
+
     const formdata = new FormData();
     formdata.append("email", body?.email);
     formdata.append("password", body?.password);
@@ -33,7 +28,9 @@ export default function UseLogin() {
           successNotification(response.data.message);
           return Promise.resolve();
         } else {
-          errorNotification(response.data.message || "Erreur lors de la connexion");
+          errorNotification(
+            response.data.message || "Erreur lors de la connexion"
+          );
           return Promise.reject();
         }
       })
@@ -51,6 +48,5 @@ export default function UseLogin() {
   return {
     loading,
     Login,
-    redirectUrl,
   };
 }

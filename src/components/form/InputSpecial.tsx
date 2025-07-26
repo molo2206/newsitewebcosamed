@@ -30,11 +30,11 @@ const InputSpecial = ({
       {type === "select" ? (
         <select
           name={name}
-          style={{ height: 44 }}
+          style={{ height: 40 }}
           value={value}
           onChange={onChange}
           onFocus={onFocus}
-          className="w-full bg-transparent dark:bg-slate-900 rounded-md text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
+          className="w-full text-[12px] bg-transparent dark:bg-slate-900 rounded-md text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
         >
           <option value={""} defaultChecked>
             ...
@@ -56,7 +56,7 @@ const InputSpecial = ({
           placeholder={placeholder}
           onChange={onChange}
           onFocus={onFocus}
-          className="flex-1 px-4 py-2 w-full md:w-[400px] lg:w-[400px] border dark:text-white dark:bg-slate-900 border-slate-400 dark:border-slate-700 rounded-md focus:outline-none min-w-[10px] resize-none focus:ring focus:ring-blue-300"
+          className="flex-1 text-[12px]  px-4 py-2 w-full md:w-[400px] lg:w-[400px] border dark:text-white dark:bg-slate-900 border-slate-400 dark:border-slate-700 rounded-md focus:outline-none min-w-[10px] resize-none focus:ring focus:ring-blue-300"
         />
       )}
       {/* {errors ? (

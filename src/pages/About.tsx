@@ -31,8 +31,8 @@ const About = () => {
       <div className="mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <BreadCumb title={t("AboutUs")} />
 
-        <section className="bg-principal dark:bg-slate-800 text-white shadow-md mb-12 p-10 text-center">
-          <h1 className="text-xl sm:text-2xl font-bold uppercase tracking-widest">
+        <section className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
+          <h1 className="text-[16px] font-bold uppercase tracking-widest">
             {t("AboutUs")}
           </h1>
         </section>

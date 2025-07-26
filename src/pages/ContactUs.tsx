@@ -65,9 +65,9 @@ const ContactUs = () => {
     <div className="p-6 dark:bg-slate-900 w-full dark:text-white ">
       <BreadCumb title={"Blog"} />
       <section className="mb-10 ">
-        <header className="bg-principal dark:bg-slate-800 text-white p-6">
+        <header className="mb-8 bg-principal dark:bg-slate-800 rounded-md p-6 shadow-md  text-center">
           <div className="max-w-6xl mx-auto px-4 text-center">
-            <h1 className="md:text-xl lg:text-2xl font-bold">
+            <h1 className="text-[16px] text-white  font-bold">
               {t("Contact_us")}
             </h1>
           </div>

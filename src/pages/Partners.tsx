@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import BreadCumb from "../components/navbar/BreadCumb";
 import { useNavigate } from "react-router-dom";
 import usePageSEO from "../components/Seo/usePageSEO";
+import { motion } from "framer-motion";
 const Partners = () => {
   const { t } = useTranslation();
   const { data, loading } = useAsync(() => PartenersServices.getPartners());
@@ -28,63 +29,79 @@ const Partners = () => {
         <BreadCumb title={"Partners"} />
 
         <div className="">
-          <header className="bg-principal dark:bg-slate-800 w-full dark:text-white  text-white p-6">
+          <header className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
             <div className="max-w-6xl mx-auto px-4 text-center">
-              <h1 className="text-4xl font-bold">{t("Partnerships")}</h1>
-              <p className="mt-4 text-lg">{t("Data_how_collaborate")}</p>
+              <h1 className="text-[16px] font-bold">{t("Partnerships")}</h1>
+              <p className="mt-4 text-[12px]">{t("Data_how_collaborate")}</p>
             </div>
           </header>
 
           {/* Liste des Partenaires */}
           <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mt-10">
             {loading
-              ? Array.from(Array(20).keys()).map((_, i) => (
+              ? Array.from({ length: 20 }).map((_, i) => (
                   <BlogCardLoand key={i} />
                 ))
-              : data.map((partners: any) => (
-                  <div
-                    key={partners?.id}
-                    className="bg-white  dark:shadow-slate-700 border dark:border-slate-700 dark:bg-slate-800 p-6 text-center hover:shadow-lg transition-shadow duration-300 "
+              : data.map((partner: any, index: number) => (
+                  <motion.article
+                    key={partner?.id || index}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="bg-gray-50 dark:bg-slate-900 border dark:border-slate-700 rounded-md p-6 text-center shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer"
                   >
                     <img
-                      src={partners?.image}
-                      alt={`Logo de ${partners.full_name || "partenaire"}`}
-                      className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full mx-auto mb-4"
+                      src={partner?.image}
+                      alt={`Logo de ${partner?.full_name || "partenaire"}`}
+                      className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-full mx-auto mb-4 transition-transform duration-300 group-hover:scale-105"
                     />
-                    <h2 className="text-lg md:text-xl font-semibold text-gray-800 dark:text-white">
-                      {partners?.full_name}
+
+                    <h2 className="text-[12px] font-semibold text-gray-800 dark:text-white line-clamp-2">
+                      {partner?.full_name}
                     </h2>
-                    {partners?.url && (
+
+                    {partner?.url && (
                       <a
-                        href={partners?.url}
+                        href={partner.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 block text-principal hover:text-hover text-sm md:text-base"
+                        className="mt-3 inline-block text-[12px] text-principal hover:text-hover transition-colors"
                       >
                         Visitez leur site →
                       </a>
                     )}
-                  </div>
+                  </motion.article>
                 ))}
           </section>
 
-          {/* Section Contact */}
-          <section className="md:mt-12 text-center">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4 dark:text-white">
+          <motion.section
+            className="md:mt-12 text-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-[13px] font-semibold text-gray-800 mb-4 dark:text-white">
               Devenir Partenaire
             </h2>
-            <p className="text-gray-600 mb-6 text-sm dark:text-white">
+
+            <p className="text-gray-600 mb-6 text-[12px] dark:text-white">
               Si vous souhaitez devenir partenaire de notre organisation et
               rejoindre notre réseau d'excellence, contactez-nous dès
               aujourd'hui.
             </p>
-            <button
+
+            <motion.button
               onClick={goToAbout}
-              className="mt-4 px-6 py-2 bg-principal text-white dark:bg-slate-800 dark:text-white rounded-md hover:bg-hover"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-4 px-6 py-2 bg-principal text-[12px] text-white dark:bg-slate-800 dark:text-white rounded-md hover:bg-hover transition-colors"
             >
               Aller à la page contactez-nous
-            </button>
-          </section>
+            </motion.button>
+          </motion.section>
         </div>
       </div>
     </div>

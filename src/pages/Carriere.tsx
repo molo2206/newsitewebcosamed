@@ -17,7 +17,7 @@ const Carriere = () => {
   };
 
   return (
-    <div className="p-6 font-sans text-gray-800 dark:text-white min-h-screen flex flex-col gap-12">
+    <div className="p-6 font-sans text-gray-800 dark:text-white min-h-screen flex flex-col gap-4">
       <BreadCumb title={"Carrière"} />
       <header
         className="relative h-72 flex items-center justify-center rounded-md overflow-hidden shadow-lg"
@@ -103,7 +103,6 @@ const Carriere = () => {
           </h3>
         </div>
       </section>
-     
     </div>
   );
 };

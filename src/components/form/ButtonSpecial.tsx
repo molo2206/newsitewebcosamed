@@ -14,7 +14,7 @@ const ButtonSpecial = ({ onClick, label, type, loading }: props) => {
       type={type || "submit"}
       className={`px-3 ${
         loading ? "cursor-not-allowed opacity-50" : ""
-      } px-6 py-2 bg-principal text-white rounded-md hover:bg-hover`}
+      } px-6 py-2 bg-principal text-[13px]  text-white rounded-md hover:bg-hover`}
     >
       {label}
 

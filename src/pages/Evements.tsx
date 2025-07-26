@@ -29,18 +29,15 @@ const Evements = () => {
             {/* Header */}
             <BreadCumb title={"Liste des Événements"} />
             <section className="mb-10  ">
-              <header className="bg-principal dark:bg-slate-800 w-full dark:text-white text-white py-8">
-                <div className="max-w-6xl mx-auto px-4 text-center">
-                  <h1 className="text-lg font-bold">
-                    {" "}
-                    Découvrez tous les événements à venir et réservez votre
-                    place dès maintenant.
-                  </h1>
-                </div>
-              </header>
+              <section className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
+                <h1 className="text-[14px] font-bold uppercase tracking-widest">
+                  Découvrez tous les événements à venir et réservez votre place
+                  dès maintenant.
+                </h1>
+              </section>
               <div className="mt-6 ">
                 {/* Event List */}
-                <div className="bg-white shadow-lg border dark:border-slate-700 dark:bg-slate-800 dark:text-white ">
+                <div className="bg-white  shadow-lg border dark:border-slate-700 dark:bg-slate-800 dark:text-white ">
                   <div className="space-y-">
                     {loading
                       ? Array.from(Array(20).keys()).map(() => (

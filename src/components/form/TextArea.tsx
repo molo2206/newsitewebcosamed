@@ -23,7 +23,7 @@ const TextArea = ({
 }: props) => {
   return (
     <div className="block">
-      <label className="text-sm font-light  items-center justify-center sm:text-md  tracking-tight text-gray-900 dark:text-white">
+      <label className="text-[12px] font-light  items-center justify-center tracking-tight text-gray-900 dark:text-white">
         {label}
         {required && <span className="text-red-500 ml-2">*</span>}
       </label>
@@ -33,7 +33,7 @@ const TextArea = ({
           style={{ height: 50 }}
           value={value}
           onChange={onChange}
-          className="w-full  font-light bg-transparent dark:bg-slate-900 rounded-md text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
+          className="w-full text-[12px] font-light bg-transparent dark:bg-slate-900 rounded-md text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
         >
           <option value={""} defaultChecked>
             ...
@@ -51,7 +51,7 @@ const TextArea = ({
           style={{ height: 100 }}
           value={value}
           autoComplete="off"
-          className="w-full bg-transparent font-light rounded-md text-slate-800 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
+          className="w-full bg-transparent font-light text-[12px] rounded-md text-slate-800 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
           //placeholder={placeholder}
           onChange={onChange}
           onFocus={onFocus}

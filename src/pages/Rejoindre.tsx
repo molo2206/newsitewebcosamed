@@ -35,7 +35,7 @@ const Rejoindre = () => {
       label: "Feminin",
     },
   ];
-  
+
   usePageSEO({
     title: "Nous rejoindre",
     description: "Nous rejoindre",
@@ -119,78 +119,85 @@ const Rejoindre = () => {
       <div className="mt-4 mx-auto flex flex-col md:flex-row bg-white border dark:border-slate-700 shadow-md overflow-hidden">
         {/* Left column: Conditions */}
         <div className="bg-[#f0f2f5] dark:bg-slate-800 p-6 md:w-3/5 border-r dark:border-slate-700">
-          <h2 className="text-2xl font-semibold text-gray-800 text-center mb-6">
+          <h2 className="text-[13px] font-semibold text-gray-800 text-center mb-6">
             {t("Condition")} COSAMED ASBL
           </h2>
           <div className="space-y-6 text-gray-700 text-xl">
             <div className="">
-              <div className=" mb-8 text-2xl">
+              <div className=" mb-8 text-[13px]">
                 <h2 className="text-md font-montserrat font-bold mb-2 dark:text-white">
                   Avantages
                 </h2>
-                <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300 text-sm font-regular leading-5">
-                  Contribuer avec elements dansles publications mensuelles et
-                  annuelles de COSAMED;
-                </li>
-                <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300 text-sm font-regular leading-5">
-                  Participation privilegiée aux formations en personne comme en
-                  ligne oganisées par COSAMED;
-                </li>
-                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                  Etre prioritaires dans les opportunités d'implémentation des
-                  programmes de COSAMED , suivant les critères de sélection qui
-                  varie selon les opportunités;
-                </li>
-                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                  Representer COSAMED dans les evenements local, national,
-                  regional ou international suivant les demandes de
-                  participation adressées COSAMED;
-                </li>
-                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                  Bénéficier des petites subventions accordées par COSAMED pour
-                  les recherches et solutions innovantes aux problèmes de santé;
-                </li>
-                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                  Contribuer avec elements dansles publications mensuelles et
-                  annuelles de COSAMED;
-                </li>
-                <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 text-sm font-regular leading-5">
-                  Privilège de réduction des frais de partition aux événements
-                  annuels de COSAMED y compris la conférence annuelle et le well
-                  being event
-                </li>
+                <ul className="list-disc pl-5 space-y-2 text-[12px]">
+                  <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300  font-regular leading-5">
+                    Contribuer avec elements dansles publications mensuelles et
+                    annuelles de COSAMED;
+                  </li>
+                  <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300 font-regular leading-5">
+                    Participation privilegiée aux formations en personne comme
+                    en ligne oganisées par COSAMED;
+                  </li>
+                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300  font-regular leading-5">
+                    Etre prioritaires dans les opportunités d'implémentation des
+                    programmes de COSAMED , suivant les critères de sélection
+                    qui varie selon les opportunités;
+                  </li>
+                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300  font-regular leading-5">
+                    Representer COSAMED dans les evenements local, national,
+                    regional ou international suivant les demandes de
+                    participation adressées COSAMED;
+                  </li>
+                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 font-regular leading-5">
+                    Bénéficier des petites subventions accordées par COSAMED
+                    pour les recherches et solutions innovantes aux problèmes de
+                    santé;
+                  </li>
+                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 font-regular leading-5">
+                    Contribuer avec elements dansles publications mensuelles et
+                    annuelles de COSAMED;
+                  </li>
+                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 font-regular leading-5">
+                    Privilège de réduction des frais de partition aux événements
+                    annuels de COSAMED y compris la conférence annuelle et le
+                    well being event
+                  </li>
+                </ul>
               </div>
               <div>
-                <h2 className="text-md font-montserrat font-bold mb-2 dark:text-white">
+                <h2 className="text-[13px] font-montserrat font-bold mb-2 dark:text-white">
                   Les obligations
                 </h2>
-                <li className="text-gray-900  dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                  Défendre les intétets de COSAMED asbl;
-                </li>
-                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                  Payer les cotisaions tels que fixé par l'ensemblé générale{" "}
-                  <span className="font-bold">25$</span>
-                </li>
-                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                  Participer activement aux activitées de l'association;
-                </li>
-                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                  Payer sa carte de membre <span className="font-bold">5$</span>
-                </li>
-                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                  Proteger le patrimoine de l'association
-                </li>
-                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                  S'abstenir de toute action qui compromettrait la bonne marche
-                </li>
-                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                  Contribuer activement à la réalisation des objectifs
-                  poursuivis par l'association;
-                </li>
-                <li className="text-gray-900 dark:text-gray-300 text-sm font-montserrat mb-2  font-regular leading-5">
-                  Respecter scrupuleusement les statuts et les règlements
-                  d'ordre interiur;
-                </li>
+                <ul className="list-disc pl-5 space-y-2 text-[12px]">
+                  <li className="text-gray-900  dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
+                    Défendre les intétets de COSAMED asbl;
+                  </li>
+                  <li className="text-gray-900 dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
+                    Payer les cotisaions tels que fixé par l'ensemblé générale{" "}
+                    <span className="font-bold">25$</span>
+                  </li>
+                  <li className="text-gray-900 dark:text-gray-300 font-montserrat mb-2  font-regular leading-5">
+                    Participer activement aux activitées de l'association;
+                  </li>
+                  <li className="text-gray-900 dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
+                    Payer sa carte de membre{" "}
+                    <span className="font-bold">5$</span>
+                  </li>
+                  <li className="text-gray-900 dark:text-gray-300 font-montserrat mb-2  font-regular leading-5">
+                    Proteger le patrimoine de l'association
+                  </li>
+                  <li className="text-gray-900 dark:text-gray-300 font-montserrat mb-2  font-regular leading-5">
+                    S'abstenir de toute action qui compromettrait la bonne
+                    marche
+                  </li>
+                  <li className="text-gray-900 dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
+                    Contribuer activement à la réalisation des objectifs
+                    poursuivis par l'association;
+                  </li>
+                  <li className="text-gray-900 dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
+                    Respecter scrupuleusement les statuts et les règlements
+                    d'ordre interiur;
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -198,7 +205,7 @@ const Rejoindre = () => {
 
         {/* Right column: Form */}
         <div className="p-6 dark:bg-slate-800">
-          <h2 className="text-xl font-semibold text-center text-gray-800 mb-6">
+          <h2 className="text-[13px] font-semibold text-center text-gray-800 mb-6">
             {t("complete_info")}
           </h2>
           <form className="mt-8 space-y-6 mb-8" onSubmit={validation}>
@@ -418,7 +425,7 @@ const Rejoindre = () => {
             <Button loading={loadingForm} label={t("Soumettre")} />
             <div className="justify-center items-center">
               <div className="mb-2">
-                <p className="text-sm font-montserrat text-slate-700 dark:text-slate-600 text-justify">
+                <p className="text-[12px] font-montserrat text-slate-700 dark:text-slate-600 text-justify">
                   En cliquant sur Continuer, vous acceptez notre{" "}
                   <Link
                     to="/confidentiality"

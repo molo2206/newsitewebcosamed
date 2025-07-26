@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import useValidation from "../../hooks/useValidation";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Input from "../../components/form/Input";
 import UseLogin from "../../hooks/LoginUser";
 import Button from "../../components/form/Button";
@@ -11,13 +11,17 @@ import AuthService from "../../services/AuthService";
 
 const LoginPage = () => {
   const { t } = useTranslation();
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const next = searchParams.get("next") || "/";
+
+  console.log("LoginPage: next param =", next);
 
   const Register = () => {
-    navigation("/recruiting/cosamed/job_openings/register");
+    navigate("/recruiting/cosamed/job_openings/register");
   };
 
-  const { Login, loading: loadingForm, redirectUrl } = UseLogin();
+  const { Login, loading: loadingForm } = UseLogin();
 
   const { inputs, errors, handleOnChange, hanldeError } =
     useValidation<ApplyForm>({
@@ -37,13 +41,14 @@ const LoginPage = () => {
       hanldeError(t("Enter_email"), "email");
       valide = false;
     }
+
     if (valide) {
       Login(inputs)
         .then(() => {
-          navigation(redirectUrl);
+          navigate(next, { replace: true });
         })
         .catch(() => {
-          // erreur gérée dans UseLogin
+          // erreur déjà gérée
         });
     }
   };
@@ -63,7 +68,9 @@ const LoginPage = () => {
       </div>
 
       <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem] rounded-md">
-        <h2 className="text-center text-[14px] font-semibold mb-6">Connexion</h2>
+        <h2 className="text-center text-[14px] font-semibold mb-6">
+          Connexion
+        </h2>
         <form className="w-full max-w-sm space-y-4" onSubmit={validation}>
           <Input
             name="email"

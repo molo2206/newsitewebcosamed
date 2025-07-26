@@ -66,19 +66,19 @@ const Offres = () => {
             <BreadCumb title={"Offres"} />
 
             <section className="mb-10 ">
-              <div className="relative rounded-md ">
+              <div className="relative  rounded-md">
                 <img
                   src="https://apicosamed.cosamed.org/uploads/blogs/6adbe8b2ab3a52e619c526eff905468a.png" // Remplacez par l'URL de l'image ou importez-la localement
                   alt="Background"
-                  className="w-full h-[400px] object-cover "
+                  className="w-full h-[400px] object-cover  rounded-md"
                 />
                 <div className="absolute inset-0 bg-principal bg-opacity-60 flex items-center justify-center ">
                   <header className="bg-transparent dark:bg-transparent w-full dark:text-white text-white py-10">
                     <div className="max-w-6xl mx-auto px-4 text-center">
-                      <h1 className="text-4xl font-bold">
+                      <h1 className="text-[20px] font-bold">
                         Offres d'emploi disponibles
                       </h1>
-                      <p className="mt-4 text-lg">
+                      <p className="mt-4 text-[13px]">
                         Trouvez l'opportunité qui correspond à vos compétences
                         et aspirations.
                       </p>
@@ -88,7 +88,7 @@ const Offres = () => {
               </div>
 
               {/* Section Recherche */}
-              <div className="bg-white p-6 shadow-md max-w-4xl mx-auto -mt-12 relative  dark:bg-slate-800">
+              <div className="bg-white p-6 shadow-md max-w-4xl mx-auto -mt-12 relative  dark:bg-slate-800 rounded-md">
                 <div className="flex items-center space-x-4">
                   <form
                     onSubmit={validation}
@@ -112,27 +112,27 @@ const Offres = () => {
                   {!user ? (
                     <button
                       onClick={goToLogin}
-                      className="bg-white text-principal  dark:bg-transparent  dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
+                      className="bg-white text-principal text-[13px]   dark:bg-transparent  dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
                     >
                       Mes candidatures
                     </button>
                   ) : (
                     <button
                       onClick={goToAbout}
-                      className="bg-white text-principal dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
+                      className="bg-white text-principal text-[13px]  dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
                     >
                       Mes candidatures
                     </button>
                   )}
                   <button
                     onClick={goToCarriere}
-                    className="bg-white hidden md:block text-principal dark:bg-transparent border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
+                    className="bg-white hidden md:block text-principal text-[13px]  dark:bg-transparent border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
                   >
                     Page carrières
                   </button>
                   <button
                     onClick={goAlert}
-                    className="bg-white text-principal dark:bg-transparent border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
+                    className="bg-white text-principal dark:bg-transparent text-[13px]  border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
                   >
                     Alertes d'emploi
                   </button>
@@ -140,7 +140,7 @@ const Offres = () => {
                 <div className="py-4">
                   <button
                     onClick={goToCarriere}
-                    className="bg-white block md:hidden text-principal dark:bg-transparent border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
+                    className="bg-white block md:hidden text-[13px]  text-principal dark:bg-transparent border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
                   >
                     Page carrières
                   </button>
@@ -163,31 +163,7 @@ const Offres = () => {
                 paginate={paginate}
                 currentPage={currentPage}
               />
-            <section className="mt-16 text-center bg-blue-50 p-10 rounded-lg">
-              <h2 className="text-2xl font-semibold text-gray-800">
-                Restez informé
-              </h2>
-              <p className="text-gray-600 mt-2">
-                Abonnez-vous pour recevoir les dernières offres d'emploi
-                directement dans votre boîte mail.
-              </p>
-              <form className="mt-6 max-w-md mx-auto flex flex-col md:flex-row gap-4">
-                <InputSpecial
-                  required
-                  name="email"
-                  label="Email"
-                  placeholder={t("Enter_email")}
-                  type="email"
-                  errors={errors.email}
-                  value={inputs.email}
-                  onFocus={() => hanldeError(null, `email`)}
-                  onChange={(e: any) => handleOnChange(e.target.value, "email")}
-                />
-                <ButtonSpecial label={t("SendMessage")} loading={loading} />
-              </form>
-            </section>
-            <br />
-            <br />
+        
           </div>
         </div>
       )}

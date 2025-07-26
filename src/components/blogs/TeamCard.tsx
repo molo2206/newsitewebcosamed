@@ -10,12 +10,12 @@ const TeamCard = ({ team }: props) => {
       >
         <img
           src={team?.image}
-          className="w-32 h-32 object-cover rounded-full mx-auto mb-4"
+          className="w-20 h-20 object-cover rounded-full mx-auto mb-4"
         />
-        <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
+        <h3 className="text-[13px] font-semibold text-gray-800 dark:text-white">
           {team?.full_name}
         </h3>
-        <p className="text-gray-500 dark:text-white">{team?.fonction}</p>
+        <p className="text-gray-500 text-[12px] dark:text-white">{team?.fonction}</p>
       </div>
     </>
   );

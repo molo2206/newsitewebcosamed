@@ -214,9 +214,9 @@ function Navbar() {
                      dark:bg-gray-800 dark:text-white p-2 mt-4 shadow-md"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <div className="grid grid-cols-4 gap-6">
+                      <div className="grid grid-cols-4 gap-4">
                         <div className="col-span-4">
-                          <div className="grid grid-cols-5 mt-4 px-4 gap-5">
+                          <div className="grid grid-cols-4 mt-4 px-4 gap-4">
                             {/* Newsletters */}
                             <div
                               className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
@@ -251,7 +251,7 @@ function Navbar() {
                               </p>
                             </div>
 
-                            <div
+                            {/* <div
                               className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
         transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
         p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
@@ -266,7 +266,7 @@ function Navbar() {
                               <p className="text-[12px] text-gray-600 dark:text-gray-300">
                                 {t("Explore our ongoing humanitarian projects")}
                               </p>
-                            </div>
+                            </div> */}
 
                             {/* Careers */}
                             <div

@@ -1,65 +1,69 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import CategoryServices from "../services/CategoryServices";
 import useAsync from "../hooks/useAsync";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
-import { useParams } from "react-router-dom";
 import BlogThematiqueCard from "../components/blogs/BlogThematiqueCard";
 import { showingTranslateValue } from "../utils/heleprs";
 import { useAuthContext } from "../context";
-import { useState } from "react";
 import Pagination from "../components/Pagination/Pagination";
 
 const Thematiqueblog = () => {
   const { id } = useParams();
   const { lang } = useAuthContext();
 
-  const { data = [], loading } = useAsync(
-    () => CategoryServices.getblogCat(id),
-    id
-  );
-  const { data: cat } = useAsync(() => CategoryServices.getOneCategory(id), id);
+  const { data: blogs = [], loading } = useAsync(() => CategoryServices.getblogCat(id), id);
+  const { data: category } = useAsync(() => CategoryServices.getOneCategory(id), id);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(12);
+  const postsPerPage = 12;
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentBlogs = data.slice(indexOfFirstPost, indexOfLastPost);
+  const currentBlogs = blogs.slice(indexOfFirstPost, indexOfLastPost);
+
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+  const categoryName = showingTranslateValue(category?.translations, lang)?.name ?? "inconnue";
+
   return (
-    <div className="min-h-screen mx-auto p-6 flex flex-col">
+    <div className="min-h-screen p-6 flex flex-col  mx-auto">
       {loading ? (
-        Array.from({ length: 12 }).map((_, i) => <BlogDetailLoad key={i} />)
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {Array.from({ length: 12 }).map((_, i) => (
+            <BlogDetailLoad key={i} />
+          ))}
+        </div>
       ) : (
         <>
-          <BreadCumb title={"Category"} />
+          {/* Fil d’Ariane */}
+          <BreadCumb title={categoryName} />
 
-          <div className="mb-12  bg-principal dark:bg-slate-800 p-6  shadow-md">
-            <h1 className="text-2xl font-bold text-white mb-4">
-              Publications{" "}
-              {showingTranslateValue(cat?.translations, lang)?.name}
+          {/* En-tête */}
+          <section className="mb-8 bg-principal dark:bg-slate-800 rounded-md p-6 shadow-md  text-center">
+            <h1 className="text-[16px] font-bold text-white">
+              Publications {categoryName}
             </h1>
-          </div>
+          </section>
 
-          {data.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          {/* Grille des blogs */}
+          {blogs.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {currentBlogs.map((item: any, index: number) => (
                 <BlogThematiqueCard cat={item} key={index} />
               ))}
             </div>
           ) : (
-            <p className="text-center text-gray-600 dark:text-gray-400">
-              Aucun article à afficher sur la thématique{" "}
-              {showingTranslateValue(cat?.translations, lang)?.name ??
-                "inconnue"}
-              .
-            </p>
+            <div className="text-center text-gray-600 dark:text-gray-400 my-20">
+              Aucun article à afficher pour la thématique <strong>{categoryName}</strong>.
+            </div>
           )}
 
           {/* Pagination */}
           <Pagination
             postsPerPage={postsPerPage}
-            totalPasts={data.length}
+            totalPasts={blogs.length}
             paginate={paginate}
             currentPage={currentPage}
           />

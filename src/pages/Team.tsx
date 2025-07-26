@@ -4,7 +4,7 @@ import BlogCardLoand from "../components/blogs/BlogCardLoad";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import TeamCard from "../components/blogs/TeamCard";
 import BreadCumb from "../components/navbar/BreadCumb";
-
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
   ReactElement,
@@ -12,12 +12,15 @@ import {
   ReactNode,
   ReactPortal,
   Key,
+  useState,
 } from "react";
 import usePageSEO from "../components/Seo/usePageSEO";
+import Pagination from "../components/Pagination/Pagination";
 
 const Team = () => {
-  const { data, loading } = useAsync(() => TeamsServices.getTeam());
+  const { data = [], loading } = useAsync(() => TeamsServices.getTeam());
   const { t } = useTranslation();
+
   usePageSEO({
     title: "Gouvernance",
     description: "Gouvernance",
@@ -28,67 +31,70 @@ const Team = () => {
     ogImage: "https://www.cosamed.org/",
     ogUrl: window.location.href,
   });
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(12);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentMembers = data.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   return (
     <>
       {loading ? (
-        Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
+        Array.from(Array(12).keys()).map((_, i) => <BlogDetailLoad key={i} />)
       ) : (
-        <div className=" dark:bg-slate-900 w-full dark:text-white p-6">
+        <div className="dark:bg-slate-900 w-full dark:text-white p-6">
           <div>
             <BreadCumb title={t("Reports")} />
             <section className="mb-10">
-              <header
-                className="bg-principal dark:bg-slate-800 dark:text-white 
-             text-white py-10"
+              <motion.header
+                className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                <div className="p-6 mx-auto px-4 text-center">
-                  <h1 className="text-4xl font-bold">
-                    Rencontrez notre équipe
-                  </h1>
-                  <p className="mt-4 text-lg">
-                    Nous sommes une équipe de professionnels dévoués qui
-                    travaillent pour réaliser de grandes choses.
-                  </p>
-                </div>
-              </header>
+                <h1 className="text-[16px] font-bold">
+                  {t("Rencontrez notre équipe")}
+                </h1>
+                <p className="mt-4 text-[12px]">
+                  {t(
+                    "Nous sommes une équipe de professionnels dévoués qui travaillent pour réaliser de grandes choses."
+                  )}
+                </p>
+              </motion.header>
 
-              {/* Team Members Section */}
-              <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mt-10">
-                {loading
-                  ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
-                  : data.map(
-                      (
-                        member: {
-                          image: string | undefined;
-                          full_name:
-                            | string
-                            | number
-                            | boolean
-                            | ReactElement<
-                                any,
-                                string | JSXElementConstructor<any>
-                              >
-                            | Iterable<ReactNode>
-                            | null
-                            | undefined;
-                          fonction:
-                            | string
-                            | number
-                            | boolean
-                            | ReactElement<
-                                any,
-                                string | JSXElementConstructor<any>
-                              >
-                            | Iterable<ReactNode>
-                            | ReactPortal
-                            | Iterable<ReactNode>
-                            | null
-                            | undefined;
-                        },
-                        index: Key | null | undefined
-                      ) => <TeamCard team={member} key={index} />
-                    )}
-              </section>
+              <motion.section
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mt-10"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  hidden: { opacity: 0, y: 40 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+                }}
+              >
+                {currentMembers.map((member: number, index: number) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    viewport={{ once: true }}
+                  >
+                    <TeamCard team={member} />
+                  </motion.div>
+                ))}
+              </motion.section>
+
+              {/* Pagination */}
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPasts={data.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
             </section>
           </div>
         </div>

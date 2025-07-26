@@ -90,7 +90,7 @@ const EventCard = ({ event, images = [] }: props) => {
     <div className="w-full">
       <div
         key={event?.id}
-        className="bg-white flex flex-col lg:flex-row items-start gap-4  p-3"
+        className="bg-white dark:bg-slate-800  flex flex-col lg:flex-row items-start gap-4  p-3"
       >
         {/* Image */}
         <div
@@ -131,7 +131,7 @@ const EventCard = ({ event, images = [] }: props) => {
         <div className="flex-1 flex flex-col justify-between w-full">
           <div>
             <h3
-              className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 break-words whitespace-pre-wrap"
+              className="text-[14px] dark:text-white font-semibold text-gray-900 break-words whitespace-pre-wrap"
               dangerouslySetInnerHTML={{
                 __html:
                   showingTranslateValue(event?.translations, lang)?.title || "",
@@ -139,12 +139,12 @@ const EventCard = ({ event, images = [] }: props) => {
             ></h3>
 
             {/* Timer */}
-            <p className="text-sm font-semibold text-red-600 mt-2">
+            <p className="text-[12px] font-semibold text-red-600 mt-2">
               {timeLeft}
             </p>
 
             {/* Infos */}
-            <div className="text-gray-700 mt-3 space-y-1 text-sm sm:text-base break-words">
+            <div className="text-gray-700 mt-3 space-y-1 text-[12px] dark:text-white break-words">
               <p>
                 <span className="font-semibold">Date début: </span>
                 {formatDateTime(parseDateDDMMYYYY(event?.debut))}
@@ -156,7 +156,7 @@ const EventCard = ({ event, images = [] }: props) => {
                   : "—"}
               </p>
               <p>
-                <span className="font-semibold">Heure: </span>
+                <span className="font-semibold ">Heure: </span>
                 {event?.in} - {event?.out}
               </p>
               <p className="break-words">
@@ -166,7 +166,7 @@ const EventCard = ({ event, images = [] }: props) => {
             </div>
 
             <p
-              className="text-gray-800 mt-4 text-sm leading-relaxed break-words whitespace-pre-wrap"
+              className="text-gray-800 mt-4 text-[12px] dark:text-white leading-relaxed break-words whitespace-pre-wrap"
               dangerouslySetInnerHTML={{
                 __html:
                   showingTranslateValue(event?.translations, lang)

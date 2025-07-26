@@ -45,9 +45,9 @@ const Communicates = () => {
           <BreadCumb title={t("Communicated")} />
 
           <section className="mb-10">
-            <header className="bg-principal dark:bg-slate-800 w-full dark:text-white text-white py-10 mb-6">
+            <header className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
               <div className="max-w-6xl mx-auto px-4 text-center">
-                <h1 className="text-4xl font-bold">{t("How_comminicate")}</h1>
+                <h1 className="text-[14px] font-bold">{t("How_comminicate")}</h1>
               </div>
             </header>
 

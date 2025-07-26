@@ -24,7 +24,7 @@ const InputFile = ({
 }: props) => {
   return (
     <div className="block">
-      <label className="lg:text-sm  items-center justify-center md:text-sm font-light tracking-tight text-gray-900 dark:text-white">
+      <label className=" items-center justify-center text-[12px] font-light tracking-tight text-gray-900 dark:text-white">
         {label}
         {required && <span className="text-red-500 ml-2">*</span>}
       </label>
@@ -35,7 +35,7 @@ const InputFile = ({
           value={value}
           onChange={onChange}
           onFocus={onFocus}
-          className="w-full bg-transparent dark:bg-slate-900 rounded-md text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
+          className="w-full text-[12px] bg-transparent dark:bg-slate-900 rounded-md text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
         >
           <option value={""} defaultChecked>
             ...
@@ -49,11 +49,11 @@ const InputFile = ({
       ) : (
         <input
           name={name}
-          style={{ height: 50 }}
+          style={{ height: 40 }}
           value={value}
           autoComplete="off"
           type="file"
-          className="w-full bg-transparent rounded-lg text-slate-800 border py-3 px-4 dark:text-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 
+          className="w-full text-[12px] bg-transparent rounded-md text-slate-800 border py-3 px-4 dark:text-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 
             focus:outline-none focus:ring-2 focus:ring-principal focus:border-principal hover:border-slate-500 dark:hover:border-slate-500 transition-all duration-200 ease-in-out shadow-sm"
           placeholder={placeholder}
           onChange={onChange}

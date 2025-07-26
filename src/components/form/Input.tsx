@@ -31,11 +31,11 @@ const Input = ({
       {type === "select" ? (
         <select
           name={name}
-          style={{ height: 44 }}
+          style={{ height: 40 }}
           value={value}
           onChange={onChange}
           onFocus={onFocus}
-          className="w-full bg-transparent dark:bg-slate-900 rounded-md text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
+          className="w-full bg-transparent text-[11px] dark:bg-slate-900 rounded-md text-slate-900 border py-3 px-4 dark:text-white border-slate-300 dark:border-slate-700 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
         >
           <option value={""} defaultChecked>
             ...
@@ -49,11 +49,11 @@ const Input = ({
       ) : (
         <input
           name={name}
-          style={{ height: 44 }}
+          style={{ height: 40 }}
           value={value}
           autoComplete="off"
           type={type || "text"}
-          className="w-full bg-transparent text-[12px]  border border-slate-200  dark:border-slate-700   rounded-md text-slate-800  py-3 px-4 dark:text-white dark:bg-slate-900 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
+          className="w-full bg-transparent text-[11px]  border border-slate-200  dark:border-slate-700   rounded-md text-slate-800  py-3 px-4 dark:text-white dark:bg-slate-900 focus:outline-none focus:border-principal focus:dark:border-principal focus:ring-0"
           placeholder={placeholder}
           onChange={onChange}
           onFocus={onFocus}

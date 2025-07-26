@@ -35,18 +35,10 @@ const Videos = () => {
     <div className="p-6 dark:bg-slate-900 w-full dark:text-white min-h-screen">
       <BreadCumb title="Vidéos" />
 
-      <section className="bg-principal dark:bg-slate-800 p-6">
-        <div className=" mx-auto">
-          <h2 className="text-xl font-extrabold uppercase text-center mb-10 text-white dark:text-white">
-            Nos vidéos
-          </h2>
-          <p className="text-white dark:text-white text-center text-sm leading-relaxed">
-            Découvrez les dernières vidéos publiées par notre organisation. Ces
-            contenus visent à sensibiliser, informer et former le public sur les
-            enjeux de santé, les campagnes en cours et les réponses aux urgences
-            sanitaires.
-          </p>
-        </div>
+      <section className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
+        <h1 className="text-[16px] font-bold uppercase tracking-widest">
+          Nos vidéos
+        </h1>
       </section>
       <section className="mb-10 mt-6">
         {loading ? (
