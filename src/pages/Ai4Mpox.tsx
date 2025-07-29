@@ -31,10 +31,10 @@ const Ai4Mpox = () => {
             className="w-full h-[300px] object-cover"
           />
           <div className="absolute inset-0 bg-black bg-opacity-60 flex flex-col justify-center items-center text-white text-center px-6">
-            <h1 className="text-4xl md:text-5xl font-extrabold mb-2">
+            <h1 className="text-[16px]  font-extrabold mb-2">
               AI4Mpox
             </h1>
-            <p className="text-lg md:text-xl max-w-3xl">
+            <p className="text-[14px]  max-w-3xl">
               Utiliser l'IA pour renforcer la réponse à Mpox en RDC.
             </p>
           </div>
@@ -43,8 +43,8 @@ const Ai4Mpox = () => {
         {/* Introduction */}
         <section className="mb-12">
           <div className="bg-white dark:bg-gray-800 p-6 border dark:border-slate-700 ">
-            <h2 className="text-xl font-bold text-principal mb-6">AI4Mpox</h2>
-            <p className="text-base leading-relaxed">
+            <h2 className="text-[16px]  font-bold text-principal mb-6">AI4Mpox</h2>
+            <p className="text-[13px] leading-relaxed">
               Le projet <strong>AI4Mpox</strong> vise à renforcer la réponse à
               l’épidémie de Mpox en RDC grâce à l’
               <strong>intelligence artificielle</strong>, la modélisation et des
@@ -56,7 +56,7 @@ const Ai4Mpox = () => {
         {/* Partenaires */}
         <section className="mb-12">
           <div className="bg-white dark:bg-gray-800 p-6 border dark:border-slate-700 ">
-            <h3 className="text-xl font-bold text-principal mb-6">
+            <h3 className="text-[16px] font-bold text-principal mb-6">
               Partenaires
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 items-center">
@@ -66,7 +66,7 @@ const Ai4Mpox = () => {
                     key={index}
                     src={`https://apicosamed.cosamed.org/uploads/parteners/${file}`}
                     alt={`Partenaire ${index + 1}`}
-                    className="h-20 object-contain mx-auto"
+                    className="h-20 object-contain mx-auto rounded-md"
                     loading="lazy"
                   />
                 )
@@ -78,7 +78,7 @@ const Ai4Mpox = () => {
         {/* Actualités */}
         <section className="mb-12">
           <div className="bg-white dark:bg-gray-800 p-6 border dark:border-slate-700 ">
-            <h2 className="ttext-xl font-bold text-principal mb-6">
+            <h2 className="text-[16px] font-bold text-principal mb-6">
               {t("News")} / AI4Mpox
             </h2>
             {data.length > 0 ? (
@@ -107,7 +107,7 @@ const Ai4Mpox = () => {
             href="https://ai4mpox.afiagap.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-principal dark:border-slate-700 dark:bg-slate-800 text-white text-sm font-semibold px-8 py-3 rounded-xl hover:opacity-90 transition"
+            className="inline-block bg-principal dark:border-slate-700 dark:bg-slate-800 text-white text-[12px] font-semibold px-8 py-3 rounded-xl hover:opacity-90 transition"
           >
             En savoir plus sur AI4Mpox
           </a>

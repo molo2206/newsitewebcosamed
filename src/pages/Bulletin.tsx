@@ -78,18 +78,18 @@ const Bulletin = () => {
         <>
           <BreadCumb title={t("Bulletins")} />
 
-          <section className="mb-10">
-            <h1 className="text-3xl font-bold mb-2 text-principal">
+          <section className="mb-10 mt-4">
+            <h1 className="text-[16px] font-bold mb-2 text-principal">
               {t("How_news_letters")}
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-3xl">
+            <p className="text-gray-600 text-[12px] dark:text-gray-400 mb-6 max-w-3xl">
               {t(
                 "If you cannot find a publication on our website, please search COSAMED's publications repository directly."
               )}
             </p>
 
             {/* Zone de filtrage */}
-            <div className="bg-gray-100 p-6 rounded-lg shadow dark:bg-slate-800 mb-12">
+            <div className="bg-gray-100 p-2 rounded-lg shadow dark:bg-slate-800 mb-12">
               <form
                 onSubmit={validation}
                 className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"

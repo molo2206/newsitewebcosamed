@@ -4,7 +4,11 @@ import { useTranslation } from "react-i18next";
 
 import useAsync from "../hooks/useAsync";
 import BlogServices from "../services/BlogsServices";
-import { limittext, showingTranslateValue } from "../utils/heleprs";
+import {
+  downloadFileWithProgress,
+  limittext,
+  showingTranslateValue,
+} from "../utils/heleprs";
 import { useAuthContext } from "../context";
 
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
@@ -20,6 +24,8 @@ import useBlogLikes from "../hooks/useBlogLikes";
 import useBlogComments from "../hooks/useBlogComments";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { motion } from "framer-motion";
+import { ChevronDown, ChevronUp, Users } from "lucide-react";
 dayjs.extend(relativeTime);
 
 const DetailBlog = () => {
@@ -29,10 +35,13 @@ const DetailBlog = () => {
   const { user } = useAuthContext(); // user.id disponible si connecté
   const navigate = useNavigate();
   // Récupérer les données principales du blog
+  const { data: dataHome } = useAsync(() => BlogServices.getBlogHome());
   const { data, error, loading } = useAsync(
     () => BlogServices.oneBlogs(slug),
     slug
   );
+
+  const [expanded, setExpanded] = useState(false);
 
   // blogId dépend de data, il peut être undefined au début
   const blogId = data?.id;
@@ -113,6 +122,25 @@ const DetailBlog = () => {
   const handleShowMore = () => {
     setVisibleComments((prev) => prev + 3); // Affiche 3 de plus à chaque clic
   };
+
+  const [progress, setProgress] = useState<number | null>(null);
+  const [errors, setError] = useState<string | null>(null);
+  const handleDownload = async () => {
+    setError(null);
+    setProgress(0);
+    try {
+      await downloadFileWithProgress(
+        "https://apicosamed.cosamed.org/public/uploads/doc/autres/p_COSAMED.pdf",
+        "COSAMED_Guidelines.pdf",
+        setProgress
+      );
+    } catch (err) {
+      console.error("Erreur de téléchargement :", err);
+      setError(t("An error occurred during download"));
+    } finally {
+      setTimeout(() => setProgress(null), 2000);
+    }
+  };
   return (
     <>
       {loading ? (
@@ -133,9 +161,8 @@ const DetailBlog = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mt-6">
               <article className="lg:col-span-8 space-y-6">
-                {/* Titre, catégorie, image, contenu */}
                 <h1
-                  className="text-3xl font-bold text-gray-900 dark:text-white"
+                  className="text-2xl font-bold text-gray-900 dark:text-white"
                   dangerouslySetInnerHTML={{
                     __html: showingTranslateValue(data?.translations, lang)
                       ?.title,
@@ -143,7 +170,7 @@ const DetailBlog = () => {
                 />
 
                 {data?.category && (
-                  <span className="inline-block bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-white text-xs font-semibold px-3 py-1 rounded">
+                  <span className="inline-block bg-blue-50 dark:bg-blue-900 text-principal dark:text-white text-[11px] font-semibold px-3 py-1 rounded">
                     {
                       showingTranslateValue(data?.category?.translations, lang)
                         ?.name
@@ -169,6 +196,7 @@ const DetailBlog = () => {
                     }}
                   />
                   <div
+                    className=" text-[13px] font-monteserrat text-gray-600 dark:text-gray-400"
                     dangerouslySetInnerHTML={{
                       __html: showingTranslateValue(data?.translations, lang)
                         ?.description,
@@ -187,10 +215,10 @@ const DetailBlog = () => {
                       />
                     )}
                     <div>
-                      <p className="font-semibold text-gray-800 dark:text-white text-sm">
+                      <p className="font-semibold text-gray-800 dark:text-white text-[12px]">
                         {data.author.full_name}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <p className="text-[12px] text-gray-500 dark:text-gray-400">
                         {new Date(data.created_at).toLocaleDateString()}
                       </p>
                       {data.author.bio && (
@@ -233,11 +261,11 @@ const DetailBlog = () => {
                       <FaHeart size={14} />
                     </span>
 
-                    <span className="text-sm font-semibold">
+                    <span className="text-[11px] font-semibold">
                       {likesCount > 0 ? t("Liked") : t("Like")}
                     </span>
 
-                    <span className="text-sm">
+                    <span className="text-[11px]">
                       {likesCount > 0
                         ? `- ${likesCount} ${t("people like this article")}`
                         : `- ${t("Be the first to like this article")}`}
@@ -253,7 +281,7 @@ const DetailBlog = () => {
                           alt={user.full_name}
                           title={user.full_name}
                           onClick={() => setSelectedUser(user)}
-                          className="w-8 h-8 rounded-full object-cover border-2 border-white dark:border-gray-900 shadow-sm cursor-pointer hover:scale-105 transition-transform duration-200"
+                          className="w-6 h-6 rounded-full object-cover border-2 border-white dark:border-gray-900 shadow-sm cursor-pointer hover:scale-105 transition-transform duration-200"
                         />
                       ))}
                     </div>
@@ -292,12 +320,14 @@ const DetailBlog = () => {
                   )}
                 </div>
                 <div className="mt-6">
-                  <h3 className="text-lg font-bold mb-2">
+                  <h3 className="text-[14px] font-bold mb-2">
                     {t("Comments")} ({comments.length})
                   </h3>
 
                   {commentsLoading && (
-                    <p>{t("Chargement des commentaires...")}</p>
+                    <p className="text-[11px]">
+                      {t("Chargement des commentaires...")}
+                    </p>
                   )}
                   {!commentsLoading && comments.length === 0 && (
                     <p className="text-sm text-gray-500">
@@ -311,10 +341,10 @@ const DetailBlog = () => {
                       <img
                         src={user.image}
                         alt={user.full_name}
-                        className="w-10 h-10 rounded-full object-cover"
+                        className="w-8 h-8 rounded-full object-cover"
                       />
                     ) : (
-                      <div className="w-10 h-10 bg-gray-200 rounded-full" />
+                      <div className="w-8 h-8 bg-gray-200 rounded-full" />
                     )}
                     <div className="flex-1">
                       <textarea
@@ -336,7 +366,7 @@ const DetailBlog = () => {
                       />
                       <div className="mt-2 text-right">
                         <button
-                          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-full text-sm font-medium"
+                          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1.5 rounded-full text-[11px] font-medium"
                           onClick={handlePostComment}
                           disabled={!commentText.trim() || !user}
                         >
@@ -357,19 +387,19 @@ const DetailBlog = () => {
                           <img
                             src={comment.user?.image || "/placeholder.jpg"}
                             alt={comment.user?.full_name || "Anonymous"}
-                            className="w-10 h-10 rounded-full object-cover"
+                            className="w-8 h-8 rounded-full object-cover"
                           />
                           <div className="flex-1">
                             <div className="flex justify-between items-start">
                               <div>
-                                <p className="font-semibold text-sm">
+                                <p className="font-semibold text-[11px]">
                                   {comment.user?.full_name || "Anonymous"}
                                 </p>
-                                <p className="text-xs text-gray-500">
+                                <p className="text-[9px] text-gray-500">
                                   {dayjs(comment.created_at).fromNow()}
                                   {comment.updated_at !==
                                     comment.created_at && (
-                                    <span className="ml-2 text-gray-400">
+                                    <span className="ml-2 text-[10px] text-gray-400">
                                       ({t("modifié")})
                                     </span>
                                   )}
@@ -377,7 +407,7 @@ const DetailBlog = () => {
                               </div>
 
                               {user?.id === comment.user?.id && (
-                                <div className="flex gap-2 text-xs text-blue-500">
+                                <div className="flex gap-2 text-[11px] text-blue-500">
                                   {editingCommentId === comment.id ? (
                                     <>
                                       <button
@@ -421,7 +451,7 @@ const DetailBlog = () => {
                                 rows={2}
                               />
                             ) : (
-                              <p className="mt-1 text-sm text-gray-800 dark:text-gray-200">
+                              <p className="mt-1 text-[11px] text-gray-800 dark:text-gray-200">
                                 {comment.content}
                               </p>
                             )}
@@ -434,7 +464,7 @@ const DetailBlog = () => {
                       <div className="text-center mt-2">
                         <button
                           onClick={handleShowMore}
-                          className="text-sm text-blue-500 hover:underline"
+                          className="text-[11px] text-blue-500 hover:underline"
                         >
                           {t("Voir plus de commentaires")}
                         </button>
@@ -445,150 +475,246 @@ const DetailBlog = () => {
               </article>
               <aside className="lg:col-span-4 space-y-6">
                 <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-md p-5">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-slate-600">
+                  <h3 className="text-[14px] font-bold text-gray-800 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-slate-600">
                     Dernières publications
                   </h3>
-                  <ul className="space-y-2 text-sm text-blue-700 dark:text-blue-400">
-                    {[
-                      "La province de Tshopo fait face à une crise de choléra",
-                      "Montée des cas de choléra en ville de Kinshasa...",
-                      "Hommage au Dr Obadi : Une perte inestimable...",
-                      "La prison centrale de Tshikapa touchée par le Mpox",
-                    ].map((title, idx) => (
-                      <li key={idx}>
+                  <ul className="space-y-2 text-[12px] text-principal dark:text-blue-400">
+                    {dataHome.map((blog: any, index: number) => (
+                      <li key={index}>
                         <a
-                          href="#"
-                          className="hover:underline hover:text-blue-900 dark:hover:text-blue-200"
-                        >
-                          {title}
-                        </a>
+                          onClick={() =>
+                            navigate(
+                              `/blog/detail/${
+                                showingTranslateValue(blog?.translations, lang)
+                                  ?.slug
+                              }`
+                            )
+                          }
+                          className="hover:underline  hover:text-hover dark:hover:text-hover cursor-pointer"
+                          dangerouslySetInnerHTML={{
+                            __html:
+                              showingTranslateValue(blog?.translations, lang)
+                                .title || "",
+                          }}
+                        ></a>
                       </li>
                     ))}
                   </ul>
                 </div>
                 <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-md p-5">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-slate-600">
+                  <h3 className="text-[14px] font-bold text-gray-800 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-slate-600">
                     Ressources utiles
                   </h3>
-                  <ul className="space-y-2 text-sm text-blue-700 dark:text-blue-400">
-                    {[
-                      "Casemad guidelines",
-                      "Bulletin sanitaire",
-                      "Nos réalisations et témoignages",
-                    ].map((res, idx) => (
-                      <li key={idx}>
-                        <a
-                          href="#"
-                          className="hover:underline hover:text-blue-900 dark:hover:text-blue-200"
-                        >
-                          {res}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-md p-5">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-slate-600">
-                    Nos projets
-                  </h3>
-                  <div className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                    <p>
-                      Réponse sanitaire d'urgence pour les déplacés, retournés
-                      et autochtones...
-                    </p>
-                    <p>
-                      Réponse aux conséquences sanitaires de la crise
-                      humanitaire complexe...
-                    </p>
-                    <a
-                      href="#"
-                      className="inline-block mt-2 text-blue-700 dark:text-blue-400 font-medium hover:underline"
-                    >
-                      Voir tous les projets →
-                    </a>
-                  </div>
-                </div>
-
-                <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-md p-5">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-slate-600">
-                    Liens utiles
-                  </h3>
-                  <ul className="space-y-2 text-sm text-blue-700 dark:text-blue-400">
+                  <ul className="space-y-2 text-[12px] text-principal dark:text-blue-400">
                     <li>
-                      <a href="#" className="hover:underline">
-                        Organisation mondiale de la santé (OMS)
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDownload();
+                        }}
+                        className="hover:underline hover:text-hover dark:hover:text-blue-200"
+                        disabled={progress !== null}
+                      >
+                        {progress !== null
+                          ? `${t("Downloading")}... ${progress}%`
+                          : t("Download Cosamed Guidelines")}
+                      </button>
+                      {progress !== null && (
+                        <motion.div
+                          className="w-full mt-3 bg-gray-200 dark:bg-gray-700 rounded-full h-2.5"
+                          initial={{ width: 0 }}
+                          animate={{ width: `${progress}%` }}
+                          transition={{ ease: "easeOut", duration: 0.4 }}
+                        >
+                          <div
+                            className="bg-green-500 h-2.5 rounded-full"
+                            style={{ width: `${progress}%` }}
+                          />
+                        </motion.div>
+                      )}
+                      {errors && (
+                        <p className="text-red-500 text-xs mt-3">{errors}</p>
+                      )}
+                    </li>
+                    <li>
+                      <a
+                        onClick={() => navigate("/data-loading/newsletters")}
+                        className="hover:underline hover:text-hover dark:hover:text-blue-200 cursor-pointer"
+                      >
+                        Bulletin sanitaire
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="hover:underline">
+                      <a
+                        onClick={() => navigate("/data-loading/videos")}
+                        className="hover:underline hover:text-hover dark:hover:text-blue-200 cursor-pointer"
+                      >
+                        Nos réalisations et témoignages
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-md rounded-xl p-6">
+                  <h3 className="text-[14px] font-semibold text-gray-800 dark:text-white mb-4 border-b pb-2 border-gray-200 dark:border-slate-600 flex items-center gap-2">
+                    Liens utiles
+                  </h3>
+                  <ul className="space-y-3 text-[12px] text-gray-700 dark:text-gray-300">
+                    <li className="flex items-start gap-2">
+                      <a
+                        className=" text-principal"
+                        href="https://www.who.int/"
+                        target="_blank"
+                      >
+                        The World Health Organization (OMS)
+                      </a>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <a
+                        className=" text-principal"
+                        href="https://sante.gouv.cd/"
+                        target="_blank"
+                      >
                         Ministère de la Santé
                       </a>
                     </li>
+                    <li className="flex items-start gap-2">
+                      <a
+                        className=" text-principal"
+                        href="https://www.yorku.ca/"
+                        target="_blank"
+                      >
+                        YORK UNIVERSITY
+                      </a>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <a
+                        className=" text-principal"
+                        href="https://www.usnews.com/"
+                        target="_blank"
+                      >
+                        Université de Toronto
+                      </a>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <a
+                        className=" text-principal"
+                        href="https://imaworldhealth.org/"
+                        target="_blank"
+                      >
+                        IMA Word Health
+                      </a>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <a
+                        className=" text-principal"
+                        href="https://www.ulb.be/fr/ulb-accueil"
+                        target="_blank"
+                      >
+                        ULB
+                      </a>
+                    </li>
                   </ul>
                 </div>
-
                 <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-md p-5">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-3">
+                  <h3 className="text-[14px] font-bold text-gray-800 dark:text-white mb-3">
                     Sondage
                   </h3>
-                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-3">
+                  <p className="text-[12px] text-gray-700 dark:text-gray-300 mb-3">
                     Trouvez-vous notre contenu utile ?
                   </p>
                   <div className="flex gap-3">
-                    <button className="flex-1 px-3 py-1.5 bg-principal text-white rounded hover:bg-hover text-sm font-medium">
+                    <button className="flex-1 px-2 py-1 bg-principal text-white rounded hover:bg-hover text-[12px] font-medium">
                       Oui
                     </button>
-                    <button className="flex-1 px-3 py-1.5 bg-red-600 text-white rounded hover:bg-red-700 text-sm font-medium">
+                    <button className="flex-1 px-2 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-[12px] font-medium">
                       Non
                     </button>
                   </div>
                 </div>
-
-                <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-md p-5">
-                  <h3 className="text-lg font-bold text-gray-800 dark:text-white mb-3">
+                <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-md rounded-md p-6">
+                  <h3 className="text-[14px] font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <Users className="w-4 h-4 text-principal dark:text-blue-400" />
                     Équipe éditoriale
                   </h3>
-                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+
+                  <p className="text-[12px] text-gray-700 dark:text-gray-300 leading-relaxed">
                     Nous sommes une équipe de professionnels de la santé
-                    publique et de la communication œuvrant à diffuser des
-                    informations fiables pour tous.
+                    publique et de la communication, engagés à fournir des
+                    informations fiables et à jour.
+                    {expanded && (
+                      <>
+                        {" "}
+                        Notre mission est de rendre les données de santé
+                        accessibles et compréhensibles pour tous, afin de
+                        renforcer la réponse aux urgences sanitaires et de
+                        promouvoir le bien-être communautaire. L’équipe comprend
+                        des médecins, épidémiologistes, des journalistes
+                        spécialisés, des développeurs et des designers engagés.
+                      </>
+                    )}
                   </p>
-                  <a
-                    href="#"
-                    className="text-sm text-blue-700 dark:text-blue-400 font-medium hover:underline"
+
+                  <button
+                    onClick={() => setExpanded(!expanded)}
+                    className="mt-3 inline-flex items-center text-[12px] font-medium text-principal dark:text-blue-400 hover:underline focus:outline-none"
                   >
-                    En savoir plus →
-                  </a>
+                    {expanded ? (
+                      <>
+                        Afficher moins <ChevronUp className="ml-1 w-4 h-4" />
+                      </>
+                    ) : (
+                      <>
+                        En savoir plus <ChevronDown className="ml-1 w-4 h-4" />
+                      </>
+                    )}
+                  </button>
                 </div>
               </aside>
-
               <div className="mt-10 border-t pt-6 dark:border-slate-600">
-                <h2 className="text-md font-semibold mb-3">{t("Share_on")}</h2>
-                <div className="flex gap-4">
+                <h2 className="text-[11px] font-semibold mb-4 text-gray-800 dark:text-white relative">
+                  {t("Share_on")}
+                  <span className="block w-6 h-1 bg-blue-500 mt-1 rounded"></span>
+                </h2>
+
+                <div className="flex gap-3">
                   <a
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                      window.location.href
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:opacity-80"
+                    title="Partager sur Facebook"
+                    aria-label="Partager sur Facebook"
+                    className="w-6 h-6 flex items-center justify-center rounded-full bg-blue-100 hover:bg-blue-200 dark:bg-blue-900 dark:hover:bg-blue-800 transition-all"
                   >
-                    <FaFacebook size={24} className="text-blue-600" />
+                    <FaFacebook className="text-blue-600" size={15} />
                   </a>
+
                   <a
-                    href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
+                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                      window.location.href
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:opacity-80"
+                    title="Partager sur Twitter"
+                    aria-label="Partager sur Twitter"
+                    className="w-6 h-6 flex items-center justify-center rounded-full bg-sky-100 hover:bg-sky-200 dark:bg-sky-900 dark:hover:bg-sky-800 transition-all"
                   >
-                    <FaTwitter size={24} className="text-sky-500" />
+                    <FaTwitter className="text-sky-500" size={15} />
                   </a>
+
                   <a
-                    href={`https://www.linkedin.com/shareArticle?mini=true&url=${window.location.href}`}
+                    href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+                      window.location.href
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:opacity-80"
+                    title="Partager sur LinkedIn"
+                    aria-label="Partager sur LinkedIn"
+                    className="w-6 h-6 flex items-center justify-center rounded-full bg-blue-100 hover:bg-blue-200 dark:bg-blue-900 dark:hover:bg-blue-800 transition-all"
                   >
-                    <FaLinkedin size={24} className="text-blue-700" />
+                    <FaLinkedin className="text-blue-700" size={15} />
                   </a>
                 </div>
               </div>

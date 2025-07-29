@@ -189,7 +189,10 @@ const JobApplicationForm = () => {
         }
         inputs.educations?.map((item: Education, index: number) => {
           if (!item.title_edu) {
-            hanldeError(t("Veuillez entrer le titre du diplôme"), `title_edu${index}`);
+            hanldeError(
+              t("Veuillez entrer le titre du diplôme"),
+              `title_edu${index}`
+            );
             isValid = false;
           }
           if (!item.institution) {
@@ -558,9 +561,9 @@ const JobApplicationForm = () => {
     }
   };
   return (
-    <div className="container dark:bg-slate-900 w-full dark:text-white  bg-gray-100">
-      <BreadCumb title={"Blog"} />
-      <header className="bg-principal dark:bg-slate-800 dark:text-white shadow-md p-2 rounded-lg">
+    <div className="p-6 dark:bg-slate-900 w-full dark:text-white  bg-gray-100">
+      <BreadCumb title={`${offre?.title}`} />
+      <header className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
         <div className="max-w-6xl mx-auto">
           {/* Conteneur des étapes */}
           <div className="flex items-center justify-between gap-6">
@@ -584,9 +587,9 @@ const JobApplicationForm = () => {
         </div>
       </header>
 
-      <div className="mt-8 ">
+      <div className="mt-8 max-w-6xl mx-auto">
         <div className="flex justify-center items-center mb-4">
-          <h1 className="text-xl md:text-2xl font-bold text-gray-800 dark:text-white p-6">
+          <h1 className="text-[16px] font-bold text-gray-800 dark:text-white p-6">
             {offre?.title}
           </h1>
         </div>
@@ -683,8 +686,8 @@ const JobApplicationForm = () => {
                 </div>
               </div>
               <div className=" px-2 py-4">
-                <h1 className=" text-xl font-semibold">Langues</h1>
-                <p className="font-light lg:text-sm">
+                <h1 className="text-[13px] font-semibold">Langues</h1>
+                <p className="font-light text-[12px]">
                   Langues Énumérez chacune des langues que vous parlez, lisez ou
                   écrivez ainsi que leurs niveaux de compétence. Veuillez
                   préciser toutes vos qualifications linguistiques, en
@@ -698,7 +701,7 @@ const JobApplicationForm = () => {
                 {inputs?.languages?.map((edu: Languages, index) => (
                   <div key={index} className="border-b pb-4 mb-4">
                     <div className="flex justify-between items-center">
-                      <h2 className="text-sm font-semibold font-semibold text-gray-800">
+                      <h2 className="text-[12px] font-semibold font-semibold text-gray-800">
                         Langues {index + 1}
                       </h2>
                       {inputs?.languages && inputs?.languages?.length > 1 && (
@@ -707,7 +710,7 @@ const JobApplicationForm = () => {
                           onClick={() => removeLanguageExperience(index)}
                           className="text-red-500 hover:text-red-700"
                         >
-                           <FaDeleteLeft size={20}/>    
+                          <FaDeleteLeft size={20} />
                         </button>
                       )}
                     </div>
@@ -807,7 +810,7 @@ const JobApplicationForm = () => {
                   type="button"
                   style={{ fontSize: 11 }}
                   onClick={addLanguageExperience}
-                  className=" bg-principal w-[60px] text-white py-2 rounded-lg hover:bg-hover transition duration-300"
+                  className=" bg-principal w-[60px] text-[13px] text-white py-2 rounded-lg hover:bg-hover transition duration-300"
                 >
                   Ajouter
                 </button>
@@ -818,10 +821,10 @@ const JobApplicationForm = () => {
           {currentStep === 2 && (
             <div>
               <div className="">
-                <h1 className=" text-xl font-semibold">
+                <h1 className="text-[13px] font-semibold">
                   Parcours scolaire en termes de diplôme
                 </h1>
-                <p className="font-light text-sm lg:text-sm">
+                <p className="font-light text-[12px]">
                   Le parcours scolaire est l'ensemble des étapes d'apprentissage
                   et de formation qu'une personne suit tout au long de sa vie
                   académique. Il commence généralement par l'école primaire, où
@@ -840,7 +843,7 @@ const JobApplicationForm = () => {
                   {inputs?.educations?.map((edu: Education, index) => (
                     <div key={index} className="border-b pb-4 mb-4">
                       <div className="flex justify-between items-center">
-                        <h2 className="text-sm font-semibold font-semibold text-gray-800">
+                        <h2 className="text-[13px] font-semibold font-semibold text-gray-800">
                           Parcours : {index + 1}
                         </h2>
                         {inputs?.educations &&
@@ -850,7 +853,7 @@ const JobApplicationForm = () => {
                               onClick={() => removeEducation(index)}
                               className="text-red-500 hover:text-red-700"
                             >
-                               <FaDeleteLeft size={20}/>    
+                              <FaDeleteLeft size={20} />
                             </button>
                           )}
                       </div>
@@ -924,10 +927,10 @@ const JobApplicationForm = () => {
                 </div>
               </div>
               <div className="">
-                <h1 className=" text-xl font-semibold">
+                <h1 className=" text-[13px] font-semibold">
                   Expériences professionnelles
                 </h1>
-                <p className="font-light text-sm lg:text-sm">
+                <p className="font-light text-[12px]">
                   Les expériences professionnelles font référence à l’ensemble
                   des postes, missions ou projets que vous avez occupés ou
                   réalisés dans le cadre de votre vie active.
@@ -938,7 +941,7 @@ const JobApplicationForm = () => {
                   {inputs?.experiences?.map((edu: Experience, index) => (
                     <div key={index} className="border-b pb-4 mb-4">
                       <div className="flex justify-between items-center">
-                        <h2 className="text-sm font-semibold text-gray-800">
+                        <h2 className="text-[12px] font-semibold text-gray-800">
                           Expérience : {index + 1}
                         </h2>
                         {inputs?.experiences &&
@@ -948,7 +951,7 @@ const JobApplicationForm = () => {
                               onClick={() => removeExperience(index)}
                               className="text-red-500 hover:text-red-700"
                             >
-                               <FaDeleteLeft size={20}/>    
+                              <FaDeleteLeft size={20} />
                             </button>
                           )}
                       </div>
@@ -1048,7 +1051,7 @@ const JobApplicationForm = () => {
                     type="button"
                     style={{ fontSize: 11 }}
                     onClick={addExperiences}
-                    className="w-[60px] bg-principal text-white py-2 rounded-lg hover:bg-hover transition duration-300"
+                    className="w-[60px] bg-principal  text-white py-2 rounded-lg hover:bg-hover transition duration-300"
                   >
                     Ajouter
                   </button>
@@ -1059,10 +1062,10 @@ const JobApplicationForm = () => {
           {currentStep === 3 && (
             <div>
               <div className="">
-                <h1 className=" text-xl font-semibold">
+                <h1 className="text-[13px] font-semibold">
                   Competences (Habiletes et capacités)
                 </h1>
-                <p className="font-light text-sm lg:text-sm">
+                <p className="font-light text-[12px]">
                   Les compétences (habiletés et capacités) représentent les
                   aptitudes techniques, relationnelles et personnelles qui
                   permettent à un individu d'accomplir efficacement des tâches
@@ -1074,7 +1077,7 @@ const JobApplicationForm = () => {
                   {inputs?.skills?.map((edu: Skills, index) => (
                     <div key={index} className="border-b pb-4 mb-4">
                       <div className="flex justify-between items-center">
-                        <h2 className="text-sm font-semibold font-semibold text-gray-800">
+                        <h2 className="text-[12px] font-semibold font-semibold text-gray-800">
                           Competence : {index + 1}
                         </h2>
                         {inputs?.skills && inputs?.skills?.length > 1 && (
@@ -1083,7 +1086,7 @@ const JobApplicationForm = () => {
                             onClick={() => removeSkills(index)}
                             className="text-red-500 hover:text-red-700"
                           >
-                             <FaDeleteLeft size={20}/>    
+                            <FaDeleteLeft size={20} />
                           </button>
                         )}
                       </div>
@@ -1122,8 +1125,8 @@ const JobApplicationForm = () => {
                 </div>
               </div>
               <div className="">
-                <h1 className=" text-xl font-semibold">Brevet/certificat</h1>
-                <p className="font-light text-sm lg:text-sm">
+                <h1 className=" text-[13px] font-semibold">Brevet/certificat</h1>
+                <p className="font-light text-[12px]">
                   Parlez-nous de toute Certificat,brevet professionnelle que
                   vous détenez et qui pourrait être pertinente pour votre
                   candidature, y compris toute certification linguistique
@@ -1135,7 +1138,7 @@ const JobApplicationForm = () => {
                   {inputs?.attestations?.map((edu: Attestations, index) => (
                     <div key={index} className="border-b pb-4 mb-4">
                       <div className="flex justify-between items-center">
-                        <h2 className="text-sm font-semibold text-gray-800 py-4">
+                        <h2 className="text-[12px] font-semibold text-gray-800 py-4">
                           Brevet ou certificat : {index + 1}
                         </h2>
                         {inputs?.attestations &&
@@ -1145,7 +1148,7 @@ const JobApplicationForm = () => {
                               onClick={() => removeAttestation(index)}
                               className="text-red-500 hover:text-red-700"
                             >
-                               <FaDeleteLeft size={20}/>    
+                              <FaDeleteLeft size={20} />
                             </button>
                           )}
                       </div>
@@ -1227,11 +1230,11 @@ const JobApplicationForm = () => {
                 </div>
               </div>
               <div className="">
-                <h1 className=" text-xl font-semibold">
+                <h1 className="text-[13px] font-semibold">
                   {" "}
                   CV & Lettre de motivation
                 </h1>
-                <p className="font-light text-sm lg:text-sm">
+                <p className="font-light text-[12px]">
                   Cosamed cherche ainsi à maximiser les chances de trouver un
                   candidat bien aligné.
                 </p>
@@ -1279,11 +1282,11 @@ const JobApplicationForm = () => {
                 </div>
               </div>
               <div className="">
-                <h1 className=" text-xl font-semibold"> Dossier au complet</h1>
-                <p className="font-light text-sm lg:text-sm">
+                <h1 className="text-[13px] font-semibold"> Dossier au complet</h1>
+                <p className="font-light text-[12px]">
                   Afin de nous simplifier l'évaluation et la prise de décision.
                 </p>
-                <p className="py-2 line-coverage">
+                <p className="py-2 text-[13px] line-coverage">
                   Note : Tous les documents demandés doivent être regroupés dans
                   un seul fichier PDF (dossier complet).
                 </p>
@@ -1319,7 +1322,7 @@ const JobApplicationForm = () => {
             <button
               type="button"
               onClick={prevStep}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+              className="px-4 py-2 text-[12px] bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
             >
               Précédent
             </button>
@@ -1328,7 +1331,7 @@ const JobApplicationForm = () => {
             <button
               type="button"
               onClick={nextStep}
-              className="px-4 py-2 bg-principal text-white rounded-md hover:bg-blue-600"
+              className="px-4 py-2 text-[12px] bg-principal text-white rounded-md hover:bg-hover"
             >
               Suivant
             </button>

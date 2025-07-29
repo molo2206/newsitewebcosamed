@@ -6,7 +6,7 @@ const TeamCard = ({ team }: props) => {
     <>
       <div
         key={team?.index}
-        className="bg-white border dark:border-slate-700 dark:bg-slate-800  p-6 text-center hover:shadow-xl transition-shadow duration-300"
+        className="bg-white rounded-md shadow dark:border-slate-700 dark:bg-slate-800  p-6 text-center hover:shadow-xl transition-shadow duration-300"
       >
         <img
           src={team?.image}

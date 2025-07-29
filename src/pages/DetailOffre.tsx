@@ -1,28 +1,27 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useAsync from "../hooks/useAsync";
 import OffresServices from "../services/OffresServices";
-import {
-  FacebookShareButton,
-  WhatsappShareButton,
-  TwitterShareButton,
-  LinkedinShareButton,
-  TelegramShareButton,
-  WhatsappIcon,
-  FacebookIcon,
-  TwitterIcon,
-  LinkedinIcon,
-  TelegramIcon,
-} from "react-share";
+
 import { useTranslation } from "react-i18next";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import moment from "moment";
 import { date_format } from "../utils/heleprs";
+import { FaFacebook, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 const DetailOffre = () => {
   const { t } = useTranslation();
   const { id } = useParams();
   const { data, loading } = useAsync(() => OffresServices.oneOffre(id), id);
-  const urlShare = window.location.href;
+  const cleanHtml = (html: string): string => {
+    return html
+      .replace(/<p>\s*<\/p>/g, "") // supprimer <p> vides
+      .replace(/<div>\s*<\/div>/g, "") // supprimer <div> vides
+      .replace(/<br\s*\/?>/g, "<br />") // uniformiser les <br>
+      .split(/\r?\n/)
+      .filter((line) => line.trim() !== "")
+      .join("\n");
+  };
+
   const navigate = useNavigate();
   const gojobapllication = () => {
     navigate("/recruiting/cosamed/job_openings/jobapplication/" + id); // Remplace "/about" par la route cible
@@ -36,8 +35,8 @@ const DetailOffre = () => {
       {loading ? (
         Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
       ) : (
-        <div className=" bg-gray-100 dark:bg-slate-900 w-full dark:text-white flex items-center justify-center p-6">
-          <div className="bg-white p-6  dark:bg-slate-800 dark:border dark:border-slate-700  dark:text-white shadow-lg w-full">
+        <div className="max-w-6xl mx-auto bg-gray-100 dark:bg-slate-900 w-full dark:text-white flex items-center justify-center p-6">
+          <div className="bg-white p-6  dark:bg-slate-800 dark:border dark:border-slate-700  dark:text-white shadow-lg w-full rounded-md">
             {/* Titre de l'offre */}
             {moment().format("YYYY-MM-DD") > data?.enddate && (
               <div className="">
@@ -57,21 +56,21 @@ const DetailOffre = () => {
             )}
 
             <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-              <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 sm:mb-0">
+              <h1 className="text-[16px] font-bold text-gray-800 dark:text-white mb-4 sm:mb-0">
                 {data?.title}
               </h1>
               <div className="flex space-x-2 sm:space-x-4">
                 <button
                   onClick={gojobapllication}
                   disabled={moment().format("YYYY-MM-DD") > data?.enddate}
-                  className="bg-principal text-white p-4 rounded shadow hover:bg-hover"
+                  className="bg-principal text-[13px] text-white p-4 rounded shadow hover:bg-hover"
                 >
                   {t("Apply")}
                 </button>
                 <button
                   onClick={gojobapllication_user}
                   disabled={moment().format("YYYY-MM-DD") > data?.enddate}
-                  className="bg-principal text-white p-4 rounded shadow hover:bg-hover"
+                  className="bg-principal text-[13px] text-white p-4 rounded shadow hover:bg-hover"
                 >
                   {t("Apply_last")}
                 </button>
@@ -79,7 +78,7 @@ const DetailOffre = () => {
             </div>
 
             {/* Informations générales */}
-            <div className="mb-6 text-sm text-gray-600 dark:text-white ">
+            <div className="mb-6 text-[13px] text-gray-600 dark:text-white ">
               <p>
                 <span className="font-semibold">Job Category:</span> -
               </p>
@@ -103,7 +102,7 @@ const DetailOffre = () => {
             <div className="overflow-x-auto mb-6 ">
               <table className="table-auto border-collapse border border-gray-300  dark:border-slate-700 w-full text-sm text-left">
                 <thead>
-                  <tr className="bg-gray-100  dark:bg-slate-800">
+                  <tr className="bg-gray-100  text-[12px] dark:bg-slate-800">
                     <th className="border border-gray-300 dark:border-slate-700  px-4 py-2">
                       Détail
                     </th>
@@ -112,7 +111,7 @@ const DetailOffre = () => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="">
+                <tbody className="text-[12px]">
                   <tr>
                     <td className="border border-gray-300 dark:border-slate-700 px-4 py-2 font-semibold">
                       Titre du poste
@@ -199,10 +198,10 @@ const DetailOffre = () => {
 
             {/* Sections supplémentaires */}
             <div className="mb-6 ">
-              <h2 className="text-lg font-semibold text-gray-800 mb-2 dark:text-white ">
+              <h2 className="text-[13px] font-semibold text-gray-800 mb-2 dark:text-white ">
                 Les candidatures féminines sont fortement encouragées :
               </h2>
-              <ul className="list-disc ml-6 text-sm text-gray-600 dark:text-white ">
+              <ul className="list-disc ml-6 text-[12px] text-gray-600 dark:text-white ">
                 <li>
                   La grossesse n’est pas un critère d’exclusion dans notre
                   processus de recrutement.
@@ -222,49 +221,74 @@ const DetailOffre = () => {
                 Description :
               </h2>
               <p
-                className="text-sm text-gray-600 leading-relaxed dark:text-white "
-                dangerouslySetInnerHTML={{ __html: data?.description }}
+                className="text-[12px] text-gray-600 leading-relaxed dark:text-white "
+                dangerouslySetInnerHTML={{
+                  __html: cleanHtml(data?.description || ""),
+                }}
               ></p>
             </div>
             <div className="px-1 py-2  rounded-2xl ">
-              <h1 className=" mb-3 text-justify text-1xl font-bold sm:text-left sm:text-2xl dark:text-white ">
-                {t("Share_on")}
-              </h1>
-              <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold text-gray-800 dark:text-white ">
-                  {data?.title}
-                </h1>
-
+              <div className="flex space-x-2 sm:space-x-4">
                 <button
                   onClick={gojobapllication}
                   disabled={moment().format("YYYY-MM-DD") > data?.enddate}
-                  className="bg-principal text-white p-4 py-2 mt-4 rounded shadow hover:bg-hover"
+                  className="bg-principal text-[13px] text-white p-4 rounded shadow hover:bg-hover"
                 >
                   {t("Apply")}
                 </button>
+                <button
+                  onClick={gojobapllication_user}
+                  disabled={moment().format("YYYY-MM-DD") > data?.enddate}
+                  className="bg-principal text-[13px] text-white p-4 rounded shadow hover:bg-hover"
+                >
+                  {t("Apply_last")}
+                </button>
               </div>
-              <div className=" flex flex-col gap-3 ">
-                <div className="flex gap-3 mr-6 items-center">
-                  <FacebookShareButton
-                    url={urlShare}
-                    title={data?.description}
-                    className="duration-200 hover:scale-105"
-                    hashtag="#React"
+              <div className="mt-10 border-t pt-6 dark:border-slate-600">
+                <h2 className="text-[11px] font-semibold mb-4 text-gray-800 dark:text-white relative">
+                  {t("Share_on")}
+                  <span className="block w-6 h-1 bg-blue-500 mt-1 rounded"></span>
+                </h2>
+
+                <div className="flex gap-3">
+                  <a
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+                      window.location.href
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Partager sur Facebook"
+                    aria-label="Partager sur Facebook"
+                    className="w-6 h-6 flex items-center justify-center rounded-full bg-blue-100 hover:bg-blue-200 dark:bg-blue-900 dark:hover:bg-blue-800 transition-all"
                   >
-                    <FacebookIcon size={32} round={true} />
-                  </FacebookShareButton>
-                  <WhatsappShareButton url={urlShare + data?.id}>
-                    <WhatsappIcon size={32} round={true} />
-                  </WhatsappShareButton>
-                  <TwitterShareButton url={urlShare + data?.id}>
-                    <TwitterIcon size={32} round={true} />
-                  </TwitterShareButton>
-                  <LinkedinShareButton url={urlShare + data?.id}>
-                    <LinkedinIcon size={32} round={true} />
-                  </LinkedinShareButton>
-                  <TelegramShareButton url={urlShare + data?.id}>
-                    <TelegramIcon size={32} round={true} />
-                  </TelegramShareButton>
+                    <FaFacebook className="text-blue-600" size={15} />
+                  </a>
+
+                  <a
+                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
+                      window.location.href
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Partager sur Twitter"
+                    aria-label="Partager sur Twitter"
+                    className="w-6 h-6 flex items-center justify-center rounded-full bg-sky-100 hover:bg-sky-200 dark:bg-sky-900 dark:hover:bg-sky-800 transition-all"
+                  >
+                    <FaTwitter className="text-sky-500" size={15} />
+                  </a>
+
+                  <a
+                    href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(
+                      window.location.href
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Partager sur LinkedIn"
+                    aria-label="Partager sur LinkedIn"
+                    className="w-6 h-6 flex items-center justify-center rounded-full bg-blue-100 hover:bg-blue-200 dark:bg-blue-900 dark:hover:bg-blue-800 transition-all"
+                  >
+                    <FaLinkedin className="text-blue-700" size={15} />
+                  </a>
                 </div>
               </div>
             </div>

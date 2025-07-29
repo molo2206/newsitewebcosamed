@@ -15,6 +15,7 @@ interface CardVideoProps {
 const CardVideo = ({ items }: CardVideoProps) => {
   const [showModal, setShowModal] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
 
   const handleCopyLink = () => {
     if (!items?.VideoLink) return;
@@ -36,7 +37,10 @@ const CardVideo = ({ items }: CardVideoProps) => {
         <div
           className="relative w-full h-0 cursor-pointer"
           style={{ paddingBottom: "56.25%" }}
-          onClick={() => setShowModal(true)}
+          onClick={() => {
+            setShowModal(true);
+            setIframeLoaded(false);
+          }}
         >
           <iframe
             src={items?.VideoLink}
@@ -52,7 +56,7 @@ const CardVideo = ({ items }: CardVideoProps) => {
 
         {/* Text + Actions */}
         <div className="p-4 flex items-start justify-between">
-          <h2 className="text-gray-900 dark:text-white font-medium text-[12px]  line-clamp-2 max-w-[90%]">
+          <h2 className="text-gray-900 dark:text-white font-medium text-sm line-clamp-2 max-w-[90%]">
             {items?.snippet?.title}
           </h2>
           <button
@@ -93,12 +97,18 @@ const CardVideo = ({ items }: CardVideoProps) => {
                 onClick={() => setShowModal(false)}
                 aria-label="Fermer la vidéo"
                 className="absolute top-3 right-3 md:top-4 md:right-4 z-10 bg-white/90 dark:bg-slate-700/80 text-slate-800 dark:text-white rounded-full p-2 shadow hover:bg-gray-200 dark:hover:bg-slate-600 transition"
-                title="Fermer"
               >
                 <X size={22} />
               </button>
 
-              {/* Video */}
+              {/* Skeleton loading (while iframe loads) */}
+              {!iframeLoaded && (
+                <div className="absolute inset-0 z-0 flex items-center justify-center bg-gray-200 dark:bg-slate-700 animate-pulse">
+                  <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                </div>
+              )}
+
+              {/* Video Iframe */}
               <div className="relative w-full h-0" style={{ paddingBottom: "56.25%" }}>
                 <iframe
                   src={items?.VideoLink}
@@ -109,7 +119,8 @@ const CardVideo = ({ items }: CardVideoProps) => {
                   allowFullScreen
                   loading="lazy"
                   className="absolute inset-0 w-full h-full rounded-md"
-                ></iframe>
+                  onLoad={() => setIframeLoaded(true)}
+                />
               </div>
             </motion.div>
           </motion.div>

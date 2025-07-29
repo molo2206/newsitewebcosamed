@@ -6,6 +6,7 @@ import BreadCumb from "../components/navbar/BreadCumb";
 import useAsync from "../hooks/useAsync";
 import BlogServices from "../services/BlogsServices";
 import BlogCardLoand from "../components/blogs/BlogCardLoad";
+import VideoCardSkeleton from "../components/blogs/VideoCardSkeleton";
 
 const Videos = () => {
   const { data: lastblog, loading } = useAsync(() => BlogServices.lastBlog());
@@ -41,10 +42,10 @@ const Videos = () => {
         </h1>
       </section>
       <section className="mb-10 mt-6">
-        {loading ? (
+        {loading || allvideos.length === 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {Array.from({ length: 12 }).map((_, i) => (
-              <BlogCardLoand key={i} />
+              <VideoCardSkeleton key={i} />
             ))}
           </div>
         ) : (

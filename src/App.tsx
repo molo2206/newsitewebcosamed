@@ -67,6 +67,11 @@ import Ai4Mpox from "./pages/Ai4Mpox";
 import SearchResultsPage from "./pages/SearchResultsPage";
 import GoogleCallback from "./pages/Auth/GoogleCallback";
 import OAuthSuccess from "./pages/Auth/OAuthSuccess";
+import UrgentActionPage from "./pages/UrgentActionPage";
+import NotreHistoire from "./pages/NotreHistoire";
+import HealthMissionPage from "./pages/HealthMissionPage";
+import TermsOfUse from "./pages/TermsOfUse";
+import AccessibilityPolicy from "./pages/AccessibilityPolicy";
 
 function App() {
   const Home = React.lazy(() => import("./pages/Home"));
@@ -164,8 +169,13 @@ function App() {
                 path="/confidentiality"
                 element={<Confidentialite />}
               ></Route>
+              <Route path="/terms-of-service" element={<TermsOfUse />} />
 
               <Route path="/job_openings" element={<Carriere />}></Route>
+              <Route
+                path="/accessibility"
+                element={<AccessibilityPolicy />}
+              />
 
               <Route
                 path="/toutsavoirsurledon"
@@ -192,6 +202,18 @@ function App() {
               <Route
                 path="/load-data/communicated"
                 element={<Communicates />}
+              ></Route>
+              <Route
+                path="/domaines/urgence"
+                element={<UrgentActionPage />}
+              ></Route>
+              <Route
+                path="/who-we-are/history"
+                element={<NotreHistoire />}
+              ></Route>
+              <Route
+                path="/aide-sanitaire"
+                element={<HealthMissionPage />}
               ></Route>
               <Route
                 path="/communicated/:id"

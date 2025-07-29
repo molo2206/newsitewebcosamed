@@ -14,6 +14,7 @@ import { ApplyForm } from "../types";
 import { showingTranslateValue, Type, Years } from "../utils/heleprs";
 import { useAuthContext } from "../context";
 import useBlogsByYear from "../hooks/useBlogsByYear";
+import BreadCumb from "../components/navbar/BreadCumb";
 
 export default function Blog() {
   const { data: allBlogs = [], loading: loadingAll } = useAsync(() =>
@@ -81,115 +82,118 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen mx-auto p-6 flex flex-col">
-      <h1 className="text-3xl font-bold mb-2 text-principal">
-        {t("Publications")}
-      </h1>
-      <p className="text-gray-600 mb-6 dark:text-gray-400 max-w-3xl">
-        Use filters to find relevant publications across COSAMED topics
-      </p>
-
-      {/* Zone de filtrage */}
-      <div className="bg-gray-100 p-6 dark:bg-slate-800 mb-12 rounded-lg shadow">
-        <form
-          onSubmit={handleSubmit}
-          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"
-        >
-          <Input
-            label={t("Select health topic")}
-            type="select"
-            value={inputs.category}
-            errors={errors.category}
-            options={categories?.map((item: any) => ({
-              label: showingTranslateValue(item?.translations, lang)?.name,
-              value: item.id,
-            }))}
-            onChange={(e: any) => {
-              handleOnChange(e.target.value, "category");
-              setCurrentPage(1);
-            }}
-          />
-
-          <InputBlog
-            label={t("Select a year")}
-            type="select"
-            value={inputs.year}
-            errors={errors.year}
-            onFocus={() => hanldeError(null, "year")}
-            onChange={(e: any) => {
-              handleOnChange(e.target.value, "year");
-              setCurrentPage(1);
-            }}
-            options={Years.map((item) => ({
-              label: item.label,
-              value: item.value,
-            }))}
-          />
-
-          <Input
-            label={t("Select publication type")}
-            type="select"
-            value={inputs.type}
-            errors={errors.type}
-            options={Type.map((item) => ({
-              label: item.label,
-              value: item.value,
-            }))}
-            onChange={(e: any) => {
-              const selectedType = e.target.value;
-              handleOnChange(selectedType, "type");
-              if (selectedType) navigate(`/${selectedType}`);
-            }}
-          />
-
-          <Input
-            label={t("Search")}
-            name="keyword"
-            placeholder={t("Search")}
-            type="text"
-            value={inputs.keyword}
-            errors={errors.keyword}
-            onChange={(e: any) => handleOnChange(e.target.value, "keyword")}
-          />
-        </form>
-      </div>
-
-      {/* Résultat */}
-      {!loadingAll && !loadingYear && currentBlogs.length > 0 && (
-        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">
-          {inputs.year || inputs.category
-            ? `${t("Filtered publications")}${
-                inputs.year ? ` (${inputs.year})` : ""
-              }`
-            : t("All publications")}
-        </h2>
-      )}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {loadingAll || loadingYear
-          ? Array.from({ length: postsPerPage }).map((_, i) => (
-              <BlogCardLoand key={i} />
-            ))
-          : currentBlogs.map((item: any, index: number) => (
-              <BlogCard blog={item} key={item.id ?? index} />
-            ))}
-      </div>
-
-      {!loadingAll && !loadingYear && currentBlogs.length === 0 && (
-        <p className="text-gray-500 text-center mt-8 text-base">
-          {inputs.year || inputs.category
-            ? t("No data found for selected filters")
-            : t("No publications available yet")}
+      <BreadCumb title={t("Bulletins")} />
+      <div className="mb-10 mt-4">
+        <h1 className="text-[16px] font-bold mb-2 text-principal">
+          {t("Publications")}
+        </h1>
+        <p className="text-gray-600 mb-6 text-[13px] dark:text-gray-400 max-w-3xl">
+          Use filters to find relevant publications across COSAMED topics
         </p>
-      )}
 
-      {!loadingAll && !loadingYear && filtered.length > postsPerPage && (
-        <Pagination
-          postsPerPage={postsPerPage}
-          totalPasts={filtered.length}
-          paginate={paginate}
-          currentPage={currentPage}
-        />
-      )}
+        {/* Zone de filtrage */}
+        <div className="bg-gray-100 dark:bg-slate-800 mb-12 rounded-lg shadow">
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-2 gap-4"
+          >
+            <Input
+              label={t("Select health topic")}
+              type="select"
+              value={inputs.category}
+              errors={errors.category}
+              options={categories?.map((item: any) => ({
+                label: showingTranslateValue(item?.translations, lang)?.name,
+                value: item.id,
+              }))}
+              onChange={(e: any) => {
+                handleOnChange(e.target.value, "category");
+                setCurrentPage(1);
+              }}
+            />
+
+            <InputBlog
+              label={t("Select a year")}
+              type="select"
+              value={inputs.year}
+              errors={errors.year}
+              onFocus={() => hanldeError(null, "year")}
+              onChange={(e: any) => {
+                handleOnChange(e.target.value, "year");
+                setCurrentPage(1);
+              }}
+              options={Years.map((item) => ({
+                label: item.label,
+                value: item.value,
+              }))}
+            />
+
+            <Input
+              label={t("Select publication type")}
+              type="select"
+              value={inputs.type}
+              errors={errors.type}
+              options={Type.map((item) => ({
+                label: item.label,
+                value: item.value,
+              }))}
+              onChange={(e: any) => {
+                const selectedType = e.target.value;
+                handleOnChange(selectedType, "type");
+                if (selectedType) navigate(`/${selectedType}`);
+              }}
+            />
+
+            <Input
+              label={t("Search")}
+              name="keyword"
+              placeholder={t("Search")}
+              type="text"
+              value={inputs.keyword}
+              errors={errors.keyword}
+              onChange={(e: any) => handleOnChange(e.target.value, "keyword")}
+            />
+          </form>
+        </div>
+
+        {/* Résultat */}
+        {!loadingAll && !loadingYear && currentBlogs.length > 0 && (
+          <h2 className="text-[13px] font-semibold text-gray-800 dark:text-gray-200 mb-4">
+            {inputs.year || inputs.category
+              ? `${t("Filtered publications")}${
+                  inputs.year ? ` (${inputs.year})` : ""
+                }`
+              : t("All publications")}
+          </h2>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {loadingAll || loadingYear
+            ? Array.from({ length: postsPerPage }).map((_, i) => (
+                <BlogCardLoand key={i} />
+              ))
+            : currentBlogs.map((item: any, index: number) => (
+                <BlogCard blog={item} key={item.id ?? index} />
+              ))}
+        </div>
+
+        {!loadingAll && !loadingYear && currentBlogs.length === 0 && (
+          <p className="text-gray-500 text-center mt-8 text-base">
+            {inputs.year || inputs.category
+              ? t("No data found for selected filters")
+              : t("No publications available yet")}
+          </p>
+        )}
+
+        {!loadingAll && !loadingYear && filtered.length > postsPerPage && (
+          <Pagination
+            postsPerPage={postsPerPage}
+            totalPasts={filtered.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
+        )}
+      </div>
     </div>
   );
 }

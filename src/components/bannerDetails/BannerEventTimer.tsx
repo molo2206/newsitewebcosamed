@@ -3,18 +3,22 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface EventTimerProps {
-  startDate: string;        // format "DD/MM/YYYY"
-  endDate?: string;         // format "DD/MM/YYYY"
+  startDate: string; // format "DD/MM/YYYY"
+  endDate?: string; // format "DD/MM/YYYY"
   title?: string;
-  inTime?: string;          // format "HH:mm"
-  outTime?: string;         // format "HH:mm"
+  inTime?: string; // format "HH:mm"
+  outTime?: string; // format "HH:mm"
   onEnd?: () => void;
 }
 
-const parseDateTime = (dateString?: string, timeString?: string): Date | null => {
+const parseDateTime = (
+  dateString?: string,
+  timeString?: string
+): Date | null => {
   if (!dateString) return null;
   const [day, month, year] = dateString.split("/").map(Number);
-  let hours = 0, minutes = 0;
+  let hours = 0,
+    minutes = 0;
   if (timeString) {
     const parts = timeString.split(":");
     hours = parseInt(parts[0], 10) || 0;
@@ -44,8 +48,16 @@ const isSameDay = (d1: Date, d2: Date) => {
   );
 };
 
-const EventTimer = ({ startDate, endDate, title, inTime, outTime, onEnd }: EventTimerProps) => {
-  const [timeLeft, setTimeLeft] = useState("Chargement...");
+const EventTimer = ({
+  startDate,
+  endDate,
+  title,
+  inTime,
+  outTime,
+  onEnd,
+}: EventTimerProps) => {
+  const [timeLeft, setTimeLeft] = useState("");
+  const [loading, setLoading] = useState(true);
   const [maxLength, setMaxLength] = useState(80);
   const hasCalledOnEnd = useRef(false);
   const navigate = useNavigate();
@@ -64,6 +76,8 @@ const EventTimer = ({ startDate, endDate, title, inTime, outTime, onEnd }: Event
     const end = parseDateTime(endDate, outTime);
     if (!start) return;
 
+    const timeout = setTimeout(() => setLoading(false), 500); // simulate loading delay
+
     const interval = setInterval(() => {
       const now = new Date();
       const truncatedTitle = truncateText(title ?? "", maxLength);
@@ -78,10 +92,18 @@ const EventTimer = ({ startDate, endDate, title, inTime, outTime, onEnd }: Event
         setTimeLeft(`${truncatedTitle} aujourd’hui. ${inOutDisplay}`);
       } else if (now < start) {
         const diff = start.getTime() - now.getTime();
-        setTimeLeft(`${truncatedTitle} commence dans ${formatDuration(diff)}. ${inOutDisplay}`);
+        setTimeLeft(
+          `${truncatedTitle} commence dans ${formatDuration(
+            diff
+          )}. ${inOutDisplay}`
+        );
       } else if (end && now >= start && now <= end) {
         const diff = end.getTime() - now.getTime();
-        setTimeLeft(`${truncatedTitle} se termine dans ${formatDuration(diff)}. ${inOutDisplay}`);
+        setTimeLeft(
+          `${truncatedTitle} se termine dans ${formatDuration(
+            diff
+          )}. ${inOutDisplay}`
+        );
       } else {
         setTimeLeft(`${truncatedTitle} terminé.`);
         clearInterval(interval);
@@ -92,7 +114,10 @@ const EventTimer = ({ startDate, endDate, title, inTime, outTime, onEnd }: Event
       }
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
   }, [startDate, endDate, title, inTime, outTime, maxLength, onEnd]);
 
   return (
@@ -100,10 +125,17 @@ const EventTimer = ({ startDate, endDate, title, inTime, outTime, onEnd }: Event
       onClick={() => navigate("/evements")}
       className="cursor-pointer max-w-full p-4 rounded-md"
     >
-      <div className="flex items-start gap-2 text-xs md:text-sm font-semibold text-center md:text-left break-words leading-snug">
-        <CalendarDaysIcon className="h-4 w-4 mt-0.5 shrink-0 text-current" />
-        <span className="whitespace-normal break-words">{timeLeft}</span>
-      </div>
+      {loading ? (
+        <div className="animate-pulse flex items-center gap-2">
+          <div className="h-4 w-4 rounded-full bg-slate-300 dark:bg-slate-700"></div>
+          <div className="h-4 w-3/4 bg-slate-300 dark:bg-slate-700 rounded"></div>
+        </div>
+      ) : (
+        <div className="flex items-start gap-2 text-xs md:text-sm font-semibold text-center md:text-left break-words leading-snug">
+          <CalendarDaysIcon className="h-4 w-4 mt-0.5 shrink-0 text-current" />
+          <span className="whitespace-normal break-words">{timeLeft}</span>
+        </div>
+      )}
     </div>
   );
 };

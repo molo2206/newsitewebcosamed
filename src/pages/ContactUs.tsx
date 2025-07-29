@@ -73,10 +73,10 @@ const ContactUs = () => {
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-6xl mx-auto ">
           {/* Left Section */}
           <div className="bg-white border dark:border-slate-700 p-8 dark:bg-slate-800 rounded-md">
-            <h1 className="text-[16px] font-bold text-gray-800 mb-6 dark:text-white">
+            <h1 className="text-[14px] font-bold text-gray-800 mb-6 dark:text-white">
               Pourquoi nous contacter ?
             </h1>
             <p className="font-light lg:text-sm mb-6 dark:text-white">
@@ -134,7 +134,7 @@ const ContactUs = () => {
               <p className="text-gray-600 text-[12px] dark:text-gray-300">
                 Samedi : Fermé
               </p>
-              <p className="text-gray-600 ttext-[12px] dark:text-gray-300">
+              <p className="text-gray-600 text-[12px] dark:text-gray-300">
                 Dimanche : Fermé
               </p>
               <p className="text-[12px] text-gray-400 mt-1">
@@ -227,10 +227,10 @@ const ContactUs = () => {
 
           {/* Right Section */}
           <div className="bg-white border dark:border-slate-700 p-8 dark:bg-slate-800 rounded-md">
-            <p className="text-[16px] font-semibold font-light mb-2 text-center dark:text-white">
+            <p className="text-[14px] font-semibold font-light mb-2 text-center dark:text-white">
               {t("Send_message")}
             </p>
-            <p className="text-[14px] text-gray-600 dark:text-gray-300 mb-4  text-center">
+            <p className="text-[13px] text-gray-600 dark:text-gray-300 mb-4  text-center">
               Nous répondons aux messages rédigés en français, anglais et
               swahili.
             </p>

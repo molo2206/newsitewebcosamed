@@ -53,13 +53,13 @@ const BlogCard = ({ blog }: Props) => {
       </div>
 
       {/* Date */}
-      <p className=" text-[11px] text-gray-500 dark:text-gray-400">{formattedDate}</p>
+      <p className=" text-[11px] text-gray-500 dark:text-gray-400 font-monteserrat ">{formattedDate}</p>
 
       {/* Catégorie */}
       {category && (
         <div className="mt-2">
           <span
-            className="text-[8px] font-semibold uppercase text-principal bg-principal/10 px-2 py-1 rounded-md tracking-wide"
+            className="text-[8px] font-semibold uppercase font-monteserrat  text-principal bg-principal/10 px-2 py-1 rounded-md tracking-wide"
             dangerouslySetInnerHTML={{ __html: category.name }}
           />
         </div>
@@ -67,7 +67,7 @@ const BlogCard = ({ blog }: Props) => {
 
       {/* Titre */}
       <h3
-        className="font-semibold  text-[13px] text-gray-800 dark:text-gray-200 mt-2 line-clamp-2"
+        className="font-semibold  text-[13px] font-monteserrat  text-gray-800 dark:text-gray-200 mt-2 line-clamp-2"
         dangerouslySetInnerHTML={{
           __html: translation?.title || "",
         }}
@@ -84,7 +84,7 @@ const BlogCard = ({ blog }: Props) => {
       )}
 
       {/* Lire plus */}
-      <div className="mt-3  text-[13px] text-principal font-medium hover:underline">
+      <div className="mt-3 font-monteserrat  text-[13px] text-principal font-medium hover:underline">
         {t("Read_more")}
       </div>
     </motion.article>

@@ -116,9 +116,14 @@ const Rejoindre = () => {
   return (
     <div className="p-6 dark:bg-slate-900 bg-white  py-12 px-4 sm:px-6 lg:px-8 ">
       <BreadCumb title={t("Rejoindre")} />
-      <div className="mt-4 mx-auto flex flex-col md:flex-row bg-white border dark:border-slate-700 shadow-md overflow-hidden">
+      <section className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
+        <h1 className="text-[16px] font-bold uppercase tracking-widest">
+           {t("complete_info")}
+        </h1>
+      </section>
+      <div className="mt-4 max-w-6xl mx-auto flex flex-col md:flex-row bg-white border dark:border-slate-700 shadow-md overflow-hidden">
         {/* Left column: Conditions */}
-        <div className="bg-[#f0f2f5] dark:bg-slate-800 p-6 md:w-3/5 border-r dark:border-slate-700">
+        <div className="bg-[#f0f2f5]  dark:bg-slate-800 p-6 md:w-3/5 border-r dark:border-slate-700">
           <h2 className="text-[13px] font-semibold text-gray-800 text-center mb-6">
             {t("Condition")} COSAMED ASBL
           </h2>
@@ -205,10 +210,7 @@ const Rejoindre = () => {
 
         {/* Right column: Form */}
         <div className="p-6 dark:bg-slate-800">
-          <h2 className="text-[13px] font-semibold text-center text-gray-800 mb-6">
-            {t("complete_info")}
-          </h2>
-          <form className="mt-8 space-y-6 mb-8" onSubmit={validation}>
+          <form className=" space-y-6 mb-8" onSubmit={validation}>
             <div className="space-y-px rounded-md items-center">
               <div className="grid grid-cols-1 gap-4">
                 <Input
