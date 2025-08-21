@@ -5,7 +5,6 @@ import Pagination from "../components/Pagination/Pagination";
 import BreadCumb from "../components/navbar/BreadCumb";
 import useAsync from "../hooks/useAsync";
 import BlogServices from "../services/BlogsServices";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
 import VideoCardSkeleton from "../components/blogs/VideoCardSkeleton";
 
 const Videos = () => {

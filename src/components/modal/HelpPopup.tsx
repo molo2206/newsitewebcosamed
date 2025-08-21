@@ -11,10 +11,9 @@ export default function HelpPopup({ onHelpClick }: HelpPopupProps) {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Affiche après 1 minute
     timeoutRef.current = setTimeout(() => {
       setIsVisible(true);
-    }, 60000);
+    }, 600000);
 
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);

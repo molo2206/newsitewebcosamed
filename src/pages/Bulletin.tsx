@@ -76,7 +76,7 @@ const Bulletin = () => {
         </div>
       ) : (
         <>
-          <BreadCumb title={t("Bulletins")} />
+          <BreadCumb title={t("Newsroom")} />
 
           <section className="mb-10 mt-4">
             <h1 className="text-[16px] font-bold mb-2 text-principal">

@@ -1,17 +1,11 @@
 import TeamsServices from "../services/TeamsServices";
 import useAsync from "../hooks/useAsync";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import TeamCard from "../components/blogs/TeamCard";
 import BreadCumb from "../components/navbar/BreadCumb";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-  Key,
   useState,
 } from "react";
 import usePageSEO from "../components/Seo/usePageSEO";

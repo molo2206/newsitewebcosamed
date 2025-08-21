@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import { useEffect, useRef } from "react";
 import AuthService from "../../services/AuthService";
 
 interface LoginPopupProps {
@@ -11,7 +10,6 @@ interface LoginPopupProps {
 export default function LoginPopup({
   isOpen,
   onClose,
-  onContinue,
 }: LoginPopupProps) {
   const popupRef = useRef<HTMLDivElement>(null);
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Input from "../components/form/Input";
 import Button from "../components/form/Button";
 import useValidation from "../hooks/useValidation";
@@ -63,7 +63,7 @@ const ContactUs = () => {
   const [showDonate, setShowDonate] = useState(false);
   return (
     <div className="p-6 dark:bg-slate-900 w-full dark:text-white ">
-      <BreadCumb title={"Blog"} />
+      <BreadCumb title={t("Contact_us")} />
       <section className="mb-10 ">
         <header className="mb-8 bg-principal dark:bg-slate-800 rounded-md p-6 shadow-md  text-center">
           <div className="max-w-6xl mx-auto px-4 text-center">
@@ -74,7 +74,6 @@ const ContactUs = () => {
         </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 max-w-6xl mx-auto ">
-          {/* Left Section */}
           <div className="bg-white border dark:border-slate-700 p-8 dark:bg-slate-800 rounded-md">
             <h1 className="text-[14px] font-bold text-gray-800 mb-6 dark:text-white">
               Pourquoi nous contacter ?
@@ -92,8 +91,8 @@ const ContactUs = () => {
 
             <ul className="space-y-4">
               <li className="flex items-center ">
-                <span className="w-8 h-8 flex items-center justify-center bg-blue-100 dark:bg-white text-principal rounded-full mr-4">
-                  <FaEnvelope />
+                <span className="w-6 h-6 flex items-center justify-center bg-blue-100 dark:bg-white text-principal rounded-full mr-4">
+                  <FaEnvelope size={12} />
                 </span>
                 <a
                   href={`mailto:${dataadress?.emails}`}
@@ -103,8 +102,8 @@ const ContactUs = () => {
                 </a>
               </li>
               <li className="flex items-center">
-                <span className="w-8 h-8 flex items-center justify-center bg-blue-100 dark:bg-white text-principal rounded-full mr-4">
-                  <FaPhone />
+                <span className="w-6 h-6 flex items-center justify-center bg-blue-100 dark:bg-white text-principal rounded-full mr-4">
+                  <FaPhone size={12} />
                 </span>
                 <a
                   href={`tel:${dataadress?.phones}`}
@@ -114,8 +113,8 @@ const ContactUs = () => {
                 </a>
               </li>
               <li className="flex items-center">
-                <span className="w-8 h-8 flex items-center justify-center bg-blue-100 text-principal rounded-full mr-4">
-                  <FaMapMarkerAlt />
+                <span className="w-6 h-6 flex items-center justify-center bg-blue-100 text-principal rounded-full mr-4">
+                  <FaMapMarkerAlt size={12} />
                 </span>
                 <span className="text-gray-700 text-[12px] font-normal dark:text-white">
                   {dataadress?.adresse}/{dataadress?.city}/
@@ -234,7 +233,7 @@ const ContactUs = () => {
               Nous répondons aux messages rédigés en français, anglais et
               swahili.
             </p>
-            
+
             <form className="mt-4 space-y-6" onSubmit={validation}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input

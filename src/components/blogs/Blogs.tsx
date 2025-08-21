@@ -12,7 +12,7 @@ export default function Blogs() {
   return (
     <div className="p-6 bg-white dark:bg-slate-800">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">{t("News")}</h2>
+        <h2 className="text-[14px] font-bold">{t("News")}</h2>
         <div
           onClick={() => navigate("/data-loading/blogs")}
           className="text-sm text-principal font-medium cursor-pointer"

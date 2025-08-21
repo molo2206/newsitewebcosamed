@@ -12,7 +12,6 @@ import useValidation from "../hooks/useValidation";
 import { ApplyForm } from "../types";
 import InputSpecial from "../components/form/InputSpecial";
 import ButtonSpecial from "../components/form/ButtonSpecial";
-import { t } from "i18next";
 const Offres = () => {
   const { user } = useAuthContext();
 

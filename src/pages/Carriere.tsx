@@ -5,12 +5,10 @@ import {
   FaLightbulb,
   FaExclamationTriangle,
 } from "react-icons/fa";
-import { useState } from "react";
 import BreadCumb from "../components/navbar/BreadCumb";
 
 const Carriere = () => {
   const navigate = useNavigate();
-  const [showWarning, setShowWarning] = useState(true);
 
   const goToJobOpportunities = () => {
     navigate("/data-loading/jobopenings");

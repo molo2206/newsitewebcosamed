@@ -21,7 +21,7 @@ const Footer = () => {
     <footer className="text-white bg-principal py-8 font-montserrat dark:border-slate-700 bg-principal dark:bg-slate-800 text-white border-primary/50">
       <div className="container mx-auto grid md:grid-cols-6 gap-8 px-4">
         <div>
-          <h3 className="font-bold mb-4">QUI SOMMES-NOUS</h3>
+          <h3 className="font-bold mb-4 text-[13px]">QUI SOMMES-NOUS</h3>
           <ul className="space-y-4 text-[12px]">
             <li>
               <a
@@ -67,7 +67,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3 className="font-bold mb-4">NOS ACTIONS</h3>
+          <h3 className="font-bold mb-4 text-[13px]">NOS ACTIONS</h3>
           <ul className="space-y-4 text-[12px]">
             <li>
               <a
@@ -89,7 +89,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3 className="font-bold mb-4">MÉDIAS & PUBLICATIONS</h3>
+          <h3 className="font-bold mb-4 text-[13px]">MÉDIAS & PUBLICATIONS</h3>
           <ul className="space-y-2 text-[12px]">
             <li>
               <a
@@ -111,7 +111,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3 className="font-bold mb-4">IMPLIQUEZ-VOUS</h3>
+          <h3 className="font-bold mb-4 text-[13px]">IMPLIQUEZ-VOUS</h3>
           <ul className="space-y-2 text-[12px]">
             <li>
               <a
@@ -148,7 +148,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3 className="font-bold mb-4">POLITIQUES</h3>
+          <h3 className="font-bold mb-4 text-[13px]">POLITIQUES</h3>
           <ul className="space-y-2 text-[12px]">
             <li>
               <a
@@ -178,7 +178,7 @@ const Footer = () => {
         </div>
 
         <div>
-          <h3 className="font-bold mb-4">CONTACT & URGENCE</h3>
+          <h3 className="font-bold mb-4 text-[13px]">CONTACT & URGENCE</h3>
           <p className="text-[12px] mb-2">Besoin d’aide ? Contactez-nous à :</p>
           <a
             href="mailto:info@cosamed.org"

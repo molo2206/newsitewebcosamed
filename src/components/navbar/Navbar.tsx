@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { FaBars, FaUserCircle } from "react-icons/fa";
+import {
+  FaBars,
+  FaEnvelope,
+  FaGavel,
+  FaHandshake,
+  FaInfoCircle,
+  FaUserCircle,
+  FaUsers,
+} from "react-icons/fa";
 import ResponsiveMenu from "./ResponsiveMenu";
 import useSticky from "../../hooks/useSticky";
 import SettingsServices from "../../services/SettingsServices";
@@ -12,7 +20,6 @@ import CategoryCard from "../blogs/CategoryCard";
 import { useNavigate } from "react-router-dom";
 import { FaXmark } from "react-icons/fa6";
 import { useLanguageContext } from "../../context/LanguageContext";
-import { Globe } from "lucide-react";
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
 import LoginPopup from "../modal/LoginPopup";
 import HelpPopup from "../modal/HelpPopup";
@@ -27,7 +34,6 @@ import {
 import {
   FaEnvelopeOpenText,
   FaBriefcase,
-  FaProjectDiagram,
   FaUserTie,
   FaFileAlt,
 } from "react-icons/fa";
@@ -68,7 +74,6 @@ function Navbar() {
   const home = () => navigate("/");
   const navigateNewsletter = () => navigate(`/data-loading/newsletters`);
   const navigateJobopen = () => navigate(`/data-loading/jobopenings`);
-  const navigateProject = () => navigate(`/projects`);
   const navigateJobOpening = () => navigate(`/job_openings`);
   const navigateReport = () => navigate(`/data-loading/reports`);
   const navigateCommunicated = () => navigate(`/load-data/communicated`);
@@ -169,6 +174,143 @@ function Navbar() {
             <div className="hidden md:flex justify-center font-light w-full ">
               <ul className="flex items-center gap-8 justify-center font-semibold">
                 <li
+                  ref={(el) => (dropdownRefs.current["aboutUs"] = el)}
+                  className="group cursor-pointer"
+                  onClick={() => toggleSubMenu("aboutUs")}
+                >
+                  <a className="flex items-center gap-[2px] h-[40px] text-sm  hover:text-slate-300 ">
+                    {t("AboutUs")}
+                  </a>
+                  {openMenus["aboutUs"] && (
+                    <div
+                      className={`absolute left-0 z-[99999] w-full bg-white text-black dark:bg-gray-800 dark:text-white
+      p-2 mt-4 shadow-md overflow-hidden transition-all duration-300 ease-in-out
+      ${
+        openMenus["aboutUs"]
+          ? "max-h-[1000px] opacity-100 translate-y-0"
+          : "max-h-0 opacity-0 -translate-y-4"
+      }`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="grid grid-cols-4 gap-6">
+                        <div className="col-span-4">
+                          <div className="grid grid-cols-5 mt-4 px-4 gap-5">
+                            {/* About Us */}
+                            <div
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
+                              onClick={navigateAbout}
+                            >
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaInfoCircle className="text-2xl text-white sm:text-principal" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
+                                  Cosamed
+                                </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t(
+                                    "Learn about our mission, vision and history"
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Contact */}
+                            <div
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
+                              onClick={navigateContact}
+                            >
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaEnvelope className="text-2xl text-white sm:text-blue-500" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
+                                  {t("Contact")}
+                                </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t(
+                                    "Reach out to our support or coordination team"
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Partnerships */}
+                            <div
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
+                              onClick={navigatePartners}
+                            >
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaHandshake className="text-2xl text-white sm:text-emerald-500" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
+                                  {t("Partnerships")}
+                                </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t(
+                                    "Discover our strategic partners and collaborators"
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Governance */}
+                            <div
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
+                              onClick={navigateGouvernance}
+                            >
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaGavel className="text-2xl text-white sm:text-yellow-500" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
+                                  {t("Governance")}
+                                </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t(
+                                    "Meet our leadership and governance structure"
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+
+                            {/* Become Member */}
+                            <div
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
+                              onClick={navigateCommunity}
+                            >
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaUsers className="text-2xl text-white sm:text-purple-500" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
+                                  {t("Becom_member")}
+                                </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t(
+                                    "Join our community and make a difference"
+                                  )}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </li>
+                <li
                   className=" cursor-pointer "
                   ref={(el) => (dropdownRefs.current["themes"] = el)}
                   onClick={() => toggleSubMenu("themes")}
@@ -220,90 +362,93 @@ function Navbar() {
                             {/* Newsletters */}
                             <div
                               className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
                               onClick={navigateNewsletter}
                             >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaEnvelopeOpenText className="text-sm text-principal" />
-                                <span className="text-[13px]">
-                                  {t("Newsletters")}
-                                </span>
+                              {/* Colonne gauche : Icône pleine hauteur */}
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaEnvelopeOpenText className="text-2xl text-white sm:text-principal" />
                               </div>
-                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
-                                {t("Stay updated with our monthly highlights")}
-                              </p>
+
+                              {/* Colonne droite : Texte */}
+                              <div className="flex-1 p-4 sm:p-6">
+                                <div className="mb-1">
+                                  <span className="text-[13px] font-semibold">
+                                    {t("Newsletters")}
+                                  </span>
+                                </div>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t(
+                                    "Stay updated with our monthly highlights"
+                                  )}
+                                </p>
+                              </div>
                             </div>
 
                             {/* Jobs */}
                             <div
                               className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
                               onClick={navigateJobopen}
                             >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaBriefcase className="text-sm text-green-600" />
-                                <span className="text-[13px]">{t("Jobs")}</span>
+                              {/* Icône pleine hauteur */}
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaBriefcase className="text-2xl text-white sm:text-principal" />
                               </div>
-                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
-                                {t("Open job opportunities and internships")}
-                              </p>
-                            </div>
 
-                            {/* <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
-                              onClick={navigateProject}
-                            >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaProjectDiagram className="text-sm text-principal" />
-                                <span className="text-[13px]">
-                                  {t("Project")}
+                              {/* Texte */}
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
+                                  {t("Jobs")}
                                 </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t("Open job opportunities and internships")}
+                                </p>
                               </div>
-                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
-                                {t("Explore our ongoing humanitarian projects")}
-                              </p>
-                            </div> */}
+                            </div>
 
                             {/* Careers */}
                             <div
                               className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
                               onClick={navigateJobOpening}
                             >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaUserTie className="text-sm text-hover" />
-                                <span className="text-[13px]">
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaUserTie className="text-2xl text-white sm:text-principal" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
                                   {t("Careers")}
                                 </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t("Career paths and talent development")}
+                                </p>
                               </div>
-                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
-                                {t("Career paths and talent development")}
-                              </p>
                             </div>
 
                             {/* Reports */}
                             <div
                               className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-        transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-        p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
                               onClick={navigateReport}
                             >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaFileAlt className="text-sm text-red-500" />
-                                <span className="text-[13px]">
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaFileAlt className="text-2xl text-white sm:text-red-500" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
                                   {t("Reports")}
                                 </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t(
+                                    "Download our latest research and impact reports"
+                                  )}
+                                </p>
                               </div>
-                              <p className="text-[12px] text-gray-600 dark:text-gray-300">
-                                {t(
-                                  "Download our latest research and impact reports"
-                                )}
-                              </p>
                             </div>
                           </div>
                         </div>
@@ -330,82 +475,109 @@ function Navbar() {
                           <div className="grid grid-cols-5 mt-4 px-4 gap-5">
                             {/* Press */}
                             <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
                               onClick={navigateCommunicated}
                             >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaNewspaper className="text-sm text-principal" />
-                                <span className="text-[13px]">
+                              {/* Icône pleine hauteur */}
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaNewspaper className="text-2xl text-white sm:text-principal" />
+                              </div>
+
+                              {/* Texte */}
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
                                   {t("Press")}
                                 </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t(
+                                    "Access press releases and media statements"
+                                  )}
+                                </p>
                               </div>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t(
-                                  "Access press releases and media statements"
-                                )}
-                              </p>
                             </div>
 
                             {/* Videos */}
                             <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
                               onClick={navigateVideo}
                             >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaVideo className="text-sm text-red-500" />
-                                <span className="text-[13px]">
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaVideo className="text-2xl text-white sm:text-red-500" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
                                   {t("Videos")}
                                 </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t(
+                                    "Watch our latest field reports and interviews"
+                                  )}
+                                </p>
                               </div>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t(
-                                  "Watch our latest field reports and interviews"
-                                )}
-                              </p>
                             </div>
 
                             {/* Blog */}
                             <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
                               onClick={navigateBlog}
                             >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaBlog className="text-sm text-emerald-500" />
-                                <span className="text-[13px]">{t("Blog")}</span>
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaBlog className="text-2xl text-white sm:text-emerald-500" />
                               </div>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t("Insights, stories and expert opinions")}
-                              </p>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
+                                  {t("Blog")}
+                                </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t("Insights, stories and expert opinions")}
+                                </p>
+                              </div>
                             </div>
 
                             {/* Gallery */}
                             <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
                               onClick={navigateGallery}
                             >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaImages className="text-sm text-principal" />
-                                <span className="text-[13px]">
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaImages className="text-2xl text-white sm:text-principal" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
                                   {t("Gallery")}
                                 </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t("Browse photo stories from the field")}
+                                </p>
                               </div>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t("Browse photo stories from the field")}
-                              </p>
                             </div>
+
+                            {/* Events */}
                             <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+          w-full bg-principal sm:bg-transparent rounded-md flex"
                               onClick={navigateEvent}
                             >
-                              <div className="flex items-center gap-2 mb-1">
-                                <FaCalendarAlt className="text-sm text-yellow-500" />
-                                <span className="text-[13px]">
+                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                <FaCalendarAlt className="text-2xl text-white sm:text-yellow-500" />
+                              </div>
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
                                   {t("Events")}
                                 </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  {t("See upcoming conferences and campaigns")}
+                                </p>
                               </div>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t("See upcoming conferences and campaigns")}
-                              </p>
                             </div>
                           </div>
                         </div>
@@ -430,110 +602,15 @@ function Navbar() {
                     {t("Jobs")}
                   </div>
                 </li>
-                <li
-                  ref={(el) => (dropdownRefs.current["aboutUs"] = el)}
-                  className="group cursor-pointer"
-                  onClick={() => toggleSubMenu("aboutUs")}
-                >
-                  <a className="flex items-center gap-[2px] h-[40px] text-sm  hover:text-slate-300 ">
-                    {t("AboutUs")}
+
+                <li className=" group cursor-pointer">
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSeWErBfd5Fmme0xaGvi2XMmK6PJO7XF-zftjvKzjjuzGkaIHg/viewform?pli=1"
+                    target="_blank"
+                    className="flex items-center gap-[2px] h-[40px] text-sm  hover:text-slate-300 "
+                  >
+                    {t("Expressions_of_interest")}
                   </a>
-                  {openMenus["aboutUs"] && (
-                    <div
-                      className="dropdown icon absolute left-0 z-[99999]  w-full bg-white text-black
-                     dark:bg-gray-800 dark:text-white p-2 mt-4 shadow-md"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      <div className="grid grid-cols-4 gap-6">
-                        <div className="col-span-4 ">
-                          <div className="grid grid-cols-5 mt-4 px-4 gap-5 ">
-                            {/* About Us */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
-                              onClick={navigateAbout}
-                            >
-                              <h4 className="mb-1 text-[13px]">
-                                {t("AboutUs")}
-                              </h4>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t(
-                                  "Learn about our mission, vision and history"
-                                )}
-                              </p>
-                            </div>
-
-                            {/* Contact */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
-                              onClick={navigateContact}
-                            >
-                              <h4 className="mb-1 text-[13px]">
-                                {t("Contact")}
-                              </h4>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t(
-                                  "Reach out to our support or coordination team"
-                                )}
-                              </p>
-                            </div>
-
-                            {/* Partnerships */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
-                              onClick={navigatePartners}
-                            >
-                              <h4 className="mb-1 text-[13px]">
-                                {t("Partnerships")}
-                              </h4>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t(
-                                  "Discover our strategic partners and collaborators"
-                                )}
-                              </p>
-                            </div>
-
-                            {/* Governance */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
-                              onClick={navigateGouvernance}
-                            >
-                              <h4 className="mb-1 text-[13px]">
-                                {t("Governance")}
-                              </h4>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t(
-                                  "Meet our leadership and governance structure"
-                                )}
-                              </p>
-                            </div>
-
-                            {/* Become Member */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-      p-4 sm:p-6 w-full bg-principal sm:bg-transparent rounded-md"
-                              onClick={navigateCommunity}
-                            >
-                              <h4 className="mb-1 text-[13px]">
-                                {t("Becom_member")}
-                              </h4>
-                              <p className="text-[12px] font-normal text-gray-600 dark:text-gray-300">
-                                {t("Join our community and make a difference")}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
                 </li>
                 <div className="flex items-center bg-white dark:bg-slate-800 border dark:border-slate-700 px-2 py-2 rounded-md shadow-sm">
                   <div
@@ -759,6 +836,7 @@ function Navbar() {
         <ResponsiveMenu
           showMenu={showMenu}
           onClose={() => setShowMenu(false)}
+          t={t}
         />
       </div>
     </>

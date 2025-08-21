@@ -122,7 +122,6 @@ const Rejoindre = () => {
         </h1>
       </section>
       <div className="mt-4 max-w-6xl mx-auto flex flex-col md:flex-row bg-white border dark:border-slate-700 shadow-md overflow-hidden">
-        {/* Left column: Conditions */}
         <div className="bg-[#f0f2f5]  dark:bg-slate-800 p-6 md:w-3/5 border-r dark:border-slate-700">
           <h2 className="text-[13px] font-semibold text-gray-800 text-center mb-6">
             {t("Condition")} COSAMED ASBL
@@ -208,7 +207,6 @@ const Rejoindre = () => {
           </div>
         </div>
 
-        {/* Right column: Form */}
         <div className="p-6 dark:bg-slate-800">
           <form className=" space-y-6 mb-8" onSubmit={validation}>
             <div className="space-y-px rounded-md items-center">

@@ -35,17 +35,17 @@ const Error404 = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-4">
       <div className="bg-white/70 dark:bg-slate-800/80 shadow-xl rounded-lg p-8 max-w-lg w-full text-center backdrop-blur-md">
-        <h1 className="text-4xl md:text-5xl font-bold text-principal dark:text-white animate-fade-in-down">
+        <h1 className="text-[26px] font-bold text-principal dark:text-white animate-fade-in-down">
           {t("Erreur_404")}
         </h1>
 
-        <p className="mt-3 text-base text-gray-500 dark:text-gray-300 italic">
+        <p className="mt-3 text-[12px] text-gray-500 dark:text-gray-300 italic">
           {t("It looks 404")}
         </p>
 
         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
           {t("You tried to access")}:{" "}
-          <code className="bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded text-sm">
+          <code className="bg-gray-200  dark:bg-gray-700 px-2 py-1 rounded text-[11px]">
             {window.location.pathname}
           </code>
         </p>
@@ -64,7 +64,7 @@ const Error404 = () => {
           <button
             type="submit"
             title={t("Search")}
-            className="bg-principal text-white p-2 rounded hover:bg-[#155dbb] transition"
+            className="bg-principal text-white p-2 rounded-md hover:bg-[#155dbb] transition"
           >
             <Search size={18} />
           </button>
@@ -73,15 +73,15 @@ const Error404 = () => {
         <div className="mt-6 flex justify-center gap-4 flex-wrap">
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 px-5 py-2 bg-principal text-white font-semibold rounded-md hover:bg-[#155dbb] transition"
+            className="flex items-center gap-2 px-3 py-2 bg-principal text-[12px] text-white font-semibold rounded-md hover:bg-[#155dbb] transition"
           >
-            <Home size={16} />
+            <Home size={12} />
             {t("Home")}
           </button>
 
           <button
             onClick={() => navigate("/contact")}
-            className="flex items-center gap-2 px-5 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white font-semibold rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+            className="flex items-center gap-2 text-[12px] px-3 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white font-semibold rounded-md hover:bg-gray-200 dark:hover:bg-gray-600 transition"
           >
             <Mail size={16} />
             {t("Contact")}

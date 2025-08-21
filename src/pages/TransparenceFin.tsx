@@ -5,7 +5,6 @@ import BlogCardLoad from "../components/blogs/BlogCardLoad";
 import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import Pagination from "../components/Pagination/Pagination";
-import SimpleBannerTransparence from "../components/simpleBanner/SimpleBannerTransparence";
 import FinancesServices from "../services/FinancesServices";
 
 const TransparenceFin = () => {

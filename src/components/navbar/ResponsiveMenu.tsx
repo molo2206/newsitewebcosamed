@@ -1,43 +1,61 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { ToastContainer } from "react-toastify";
-import ReactCountryFlag from "react-country-flag";
+import { motion } from "framer-motion";
 import { BiSolidMoon, BiSolidSun } from "react-icons/bi";
-import { FaUserCircle } from "react-icons/fa";
+import {
+  FaBlog,
+  FaBriefcase,
+  FaCalendarAlt,
+  FaEnvelopeOpenText,
+  FaExclamationTriangle,
+  FaFileAlt,
+  FaFileContract,
+  FaHandshake,
+  FaImages,
+  FaInfoCircle,
+  FaNewspaper,
+  FaPalette,
+  FaPhone,
+  FaRegCircle,
+  FaRobot,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaUser,
+  FaUserCircle,
+  FaUserPlus,
+  FaUsers,
+  FaVideo,
+} from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa";
 import useAsync from "../../hooks/useAsync";
-import { useAuthContext } from "../../context";
+import { useAuthContext, useThemeContext } from "../../context";
 import CategoryServices from "../../services/CategoryServices";
 
 import CategoryCard from "../blogs/CategoryCard";
 
 import Logo from "../../assets/logo1.png";
-import DonateModal from "../../pages/modal/DonateModal";
 
-interface Props {
-  showMenu?: boolean;
-  onClose?: () => void;
+interface ResponsiveMenuProps {
+  showMenu: boolean;
+  onClose: () => void;
+  t: (key: string) => string; // ou t si tu utilises i18next
 }
 
-const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
-  const { t } = useTranslation();
+const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
   const navigate = useNavigate();
 
-  const { user, removeSession, handleLanguageChange } = useAuthContext();
+  const { user, removeSession } = useAuthContext();
 
   const { data: category } = useAsync(() => CategoryServices.getCategory());
 
-  // Theme state (light/dark)
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const { settings, toggleTheme } = useThemeContext();
+  const isDark = settings.theme === "dark";
 
   // Dropdown and menu states
   const [isDropdown, setIsDropdown] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // Selected language (en/fr)
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
 
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -58,19 +76,6 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
     };
   }, [showMenu, onClose]);
 
-  // Apply dark or light theme on document element and localStorage
-  useEffect(() => {
-    const element = document.documentElement;
-    if (theme === "dark") {
-      element.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      element.classList.remove("dark");
-      localStorage.removeItem("theme");
-    }
-  }, [theme]);
-
-  // Logout handler
   const handleLogout = () => {
     removeSession();
     navigate("/auth/signin", { replace: true });
@@ -84,30 +89,12 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
 
-  // Toggle language dropdown
-  const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
-
-  // Select language and notify context
-  const selectLanguage = (lang: string) => {
-    setSelectedLanguage(lang);
-    setDropdownOpen(false);
-    handleLanguageChange(lang);
-  };
-
-  // Navigation helpers
-  const [showDonate, setShowDonate] = useState(false);
-
-  const handleGoBack = () => {
-    navigate("/aboutmedia");
-    onClose?.();
-  };
-
   return (
     <div
       ref={menuRef}
       className={`${
         showMenu ? "left-0" : "-left-[100%]"
-      } fixed bottom-0 top-0 z-20 flex h-full w-[280px] py-10 flex-col justify-between
+      } fixed bottom-0 top-0 z-20 flex h-full w-[247px] py-10 flex-col justify-between
     bg-principal dark:bg-slate-800 transition-all duration-300 ease-in-out md:hidden rounded-r-xl shadow-md`}
     >
       <div className="flex justify-center items-center mb-4 px-4">
@@ -121,30 +108,34 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
       <div className="relative mt-2 flex flex-col items-center">
         <button
           onClick={toggleMenus}
-          className="flex flex-col items-center focus:outline-none"
+          className="flex flex-col items-center focus:outline-none relative group"
         >
           {/* Avatar utilisateur */}
-          <div className="w-10 h-10 rounded-full bg-gray-300 overflow-hidden flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border-2 border-transparent group-hover:border-blue-500 transition-all duration-300 bg-gray-300 dark:bg-gray-700">
             {!user?.image ? (
-              <FaUserCircle className="text-principal w-10 h-10" />
+              <FaUserCircle className="text-white dark:text-gray-200 w-full h-full p-1" />
             ) : (
               <img
                 src={user.image}
                 alt="Profil"
-                className="w-10 h-10 rounded-full object-cover"
+                className="w-full h-full object-cover"
               />
             )}
           </div>
 
+          {/* Chevron avec animation */}
           <FaChevronDown
-            className={`mt-1 w-3 h-3 text-white transition-transform duration-300 ${
+            className={`mt-1 w-4 h-4 text-white dark:text-gray-200 transition-transform duration-300 ${
               isDropdown ? "rotate-180" : "rotate-0"
             }`}
           />
+
+          {/* Petite ombre ou halo au hover pour effet Facebook */}
+          <span className="absolute inset-0 rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
         </button>
 
         <div className="mt-1 text-center">
-          <span className="text-sm text-white dark:text-white">
+          <span className="text-[11px] text-white dark:text-white">
             {user?.email}
           </span>
         </div>
@@ -152,60 +143,68 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
         {isDropdown && (
           <>
             <div
-              className="absolute mt-2 w-64 bg-principal rounded-md dark:bg-slate-800 border border-gray-200 dark:border-slate-700 z-50 transition-all duration-200"
+              className="absolute mt-2 max-w-[60vw] w-60 bg-principal rounded-md dark:bg-slate-800 border  dark:border-slate-700 z-50 transition-all duration-200 left-1/2 -translate-x-1/2"
               style={{
                 top: "100%",
-                left: "50%",
-                transform: "translateX(-50%)",
               }}
             >
-              <ul className="text-sm text-white dark:text-white">
-                <li
-                  onClick={() => {
-                    navigate(
-                      "/recruiting/cosamed/job_openings/accountsettings"
-                    );
-                    onClose?.();
-                  }}
-                  className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
-                >
-                  {t("My_profile")}
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/job_openings/userHome");
-                    onClose?.();
-                  }}
-                  className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
-                >
-                  {t("My_applications")}
-                </li>
-                {!user ? (
-                  <li
-                    onClick={() => {
-                      navigate("/auth/signin");
-                      onClose?.();
-                    }}
-                    className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
-                  >
-                    {t("Login")}
-                  </li>
-                ) : (
-                  <li
-                    onClick={handleLogout}
-                    className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
-                  >
-                    {t("Logout")}
-                  </li>
-                )}
-                <li
-                  onClick={() => {
-                    navigate("/recruiting/cosamed/job_openings/register");
-                    onClose?.();
-                  }}
-                  className="px-4 py-3 hover:bg-hover  dark:hover:bg-slate-700 cursor-pointer"
-                >
-                  {t("Register")}
+              <ul className="space-y-4 p-6 text-white dark:text-white text-[12px]">
+                {/* User Menu */}
+                <li className="space-y-1">
+                  <ul className="space-y-1">
+                    <li
+                      onClick={() => {
+                        navigate(
+                          "/recruiting/cosamed/job_openings/accountsettings"
+                        );
+                        onClose?.();
+                      }}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
+                    >
+                      <FaUser className="w-4 h-4 text-blue-400" />
+                      {t("My_profile")}
+                    </li>
+                    <li
+                      onClick={() => {
+                        navigate("/job_openings/userHome");
+                        onClose?.();
+                      }}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
+                    >
+                      <FaFileAlt className="w-4 h-4 text-green-400" />
+                      {t("My_applications")}
+                    </li>
+                    {!user ? (
+                      <li
+                        onClick={() => {
+                          navigate("/auth/signin");
+                          onClose?.();
+                        }}
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
+                      >
+                        <FaSignInAlt className="w-4 h-4 text-yellow-400" />
+                        {t("Login")}
+                      </li>
+                    ) : (
+                      <li
+                        onClick={handleLogout}
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
+                      >
+                        <FaSignOutAlt className="w-4 h-4 text-red-400" />
+                        {t("Logout")}
+                      </li>
+                    )}
+                    <li
+                      onClick={() => {
+                        navigate("/recruiting/cosamed/job_openings/register");
+                        onClose?.();
+                      }}
+                      className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
+                    >
+                      <FaUserPlus className="w-4 h-4 text-purple-400" />
+                      {t("Register")}
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </div>
@@ -219,190 +218,30 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
         )}
       </div>
 
-      <div className="relative mt- text-sm dark:bg-slate-800 bg-principale h-full overflow-y-auto">
-        <ul className="space-y-4 p-6">
-          <li
-            onClick={() => {
-              navigate("/");
-              onClose?.();
-            }}
-            className="text-white font-medium cursor-pointer"
-          >
-            {t("Home")}
-          </li>
-
-          <li>
-            <button
-              onClick={() => toggleMenu("themes")}
-              className="flex justify-between items-center w-full text-white font-medium"
-            >
-              {t("Themes")}
-              <span>{openMenu === "themes" ? "−" : "+"}</span>
-            </button>
-            {openMenu === "themes" && (
-              <ul className="mt-2 pl-4 space-y-2 w-full max-h-60 overflow-y-auto">
-                {category?.map((item: any, index: number) => (
-                  <li key={index} onClick={() => onClose?.()}>
-                    <CategoryCard cat={item} />
-                  </li>
-                ))}
-              </ul>
-            )}
-          </li>
-
-          <li>
-            <button
-              onClick={() => toggleMenu("emergency")}
-              className="flex justify-between items-center w-full text-white font-medium"
-            >
-              {t("Emergency")}
-              <span>{openMenu === "emergency" ? "−" : "+"}</span>
-            </button>
-            {openMenu === "emergency" && (
-              <ul className="mt-2 pl-4 space-y-2 text-white">
-                <li
-                  onClick={() => {
-                    navigate("/data-loading/newsletters");
-                    onClose?.();
-                  }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
-                >
-                  {t("Newsletters")}
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/data-loading/reports");
-                    onClose?.();
-                  }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
-                >
-                  {t("Reports")}
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/data-loading/jobopenings");
-                    onClose?.();
-                  }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
-                >
-                  {t("Jobs")}
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/projects");
-                    onClose?.();
-                  }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
-                >
-                  {t("Project")}
-                </li>
-              </ul>
-            )}
-          </li>
-
-          <li>
-            <button
-              onClick={() => toggleMenu("media")}
-              className="flex justify-between items-center w-full text-white font-medium"
-            >
-              {t("Newsroom")}
-              <span>{openMenu === "media" ? "−" : "+"}</span>
-            </button>
-            {openMenu === "media" && (
-              <ul className="mt-2 pl-4 space-y-2 text-white">
-                <li
-                  onClick={() => {
-                    navigate("/load-data/communicated");
-                    onClose?.();
-                  }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
-                >
-                  {t("Press")}
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/data-loading/videos");
-                    onClose?.();
-                  }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
-                >
-                  {t("Videos")}
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/data-loading/blogs");
-                    onClose?.();
-                  }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
-                >
-                  {t("Blog")}
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/data-loading/gallery");
-                    onClose?.();
-                  }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
-                >
-                  {t("Gallery")}
-                </li>
-                <li
-                  onClick={() => {
-                    navigate("/evements");
-                    onClose?.();
-                  }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
-                >
-                  {t("Events")}
-                </li>
-                <li>
-                  <button
-                    onClick={handleGoBack}
-                    className="w-full mt-2 py-2 bg-hover text-white "
-                  >
-                    {t("Find_More")}
-                    <ToastContainer />
-                  </button>
-                </li>
-              </ul>
-            )}
-          </li>
-          <li
-            onClick={() => {
-              navigate("/data-loading/Ai4Mpox");
-              onClose?.();
-            }}
-            className="text-white font-medium cursor-pointer "
-          >
-            {t("AI4Mpox")}
-          </li>
-          <li
-            onClick={() => {
-              navigate("/data-loading/jobopenings");
-              onClose?.();
-            }}
-            className="text-white font-medium cursor-pointer "
-          >
-            {t("Jobs")}
-          </li>
-
+      <div className="relative mt-4 dark:bg-slate-800 bg-principale h-full overflow-y-auto">
+        <ul className="space-y-4 p-6 space-y-4 p-6 text-white dark:text-white text-[12px]">
+          {/* About Menu */}
           <li>
             <button
               onClick={() => toggleMenu("about")}
-              className="flex justify-between items-center w-full text-white font-medium"
+              className="flex justify-between items-center w-full font-medium hover:bg-hover dark:hover:bg-slate-900 p-2 rounded-md transition"
             >
-              {t("AboutUs")}
+              <div className="flex items-center gap-3">
+                <FaInfoCircle className="w-4 h-4 text-blue-400" />
+                {t("AboutUs")}
+              </div>
               <span>{openMenu === "about" ? "−" : "+"}</span>
             </button>
             {openMenu === "about" && (
-              <ul className="mt-2 pl-4 space-y-2 text-white">
+              <ul className="mt-2 pl-6 space-y-2 text-white dark:text-white">
                 <li
                   onClick={() => {
                     navigate("/about");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
+                  className="flex items-center  gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
+                  <FaRegCircle className="w-3 h-3 text-gray-400" />
                   {t("AboutUs")}
                 </li>
                 <li
@@ -410,8 +249,9 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/contact");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
+                  <FaPhone className="w-3 h-3 text-green-400" />
                   {t("Contact")}
                 </li>
                 <li
@@ -419,8 +259,9 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/partners");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
+                  <FaHandshake className="w-3 h-3 text-purple-400" />
                   {t("Partnerships")}
                 </li>
                 <li
@@ -428,8 +269,9 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/team");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
+                  className="flex items-center text-white gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
+                  <FaUsers className="w-3 h-3 text-yellow-400" />
                   {t("Governance")}
                 </li>
                 <li
@@ -437,107 +279,214 @@ const ResponsiveMenu = ({ showMenu, onClose }: Props) => {
                     navigate("/community/join");
                     onClose?.();
                   }}
-                  className="cursor-pointer transition hover:bg-hover dark:hover:bg-slate-900 border-b border-gray-200 dark:border-gray-700 p-4 sm:p-6 w-full dark:bg-slate-800 bg-principal sm:bg-transparent "
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
+                  <FaUsers className="w-3 h-3 text-teal-400" />
                   {t("Becom_member")}
                 </li>
               </ul>
             )}
           </li>
+
+          {/* Themes Menu */}
+          <li>
+            <button
+              onClick={() => toggleMenu("themes")}
+              className="flex justify-between items-center w-full font-medium hover:bg-hover dark:hover:bg-slate-900 p-2 rounded-md transition"
+            >
+              <div className="flex items-center gap-3">
+                <FaPalette className="w-4 h-4 text-pink-400" />
+                {t("Themes")}
+              </div>
+              <span>{openMenu === "themes" ? "−" : "+"}</span>
+            </button>
+            {openMenu === "themes" && (
+              <ul className="mt-2 pl-6 space-y-2 w-full max-h-60 overflow-y-auto">
+                {category?.map((item: any, index: number) => (
+                  <li key={index} className="flex items-center gap-2">
+                    <FaRegCircle className="w-3 h-3 text-gray-400" />
+                    <CategoryCard cat={item} />
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+
+          {/* Emergency Menu */}
+          <li>
+            <button
+              onClick={() => toggleMenu("emergency")}
+              className="flex justify-between items-center w-full font-medium hover:bg-hover dark:hover:bg-slate-900 p-2 rounded-md transition"
+            >
+              <div className="flex items-center gap-3">
+                <FaExclamationTriangle className="w-4 h-4 text-red-500" />
+                {t("Emergency")}
+              </div>
+              <span>{openMenu === "emergency" ? "−" : "+"}</span>
+            </button>
+            {openMenu === "emergency" && (
+              <ul className="mt-2 pl-6 space-y-2">
+                <li
+                  onClick={() => {
+                    navigate("/data-loading/newsletters");
+                    onClose?.();
+                  }}
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
+                >
+                  <FaEnvelopeOpenText className="w-3 h-3 text-yellow-400" />
+                  {t("Newsletters")}
+                </li>
+                <li
+                  onClick={() => {
+                    navigate("/data-loading/reports");
+                    onClose?.();
+                  }}
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
+                >
+                  <FaFileAlt className="w-3 h-3 text-red-400" />
+                  {t("Reports")}
+                </li>
+                <li
+                  onClick={() => {
+                    navigate("/data-loading/jobopenings");
+                    onClose?.();
+                  }}
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
+                >
+                  <FaBriefcase className="w-3 h-3 text-blue-400" />
+                  {t("Jobs")}
+                </li>
+              </ul>
+            )}
+          </li>
+
+          {/* Newsroom Menu */}
+          <li>
+            <button
+              onClick={() => toggleMenu("media")}
+              className="flex justify-between items-center w-full font-medium hover:bg-hover dark:hover:bg-slate-900 p-2 rounded-md transition"
+            >
+              <div className="flex items-center gap-3">
+                <FaNewspaper className="w-4 h-4 text-blue-400" />
+                {t("Newsroom")}
+              </div>
+              <span>{openMenu === "media" ? "−" : "+"}</span>
+            </button>
+            {openMenu === "media" && (
+              <ul className="mt-2 pl-6 space-y-2">
+                <li
+                  onClick={() => {
+                    navigate("/load-data/communicated");
+                    onClose?.();
+                  }}
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
+                >
+                  <FaNewspaper className="w-3 h-3 text-blue-400" />
+                  {t("Press")}
+                </li>
+                <li
+                  onClick={() => {
+                    navigate("/data-loading/videos");
+                    onClose?.();
+                  }}
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
+                >
+                  <FaVideo className="w-3 h-3 text-red-400" />
+                  {t("Videos")}
+                </li>
+                <li
+                  onClick={() => {
+                    navigate("/data-loading/blogs");
+                    onClose?.();
+                  }}
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
+                >
+                  <FaBlog className="w-3 h-3 text-green-400" />
+                  {t("Blog")}
+                </li>
+                <li
+                  onClick={() => {
+                    navigate("/data-loading/gallery");
+                    onClose?.();
+                  }}
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
+                >
+                  <FaImages className="w-3 h-3 text-purple-400" />
+                  {t("Gallery")}
+                </li>
+                <li
+                  onClick={() => {
+                    navigate("/evements");
+                    onClose?.();
+                  }}
+                  className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
+                >
+                  <FaCalendarAlt className="w-3 h-3 text-yellow-400" />
+                  {t("Events")}
+                </li>
+              </ul>
+            )}
+          </li>
+
+          {/* Direct Links */}
+          <li
+            onClick={() => {
+              navigate("/data-loading/Ai4Mpox");
+              onClose?.();
+            }}
+            className="flex items-center gap-2 font-medium cursor-pointer p-2 rounded-md hover:bg-hover dark:hover:bg-slate-900"
+          >
+            <FaRobot className="w-4 h-4 text-teal-400" />
+            {t("AI4Mpox")}
+          </li>
+          <li
+            onClick={() => {
+              navigate("/data-loading/jobopenings");
+              onClose?.();
+            }}
+            className="flex items-center gap-2 font-medium cursor-pointer p-2 rounded-md hover:bg-hover dark:hover:bg-slate-900"
+          >
+            <FaBriefcase className="w-4 h-4 text-blue-400" />
+            {t("Jobs")}
+          </li>
+          <li>
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSeWErBfd5Fmme0xaGvi2XMmK6PJO7XF-zftjvKzjjuzGkaIHg/viewform?pli=1"
+              target="_blank"
+              className="flex items-center gap-2 font-medium cursor-pointer p-2 rounded-md hover:bg-hover dark:hover:bg-slate-900"
+            >
+              <FaFileContract className="w-4 h-4 text-purple-400" />
+              {t("Expressions_of_interest")}
+            </a>
+          </li>
         </ul>
       </div>
-
-      {/* Pied de menu : thème, langue, actions */}
       <div className="mt-auto px-4 space-y-4">
-        {/* Thème */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center text-[13px] justify-between">
           <span className="text-white">{t("Theme")}</span>
-          <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-            {theme === "dark" ? (
-              <BiSolidSun className="text-yellow-400 w-6 h-6" />
-            ) : (
-              <BiSolidMoon className="text-white w-6 h-6 dark:bg-white" />
-            )}
-          </button>
-        </div>
 
-        {/* Langue */}
-        <div className="relative">
-          <button
-            onClick={toggleDropdown}
-            className="w-full px-4 py-2 bg-white dark:bg-slate-700 rounded-md flex justify-between items-center"
+          <div
+            onClick={toggleTheme}
+            className={`w-14 h-7 flex items-center border rounded-full p-1 cursor-pointer transition-colors duration-300 ${
+              isDark
+                ? "bg-slate-900 justify-end"
+                : "bg-principal  justify-start"
+            }`}
           >
-            {selectedLanguage === "en" ? (
-              <ReactCountryFlag
-                countryCode="US"
-                svg
-                style={{ width: "1.5em", height: "1.5em" }}
-              />
-            ) : (
-              <ReactCountryFlag
-                countryCode="FR"
-                svg
-                style={{ width: "1.5em", height: "1.5em" }}
-              />
-            )}
-            <span className="ml-2 text-sm">
-              {selectedLanguage.toUpperCase()}
-            </span>
-          </button>
-          {dropdownOpen && (
-            <div className="absolute right-0 mt-2 bg-white dark:bg-slate-700 rounded-md shadow-md">
-              <div
-                onClick={() => selectLanguage("en")}
-                className="cursor-pointer px-4 py-2 hover:bg-hover"
-              >
-                <ReactCountryFlag
-                  countryCode="US"
-                  svg
-                  style={{ width: "1.5em", height: "1.5em" }}
-                />{" "}
-                English
-              </div>
-              <div
-                onClick={() => selectLanguage("fr")}
-                className="cursor-pointer px-4 py-2 hover:bg-hover"
-              >
-                <ReactCountryFlag
-                  countryCode="FR"
-                  svg
-                  style={{ width: "1.5em", height: "1.5em" }}
-                />{" "}
-                Français
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Boutons d’action */}
-        <div className="space-y-2">
-          <>
-            {" "}
-            <button
-              onClick={() => setShowDonate(true)}
-              className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-green-700"
+            <motion.div
+              layout
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              className="w-5 h-5 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center shadow-md"
             >
-              {t("Donate")}
-            </button>
-            <DonateModal
-              isOpen={showDonate}
-              onClose={() => setShowDonate(false)}
-            />
-          </>
-
-          <button
-            onClick={handleGoBack}
-            className="w-full bg-gray-300 text-black py-2 rounded-md hover:bg-gray-600"
-          >
-            {t("Back")}
-          </button>
+              {isDark ? (
+                <BiSolidMoon className="text-blue-500 dark:text-white  w-3 h-3 " />
+              ) : (
+                <BiSolidSun className="text-yellow-400 dark:text-white w-3 h-3 " />
+              )}
+            </motion.div>
+          </div>
         </div>
       </div>
-
-      <ToastContainer />
     </div>
   );
 };

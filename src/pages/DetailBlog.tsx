@@ -103,6 +103,7 @@ const DetailBlog = () => {
 
   const handleDeleteComment = (id: any) => {
     // Appelle la méthode de suppression
+    console.log(id);
   };
 
   const handleCancelEdit = () => {
@@ -112,7 +113,7 @@ const DetailBlog = () => {
 
   const handleSaveEdit = async (id: any) => {
     if (!editedText.trim()) return;
-
+    console.log(id);
     try {
     } catch (error) {
       console.error("Erreur lors de la mise à jour :", error);
@@ -616,7 +617,7 @@ const DetailBlog = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-md p-5">
+                {/* <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-sm rounded-md p-5">
                   <h3 className="text-[14px] font-bold text-gray-800 dark:text-white mb-3">
                     Sondage
                   </h3>
@@ -631,7 +632,7 @@ const DetailBlog = () => {
                       Non
                     </button>
                   </div>
-                </div>
+                </div> */}
                 <div className="bg-white dark:bg-slate-800 border dark:border-slate-700 shadow-md rounded-md p-6">
                   <h3 className="text-[14px] font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
                     <Users className="w-4 h-4 text-principal dark:text-blue-400" />

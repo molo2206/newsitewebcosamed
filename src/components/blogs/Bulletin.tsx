@@ -43,7 +43,7 @@ export default function Bulletin() {
   return (
     <div className="p-6 bg-white mt-4 dark:bg-slate-800 rounded-md shadow-sm">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold text-gray-800 dark:text-white">
+        <h2 className="text-[14px] font-bold text-gray-800 dark:text-white">
           {t("Newsletters")}
         </h2>
         <div

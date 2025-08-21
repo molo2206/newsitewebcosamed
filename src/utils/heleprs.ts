@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { loadStripe } from '@stripe/stripe-js';
 import i18n from '../i18n';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect} from 'react';
 export const showingTranslateValue = (data: any, lang: string = 'en') => {
   let langue = lang === 'fr-FR' || lang === 'fr' ? 'fr' : 'en';
   let result = data?.find((item: any) => item.locale === langue);

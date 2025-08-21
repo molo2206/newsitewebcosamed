@@ -6,7 +6,6 @@ import DonateModal from "./modal/DonateModal";
 const DonateBanner = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [expanded, setExpanded] = useState(false);
 
   const [showDonate, setShowDonate] = useState(false);
 

@@ -19,7 +19,7 @@ const ButtonSearch = ({
       disabled={loading}
       onClick={onClick}
       type={type}
-      className={`flex items-center justify-center  dark:hover:bg-slate-900 dark:bg-slate-800 border  dark:border-slate-700 gap-2 px-4 py-2 rounded-md text-xs font-bold text-white bg-[#0067b8] hover:bg-[#005aa1] transition-all duration-200 ${
+      className={`flex items-center justify-center  dark:hover:bg-slate-900 dark:bg-slate-800 border  dark:border-slate-700 gap-2 px-4 py-2 rounded-md text-[10px] font-bold text-white bg-principal hover:bg-hover transition-all duration-200 ${
         loading ? "cursor-not-allowed opacity-50" : ""
       }`}
     >

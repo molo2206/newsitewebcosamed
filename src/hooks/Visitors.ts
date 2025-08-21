@@ -1,43 +1,35 @@
-import { useAuthContext } from "../context";
-import { useState } from "react";
-import VisitorsServices from "../services/VisitorsServices";
-import { useNavigate } from "react-router-dom";
+// src/hooks/useVisitor.ts
+import { useState } from 'react';
+import VisitorsServices from '../services/VisitorsServices';
+import { useAuthContext } from '../context';
 
-export default function Visitors() {
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate()
-    const {
-        errorNotification,
-    } = useAuthContext();
+export default function useVisitor() {
+  const [loading, setLoading] = useState(false);
+  const { errorNotification } = useAuthContext();
 
-    const registervisitor = (body: any) => {
-        setLoading(true);
-        VisitorsServices.create(body)
-            .then((response: any) => {
-                setLoading(false);
-                if (response?.status === 200) {
-                    // successNotification(response.data.message);
-                    navigate('/');
-                    setLoading(false);
-                } else {
-                    errorNotification(response.data.data);
-                }
-            })
-            .catch((err: any) => {
-                errorNotification(
-                    err?.response
-                        ? err.response.data.message
-                        : err.message
-                            ? err.message
-                            : "Error de traitement"
-                );
-                setLoading(false);
-                console.log(err);
-            });
-    };
+  const registerVisitor = (body: any) => {
+    setLoading(true);
+    console.log('Enregistrement visiteur, url_visited =', body?.url);
 
-    return {
-        loading,
-        registervisitor,
-    };
+    const formData = new FormData();
+    formData.append('ip', body?.ip || '');
+    formData.append('type', body?.type || '');
+    formData.append('user_agent', body?.user_agent || '');
+    formData.append('url', body?.url || '');
+    VisitorsServices.create(formData)
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((err) => {
+        errorNotification(
+          err?.response?.data?.message || err.message || 'Erreur de traitement',
+        );
+        setLoading(false);
+      });
+  };
+
+  return {
+    loading,
+    registerVisitor,
+  };
 }

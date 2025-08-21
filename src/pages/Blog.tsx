@@ -82,7 +82,7 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen mx-auto p-6 flex flex-col">
-      <BreadCumb title={t("Bulletins")} />
+      <BreadCumb title={t("Healthnews")} />
       <div className="mb-10 mt-4">
         <h1 className="text-[16px] font-bold mb-2 text-principal">
           {t("Publications")}
