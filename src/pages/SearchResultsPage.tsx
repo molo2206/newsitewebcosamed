@@ -89,8 +89,8 @@ const SearchResultsPage = () => {
   );
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100  p-6">
-      <BreadCumb title="Recherche" />
+    <div className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100  max-w-7xl mx-auto p-6 mt-6">
+      <BreadCumb title={t("Search")} />
       <div className=" mx-auto py-4">
         <div className=" dark:bg-slate-800 bg-white border-blue-900 dark:bg-slate-800 p-4 sm:p-6 mb-10">
           <form
@@ -107,12 +107,12 @@ const SearchResultsPage = () => {
                 onChange={(e: any) => handleOnChange(e.target.value, "keyword")}
               />
             </div>
-            <ButtonSearch label="Rechercher" />
+            <ButtonSearch label={t("Search")} />
           </form>
         </div>
 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <h2 className="text-2xl font-extrabold text-principal tracking-tight">
+          <h2 className="text-xl font-extrabold text-principal tracking-tight">
             Résultat de la recherche
           </h2>
           <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">

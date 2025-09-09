@@ -25,7 +25,7 @@ const BannerMission = () => {
 
   return (
     <section className="bg-slate-100 dark:bg-slate-900 py-16">
-      <div className=" mx-auto px-6">
+      <div className="max-w-screen-xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Bloc Mission */}
           <motion.div

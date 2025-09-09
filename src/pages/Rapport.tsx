@@ -1,73 +1,83 @@
-import BulletinLoad from "../components/blogs/BulletinLoad";
-import RapportServices from "../services/RapportServices";
-import useAsync from "../hooks/useAsync";
-import BreadCumb from "../components/navbar/BreadCumb";
-import { Key, useState } from "react";
-import Pagination from "../components/Pagination/Pagination";
+import { useState, Key } from "react";
 import { useTranslation } from "react-i18next";
+import useAsync from "../hooks/useAsync";
+import RapportServices from "../services/RapportServices";
+import BreadCumb from "../components/navbar/BreadCumb";
+import Pagination from "../components/Pagination/Pagination";
+import BulletinLoad from "../components/blogs/BulletinLoad";
 import RepportCard from "../components/blogs/RepportCard";
-const Rapport = () => {
-  const { data, loading } = useAsync(() => RapportServices.getRapport());
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentBulletins = data.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+const Rapport = () => {
   const { t } = useTranslation();
 
-  return (
-    <>
-      {loading ? (
-        Array.from(Array(20).keys()).map(() => <BulletinLoad />)
-      ) : (
-        <div className="p-6 dark:bg-slate-900 w-full  ">
-          <BreadCumb title={t("Reports")} />
-          <section className="mb-10">
-            <header className="bg-principal dark:bg-slate-800 w-full dark:text-white rounded-md text-white py-10">
-              <div className="mx-auto px-4 text-center">
-                <h1 className="text-[16px] font-bold">{t("How_report")}</h1>
-              </div>
-            </header>
-            <main className="py-8">
-              <section className="mb-10 dark:bg-slate-900 w-full dark:text-white">
-                <h2 className="text-[16px] font-bold text-gray-800 mb-4 d w-full dark:text-white">
-                  Introduction
-                </h2>
-                <p className="text-gray-600 dark:text-white text-[13px]">
-                  Les urgences sanitaires nécessitent des réponses rapides et
-                  coordonnées. Nos rapports fournissent des informations clés
-                  pour comprendre les défis et proposer des solutions efficaces.
-                  Vous trouverez ici une sélection de nos dernières
-                  publications.
-                </p>
-              </section>
+  const { data = [], loading } = useAsync(() => RapportServices.getRapport());
 
-              {/* Reports Section */}
-              <section className="bg-white dark:bg-slate-800 p-6 border dark:border-slate-700 shadow-md">
-                <h2 className="text-[16px] font-bold text-gray-800 mb-6 dark:text-white">
-                  Rapports récents
-                </h2>
-                <div className="space-y-6 ">
-                  {currentBulletins.map(
-                    (report: unknown, index: Key | null | undefined) => (
-                      <RepportCard report={report} key={index} />
-                    )
-                  )}
-                </div>
-              </section>
-            </main>
-          </section>
-          <Pagination
-            postsPerPage={postsPerPage}
-            totalPasts={data.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        </div>
-      )}
-    </>
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 10;
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentReports = data.slice(indexOfFirstPost, indexOfLastPost);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  return (
+    <div className="bg-white dark:bg-slate-900 dark:text-white min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <BreadCumb title={t("Reports")} />
+
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {Array.from({ length: 10 }).map((_, i) => (
+              <BulletinLoad key={i} />
+            ))}
+          </div>
+        ) : (
+          <>
+            {/* Header */}
+            <header className="bg-principal dark:bg-slate-800 w-full text-white rounded-md py-10 mb-10 text-center">
+              <h1 className="text-[16px] font-bold">{t("How_report")}</h1>
+            </header>
+
+            {/* Introduction */}
+            <section className="mb-10">
+              <h2 className="text-[16px] font-bold text-gray-800 dark:text-white mb-4">
+                Introduction
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 text-[13px]">
+                Les urgences sanitaires nécessitent des réponses rapides et coordonnées. Nos rapports fournissent des informations clés pour comprendre les défis et proposer des solutions efficaces. Vous trouverez ici une sélection de nos dernières publications.
+              </p>
+            </section>
+
+            {/* Reports Section */}
+            <section className="bg-white dark:bg-slate-800 p-6 border dark:border-slate-700 shadow-md rounded-md mb-12">
+              <h2 className="text-[16px] font-bold text-gray-800 dark:text-white mb-6">
+                Rapports récents
+              </h2>
+              <div className="space-y-6">
+                {currentReports.length === 0 ? (
+                  <p className="text-gray-500 text-center">
+                    {t("No reports available.")}
+                  </p>
+                ) : (
+                  currentReports.map((report: unknown, index: Key) => (
+                    <RepportCard report={report} key={index} />
+                  ))
+                )}
+              </div>
+            </section>
+
+            {/* Pagination */}
+            {data.length > postsPerPage && (
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPasts={data.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
+            )}
+          </>
+        )}
+      </div>
+    </div>
   );
 };
 

@@ -24,11 +24,19 @@ const About = () => {
     ogUrl: window.location.href,
   });
 
-  return loading ? (
-    Array.from({ length: 8 }).map((_, i) => <BulletinLoad key={i} />)
-  ) : (
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-12 space-y-6">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <BulletinLoad key={i} />
+        ))}
+      </div>
+    );
+  }
+
+  return (
     <main className="bg-white dark:bg-slate-900 w-full">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-6 py-12">
         <BreadCumb title={t("AboutUs")} />
 
         <section className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
@@ -37,7 +45,7 @@ const About = () => {
           </h1>
         </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-16">
           <div className="space-y-6">
             <p
               className="text-gray-700 dark:text-gray-200 leading-relaxed text-sm sm:text-base font-light [&_strong]:font-normal [&_b]:font-normal"
@@ -73,7 +81,7 @@ const About = () => {
             <span className="inline-block bg-blue-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full">
               {t("OurDomains", "Domaines d'activité")}
             </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {[
                 "Éducation sanitaire",
                 "Offre de services de soins de santé",
@@ -81,9 +89,9 @@ const About = () => {
               ].map((domain, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 bg-gray-50 dark:bg-slate-800 p-4 dark:border-slate-600"
+                  className="flex items-start gap-3 bg-gray-50 dark:bg-slate-800 p-4 dark:border-slate-600 rounded-md"
                 >
-                  <p className="text-gray-700 dark:text-gray-200 text-sm  leading-snug font-light">
+                  <p className="text-gray-700 dark:text-gray-200 text-sm leading-snug font-light">
                     {domain}
                   </p>
                 </div>
@@ -96,7 +104,7 @@ const About = () => {
           <h3 className="text-xl font-bold text-center text-gray-800 dark:text-white mb-8">
             {t("OurAddresses", "Nos adresses")}
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6  mx-auto text-left">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               {
                 city: "Kinshasa",
@@ -121,12 +129,8 @@ const About = () => {
                 <h4 className="text-base font-medium text-gray-800 dark:text-white">
                   {loc.city}
                 </h4>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  {loc.address}
-                </p>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  {loc.phone}
-                </p>
+                <p className="text-sm text-gray-700 dark:text-gray-300">{loc.address}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300">{loc.phone}</p>
               </div>
             ))}
           </div>

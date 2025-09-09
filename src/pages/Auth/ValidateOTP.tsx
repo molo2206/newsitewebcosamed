@@ -34,8 +34,8 @@ const ValidateOTP = () => {
     }
   };
   return (
-    <div className="container py-4">
-      <div className="min-h-screen flex flex-col md:flex-row w-full dark:bg-slate-800  bg-white ">
+    <div className="py-4">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row w-full dark:bg-slate-800  bg-white ">
         <div className="md:w-full p-10 flex flex-col justify-center items-center bg-white dark:bg-slate-900">
           <h2 className="text-2xl font-semibold mb-4 ">
             Code de validation

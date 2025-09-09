@@ -1,10 +1,22 @@
 import { useTranslation } from "react-i18next";
 import BreadCumb from "../components/navbar/BreadCumb";
+import usePageSEO from "../components/Seo/usePageSEO";
 
 const Confidentialite = () => {
+    usePageSEO({
+    title: "Confidentiality",
+    description: "Confidentiality",
+    keywords: ["Santé", "Actualité", "Gap", "Alert", "Projet"],
+    ogTitle: "Cosamed asbl",
+    ogDescription:
+      "Est une association à but non lucratif reconnue par le gouvernement congolais et composée de prestataires de santé allant des agents de santé communautaires aux médecins.",
+    ogImage: "https://www.cosamed.org/",
+    ogUrl: window.location.href,
+  });
+
   const { t } = useTranslation();
   return (
-    <main className="bg-white dark:bg-slate-900 w-full text-gray-800 dark:text-white px-6 py-10">
+    <main className="bg-white dark:bg-slate-900 w-full text-gray-800 dark:text-white max-w-7xl mx-auto px-6 py-12">
       <BreadCumb title="Politique de confidentialité" />
       <section className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
         <h1 className="text-[16px] font-bold uppercase tracking-widest">

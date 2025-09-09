@@ -37,6 +37,7 @@ import {
   FaUserTie,
   FaFileAlt,
 } from "react-icons/fa";
+import LogoWithSkeleton from "../cards/LogoWithSkeleton";
 function Navbar() {
   const { t } = useTranslation();
   const { sticky } = useSticky();
@@ -137,7 +138,6 @@ function Navbar() {
     // Rediriger vers la page contact ou ouvrir un chat
     window.location.href = "/contact";
   };
-
   return (
     <>
       <div className="">
@@ -156,23 +156,19 @@ function Navbar() {
           style={{ zIndex: 2 }}
           className={`header__sticky ${
             sticky ? "header-sticky" : ""
-          } left-0 right-0 font-light  border-t dark:border-slate-700 bg-principal dark:bg-slate-800 text-white border-primary/50`}
+          } left-0 right-0 font-light border-t dark:border-slate-700 bg-principal dark:bg-slate-800 text-white border-primary/50`}
         >
-          <nav className="flex items-center justify-between px-4 md:px-8 h-16 lg:h-20">
+          <nav className="max-w-screen-xl mx-auto flex items-center justify-between px-4 md:px-8 h-16 lg:h-20">
             <div
               onClick={home}
               className="cursor-pointer w-[140px] sm:w-[160px] md:w-[200px] lg:w-[180px] xl:w-[180px] flex justify-center"
             >
-              <img
-                src={data?.logo1}
-                alt="Logo COSAMED"
-                className="max-w-full h-auto object-contain brightness-110 contrast-110"
-                loading="lazy"
-              />
+             
+              <LogoWithSkeleton src={data?.logo1} alt="Logo COSAMED" />
             </div>
 
-            <div className="hidden md:flex justify-center font-light w-full ">
-              <ul className="flex items-center gap-8 justify-center font-semibold">
+            <div className="hidden md:flex justify-center font-light w-full  ">
+              <ul className="flex items-center gap-8 justify-center font-semibold ">
                 <li
                   ref={(el) => (dropdownRefs.current["aboutUs"] = el)}
                   className="group cursor-pointer"
@@ -183,8 +179,9 @@ function Navbar() {
                   </a>
                   {openMenus["aboutUs"] && (
                     <div
-                      className={`absolute left-0 z-[99999] w-full bg-white text-black dark:bg-gray-800 dark:text-white
+                      className={`absolute left-1/2 z-[99999] max-w-7xl w-full mx-auto bg-white text-black dark:bg-slate-800 dark:text-white
       p-2 mt-4 shadow-md overflow-hidden transition-all duration-300 ease-in-out
+      transform -translate-x-1/2
       ${
         openMenus["aboutUs"]
           ? "max-h-[1000px] opacity-100 translate-y-0"
@@ -192,118 +189,110 @@ function Navbar() {
       }`}
                       onClick={(e) => e.stopPropagation()}
                     >
-                      <div className="grid grid-cols-4 gap-6">
-                        <div className="col-span-4">
-                          <div className="grid grid-cols-5 mt-4 px-4 gap-5">
-                            {/* About Us */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-          w-full bg-principal sm:bg-transparent rounded-md flex"
-                              onClick={navigateAbout}
-                            >
-                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
-                                <FaInfoCircle className="text-2xl text-white sm:text-principal" />
-                              </div>
-                              <div className="flex-1 p-4 sm:p-6">
-                                <span className="text-[13px] font-semibold">
-                                  Cosamed
-                                </span>
-                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
-                                  {t(
-                                    "Learn about our mission, vision and history"
-                                  )}
-                                </p>
-                              </div>
-                            </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 mt-4 px-4">
+                        {/* About Us */}
+                        <div
+                          className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      w-full bg-principal sm:bg-transparent rounded-md flex"
+                          onClick={navigateAbout}
+                        >
+                          <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                            <FaInfoCircle className="text-2xl text-white sm:text-principal" />
+                          </div>
+                          <div className="flex-1 p-4 sm:p-6">
+                            <span className="text-[13px] font-semibold">
+                              Cosamed
+                            </span>
+                            <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                              {t("Learn about our mission, vision and history")}
+                            </p>
+                          </div>
+                        </div>
 
-                            {/* Contact */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-          w-full bg-principal sm:bg-transparent rounded-md flex"
-                              onClick={navigateContact}
-                            >
-                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
-                                <FaEnvelope className="text-2xl text-white sm:text-blue-500" />
-                              </div>
-                              <div className="flex-1 p-4 sm:p-6">
-                                <span className="text-[13px] font-semibold">
-                                  {t("Contact")}
-                                </span>
-                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
-                                  {t(
-                                    "Reach out to our support or coordination team"
-                                  )}
-                                </p>
-                              </div>
-                            </div>
+                        {/* Contact */}
+                        <div
+                          className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      w-full bg-principal sm:bg-transparent rounded-md flex"
+                          onClick={navigateContact}
+                        >
+                          <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                            <FaEnvelope className="text-2xl text-white sm:text-blue-500" />
+                          </div>
+                          <div className="flex-1 p-4 sm:p-6">
+                            <span className="text-[13px] font-semibold">
+                              {t("Contact")}
+                            </span>
+                            <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                              {t(
+                                "Reach out to our support or coordination team"
+                              )}
+                            </p>
+                          </div>
+                        </div>
 
-                            {/* Partnerships */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-          w-full bg-principal sm:bg-transparent rounded-md flex"
-                              onClick={navigatePartners}
-                            >
-                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
-                                <FaHandshake className="text-2xl text-white sm:text-emerald-500" />
-                              </div>
-                              <div className="flex-1 p-4 sm:p-6">
-                                <span className="text-[13px] font-semibold">
-                                  {t("Partnerships")}
-                                </span>
-                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
-                                  {t(
-                                    "Discover our strategic partners and collaborators"
-                                  )}
-                                </p>
-                              </div>
-                            </div>
+                        {/* Partnerships */}
+                        <div
+                          className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      w-full bg-principal sm:bg-transparent rounded-md flex"
+                          onClick={navigatePartners}
+                        >
+                          <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                            <FaHandshake className="text-2xl text-white sm:text-emerald-500" />
+                          </div>
+                          <div className="flex-1 p-4 sm:p-6">
+                            <span className="text-[13px] font-semibold">
+                              {t("Partnerships")}
+                            </span>
+                            <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                              {t(
+                                "Discover our strategic partners and collaborators"
+                              )}
+                            </p>
+                          </div>
+                        </div>
 
-                            {/* Governance */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-          w-full bg-principal sm:bg-transparent rounded-md flex"
-                              onClick={navigateGouvernance}
-                            >
-                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
-                                <FaGavel className="text-2xl text-white sm:text-yellow-500" />
-                              </div>
-                              <div className="flex-1 p-4 sm:p-6">
-                                <span className="text-[13px] font-semibold">
-                                  {t("Governance")}
-                                </span>
-                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
-                                  {t(
-                                    "Meet our leadership and governance structure"
-                                  )}
-                                </p>
-                              </div>
-                            </div>
+                        {/* Governance */}
+                        <div
+                          className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      w-full bg-principal sm:bg-transparent rounded-md flex"
+                          onClick={navigateGouvernance}
+                        >
+                          <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                            <FaGavel className="text-2xl text-white sm:text-yellow-500" />
+                          </div>
+                          <div className="flex-1 p-4 sm:p-6">
+                            <span className="text-[13px] font-semibold">
+                              {t("Governance")}
+                            </span>
+                            <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                              {t(
+                                "Meet our leadership and governance structure"
+                              )}
+                            </p>
+                          </div>
+                        </div>
 
-                            {/* Become Member */}
-                            <div
-                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
-          transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
-          w-full bg-principal sm:bg-transparent rounded-md flex"
-                              onClick={navigateCommunity}
-                            >
-                              <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
-                                <FaUsers className="text-2xl text-white sm:text-purple-500" />
-                              </div>
-                              <div className="flex-1 p-4 sm:p-6">
-                                <span className="text-[13px] font-semibold">
-                                  {t("Becom_member")}
-                                </span>
-                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
-                                  {t(
-                                    "Join our community and make a difference"
-                                  )}
-                                </p>
-                              </div>
-                            </div>
+                        {/* Become Member */}
+                        <div
+                          className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+      transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+      w-full bg-principal sm:bg-transparent rounded-md flex"
+                          onClick={navigateCommunity}
+                        >
+                          <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                            <FaUsers className="text-2xl text-white sm:text-purple-500" />
+                          </div>
+                          <div className="flex-1 p-4 sm:p-6">
+                            <span className="text-[13px] font-semibold">
+                              {t("Becom_member")}
+                            </span>
+                            <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                              {t("Join our community and make a difference")}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -323,13 +312,14 @@ function Navbar() {
                   </a>
                   {openMenus["themes"] && (
                     <div
-                      className="dropdown icon absolute left-0 z-[99999]  w-full bg-white text-black
-                     dark:bg-gray-800 dark:text-white p-2 mt-4 shadow-md"
+                      className="dropdown icon left-1/2  absolute left-0 z-[99999] max-w-7xl w-full mx-auto bg-white text-black dark:bg-slate-800 dark:text-white
+    p-2 mt-4 shadow-md overflow-hidden transition-all duration-300 ease-in-out
+    transform -translate-x-1/2"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div className="grid grid-cols-4 gap-6">
                         <div className="col-span-4">
-                          <div className="h-60 overflow-y-auto grid grid-cols-6 mt-2 p-4 gap-4">
+                          <div className="h-[400px] overflow-y-auto grid grid-cols-4 p-4 gap-4">
                             {cat.map((item: any, index: number) => (
                               <CategoryCard key={index} cat={item} />
                             ))}
@@ -352,13 +342,14 @@ function Navbar() {
                   </a>
                   {openMenus["emergency"] && (
                     <div
-                      className="dropdown icon absolute left-0 z-[99999]  w-full bg-white text-black
-                     dark:bg-gray-800 dark:text-white p-2 mt-4 shadow-md"
+                      className="left-1/2  absolute left-0 z-[99999] max-w-7xl w-full mx-auto bg-white text-black dark:bg-slate-800 dark:text-white
+    p-2 mt-4 shadow-md overflow-hidden transition-all duration-300 ease-in-out
+    transform -translate-x-1/2"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div className="grid grid-cols-4 gap-4">
                         <div className="col-span-4">
-                          <div className="grid grid-cols-4 mt-4 px-4 gap-4">
+                          <div className="grid grid-cols-4 px-4 gap-4">
                             {/* Newsletters */}
                             <div
                               className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
@@ -466,8 +457,9 @@ function Navbar() {
                   </a>
                   {openMenus["newsroom"] && (
                     <div
-                      className="dropdown icon absolute left-0 z-[99999]  w-full bg-white text-black
-                     dark:bg-gray-800 dark:text-white p-2 mt-4 shadow-md"
+                      className="left-1/2  absolute left-0 z-[99999] max-w-7xl w-full mx-auto bg-white text-black dark:bg-slate-800 dark:text-white
+    p-2 mt-4 shadow-md overflow-hidden transition-all duration-300 ease-in-out
+    transform -translate-x-1/2 rounded-b-md"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <div className="grid grid-cols-4 gap-6">

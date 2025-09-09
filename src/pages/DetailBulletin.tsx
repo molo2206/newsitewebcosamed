@@ -96,7 +96,7 @@ const DetailBulletin = () => {
       {loading ? (
         Array.from({ length: 5 }).map((_, i) => <BlogDetailLoad key={i} />)
       ) : (
-        <div className="bg-white min-h-[650px] dark:bg-slate-900 p-6">
+        <div className="bg-white max-w-7xl mx-auto min-h-[650px] dark:bg-slate-900 p-6">
           <BreadCumb
             title={limittext(translation?.title, 5)}
             second="/data-loading/newsletters"

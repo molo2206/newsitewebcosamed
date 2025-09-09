@@ -4,7 +4,7 @@ import BreadCumb from "../components/navbar/BreadCumb";
 const AccessibilityPolicy = () => {
   const { t } = useTranslation();
   return (
-    <main className="bg-white p-6 dark:bg-slate-900 w-full text-gray-800 dark:text-white px-6 py-10">
+    <main className="bg-white p-6 dark:bg-slate-900 w-full text-gray-800 dark:text-white  max-w-7xl mx-auto px-6 py-12">
       <BreadCumb title="Accessibilité" />
       <section className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
         <h1 className="text-[16px] font-bold uppercase tracking-widest">

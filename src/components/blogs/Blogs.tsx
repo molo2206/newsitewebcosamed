@@ -1,4 +1,4 @@
-import BlogCard from "./BlogCard";
+import BlogCard from "./BlogCard"; 
 import BlogCardLoand from "./BlogCardLoad";
 import useAsync from "../../hooks/useAsync";
 import BlogServices from "../../services/BlogsServices";
@@ -9,22 +9,27 @@ export default function Blogs() {
   const { t } = useTranslation();
   const { data, loading } = useAsync(() => BlogServices.getBlogHome());
   const navigate = useNavigate();
-  return (
-    <div className="p-6 bg-white dark:bg-slate-800">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-[14px] font-bold">{t("News")}</h2>
-        <div
-          onClick={() => navigate("/data-loading/blogs")}
-          className="text-sm text-principal font-medium cursor-pointer"
-        >
-          {t("All")} →
-        </div>
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  return (
+    <section className="bg-slate-100 dark:bg-slate-900 py-16">
+      <div className="max-w-7xl mx-auto px-6 text-center">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4 sm:mb-0">
+            {t("News")}
+          </h2>
+          <div
+            onClick={() => navigate("/data-loading/blogs")}
+            className="text-sm text-principal font-medium cursor-pointer hover:underline"
+          >
+            {t("All")} →
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
           {loading
-            ? Array.from({ length: 20 }).map((_, i) => (
+            ? Array.from({ length: 8 }).map((_, i) => (
                 <BlogCardLoand key={i} />
               ))
             : data?.map((item: any, index: number) => (
@@ -32,7 +37,6 @@ export default function Blogs() {
               ))}
         </div>
       </div>
-     
-    </div>
+    </section>
   );
 }

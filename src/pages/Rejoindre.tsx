@@ -16,24 +16,28 @@ import usePageSEO from "../components/Seo/usePageSEO";
 import { ApplyForm } from "../types";
 import InputFile from "../components/form/InputFile";
 import InputPdf from "../components/form/InputPdf";
+import BulletinLoad from "../components/blogs/BulletinLoad";
 
 const Rejoindre = () => {
   const { t } = useTranslation();
   const { lang } = useAuthContext();
-  const { data } = useAsync(() => ThematiquesServices.getThematiques());
-  const { data: Type } = useAsync(() => TypeMemberService.getTypMember());
-  const { data: country } = useAsync(() => CountryService.getCountry());
+
+  // Chargement des données principales
+  const { data: thematiques, loading: loadingThematiques } = useAsync(() =>
+    ThematiquesServices.getThematiques()
+  );
+  const { data: types, loading: loadingTypes } = useAsync(() =>
+    TypeMemberService.getTypMember()
+  );
+  const { data: countries, loading: loadingCountries } = useAsync(() =>
+    CountryService.getCountry()
+  );
+
   const { createMember, loading: loadingForm } = Members();
 
   const genres = [
-    {
-      value: "Masculin",
-      label: "Masculin",
-    },
-    {
-      value: "Feminin",
-      label: "Feminin",
-    },
+    { value: "Masculin", label: "Masculin" },
+    { value: "Feminin", label: "Feminin" },
   ];
 
   usePageSEO({
@@ -59,158 +63,105 @@ const Rejoindre = () => {
       country: "",
       ville: "",
       profession: "",
+      cv: null,
+      cover_letter: null,
+      carte: null,
+      motif: "",
     });
+
   const validation = (e: any) => {
     e.preventDefault();
-
     let valide = true;
-    if (!inputs.name) {
-      hanldeError("name us is required", "name");
-      valide = false;
-    }
-    if (!inputs.prename) {
-      hanldeError("prename is required", "prename");
-      valide = false;
-    }
-    if (!inputs.sexe) {
-      hanldeError("Sexe date is required", "sexe");
-      valide = false;
-    }
 
-    if (!inputs.phone) {
-      hanldeError("Phone is required", "phone");
-      valide = false;
-    }
+    [
+      "name",
+      "prename",
+      "sexe",
+      "phone",
+      "email",
+      "typemembre",
+      "thematique",
+      "country",
+      "ville",
+      "profession",
+    ].forEach((field) => {
+      if (!inputs[field as keyof ApplyForm]) {
+        hanldeError(`${field} is required`, field);
+        valide = false;
+      }
+    });
 
-    if (!inputs.email) {
-      hanldeError("email is required", "email");
-      valide = false;
-    }
-
-    if (!inputs.typemembre) {
-      hanldeError("typemembre is required", "typemembre");
-      valide = false;
-    }
-    if (!inputs.thematique) {
-      hanldeError("thematique is required", "thematique");
-      valide = false;
-    }
-    if (!inputs.country) {
-      hanldeError("country is required", "country");
-      valide = false;
-    }
-    if (!inputs.ville) {
-      hanldeError("ville is required", "ville");
-      valide = false;
-    }
-    if (!inputs.profession) {
-      hanldeError("profession is required", "profession");
-      valide = false;
-    }
-
-    if (valide) {
-      createMember(inputs, setInputs);
-    }
+    if (valide) createMember(inputs, setInputs);
   };
 
+  // Affichage du skeleton loader si les données ou le formulaire sont en cours de chargement
+  if (loadingForm || loadingThematiques || loadingTypes || loadingCountries) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-12 space-y-6">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <BulletinLoad key={i} />
+        ))}
+      </div>
+    );
+  }
+
   return (
-    <div className="p-6 dark:bg-slate-900 bg-white  py-12 px-4 sm:px-6 lg:px-8 ">
-      <BreadCumb title={t("Rejoindre")} />
-      <section className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
-        <h1 className="text-[16px] font-bold uppercase tracking-widest">
-           {t("complete_info")}
-        </h1>
-      </section>
-      <div className="mt-4 max-w-6xl mx-auto flex flex-col md:flex-row bg-white border dark:border-slate-700 shadow-md overflow-hidden">
-        <div className="bg-[#f0f2f5]  dark:bg-slate-800 p-6 md:w-3/5 border-r dark:border-slate-700">
-          <h2 className="text-[13px] font-semibold text-gray-800 text-center mb-6">
-            {t("Condition")} COSAMED ASBL
-          </h2>
-          <div className="space-y-6 text-gray-700 text-xl">
-            <div className="">
-              <div className=" mb-8 text-[13px]">
-                <h2 className="text-md font-montserrat font-bold mb-2 dark:text-white">
-                  Avantages
-                </h2>
-                <ul className="list-disc pl-5 space-y-2 text-[12px]">
-                  <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300  font-regular leading-5">
-                    Contribuer avec elements dansles publications mensuelles et
-                    annuelles de COSAMED;
+    <main className="bg-white dark:bg-slate-900 min-h-screen dark:text-white">
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <BreadCumb title={t("Rejoindre")} />
+
+        {/* Header */}
+        <section className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md">
+          <h1 className="text-[16px] font-bold uppercase tracking-widest">
+            {t("complete_info")}
+          </h1>
+        </section>
+
+        <div className="mt-6 flex flex-col md:flex-row gap-6">
+          {/* Avantages / obligations */}
+          <div className="md:w-3/5 bg-[#f0f2f5] dark:bg-slate-800 p-6 border dark:border-slate-700 shadow-md">
+            <h2 className="text-[13px] font-semibold text-gray-800 dark:text-white text-center mb-6">
+              {t("Condition")} COSAMED ASBL
+            </h2>
+            <div className="space-y-6 text-gray-700 dark:text-gray-300 text-[12px] leading-5">
+              <div>
+                <h3 className="text-md font-bold mb-2 dark:text-white">Avantages</h3>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>
+                    Contribuer avec éléments dans les publications mensuelles et annuelles de COSAMED
                   </li>
-                  <li className="text-gray-900 font-montserrat mb-2 dark:text-gray-300 font-regular leading-5">
-                    Participation privilegiée aux formations en personne comme
-                    en ligne oganisées par COSAMED;
+                  <li>
+                    Participation privilégiée aux formations en ligne ou en personne organisées par COSAMED
                   </li>
-                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300  font-regular leading-5">
-                    Etre prioritaires dans les opportunités d'implémentation des
-                    programmes de COSAMED , suivant les critères de sélection
-                    qui varie selon les opportunités;
+                  <li>
+                    Priorité dans les opportunités d'implémentation des programmes selon critères de sélection
                   </li>
-                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300  font-regular leading-5">
-                    Representer COSAMED dans les evenements local, national,
-                    regional ou international suivant les demandes de
-                    participation adressées COSAMED;
-                  </li>
-                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 font-regular leading-5">
-                    Bénéficier des petites subventions accordées par COSAMED
-                    pour les recherches et solutions innovantes aux problèmes de
-                    santé;
-                  </li>
-                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 font-regular leading-5">
-                    Contribuer avec elements dansles publications mensuelles et
-                    annuelles de COSAMED;
-                  </li>
-                  <li className="text-gray-900 font-montserrat mb-2  dark:text-gray-300 font-regular leading-5">
-                    Privilège de réduction des frais de partition aux événements
-                    annuels de COSAMED y compris la conférence annuelle et le
-                    well being event
-                  </li>
+                  <li>Représenter COSAMED dans les événements locaux, nationaux et internationaux</li>
+                  <li>Bénéficier de petites subventions pour recherches et solutions innovantes</li>
+                  <li>Réduction des frais de participation aux événements annuels</li>
                 </ul>
               </div>
+
               <div>
-                <h2 className="text-[13px] font-montserrat font-bold mb-2 dark:text-white">
-                  Les obligations
-                </h2>
-                <ul className="list-disc pl-5 space-y-2 text-[12px]">
-                  <li className="text-gray-900  dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
-                    Défendre les intétets de COSAMED asbl;
-                  </li>
-                  <li className="text-gray-900 dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
-                    Payer les cotisaions tels que fixé par l'ensemblé générale{" "}
-                    <span className="font-bold">25$</span>
-                  </li>
-                  <li className="text-gray-900 dark:text-gray-300 font-montserrat mb-2  font-regular leading-5">
-                    Participer activement aux activitées de l'association;
-                  </li>
-                  <li className="text-gray-900 dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
-                    Payer sa carte de membre{" "}
-                    <span className="font-bold">5$</span>
-                  </li>
-                  <li className="text-gray-900 dark:text-gray-300 font-montserrat mb-2  font-regular leading-5">
-                    Proteger le patrimoine de l'association
-                  </li>
-                  <li className="text-gray-900 dark:text-gray-300 font-montserrat mb-2  font-regular leading-5">
-                    S'abstenir de toute action qui compromettrait la bonne
-                    marche
-                  </li>
-                  <li className="text-gray-900 dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
-                    Contribuer activement à la réalisation des objectifs
-                    poursuivis par l'association;
-                  </li>
-                  <li className="text-gray-900 dark:text-gray-300  font-montserrat mb-2  font-regular leading-5">
-                    Respecter scrupuleusement les statuts et les règlements
-                    d'ordre interiur;
-                  </li>
+                <h3 className="text-md font-bold mb-2 dark:text-white">Obligations</h3>
+                <ul className="list-disc pl-5 space-y-2">
+                  <li>Défendre les intérêts de COSAMED ASBL</li>
+                  <li>Payer les cotisations fixées par l'assemblée générale</li>
+                  <li>Participer activement aux activités de l'association</li>
+                  <li>Payer sa carte de membre</li>
+                  <li>Protéger le patrimoine de l'association</li>
+                  <li>S'abstenir de toute action compromettant la bonne marche</li>
+                  <li>Contribuer à la réalisation des objectifs de l'association</li>
+                  <li>Respecter les statuts et règlements internes</li>
                 </ul>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="p-6 dark:bg-slate-800">
-          <form className=" space-y-6 mb-8" onSubmit={validation}>
-            <div className="space-y-px rounded-md items-center">
-              <div className="grid grid-cols-1 gap-4">
+          {/* Formulaire */}
+          <div className="md:w-2/5 bg-white dark:bg-slate-800 p-6 border dark:border-slate-700 shadow-md rounded-md">
+            <form className="space-y-6" onSubmit={validation}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
                   required
                   label={t("Select_thematic")}
@@ -218,12 +169,9 @@ const Rejoindre = () => {
                   errors={errors.thematique}
                   value={inputs.thematique}
                   onFocus={() => hanldeError(null, `thematique`)}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "thematique")
-                  }
-                  options={data?.map((item: any) => ({
-                    label: showingTranslateValue(item?.translations, lang)
-                      ?.value,
+                  onChange={(e: any) => handleOnChange(e.target.value, "thematique")}
+                  options={thematiques?.map((item: any) => ({
+                    label: showingTranslateValue(item?.translations, lang)?.value,
                     value: item.id,
                   }))}
                 />
@@ -234,22 +182,15 @@ const Rejoindre = () => {
                   errors={errors.typemembre}
                   value={inputs.typemembre}
                   onFocus={() => hanldeError(null, `typemembre`)}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "typemembre")
-                  }
-                  options={Type?.map((item: any) => ({
-                    label: showingTranslateValue(item?.translations, lang)
-                      ?.name,
+                  onChange={(e: any) => handleOnChange(e.target.value, "typemembre")}
+                  options={types?.map((item: any) => ({
+                    label: showingTranslateValue(item?.translations, lang)?.name,
                     value: item.id,
                   }))}
                 />
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                 <Input
                   required
-                  name="name"
                   label={t("Name")}
-                  placeholder=""
                   type="text"
                   errors={errors.name}
                   value={inputs.name}
@@ -258,34 +199,25 @@ const Rejoindre = () => {
                 />
                 <Input
                   required
-                  name="prename"
                   label={t("Prename")}
-                  placeholder=""
                   type="text"
                   errors={errors.prename}
                   value={inputs.prename}
                   onFocus={() => hanldeError(null, `prename`)}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "prename")
-                  }
+                  onChange={(e: any) => handleOnChange(e.target.value, "prename")}
                 />
                 <Input
                   required
-                  name="select"
                   label={t("Select_Sexe")}
                   type="select"
-                  value={inputs.sexe}
                   errors={errors.sexe}
+                  value={inputs.sexe}
                   onFocus={() => hanldeError(null, `sexe`)}
                   onChange={(e: any) => handleOnChange(e.target.value, "sexe")}
-                  options={genres?.map((item: any) => ({
-                    label: item.label,
-                    value: item.value,
-                  }))}
+                  options={genres}
                 />
                 <Input
                   required
-                  name="phone"
                   label={t("Phone")}
                   type="phone"
                   errors={errors.phone}
@@ -295,9 +227,7 @@ const Rejoindre = () => {
                 />
                 <Input
                   required
-                  name="email"
                   label="Email"
-                  placeholder=""
                   type="email"
                   errors={errors.email}
                   value={inputs.email}
@@ -306,23 +236,19 @@ const Rejoindre = () => {
                 />
                 <Input
                   required
-                  name="select"
                   label={t("Select_country")}
                   type="select"
-                  value={inputs.country}
                   errors={errors.country}
+                  value={inputs.country}
                   onFocus={() => hanldeError(null, `country`)}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "country")
-                  }
-                  options={country?.map((item: any) => ({
+                  onChange={(e: any) => handleOnChange(e.target.value, "country")}
+                  options={countries?.map((item: any) => ({
                     label: item.name,
                     value: item.id,
                   }))}
                 />
                 <Input
                   required
-                  name="ville"
                   label={t("City")}
                   type="text"
                   errors={errors.ville}
@@ -332,117 +258,68 @@ const Rejoindre = () => {
                 />
                 <Input
                   required
-                  type={"text"}
-                  name="profession"
                   label={t("Proffession")}
-                  placeholder=""
+                  type="text"
                   errors={errors.profession}
                   value={inputs.profession}
                   onFocus={() => hanldeError(null, `profession`)}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "profession")
-                  }
-                />
-                <Input
-                  name="num_ordre"
-                  label={t("Order_number")}
-                  placeholder=""
-                  type="text"
-                  errors={errors.num_ordre}
-                  value={inputs.num_ordre}
-                  onFocus={() => hanldeError(null, `num_ordre`)}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "num_ordre")
-                  }
-                />
-                <Input
-                  type={"text"}
-                  name="corporation"
-                  label={t("Corporation")}
-                  placeholder=""
-                  errors={errors.corporation}
-                  value={inputs.corporation}
-                  onFocus={() => hanldeError(null, `corporation`)}
-                  onChange={(e: any) =>
-                    handleOnChange(e.target.value, "corporation")
-                  }
+                  onChange={(e: any) => handleOnChange(e.target.value, "profession")}
                 />
               </div>
-              <div className="py-4">
-                <div className="mb-4 border rounded-lg p-2">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-1">
-                    <InputPdf
-                      required
-                      name="cv"
-                      label="Sélectionner votre lettre"
-                      placeholder=""
-                      type="file"
-                      errors={errors.cv}
-                      onFocus={() => hanldeError(null, `cv`)}
-                      onChange={(e: any) => {
-                        handleOnChange(e.target.files[0], "cv");
-                      }}
-                    />
-                    <InputPdf
-                      required
-                      name="cover_letter"
-                      label="Sélectionner carte d'identité"
-                      placeholder=""
-                      type="file"
-                      errors={errors.cover_letter}
-                      onFocus={() => hanldeError(null, `cover_letter`)}
-                      onChange={(e: any) => {
-                        handleOnChange(e.target.files[0], "cover_letter");
-                      }}
-                    />
-                    <InputFile
-                      required
-                      name="carte"
-                      label="Sélectionner votre dossier académique"
-                      placeholder=""
-                      type="file"
-                      errors={errors.cv}
-                      onFocus={() => hanldeError(null, `carte`)}
-                      onChange={(e: any) => {
-                        handleOnChange(e.target.files[0], "carte");
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 gap-4">
-                <TextArea
-                  name="motif"
-                  placeholder=""
-                  type="text"
-                  value={inputs.motif}
-                  onFocus={() => hanldeError(null, `motif`)}
-                  onChange={(e: any) => handleOnChange(e.target.value, "motif")}
-                  label={t("What_is_the_motivation")}
+
+              {/* Fichiers */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <InputPdf
+                  required
+                  label="Sélectionner votre lettre"
+                  type="file"
+                  errors={errors.cv}
+                  onFocus={() => hanldeError(null, `cv`)}
+                  onChange={(e: any) => handleOnChange(e.target.files[0], "cv")}
+                />
+                <InputPdf
+                  required
+                  label="Sélectionner carte d'identité"
+                  type="file"
+                  errors={errors.cover_letter}
+                  onFocus={() => hanldeError(null, `cover_letter`)}
+                  onChange={(e: any) => handleOnChange(e.target.files[0], "cover_letter")}
+                />
+                <InputFile
+                  required
+                  label="Sélectionner votre dossier académique"
+                  type="file"
+                  errors={errors.carte}
+                  onFocus={() => hanldeError(null, `carte`)}
+                  onChange={(e: any) => handleOnChange(e.target.files[0], "carte")}
                 />
               </div>
-            </div>
-            <Button loading={loadingForm} label={t("Soumettre")} />
-            <div className="justify-center items-center">
-              <div className="mb-2">
-                <p className="text-[12px] font-montserrat text-slate-700 dark:text-slate-600 text-justify">
-                  En cliquant sur Continuer, vous acceptez notre{" "}
-                  <Link
-                    to="/confidentiality"
-                    className="text-principal font-bold"
-                    target="_blank"
-                  >
-                    Politique de confidentialité
-                  </Link>
-                  . Vous recevrez peut-être des notifications par texto ou par
-                  email de notre part.
-                </p>
-              </div>
-            </div>
-          </form>
+
+              <TextArea
+                label={t("What_is_the_motivation")}
+                value={inputs.motif}
+                onFocus={() => hanldeError(null, `motif`)}
+                onChange={(e: any) => handleOnChange(e.target.value, "motif")}
+              />
+
+              <Button loading={loadingForm} label={t("Soumettre")} />
+
+              <p className="text-[12px] text-gray-700 dark:text-slate-400 text-justify mt-4">
+                {t("En cliquant sur Continuer, vous acceptez notre")}{" "}
+                <Link
+                  to="/confidentiality"
+                  className="text-principal font-bold"
+                  target="_blank"
+                >
+                  Politique de confidentialité
+                </Link>
+                .
+              </p>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

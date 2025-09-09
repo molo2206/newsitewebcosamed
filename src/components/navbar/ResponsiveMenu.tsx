@@ -161,7 +161,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                       }}
                       className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
                     >
-                      <FaUser className="w-4 h-4 text-blue-400" />
+                      <FaUser className="w-4 h-4 text-blue-100" />
                       {t("My_profile")}
                     </li>
                     <li
@@ -171,7 +171,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                       }}
                       className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
                     >
-                      <FaFileAlt className="w-4 h-4 text-green-400" />
+                      <FaFileAlt className="w-4 h-4 text-blue-100" />
                       {t("My_applications")}
                     </li>
                     {!user ? (
@@ -182,7 +182,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                         }}
                         className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
                       >
-                        <FaSignInAlt className="w-4 h-4 text-yellow-400" />
+                        <FaSignInAlt className="w-4 h-4 text-blue-100" />
                         {t("Login")}
                       </li>
                     ) : (
@@ -190,7 +190,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                         onClick={handleLogout}
                         className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
                       >
-                        <FaSignOutAlt className="w-4 h-4 text-red-400" />
+                        <FaSignOutAlt className="w-4 h-4 text-blue-100" />
                         {t("Logout")}
                       </li>
                     )}
@@ -201,7 +201,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                       }}
                       className="flex items-center gap-3 px-4 py-3 hover:bg-hover dark:hover:bg-slate-700 cursor-pointer rounded-md"
                     >
-                      <FaUserPlus className="w-4 h-4 text-purple-400" />
+                      <FaUserPlus className="w-4 h-4 text-blue-100" />
                       {t("Register")}
                     </li>
                   </ul>
@@ -227,7 +227,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
               className="flex justify-between items-center w-full font-medium hover:bg-hover dark:hover:bg-slate-900 p-2 rounded-md transition"
             >
               <div className="flex items-center gap-3">
-                <FaInfoCircle className="w-4 h-4 text-blue-400" />
+                <FaInfoCircle className="w-4 h-4 text-blue-100" />
                 {t("AboutUs")}
               </div>
               <span>{openMenu === "about" ? "−" : "+"}</span>
@@ -241,7 +241,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center  gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaRegCircle className="w-3 h-3 text-gray-400" />
+                  <FaRegCircle className="w-3 h-3 text-gray-100" />
                   {t("AboutUs")}
                 </li>
                 <li
@@ -251,7 +251,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaPhone className="w-3 h-3 text-green-400" />
+                  <FaPhone className="w-3 h-3 text-green-100" />
                   {t("Contact")}
                 </li>
                 <li
@@ -261,7 +261,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaHandshake className="w-3 h-3 text-purple-400" />
+                  <FaHandshake className="w-3 h-3 text-purple-100" />
                   {t("Partnerships")}
                 </li>
                 <li
@@ -271,7 +271,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center text-white gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaUsers className="w-3 h-3 text-yellow-400" />
+                  <FaUsers className="w-3 h-3 text-yellow-100" />
                   {t("Governance")}
                 </li>
                 <li
@@ -281,7 +281,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaUsers className="w-3 h-3 text-teal-400" />
+                  <FaUsers className="w-3 h-3 text-teal-100" />
                   {t("Becom_member")}
                 </li>
               </ul>
@@ -295,7 +295,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
               className="flex justify-between items-center w-full font-medium hover:bg-hover dark:hover:bg-slate-900 p-2 rounded-md transition"
             >
               <div className="flex items-center gap-3">
-                <FaPalette className="w-4 h-4 text-pink-400" />
+                <FaPalette className="w-4 h-4 text-blue-100" />
                 {t("Themes")}
               </div>
               <span>{openMenu === "themes" ? "−" : "+"}</span>
@@ -319,7 +319,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
               className="flex justify-between items-center w-full font-medium hover:bg-hover dark:hover:bg-slate-900 p-2 rounded-md transition"
             >
               <div className="flex items-center gap-3">
-                <FaExclamationTriangle className="w-4 h-4 text-red-500" />
+                <FaExclamationTriangle className="w-4 h-4 text-blue-100" />
                 {t("Emergency")}
               </div>
               <span>{openMenu === "emergency" ? "−" : "+"}</span>
@@ -333,7 +333,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaEnvelopeOpenText className="w-3 h-3 text-yellow-400" />
+                  <FaEnvelopeOpenText className="w-3 h-3 text-blue-100" />
                   {t("Newsletters")}
                 </li>
                 <li
@@ -343,7 +343,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaFileAlt className="w-3 h-3 text-red-400" />
+                  <FaFileAlt className="w-3 h-3 text-blue-100" />
                   {t("Reports")}
                 </li>
                 <li
@@ -353,7 +353,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaBriefcase className="w-3 h-3 text-blue-400" />
+                  <FaBriefcase className="w-3 h-3 text-blue-100" />
                   {t("Jobs")}
                 </li>
               </ul>
@@ -367,7 +367,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
               className="flex justify-between items-center w-full font-medium hover:bg-hover dark:hover:bg-slate-900 p-2 rounded-md transition"
             >
               <div className="flex items-center gap-3">
-                <FaNewspaper className="w-4 h-4 text-blue-400" />
+                <FaNewspaper className="w-4 h-4 text-blue-100" />
                 {t("Newsroom")}
               </div>
               <span>{openMenu === "media" ? "−" : "+"}</span>
@@ -381,7 +381,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaNewspaper className="w-3 h-3 text-blue-400" />
+                  <FaNewspaper className="w-3 h-3 text-blue-100" />
                   {t("Press")}
                 </li>
                 <li
@@ -391,7 +391,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaVideo className="w-3 h-3 text-red-400" />
+                  <FaVideo className="w-3 h-3 text-blue-100" />
                   {t("Videos")}
                 </li>
                 <li
@@ -401,7 +401,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaBlog className="w-3 h-3 text-green-400" />
+                  <FaBlog className="w-3 h-3 text-blue-100" />
                   {t("Blog")}
                 </li>
                 <li
@@ -411,7 +411,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaImages className="w-3 h-3 text-purple-400" />
+                  <FaImages className="w-3 h-3 text-blue-100" />
                   {t("Gallery")}
                 </li>
                 <li
@@ -421,7 +421,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
                   }}
                   className="flex items-center gap-2 p-2 hover:bg-hover dark:hover:bg-slate-900 cursor-pointer rounded-md"
                 >
-                  <FaCalendarAlt className="w-3 h-3 text-yellow-400" />
+                  <FaCalendarAlt className="w-3 h-3 text-blue-100" />
                   {t("Events")}
                 </li>
               </ul>
@@ -436,7 +436,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
             }}
             className="flex items-center gap-2 font-medium cursor-pointer p-2 rounded-md hover:bg-hover dark:hover:bg-slate-900"
           >
-            <FaRobot className="w-4 h-4 text-teal-400" />
+            <FaRobot className="w-4 h-4 text-blue-100" />
             {t("AI4Mpox")}
           </li>
           <li
@@ -446,7 +446,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
             }}
             className="flex items-center gap-2 font-medium cursor-pointer p-2 rounded-md hover:bg-hover dark:hover:bg-slate-900"
           >
-            <FaBriefcase className="w-4 h-4 text-blue-400" />
+            <FaBriefcase className="w-4 h-4 text-blue-100" />
             {t("Jobs")}
           </li>
           <li>
@@ -455,7 +455,7 @@ const ResponsiveMenu = ({ showMenu, onClose, t }: ResponsiveMenuProps) => {
               target="_blank"
               className="flex items-center gap-2 font-medium cursor-pointer p-2 rounded-md hover:bg-hover dark:hover:bg-slate-900"
             >
-              <FaFileContract className="w-4 h-4 text-purple-400" />
+              <FaFileContract className="w-4 h-4 text-blue-100" />
               {t("Expressions_of_interest")}
             </a>
           </li>

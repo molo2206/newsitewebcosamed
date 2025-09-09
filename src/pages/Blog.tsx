@@ -81,21 +81,25 @@ export default function Blog() {
   }, [initialType]);
 
   return (
-    <div className="min-h-screen mx-auto p-6 flex flex-col">
-      <BreadCumb title={t("Healthnews")} />
-      <div className="mb-10 mt-4">
-        <h1 className="text-[16px] font-bold mb-2 text-principal">
-          {t("Publications")}
-        </h1>
-        <p className="text-gray-600 mb-6 text-[13px] dark:text-gray-400 max-w-3xl">
-          Use filters to find relevant publications across COSAMED topics
-        </p>
+    <main className="bg-white dark:bg-slate-900 dark:text-white min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <BreadCumb title={t("Healthnews")} />
 
-        {/* Zone de filtrage */}
-        <div className="bg-gray-100 dark:bg-slate-800 mb-12 rounded-lg shadow">
+        {/* En-tête */}
+        <section className="mb-8 text-center">
+          <h1 className="text-[16px] font-bold mb-2 text-principal">
+            {t("Publications")}
+          </h1>
+          <p className="text-gray-600 mb-6 text-[13px] dark:text-gray-400 max-w-3xl mx-auto">
+            Use filters to find relevant publications across COSAMED topics
+          </p>
+        </section>
+
+        {/* Formulaire de filtrage */}
+        <div className="bg-gray-100 dark:bg-slate-800 mb-12 rounded-lg shadow p-4">
           <form
             onSubmit={handleSubmit}
-            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-2 gap-4"
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4"
           >
             <Input
               label={t("Select health topic")}
@@ -122,10 +126,7 @@ export default function Blog() {
                 handleOnChange(e.target.value, "year");
                 setCurrentPage(1);
               }}
-              options={Years.map((item) => ({
-                label: item.label,
-                value: item.value,
-              }))}
+              options={Years.map((item) => ({ label: item.label, value: item.value }))}
             />
 
             <Input
@@ -133,10 +134,7 @@ export default function Blog() {
               type="select"
               value={inputs.type}
               errors={errors.type}
-              options={Type.map((item) => ({
-                label: item.label,
-                value: item.value,
-              }))}
+              options={Type.map((item) => ({ label: item.label, value: item.value }))}
               onChange={(e: any) => {
                 const selectedType = e.target.value;
                 handleOnChange(selectedType, "type");
@@ -156,44 +154,37 @@ export default function Blog() {
           </form>
         </div>
 
-        {/* Résultat */}
-        {!loadingAll && !loadingYear && currentBlogs.length > 0 && (
-          <h2 className="text-[13px] font-semibold text-gray-800 dark:text-gray-200 mb-4">
-            {inputs.year || inputs.category
-              ? `${t("Filtered publications")}${
-                  inputs.year ? ` (${inputs.year})` : ""
-                }`
-              : t("All publications")}
-          </h2>
-        )}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {loadingAll || loadingYear
-            ? Array.from({ length: postsPerPage }).map((_, i) => (
-                <BlogCardLoand key={i} />
-              ))
-            : currentBlogs.map((item: any, index: number) => (
+        {/* Résultats */}
+        {loadingAll || loadingYear ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {Array.from({ length: postsPerPage }).map((_, i) => (
+              <BlogCardLoand key={i} />
+            ))}
+          </div>
+        ) : currentBlogs.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {currentBlogs.map((item: any, index: number) => (
                 <BlogCard blog={item} key={item.id ?? index} />
               ))}
-        </div>
-
-        {!loadingAll && !loadingYear && currentBlogs.length === 0 && (
+            </div>
+            {filtered.length > postsPerPage && (
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPasts={filtered.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
+            )}
+          </>
+        ) : (
           <p className="text-gray-500 text-center mt-8 text-base">
             {inputs.year || inputs.category
               ? t("No data found for selected filters")
               : t("No publications available yet")}
           </p>
         )}
-
-        {!loadingAll && !loadingYear && filtered.length > postsPerPage && (
-          <Pagination
-            postsPerPage={postsPerPage}
-            totalPasts={filtered.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        )}
       </div>
-    </div>
+    </main>
   );
 }

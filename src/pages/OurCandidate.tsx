@@ -39,7 +39,6 @@ const OurCandidate = () => {
     user?.id
   );
 
-
   const { update_apply_offre, loading } = Application();
   //==============================Mes données personnelles=========
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
@@ -610,7 +609,6 @@ const OurCandidate = () => {
     setIsOpens(false);
   };
 
-  
   const { data, loading: load } = useAsync(
     () => CandidateServices.getCandidate(user?.id),
     [user?.id]
@@ -643,189 +641,193 @@ const OurCandidate = () => {
       ) : (
         <div className="min-h-screen bg-gray-100 p-6 dark:bg-slate-900">
           {/* Titre et Description */}
-          <h1 className="text-2xl font-light mb-2">Mes candidatures</h1>
-          <p className=" mb-6">
-            Nous sommes en train d’examiner avec toute l’attention toutes les
-            candidatures à ce poste vacant. Dans la mesure où vos compétences
-            correspondent à nos exigences, nous prendrons contact avec vous.
-            Vous pouvez vérifier le dernier statut de votre candidature via
-            l'onglet « Ma candidature » ​​sur le portail des carrières. Merci de
-            votre intérêt à rejoindre notre équipe !
-          </p>
-          {/* Tabs */}
-          {load ? (
-            Array.from(Array(20).keys()).map(() => <AllPageLoad />)
-          ) : (
-            <div className="flex border-b mb-4">
-              {tabs.map((tab) => (
-                <button
-                  onClick={() => onChangeTab(tab)}
-                  key={tab.id}
-                  className={`font-bold py-2 px-4 border-b-2 border-principal
+          <div className="max-w-7xl mx-auto px-6 py-12">
+            <h1 className="text-2xl font-light mb-2">Mes candidatures</h1>
+            <p className=" mb-6">
+              Nous sommes en train d’examiner avec toute l’attention toutes les
+              candidatures à ce poste vacant. Dans la mesure où vos compétences
+              correspondent à nos exigences, nous prendrons contact avec vous.
+              Vous pouvez vérifier le dernier statut de votre candidature via
+              l'onglet « Ma candidature » ​​sur le portail des carrières. Merci
+              de votre intérêt à rejoindre notre équipe !
+            </p>
+            {/* Tabs */}
+            {load ? (
+              Array.from(Array(20).keys()).map(() => <AllPageLoad />)
+            ) : (
+              <div className="flex border-b mb-4">
+                {tabs.map((tab) => (
+                  <button
+                    onClick={() => onChangeTab(tab)}
+                    key={tab.id}
+                    className={`font-bold py-2 px-4 border-b-2 border-principal
                     ${
                       currentTab === tab.id
                         ? "bg-principal text-white "
                         : "bg-white text-principal"
                     }  hover:bg-hover hover:text-white font-extrabold text-center`}
-                >
-                  {tab.title}
-                </button>
-              ))}
+                  >
+                    {tab.title}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Tableau */}
+            <div className="overflow-x-auto ">
+              {currentTab === 1 && (
+                <table className="min-w-full  text-sm table-auto border-collapse border border-gray-200">
+                  <thead>
+                    <tr className="bg-gray-100 dark:bg-slate-800">
+                      <th className="border border-gray-200 p-3 text-left">
+                        Désignation de l'emploi
+                      </th>
+                      <th className="border border-gray-200 p-3 text-left">
+                        Type d'emploi
+                      </th>
+                      <th className="border border-gray-200 p-3 text-left">
+                        Statut de ma candidature
+                      </th>
+                      <th className="border border-gray-200 p-3 text-left">
+                        Date de soumission
+                      </th>
+                      <th className="border border-gray-200 p-3 text-left">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data?.application_pending?.map((item: any) => (
+                      <tr className="bg-gray-50 dark:bg-slate-900 text-sm">
+                        <td className="border border-gray-200 p-3">
+                          {limittext(item?.offres?.title, 38)}
+                        </td>
+                        <td className="border border-gray-200 p-3">
+                          {item?.offres?.type}
+                        </td>
+                        <td className="border border-gray-200 p-3 text-green-600 font-bold">
+                          <button className="p-2 bg-green-100 rounded-md shadow-xl ">
+                            Your Application Is {item?.status}
+                          </button>
+                        </td>
+                        <td className="border border-gray-200 p-3">
+                          {date_format(item?.updated_at)}
+                        </td>
+                        <td className="border border-gray-200 p-3 text-center">
+                          <div className=" flex justify-between space-x-2">
+                            <button
+                              onClick={() => togglePanel(item)}
+                              className="bg-principal text-white px-4 py-2 rounded hover:bg-hover transition"
+                            >
+                              {isOpen
+                                ? "Fermer le panneau"
+                                : limittext("Afficher la candidature", 8)}
+                            </button>
+                            <button
+                              onClick={() => tagglePanelUpdates(item)}
+                              className="bg-principal text-white px-4 py-2 rounded hover:bg-hover transition"
+                            >
+                              {isOpens
+                                ? "Fermer le panneau"
+                                : limittext("Modifier", 10)}
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
-          )}
-
-          {/* Tableau */}
-          <div className="overflow-x-auto">
-            {currentTab === 1 && (
-              <table className="min-w-full text-sm table-auto border-collapse border border-gray-200">
-                <thead>
-                  <tr className="bg-gray-100 dark:bg-slate-800">
-                    <th className="border border-gray-200 p-3 text-left">
-                      Désignation de l'emploi
-                    </th>
-                    <th className="border border-gray-200 p-3 text-left">
-                      Type d'emploi
-                    </th>
-                    <th className="border border-gray-200 p-3 text-left">
-                      Statut de ma candidature
-                    </th>
-                    <th className="border border-gray-200 p-3 text-left">
-                      Date de soumission
-                    </th>
-                    <th className="border border-gray-200 p-3 text-left">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data?.application_pending?.map((item: any) => (
-                    <tr className="bg-gray-50 dark:bg-slate-900 text-sm">
-                      <td className="border border-gray-200 p-3">
-                        {limittext(item?.offres?.title, 38)}
-                      </td>
-                      <td className="border border-gray-200 p-3">
-                        {item?.offres?.type}
-                      </td>
-                      <td className="border border-gray-200 p-3 text-green-600 font-bold">
-                        <button className="p-2 bg-green-100 rounded-md shadow-xl ">
-                          Your Application Is {item?.status}
-                        </button>
-                      </td>
-                      <td className="border border-gray-200 p-3">
-                        {date_format(item?.updated_at)}
-                      </td>
-                      <td className="border border-gray-200 p-3 text-center">
-                        <div className=" flex justify-between space-x-2">
-                          <button
-                            onClick={() => togglePanel(item)}
-                            className="bg-principal text-white px-4 py-2 rounded hover:bg-hover transition"
-                          >
-                            {isOpen
-                              ? "Fermer le panneau"
-                              : limittext("Afficher la candidature", 8)}
-                          </button>
-                          <button
-                            onClick={() => tagglePanelUpdates(item)}
-                            className="bg-principal text-white px-4 py-2 rounded hover:bg-hover transition"
-                          >
-                            {isOpens
-                              ? "Fermer le panneau"
-                              : limittext("Modifier", 10)}
-                          </button>
-                        </div>
-                      </td>
+            <div className="overflow-x-auto ">
+              {currentTab === 2 && (
+                <table className="min-w-full text-sm table-auto border-collapse border border-gray-200">
+                  <thead>
+                    <tr className="bg-gray-100 dark:bg-slate-800">
+                      <th className="border border-gray-200 p-3 text-left">
+                        Désignation de l'emploi
+                      </th>
+                      <th className="border border-gray-200 p-3 text-left">
+                        Type d'emploi
+                      </th>
+                      <th className="border border-gray-200 p-3 text-left">
+                        Statut de ma candidature
+                      </th>
+                      <th className="border border-gray-200 p-3 text-left">
+                        Date de soumission
+                      </th>
+                      <th className="border border-gray-200 p-3 text-left">
+                        Action
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-          <div className="overflow-x-auto">
-            {currentTab === 2 && (
-              <table className="min-w-full text-sm table-auto border-collapse border border-gray-200">
-                <thead>
-                  <tr className="bg-gray-100 dark:bg-slate-800">
-                    <th className="border border-gray-200 p-3 text-left">
-                      Désignation de l'emploi
-                    </th>
-                    <th className="border border-gray-200 p-3 text-left">
-                      Type d'emploi
-                    </th>
-                    <th className="border border-gray-200 p-3 text-left">
-                      Statut de ma candidature
-                    </th>
-                    <th className="border border-gray-200 p-3 text-left">
-                      Date de soumission
-                    </th>
-                    <th className="border border-gray-200 p-3 text-left">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {candidate_reject?.application_rejected?.map((item: any) => (
-                    <tr className="bg-gray-50 dark:bg-slate-900">
-                      <td className="border border-gray-200 p-3">
-                        {item?.offres?.title}
-                      </td>
-                      <td className="border border-gray-200 p-3">
-                        {item?.offres?.type}
-                      </td>
-                      <td className="border border-gray-200 p-3 text-red-400 font-bold">
-                        <button className=" p-2 bg-red-100 shadow-xl">
-                          Your Application Is {item?.status}
-                        </button>
-                      </td>
-                      <td className="border border-gray-200 p-3">
-                        {date_format(item?.updated_at)}
-                      </td>
-                      <td className="border border-gray-200 p-3 text-center">
-                        <button
-                          onClick={togglePanel}
-                          className="bg-principal text-white px-4 py-2 rounded hover:bg-hover transition"
-                        >
-                          {isOpen
-                            ? "Fermer le panneau"
-                            : limittext("Afficher la candidature", 8)}
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-          <br />
+                  </thead>
+                  <tbody>
+                    {candidate_reject?.application_rejected?.map(
+                      (item: any) => (
+                        <tr className="bg-gray-50 dark:bg-slate-900">
+                          <td className="border border-gray-200 p-3">
+                            {item?.offres?.title}
+                          </td>
+                          <td className="border border-gray-200 p-3">
+                            {item?.offres?.type}
+                          </td>
+                          <td className="border border-gray-200 p-3 text-red-400 font-bold">
+                            <button className=" p-2 bg-red-100 shadow-xl">
+                              Your Application Is {item?.status}
+                            </button>
+                          </td>
+                          <td className="border border-gray-200 p-3">
+                            {date_format(item?.updated_at)}
+                          </td>
+                          <td className="border border-gray-200 p-3 text-center">
+                            <button
+                              onClick={togglePanel}
+                              className="bg-principal text-white px-4 py-2 rounded hover:bg-hover transition"
+                            >
+                              {isOpen
+                                ? "Fermer le panneau"
+                                : limittext("Afficher la candidature", 8)}
+                            </button>
+                          </td>
+                        </tr>
+                      )
+                    )}
+                  </tbody>
+                </table>
+              )}
+            </div>
+            <br />
 
-          <div className=" mt-10  mx-auto bg-white p-6 rounded-lg shadow-md dark:bg-slate-800">
-            <h1 className="text-2xl font-semibold  mb-4 ">Mon compte</h1>
-            {/* Description */}
-            <p className=" mb-6">
-              Pour mettre à jour vos données personnelles, cliquez sur{" "}
-              <strong>Mettre à jour les coordonnées</strong>. Pour modifier
-              l'adresse e-mail de votre compte, cliquez sur{" "}
-              <strong>Modifier les paramètres du compte</strong>.
-            </p>
-            {/* Boutons */}
-            <div className="flex gap-4">
-              <button
-                onClick={Accountsettings}
-                className="bg-principal text-white dark:text-text-900 border  dark:bg-slate-800  px-4 py-2 rounded-lg hover:bg-hover"
-              >
-                Mettre à jour les coordonnées
-              </button>
+            <div className=" mt-10  mx-auto bg-white p-6 rounded-lg shadow-md dark:bg-slate-800">
+              <h1 className="text-2xl font-semibold  mb-4 ">Mon compte</h1>
+              {/* Description */}
+              <p className=" mb-6">
+                Pour mettre à jour vos données personnelles, cliquez sur{" "}
+                <strong>Mettre à jour les coordonnées</strong>. Pour modifier
+                l'adresse e-mail de votre compte, cliquez sur{" "}
+                <strong>Modifier les paramètres du compte</strong>.
+              </p>
+              {/* Boutons */}
+              <div className="flex gap-4">
+                <button
+                  onClick={Accountsettings}
+                  className="bg-principal text-white dark:text-text-900 border  dark:bg-slate-800  px-4 py-2 rounded-lg hover:bg-hover"
+                >
+                  Mettre à jour les coordonnées
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
-      <div className="bg-gray-100 flex items-center justify-center">
+      <div className="bg-gray-100  flex items-center justify-center ">
         {/* Panneau coulissant */}
         <div
-          className={`fixed  top-0 mt-auto right-0 h-full md:w-[700px] text-sm w-full bg-white shadow-lg border-l border-gray-300 transform transition-transform duration-300 ${
+          className={`fixed  top-0 mt-auto right-0 h-full md:w-[700px] text-sm w-full  bg-white shadow-lg border-l border-gray-300 transform transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
-          <div className="p-6 h-full overflow-y-scroll">
+          <div className="p-6 h-full  overflow-y-scroll">
             <button
               onClick={closePanel}
               className="self-end text-gray-500 hover:text-gray-700 mb-4"

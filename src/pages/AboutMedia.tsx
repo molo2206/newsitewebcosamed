@@ -65,72 +65,78 @@ const AboutMedia = () => {
     },
   ];
 
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-12 space-y-6">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <BlogDetailLoad key={i} />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <>
-      {loading ? (
-        Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
-      ) : (
-        <div className="p-6 bg-white dark:bg-slate-900 text-gray-900 dark:text-white w-full">
-          <BreadCumb title={t("Media_resources")} />
+      <div className="p-6 bg-white dark:bg-slate-900 text-gray-900 dark:text-white w-full max-w-7xl mx-auto ">
+        <BreadCumb title={t("Media_resources")} />
 
-          <section className="text-center p-6 bg-principal dark:bg-slate-800 text-white">
-            <h1 className="text-xl md:text-xl font-extrabold uppercase tracking-wide">
-              RESSOURCES MÉDIAS
-            </h1>
-            <p className="mt-4 text-sm max-w-3xl mx-auto">
-              Accédez aux communiqués, rapports, vidéos et plus encore.
-            </p>
-          </section>
+        <section className="text-center p-6 bg-principal dark:bg-slate-800 text-white rounded-md shadow-md">
+          <h1 className="text-xl md:text-xl font-extrabold uppercase tracking-wide">
+            RESSOURCES MÉDIAS
+          </h1>
+          <p className="mt-4 text-sm max-w-3xl mx-auto">
+            Accédez aux communiqués, rapports, vidéos et plus encore.
+          </p>
+        </section>
 
-          <section className=" mx-auto p-2 bg-gray-100  dark:bg-slate-800 mt-6">
-            <h2 className="text-xl text-center font-bold uppercase mb-6 text-principal dark:text-white mt-2">
-              NOS RESSOURCES
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-              {ressources.map((ressource, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-50 dark:bg-slate-800 border-l-4 border-principal p-6 hover:shadow-md transition-shadow"
+        <section className=" mx-auto p-2 bg-gray-100  dark:bg-slate-800 mt-6 rounded-md">
+          <h2 className="text-xl text-center font-bold uppercase mb-6 text-principal dark:text-white mt-2">
+            NOS RESSOURCES
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+            {ressources.map((ressource, index) => (
+              <div
+                key={index}
+                className="bg-gray-50 dark:bg-slate-800 border-l-4 border-principal p-6 hover:shadow-md transition-shadow rounded-md"
+              >
+                <h3 className="text-sm font-semibold uppercase mb-2 text-principal dark:text-white">
+                  {ressource.title}
+                </h3>
+                <p className="text-[12px] text-gray-600 dark:text-gray-300 mb-4">
+                  {ressource.description}
+                </p>
+                <a
+                  href={ressource.link}
+                  className="text-principal hover:underline font-medium text-[12px]"
                 >
-                  <h3 className="text-lg font-semibold uppercase mb-2 text-principal dark:text-white">
-                    {ressource.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                    {ressource.description}
-                  </p>
-                  <a
-                    href={ressource.link}
-                    className="text-principal hover:underline font-medium text-sm"
-                  >
-                    En savoir plus →
-                  </a>
-                </div>
+                  En savoir plus →
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="bg-gray-100 dark:bg-slate-800 p-6 mt-6">
+          <div className=" mx-auto">
+            <h2 className="text-xl font-extrabold uppercase text-center mb-10 text-principal dark:text-white">
+              VIDÉOS RÉCENTES
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {currentVideos.map((item: any, index: number) => (
+                <CardVideo items={item} key={index} />
               ))}
             </div>
-          </section>
-
-          <section className="bg-gray-100 dark:bg-slate-800 p-6 mt-6">
-            <div className=" mx-auto">
-              <h2 className="text-xl font-extrabold uppercase text-center mb-10 text-principal dark:text-white">
-                VIDÉOS RÉCENTES
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {currentVideos.map((item: any, index: number) => (
-                  <CardVideo items={item} key={index} />
-                ))}
-              </div>
-              <div className="mt-8 flex justify-center">
-                <Pagination
-                  postsPerPage={postsPerPage}
-                  totalPasts={allvideos.length}
-                  paginate={paginate}
-                  currentPage={currentPage}
-                />
-              </div>
+            <div className="mt-8 flex justify-center">
+              <Pagination
+                postsPerPage={postsPerPage}
+                totalPasts={allvideos.length}
+                paginate={paginate}
+                currentPage={currentPage}
+              />
             </div>
-          </section>
-        </div>
-      )}
+          </div>
+        </section>
+      </div>
     </>
   );
 };

@@ -33,17 +33,17 @@ const Forget = () => {
   };
   return (
     <div className="p-6">
-      <div className="min-h-screen flex flex-col items-center bg-gray-100 w-full dark:bg-slate-900   bg-white ">
+      <div className="max-w-7xl mx-auto flex flex-col items-center bg-gray-100 w-full dark:bg-slate-900   bg-white ">
         <div className="w-full">
           <img
             src="https://apicosamed.cosamed.org/uploads/blogs/505259756244493872b7709a8a01b536.png" // Remplacez par votre URL d'image
             alt="Banner"
-            className="w-full object-cover h-80 "
+            className="w-full object-cover h-80 rounded-md"
           />
         </div>
-        <div className="w-full max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem]">
+        <div className="w-full rounded max-w-sm bg-white shadow-md dark:bg-slate-800 p-4 mt-[-4rem]">
           <h2 className="text-center text-xl font-semibold mb-6">
-            Mot de passe oublié ?
+           {t("Forget_password")}
           </h2>
           <form className="w-full max-w-sm space-y-4" onSubmit={validation}>
             <Input
@@ -57,12 +57,12 @@ const Forget = () => {
             />
             <Button label={t("SendMessage")} loading={loadingForm} />
           </form>
-          <p className="mt-6 text-gray-500 text-sm">
+          <p className="mt-6 text-gray-500 md:text-[11px] lg:text-[12px]">
             <span
               onClick={Login}
-              className="text-blue-500 hover:underline cursor-pointer"
+              className="text-principal hover:underline cursor-pointer"
             >
-              Se connecter
+             {t("Login")}
             </span>
           </p>
         </div>

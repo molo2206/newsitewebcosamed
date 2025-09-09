@@ -1,172 +1,148 @@
-import OffresServices from "../services/OffresServices";
-import useAsync from "../hooks/useAsync";
-import OffresCard from "../components/blogs/OffresCard";
-import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
-import BreadCumb from "../components/navbar/BreadCumb";
-import Pagination from "../components/Pagination/Pagination";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context";
+import useAsync from "../hooks/useAsync";
 import useValidation from "../hooks/useValidation";
-import { ApplyForm } from "../types";
+import OffresServices from "../services/OffresServices";
+import OffresCard from "../components/blogs/OffresCard";
+import BlogCardLoand from "../components/blogs/BlogCardLoad";
+import BreadCumb from "../components/navbar/BreadCumb";
+import Pagination from "../components/Pagination/Pagination";
 import InputSpecial from "../components/form/InputSpecial";
 import ButtonSpecial from "../components/form/ButtonSpecial";
+import { ApplyForm } from "../types";
+
 const Offres = () => {
   const { user } = useAuthContext();
-
   const navigate = useNavigate();
-  const goToAbout = () => {
-    navigate("/job_openings/userHome"); // Remplace "/about" par la route cible
-  };
 
-  const goToLogin = () => {
-    navigate("/auth/login"); // Remplace "/about" par la route cible
-  };
-
-  const goToCarriere = () => {
-    navigate("/job_openings"); // Remplace "/about" par la route cible
-  };
-
-  const goAlert = () => {
-    navigate("/recruiting/cosamed/job_openings/jobalerts"); // Remplace "/about" par la route cible
-  };
-  const { data, loading } = useAsync(() => OffresServices.getOffres());
+  const { data = [], loading } = useAsync(() => OffresServices.getOffres());
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(9);
+  const postsPerPage = 9;
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentOffres = data.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber: any) => setCurrentPage(pageNumber);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   const { inputs, errors, handleOnChange, hanldeError } =
-    useValidation<ApplyForm>({
-      keyword: "",
-    });
-  const validation = (e: any) => {
+    useValidation<ApplyForm>({ keyword: "" });
+
+  const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-
-    let valide = true;
-    if (!inputs.keyword) {
-      hanldeError("keyword is required", "keyword");
-      valide = false;
+    if (!inputs.keyword?.trim()) {
+      hanldeError("Keyword is required", "keyword");
+      return;
     }
-
-    if (valide) {
-      navigate("/search-offre?q=" + inputs.keyword);
-    }
+    navigate("/search-offre?q=" + encodeURIComponent(inputs.keyword));
   };
+
+  const goTo = (path: string) => navigate(path);
+
   return (
-    <>
-      {loading ? (
-        Array.from(Array(20).keys()).map(() => <BlogDetailLoad />)
-      ) : (
-        <div className="p-6 dark:bg-slate-900 w-full h-full dark:text-white ">
-          <div>
-            <BreadCumb title={"Offres"} />
+    <main className="bg-white dark:bg-slate-900 dark:text-white min-h-screen">
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <BreadCumb title="Offres" />
 
-            <section className="mb-10 ">
-              <div className="relative  rounded-md">
-                <img
-                  src="https://apicosamed.cosamed.org/uploads/blogs/6adbe8b2ab3a52e619c526eff905468a.png" // Remplacez par l'URL de l'image ou importez-la localement
-                  alt="Background"
-                  className="w-full h-[400px] object-cover  rounded-md"
-                />
-                <div className="absolute inset-0 bg-principal bg-opacity-60 flex items-center justify-center ">
-                  <header className="bg-transparent dark:bg-transparent w-full dark:text-white text-white py-10">
-                    <div className="max-w-6xl mx-auto px-4 text-center">
-                      <h1 className="text-[20px] font-bold">
-                        Offres d'emploi disponibles
-                      </h1>
-                      <p className="mt-4 text-[13px]">
-                        Trouvez l'opportunité qui correspond à vos compétences
-                        et aspirations.
-                      </p>
-                    </div>
-                  </header>
-                </div>
-              </div>
+        <header
+          className="relative h-72 flex items-center justify-center rounded-md overflow-hidden shadow-lg"
+          style={{
+            backgroundImage:
+              "url('https://apicosamed.cosamed.org/uploads/blogs/6adbe8b2ab3a52e619c526eff905468a.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <header className="text-center text-white py-10 w-full absolute inset-0 bg-principal bg-opacity-60 flex items-center justify-center">
+            <h1 className="text-[20px] font-bold">
+              Offres d'emploi disponibles
+            </h1>
+           
+          </header>
+        </header>
 
-              {/* Section Recherche */}
-              <div className="bg-white p-6 shadow-md max-w-4xl mx-auto -mt-12 relative  dark:bg-slate-800 rounded-md">
-                <div className="flex items-center space-x-4">
-                  <form
-                    onSubmit={validation}
-                    className="mt-6 max-w-md mx-auto flex flex-col md:flex-row gap-4"
-                  >
-                    <InputSpecial
-                      name="keyword"
-                      placeholder="Rechercher des emplois ou mots-clés"
-                      type="text"
-                      errors={errors.keyword}
-                      value={inputs.keyword}
-                      // onFocus={() => hanldeError(null, `keyword`)}
-                      onChange={(e: any) =>
-                        handleOnChange(e.target.value, "keyword")
-                      }
-                    />
-                    <ButtonSpecial label="Rechercher" loading={loading} />
-                  </form>
-                </div>
-                <div className="flex justify-between items-center mt-4 space-x-4 ">
-                  {!user ? (
-                    <button
-                      onClick={goToLogin}
-                      className="bg-white text-principal text-[13px]   dark:bg-transparent  dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
-                    >
-                      Mes candidatures
-                    </button>
-                  ) : (
-                    <button
-                      onClick={goToAbout}
-                      className="bg-white text-principal text-[13px]  dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
-                    >
-                      Mes candidatures
-                    </button>
-                  )}
-                  <button
-                    onClick={goToCarriere}
-                    className="bg-white hidden md:block text-principal text-[13px]  dark:bg-transparent border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
-                  >
-                    Page carrières
-                  </button>
-                  <button
-                    onClick={goAlert}
-                    className="bg-white text-principal dark:bg-transparent text-[13px]  border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
-                  >
-                    Alertes d'emploi
-                  </button>
-                </div>
-                <div className="py-4">
-                  <button
-                    onClick={goToCarriere}
-                    className="bg-white block md:hidden text-[13px]  text-principal dark:bg-transparent border dark:text-white dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition"
-                  >
-                    Page carrières
-                  </button>
-                </div>
-              </div>
-              {/* Job Listings */}
-              <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {loading
-                  ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
-                  : currentOffres.map((item: any, index: number) => (
-                      <div className="py-2">
-                        <OffresCard job={item} key={index} />
-                      </div>
-                    ))}
-              </div>
-            </section>
-           <Pagination
-                postsPerPage={postsPerPage}
-                totalPasts={data.length}
-                paginate={paginate}
-                currentPage={currentPage}
-              />
-        
+        {/* Search & Actions */}
+        <section className="bg-white p-6 shadow-md max-w-4xl mx-auto -mt-12 relative rounded-md dark:bg-slate-800">
+          <form
+            onSubmit={handleSearch}
+            className="mt-6 max-w-md mx-auto flex flex-col md:flex-row gap-4"
+          >
+            <InputSpecial
+              name="keyword"
+              placeholder="Rechercher des emplois ou mots-clés"
+              type="text"
+              errors={errors.keyword}
+              value={inputs.keyword}
+              onChange={(e: any) => handleOnChange(e.target.value, "keyword")}
+            />
+            <ButtonSpecial label="Rechercher" loading={loading} />
+          </form>
+
+          <div className="flex flex-wrap justify-center md:justify-between mt-4 gap-4">
+            <button
+              onClick={() =>
+                goTo(user ? "/job_openings/userHome" : "/auth/login")
+              }
+              className="bg-white text-principal dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition text-[13px]"
+            >
+              Mes candidatures
+            </button>
+            <button
+              onClick={() => goTo("/job_openings")}
+              className="bg-white text-principal dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition text-[13px] hidden md:block"
+            >
+              Page carrières
+            </button>
+            <button
+              onClick={() => goTo("/recruiting/cosamed/job_openings/jobalerts")}
+              className="bg-white text-principal dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition text-[13px]"
+            >
+              Alertes d'emploi
+            </button>
           </div>
-        </div>
-      )}
-    </>
+          <div className="md:hidden mt-4 flex justify-center">
+            <button
+              onClick={() => goTo("/job_openings")}
+              className="bg-white text-principal dark:bg-transparent dark:text-white border dark:border-slate-700 px-6 py-3 font-semibold rounded-md hover:bg-gray-200 transition text-[13px]"
+            >
+              Page carrières
+            </button>
+          </div>
+        </section>
+
+        {/* Job Listings */}
+        <section className="mt-12">
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {Array.from({ length: postsPerPage }).map((_, i) => (
+                <BlogCardLoand key={i} />
+              ))}
+            </div>
+          ) : currentOffres.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {currentOffres.map((job: any, index: number) => (
+                  <OffresCard key={job.id ?? index} job={job} />
+                ))}
+              </div>
+              {data.length > postsPerPage && (
+                <Pagination
+                  postsPerPage={postsPerPage}
+                  totalPasts={data.length}
+                  paginate={paginate}
+                  currentPage={currentPage}
+                />
+              )}
+            </>
+          ) : (
+            <p className="text-center text-gray-500 dark:text-gray-400 mt-8 text-base">
+              Aucune offre disponible pour le moment.
+            </p>
+          )}
+        </section>
+      </div>
+    </main>
   );
 };
 

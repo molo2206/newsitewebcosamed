@@ -108,12 +108,12 @@ const UpdateEmail = () => {
       {!user ? (
         <LoginPage />
       ) : (
-        <div className=" min-h-screen flex flex-col items-center bg-gray-100 p-6 w-full dark:bg-slate-900   bg-white ">
+        <div className="max-w-7xl mx-auto flex flex-col items-center bg-gray-100 p-6 w-full dark:bg-slate-900   bg-white ">
           <div className="w-full">
             <img
               src="https://apicosamed.cosamed.org/uploads/media/bg-profile-38acc387.jpg" // Remplacez par votre URL d'image
               alt="Banner"
-              className="w-full object-cover h-72 "
+              className="w-full object-cover h-72 rounded-md"
             />
           </div>
           <div className="w-full max-w-6xl bg-white shadow-md dark:bg-slate-800  p-4 mt-[-4rem]">
@@ -145,14 +145,14 @@ const UpdateEmail = () => {
                 {/* Information and Form */}
                 <div className="mt-4">
                   <form
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6 "
                     onSubmit={validation}
                   >
-                    <div>
-                      <div className=" flex justify-between gap-3 ">
+                    <div className="">
+                      <div className=" flex justify-between gap-3">
                         <label
                           htmlFor="upload-image"
-                          className="cursor-pointer px-4 py-2  bg-red-100 text-red-600 rounded-md border border-red-300 hover:bg-red-200 flex items-center gap-2"
+                          className="cursor-pointer px-4 py-2 text-[12px] bg-red-100 text-red-600 rounded-md border border-red-300 hover:bg-red-200 flex items-center gap-2"
                         >
                           Modifier photo
                         </label>

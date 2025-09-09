@@ -28,48 +28,46 @@ const Thematiqueblog = () => {
   const categoryName = showingTranslateValue(category?.translations, lang)?.name ?? "inconnue";
 
   return (
-    <div className="min-h-screen p-6 flex flex-col  mx-auto">
-      {loading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <BlogDetailLoad key={i} />
-          ))}
-        </div>
-      ) : (
-        <>
-          {/* Fil d’Ariane */}
-          <BreadCumb title={categoryName} />
+    <main className="bg-white dark:bg-slate-900 min-h-screen dark:text-white">
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <BreadCumb title={categoryName} />
 
-          {/* En-tête */}
-          <section className="mb-8 bg-principal dark:bg-slate-800 rounded-md p-6 shadow-md  text-center">
-            <h1 className="text-[16px] font-bold text-white">
-              Publications {categoryName}
-            </h1>
-          </section>
+        {/* En-tête */}
+        <section className="mb-8 bg-principal dark:bg-slate-800 rounded-md p-6 shadow-md text-center">
+          <h1 className="text-[16px] font-bold text-white">
+            Publications {categoryName}
+          </h1>
+        </section>
 
-          {/* Grille des blogs */}
-          {blogs.length > 0 ? (
+        {/* Contenu */}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <BlogDetailLoad key={i} />
+            ))}
+          </div>
+        ) : blogs.length > 0 ? (
+          <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {currentBlogs.map((item: any, index: number) => (
                 <BlogThematiqueCard cat={item} key={index} />
               ))}
             </div>
-          ) : (
-            <div className="text-center text-gray-600 dark:text-gray-400 my-20">
-              Aucun article à afficher pour la thématique <strong>{categoryName}</strong>.
-            </div>
-          )}
 
-          {/* Pagination */}
-          <Pagination
-            postsPerPage={postsPerPage}
-            totalPasts={blogs.length}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
-        </>
-      )}
-    </div>
+            <Pagination
+              postsPerPage={postsPerPage}
+              totalPasts={blogs.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
+          </>
+        ) : (
+          <div className="text-center text-gray-600 dark:text-gray-400 my-20">
+            Aucun article à afficher pour la thématique <strong>{categoryName}</strong>.
+          </div>
+        )}
+      </div>
+    </main>
   );
 };
 

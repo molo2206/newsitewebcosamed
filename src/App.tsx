@@ -59,7 +59,7 @@ import Otp from "./pages/Auth/Otp";
 import NewPassword from "./pages/Auth/NewPassword";
 import PageRechercheOffre from "./pages/PageRechercheOffre";
 import SuccessPage from "./pages/AlertEmploi/SuccessPage";
-import React, { Suspense } from "react";
+import React from "react";
 import CookieConsent from "./pages/Cookies/CookieConsent";
 import Confidentialite from "./pages/Confidentialite";
 import JobApplicationForm_Data from "./pages/JobApplicationForm_Data";
@@ -72,6 +72,7 @@ import NotreHistoire from "./pages/NotreHistoire";
 import HealthMissionPage from "./pages/HealthMissionPage";
 import TermsOfUse from "./pages/TermsOfUse";
 import AccessibilityPolicy from "./pages/AccessibilityPolicy";
+import DelayedSuspense from "./components/cards/DelayedSuspense";
 
 function App() {
   const Home = React.lazy(() => import("./pages/Home"));
@@ -83,13 +84,7 @@ function App() {
   return (
     <div className="bg-slate-100 dark:bg-slate-900  dark:text-white ">
       <CookieConsent />
-      <Suspense
-        fallback={
-          <div className="bg-slate-100 dark:bg-slate-900  dark:text-white">
-            Loading...
-          </div>
-        }
-      >
+      <DelayedSuspense>
         <Elements stripe={stripe}>
           <ScrollToTop />
           <ToastContainer position="bottom-right" style={{ zIndex: 99999 }} />
@@ -172,10 +167,7 @@ function App() {
               <Route path="/terms-of-service" element={<TermsOfUse />} />
 
               <Route path="/job_openings" element={<Carriere />}></Route>
-              <Route
-                path="/accessibility"
-                element={<AccessibilityPolicy />}
-              />
+              <Route path="/accessibility" element={<AccessibilityPolicy />} />
 
               <Route
                 path="/toutsavoirsurledon"
@@ -245,7 +237,7 @@ function App() {
             </Route>
           </Routes>
         </Elements>
-      </Suspense>
+      </DelayedSuspense>
     </div>
   );
 }

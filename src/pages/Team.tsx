@@ -5,9 +5,7 @@ import TeamCard from "../components/blogs/TeamCard";
 import BreadCumb from "../components/navbar/BreadCumb";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import {
-  useState,
-} from "react";
+import { useState } from "react";
 import usePageSEO from "../components/Seo/usePageSEO";
 import Pagination from "../components/Pagination/Pagination";
 
@@ -35,65 +33,62 @@ const Team = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <>
-      {loading ? (
-        Array.from(Array(12).keys()).map((_, i) => <BlogDetailLoad key={i} />)
-      ) : (
-        <div className="dark:bg-slate-900 w-full dark:text-white p-6">
-          <div>
-            <BreadCumb title={t("Reports")} />
-            <section className="mb-10">
-              <motion.header
-                className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <h1 className="text-[16px] font-bold">
-                  {t("Rencontrez notre équipe")}
-                </h1>
-                <p className="mt-4 text-[12px]">
-                  {t(
-                    "Nous sommes une équipe de professionnels dévoués qui travaillent pour réaliser de grandes choses."
-                  )}
-                </p>
-              </motion.header>
+    <main className="bg-white dark:bg-slate-900 w-full min-h-screen dark:text-white">
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <BreadCumb title={t("Reports")} />
 
-              <motion.section
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mt-10"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  hidden: { opacity: 0, y: 40 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-                }}
-              >
-                {currentMembers.map((member: number, index: number) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    viewport={{ once: true }}
-                  >
-                    <TeamCard team={member} />
-                  </motion.div>
-                ))}
-              </motion.section>
+        <motion.header
+          className="mb-8 bg-principal dark:bg-slate-800 text-white text-center rounded-md p-6 shadow-md"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-[16px] font-bold">{t("Rencontrez notre équipe")}</h1>
+          <p className="mt-4 text-[12px]">
+            {t(
+              "Nous sommes une équipe de professionnels dévoués qui travaillent pour réaliser de grandes choses."
+            )}
+          </p>
+        </motion.header>
 
-              {/* Pagination */}
-              <Pagination
-                postsPerPage={postsPerPage}
-                totalPasts={data.length}
-                paginate={paginate}
-                currentPage={currentPage}
-              />
-            </section>
+        <motion.section
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mt-10"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0, y: 40 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+          }}
+        >
+          {loading
+            ? Array.from(Array(postsPerPage).keys()).map((_, i) => <BlogDetailLoad key={i} />)
+            : currentMembers.map((member: any, index: number) => (
+                <motion.div
+                  key={member.id || index}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                >
+                  <TeamCard team={member} />
+                </motion.div>
+              ))}
+        </motion.section>
+
+        {/* Pagination */}
+        {!loading && (
+          <div className="mt-10">
+            <Pagination
+              postsPerPage={postsPerPage}
+              totalPasts={data.length}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </div>
+    </main>
   );
 };
 

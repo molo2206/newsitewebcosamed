@@ -58,12 +58,12 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-100 p-6 w-full dark:bg-slate-900 bg-white">
+    <div className="max-w-7xl mx-auto flex flex-col items-center bg-gray-100 p-6 w-full dark:bg-slate-900 bg-white">
       <div className="w-full">
         <img
           src="https://apicosamed.cosamed.org/uploads/blogs/505259756244493872b7709a8a01b536.png"
           alt="Banner"
-          className="w-full object-cover h-80"
+          className="w-full object-cover h-80 rounded-md"
         />
       </div>
 
