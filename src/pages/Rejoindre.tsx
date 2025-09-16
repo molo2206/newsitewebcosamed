@@ -22,7 +22,6 @@ const Rejoindre = () => {
   const { t } = useTranslation();
   const { lang } = useAuthContext();
 
-  // Chargement des données principales
   const { data: thematiques, loading: loadingThematiques } = useAsync(() =>
     ThematiquesServices.getThematiques()
   );

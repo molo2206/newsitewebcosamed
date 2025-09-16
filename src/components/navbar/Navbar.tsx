@@ -5,6 +5,7 @@ import {
   FaGavel,
   FaHandshake,
   FaInfoCircle,
+  FaPodcast,
   FaUserCircle,
   FaUsers,
 } from "react-icons/fa";
@@ -161,9 +162,8 @@ function Navbar() {
           <nav className="max-w-screen-xl mx-auto flex items-center justify-between px-4 md:px-8 h-16 lg:h-20">
             <div
               onClick={home}
-              className="cursor-pointer w-[140px] sm:w-[160px] md:w-[200px] lg:w-[180px] xl:w-[180px] flex justify-center"
+              className="cursor-pointer w-[140px] sm:w-[160px] md:w-[200px] lg:w-[180px] xl:w-[180px] flex justify-center items-center"
             >
-             
               <LogoWithSkeleton src={data?.logo1} alt="Logo COSAMED" />
             </div>
 
@@ -568,6 +568,42 @@ function Navbar() {
                                 </span>
                                 <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
                                   {t("See upcoming conferences and campaigns")}
+                                </p>
+                              </div>
+                            </div>
+                            <div
+                              className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
+  transition hover:bg-gray-100 dark:hover:bg-gray-800 border-b border-gray-200 dark:border-gray-700 
+  w-full bg-principal sm:bg-transparent rounded-md flex"
+                            >
+                              <a
+                                href="https://soundcloud.com/media-cosamed-sante"
+                                target="_blank"
+                              >
+                                <div className="flex items-center justify-center w-16 h-full bg-principal sm:bg-gray-100 dark:sm:bg-gray-800 rounded-l-md">
+                                  <FaPodcast className="text-2xl text-white sm:text-yellow-500" />{" "}
+                                  {/* Icon Podcast */}
+                                </div>
+                              </a>
+
+                              <div className="flex-1 p-4 sm:p-6">
+                                <span className="text-[13px] font-semibold">
+                                  <a
+                                    href="https://soundcloud.com/media-cosamed-sante"
+                                    target="_blank"
+                                  >
+                                    {t("Podcasts")}
+                                  </a>
+                                </span>
+                                <p className="text-[12px] text-gray-200 sm:text-gray-600 dark:text-gray-300">
+                                  <a
+                                    href="https://soundcloud.com/media-cosamed-sante"
+                                    target="_blank"
+                                  >
+                                    {t(
+                                      "Listen to the latest episodes and interviews"
+                                    )}
+                                  </a>
                                 </p>
                               </div>
                             </div>

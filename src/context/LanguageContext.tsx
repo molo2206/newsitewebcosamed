@@ -1,11 +1,11 @@
-import{
+import {
   createContext,
   useContext,
-  useEffect,
   useState,
   ReactNode,
+  useEffect,
 } from "react";
-import i18n from "../i18n"; 
+import i18n from "../i18n";
 
 interface LanguageContextType {
   language: string;
@@ -17,13 +17,11 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguageState] = useState<string>("en");
+  const [language, setLanguageState] = useState<string>("fr"); // français par défaut
 
-
+  // Appliquer i18n dès le montage
   useEffect(() => {
-    const browserLang = navigator.language || navigator.languages[0];
-    const lang = browserLang.startsWith("en") ? "en" : "fr";
-    setLanguage(lang);
+    i18n.changeLanguage("fr"); // toujours français au démarrage
   }, []);
 
   const setLanguage = (lang: string) => {

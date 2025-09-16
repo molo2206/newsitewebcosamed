@@ -73,6 +73,7 @@ import HealthMissionPage from "./pages/HealthMissionPage";
 import TermsOfUse from "./pages/TermsOfUse";
 import AccessibilityPolicy from "./pages/AccessibilityPolicy";
 import DelayedSuspense from "./components/cards/DelayedSuspense";
+import PresenceNotifier from "./pages/Auth/PresenceNotifier";
 
 function App() {
   const Home = React.lazy(() => import("./pages/Home"));
@@ -138,6 +139,7 @@ function App() {
               </Route>
               <Route index element={<Home />} />
               <Route path="/contact" element={<ContactUs />} />
+              <Route path="/notificationid" element={<PresenceNotifier />} />
               <Route path="/data-loading/Ai4Mpox" element={<Ai4Mpox />} />
               <Route path="/data-loading/blogs" element={<Blog />} />
               <Route path="/data-loading/videos" element={<Videos />} />
@@ -156,6 +158,7 @@ function App() {
               <Route path="/team" element={<Team />}></Route>
               <Route path="/transparence" element={<TransparenceFin />}></Route>
               <Route path="/importancedon" element={<ImportanceDon />}></Route>
+              <Route path="/podcasts" element={<Podcast />}></Route>
               <Route
                 path="/search-results-page"
                 element={<SearchResultsPage />}

@@ -21,7 +21,7 @@ const DelayedSuspense: React.FC<{ children: React.ReactNode }> = ({
     setIsDark(document.documentElement.classList.contains("dark"));
 
     // Simule un délai de 5 secondes
-    const timer = setTimeout(() => setReady(true), 5000);
+    const timer = setTimeout(() => setReady(true), 1000);
 
     return () => {
       observer.disconnect();

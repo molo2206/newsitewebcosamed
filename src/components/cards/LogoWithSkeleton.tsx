@@ -6,15 +6,15 @@ const LogoWithSkeleton = ({ src, alt }: { src: string; alt: string }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <div className="relative w-[140px] sm:w-[160px] md:w-[180px] h-16 sm:h-20 flex justify-center items-center">
+    <div className="relative flex items-center justify-center w-full h-16 sm:h-20">
       {/* Skeleton */}
       {!imageLoaded && (
         <Skeleton
-        //   height="80%" // hauteur du parent
-          width="100%"  // largeur du parent
+          width={120} 
+          height={60}
           baseColor="var(--skeleton-base)"
           highlightColor="var(--skeleton-highlight)"
-          className="rounded-md absolute inset-0 z-0 max-h-full"
+          className="rounded-md"
         />
       )}
 
@@ -22,7 +22,7 @@ const LogoWithSkeleton = ({ src, alt }: { src: string; alt: string }) => {
       <img
         src={src}
         alt={alt}
-        className={`max-w-full max-h-full object-contain brightness-110 contrast-110 transition-opacity duration-500 ${
+        className={`max-h-full max-w-full object-contain brightness-110 contrast-110 transition-opacity duration-500 ${
           imageLoaded ? "opacity-100" : "opacity-0"
         }`}
         loading="lazy"

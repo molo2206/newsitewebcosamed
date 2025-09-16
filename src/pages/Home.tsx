@@ -19,7 +19,7 @@ const Home = () => {
   });
 
   return (
-    <div className=" bg-slate-100 dark:bg-slate-900 text-sm ">
+    <div className="dark:bg-slate-900 text-sm">
       <Hero />
       <BannerMission />
       <Blogs />

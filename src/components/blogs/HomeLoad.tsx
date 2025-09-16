@@ -3,7 +3,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const HomeLoad = () => {
   return (
-    <div className="p-4 shadow-lg rounded-md bg-white dark:bg-slate-800 transition-all duration-300 max-w-7xl mx-auto">
+    <div className="p-4 py-8 shadow-lg rounded-md bg-white dark:bg-slate-800 transition-all duration-300 max-w-7xl mx-auto">
       {/* Image principale */}
       <div className="overflow-hidden rounded-md w-full">
         <Skeleton

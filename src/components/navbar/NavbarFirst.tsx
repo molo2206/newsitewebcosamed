@@ -180,6 +180,13 @@ const NavbarFirst = () => {
                 <PlayCircleIcon className="w-3.5 h-3.5 animate-wave" />
                 {t("Media_resources")}
               </button>
+               {/* <button
+                onClick={() => navigate("/notificationid")}
+                className={`bg-principal hover:bg-hover hidden md:inline-flex dark:hover:bg-slate-900 dark:bg-slate-800 border dark:border-slate-700 text-white ${buttonCommonClasses}`}
+              >
+                <PlayCircleIcon className="w-3.5 h-3.5 animate-wave" />
+                Notification ID
+              </button> */}
             </>
           )}
         </div>
