@@ -319,7 +319,7 @@ function Navbar() {
                     >
                       <div className="grid grid-cols-4 gap-6">
                         <div className="col-span-4">
-                          <div className="h-[400px] overflow-y-auto grid grid-cols-4 p-4 gap-4">
+                          <div className="h-[400px] overflow-y-auto grid grid-cols-3 p-4 gap-4">
                             {cat.map((item: any, index: number) => (
                               <CategoryCard key={index} cat={item} />
                             ))}
@@ -349,7 +349,7 @@ function Navbar() {
                     >
                       <div className="grid grid-cols-4 gap-4">
                         <div className="col-span-4">
-                          <div className="grid grid-cols-4 px-4 gap-4">
+                          <div className="grid grid-cols-3 px-4 gap-4">
                             {/* Newsletters */}
                             <div
                               className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
@@ -464,7 +464,7 @@ function Navbar() {
                     >
                       <div className="grid grid-cols-4 gap-6">
                         <div className="col-span-4">
-                          <div className="grid grid-cols-5 mt-4 px-4 gap-5">
+                          <div className="grid grid-cols-3 mt-4 px-4 gap-5">
                             {/* Press */}
                             <div
                               className="cursor-pointer text-sm sm:text-base font-semibold text-white sm:text-gray-900 dark:sm:text-white 
