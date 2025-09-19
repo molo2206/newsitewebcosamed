@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import CandidateServices from "../services/CandidateServices";
 import useAsync from "../hooks/useAsync";
 import { date_format, limittext } from "../utils/heleprs";
-import AllPageLoad from "../components/blogs/AllPageLoad";
 import {
   ApplyForm,
   Attestations,
@@ -27,6 +26,7 @@ import Application from "../hooks/Application";
 import useValidation from "../hooks/useValidation";
 import InputDisable from "../components/form/InputDisable";
 import { FaDeleteLeft } from "react-icons/fa6";
+import OurCandidateSkeleton from "../components/hero/OurCandidateSkeleton";
 
 const OurCandidate = () => {
   const { t } = useTranslation();
@@ -639,7 +639,7 @@ const OurCandidate = () => {
       {!user ? (
         <LoginPage />
       ) : (
-        <div className="min-h-screen bg-gray-100 p-6 dark:bg-slate-900">
+        <div className="bg-gray-100  dark:bg-slate-900">
           {/* Titre et Description */}
           <div className="max-w-7xl mx-auto px-6 py-12">
             <h1 className="text-2xl font-light mb-2">Mes candidatures</h1>
@@ -653,7 +653,7 @@ const OurCandidate = () => {
             </p>
             {/* Tabs */}
             {load ? (
-              Array.from(Array(20).keys()).map(() => <AllPageLoad />)
+              Array.from(Array(20).keys()).map(() => <OurCandidateSkeleton />)
             ) : (
               <div className="flex border-b mb-4">
                 {tabs.map((tab) => (

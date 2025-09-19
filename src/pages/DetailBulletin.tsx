@@ -12,9 +12,8 @@ import {
   showingTranslateValue,
 } from "../utils/heleprs";
 import { useAuthContext } from "../context";
-
-import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
+import BulletinDetailLoad from "../components/hero/BulletinDetailLoad";
 
 // Fonction utilitaire pour nettoyer le HTML pour le SEO
 const stripHtml = (html?: string): string =>
@@ -94,7 +93,7 @@ const DetailBulletin = () => {
       )}
 
       {loading ? (
-        Array.from({ length: 5 }).map((_, i) => <BlogDetailLoad key={i} />)
+        Array.from({ length: 5 }).map((_, i) => <BulletinDetailLoad key={i} />)
       ) : (
         <div className="bg-white max-w-7xl mx-auto min-h-[650px] dark:bg-slate-900 p-6">
           <BreadCumb
@@ -103,7 +102,7 @@ const DetailBulletin = () => {
             secondTitle="Bulletins"
           />
 
-          <div className="bg-white  dark:bg-slate-800 border dark:border-slate-700 mt-4 p-6 shadow-md ">
+          <div className="bg-white  dark:bg-slate-800 border dark:border-slate-700 mt-4 p-6 shadow-md  rounded-md">
             <h1 className="text-xl lg:text-2xl font-bold mb-4 text-center sm:text-left">
               Bulletin d'information – {translation?.month} {translation?.year}
             </h1>
@@ -169,7 +168,8 @@ const DetailBulletin = () => {
                   <strong>Taille du fichier :</strong>{" "}
                   {data?.fileSize
                     ? `${(data.fileSize / 1024 / 1024).toFixed(2)} Mo`
-                    : "N/A"}
+                    : "N/A"
+                    }
                 </p>
                 <p>
                   <strong>Date de publication :</strong>{" "}

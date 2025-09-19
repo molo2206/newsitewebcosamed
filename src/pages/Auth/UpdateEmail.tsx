@@ -9,7 +9,7 @@ import InputPassword from "../../components/form/InputPassword";
 import { ApplyForm } from "../../types";
 import { FaUserCircle } from "react-icons/fa";
 import LoginPage from "./LoginPage";
-import BlogCardLoand from "../../components/blogs/BlogCardLoad";
+import UpdateEmailLoad from "../../components/hero/UpdateEmailLoad";
 
 const UpdateEmail = () => {
   const { t } = useTranslation();
@@ -17,8 +17,6 @@ const UpdateEmail = () => {
 
   const { editprof, loading: loadingForm } = Editeprofile();
   const { update_password, loading: loadingPassword } = Editeprofile();
-
-
 
   const { inputs, errors, handleOnChange, hanldeError, setInputs } =
     useValidation<ApplyForm>({
@@ -121,7 +119,7 @@ const UpdateEmail = () => {
               Informations
             </h2>
             {loadingForm ? (
-              Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
+              <UpdateEmailLoad /> 
             ) : (
               <div className="">
                 <div className="">

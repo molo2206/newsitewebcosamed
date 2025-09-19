@@ -4,8 +4,8 @@ import { useAuthContext } from "../context";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import CardSearch from "../components/cards/CardSearch";
-import BlogCardLoad from "../components/blogs/BlogCardLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
+import SearchResultsSkeleton from "../components/hero/SearchResultsSkeleton";
 
 const PageSearch = () => {
   const [searchParams] = useSearchParams();
@@ -69,7 +69,7 @@ const PageSearch = () => {
   );
 
   return (
-    <div className="p-6 w-full dark:bg-slate-900 dark:text-white">
+    <div className="max-w-7xl mx-auto px-6 dark:bg-slate-900 dark:text-white">
       <BreadCumb title={"Resultat"} />
       <div className="mx-auto py-4">
         {/* Header */}
@@ -88,7 +88,7 @@ const PageSearch = () => {
         {/* Résultats */}
         <div className="flex flex-col gap-4 container">
           {loading
-            ? Array.from({ length: 10 }, (_, i) => <BlogCardLoad key={i} />)
+            ? Array.from({ length: 10 }, (_, i) => <SearchResultsSkeleton key={i} />)
             : data?.data?.map((item: any) => (
                 <CardSearch blog={item} key={item.id} />
               ))}

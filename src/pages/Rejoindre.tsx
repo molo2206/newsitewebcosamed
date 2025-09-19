@@ -16,7 +16,7 @@ import usePageSEO from "../components/Seo/usePageSEO";
 import { ApplyForm } from "../types";
 import InputFile from "../components/form/InputFile";
 import InputPdf from "../components/form/InputPdf";
-import BulletinLoad from "../components/blogs/BulletinLoad";
+import RejoindreLoad from "../components/hero/RejoindreLoad";
 
 const Rejoindre = () => {
   const { t } = useTranslation();
@@ -93,12 +93,11 @@ const Rejoindre = () => {
     if (valide) createMember(inputs, setInputs);
   };
 
-  // Affichage du skeleton loader si les données ou le formulaire sont en cours de chargement
   if (loadingForm || loadingThematiques || loadingTypes || loadingCountries) {
     return (
       <div className="max-w-7xl mx-auto px-6 py-12 space-y-6">
         {Array.from({ length: 8 }).map((_, i) => (
-          <BulletinLoad key={i} />
+          <RejoindreLoad key={i} />
         ))}
       </div>
     );

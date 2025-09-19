@@ -51,7 +51,7 @@ const categoryIcons: Record<string, React.ElementType> = {
   "développement professionnel continue": GraduationCap,
   "attaques sur le système de santé (ssa)": ShieldAlert,
   "santé mentale": Brain,
-  ebola: Biohazard,        // ✅ remplacé
+  ebola: Biohazard,      
   "monitoring de la santé (alerte et gaps)": AlertTriangle,
   "actualité santé": Globe,
   "santé publique": HeartPulse,

@@ -2,8 +2,8 @@ import useAsync from "../hooks/useAsync";
 import SearchServices from "../services/SearchServices";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import BlogCardLoand from "../components/blogs/BlogCardLoad";
 import CardSearchOffre from "../components/cards/CardSearchOffre";
+import SearchResultsSkeleton from "../components/hero/SearchResultsSkeleton";
 
 const PageRechercheOffre = () => {
   const [searchParams] = useSearchParams();
@@ -66,8 +66,8 @@ const PageRechercheOffre = () => {
     );
   };
   return (
-    <div className="container  dark:bg-slate-900 w-full dark:text-white">
-      <div className=" px-4 lg:px-14 max-w-screen-2xl mx-auto my-8  py-20">
+    <div className=" dark:bg-slate-900 w-full dark:text-white">
+      <div className="max-w-7xl mx-auto px-6">
         <div className=" md:w-12/12 mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="  ">
             <h2 className=" md:text-3xl sm:text-2xl text-principal text-neutralDGray font-bold mb-4 ">
@@ -86,7 +86,7 @@ const PageRechercheOffre = () => {
         </div>
         <div className=" py-2">
           {loading
-            ? Array.from(Array(20).keys()).map(() => <BlogCardLoand />)
+            ? Array.from(Array(20).keys()).map(() => <SearchResultsSkeleton />)
             : data?.data?.map((items: any) => (
                 <div className="py-2">
                   <CardSearchOffre job={items} />

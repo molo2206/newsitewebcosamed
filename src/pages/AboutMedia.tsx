@@ -1,5 +1,4 @@
 import BreadCumb from "../components/navbar/BreadCumb";
-import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import SettingsServices from "../services/SettingsServices";
 import useAsync from "../hooks/useAsync";
 import { useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import Pagination from "../components/Pagination/Pagination";
 import { useTranslation } from "react-i18next";
 import { BASE_YOUTUBE } from "../utils/heleprs";
 import CardVideo from "../components/cards/CardVideo";
+import MediaResourcesLoad from "../components/hero/MediaResourcesLoad";
 
 const AboutMedia = () => {
   const { data, loading } = useAsync(() => SettingsServices.getSettings());
@@ -67,9 +67,9 @@ const AboutMedia = () => {
 
   if (loading) {
     return (
-      <div className="max-w-7xl mx-auto px-6 py-12 space-y-6">
+      <div className="">
         {Array.from({ length: 8 }).map((_, i) => (
-          <BlogDetailLoad key={i} />
+          <MediaResourcesLoad key={i} />
         ))}
       </div>
     );

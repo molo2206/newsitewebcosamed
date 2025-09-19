@@ -5,11 +5,16 @@ import { showingTranslateValue } from "../../utils/heleprs";
 import { useLanguageContext } from "../../context/LanguageContext";
 import { motion } from "framer-motion";
 import { FaRegLightbulb, FaEye } from "react-icons/fa";
+import BannerMissionLoad from "../hero/BannerMissionLoad";
 
 const BannerMission = () => {
   const { language: lang } = useLanguageContext();
   const { t } = useTranslation();
-  const { data } = useAsync(() => SettingsServices.getSettings());
+  const { data, loading } = useAsync(() => SettingsServices.getSettings());
+
+  if (loading) {
+    return <BannerMissionLoad />; // ✅ afficher skeleton pendant chargement
+  }
 
   const mission = showingTranslateValue(data?.translations, lang)?.mission;
   const vision = showingTranslateValue(data?.translations, lang)?.vision;
@@ -43,7 +48,7 @@ const BannerMission = () => {
               </h2>
             </div>
             <p
-              className="text-[14px]  text-slate-700 dark:text-slate-200 leading-relaxed"
+              className="text-[14px] text-slate-700 dark:text-slate-200 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: mission }}
             />
           </motion.div>
@@ -59,7 +64,7 @@ const BannerMission = () => {
           >
             <div className="flex items-center mb-4">
               <FaEye className="text-principal w-4 h-4 mr-2" />
-              <h2 className="text-[16px]  font-bold text-gray-800 dark:text-white">
+              <h2 className="text-[16px] font-bold text-gray-800 dark:text-white">
                 {t("Vision")}
               </h2>
             </div>

@@ -11,7 +11,6 @@ import {
 } from "../utils/heleprs";
 import { useAuthContext } from "../context";
 
-import BlogDetailLoad from "../components/blogs/BlogDetailLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import Error404 from "./Error404";
 import { ImageBlogs } from "../components/blogs/ImageBlogs";
@@ -26,6 +25,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronUp, Users } from "lucide-react";
+import DetailBlogSkeleton from "../components/hero/DetailBlogSkeleton";
 dayjs.extend(relativeTime);
 
 const DetailBlog = () => {
@@ -121,7 +121,7 @@ const DetailBlog = () => {
   };
 
   const handleShowMore = () => {
-    setVisibleComments((prev) => prev + 3); // Affiche 3 de plus à chaque clic
+    setVisibleComments((prev) => prev + 3); 
   };
 
   const [progress, setProgress] = useState<number | null>(null);
@@ -146,7 +146,7 @@ const DetailBlog = () => {
     return (
       <div className="max-w-7xl mx-auto px-6 py-12 space-y-6">
         {Array.from({ length: 8 }).map((_, i) => (
-          <BlogDetailLoad key={i} />
+          <DetailBlogSkeleton key={i} />
         ))}
       </div>
     );

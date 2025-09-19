@@ -1,63 +1,76 @@
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { motion } from "framer-motion";
 
 const BlogCardLoad = () => {
   return (
-    <div className="p-4 shadow-lg rounded-md bg-white dark:bg-slate-800 transition-all duration-300 max-w-7xl mx-auto px-6 py-12">
-      {/* Image ou media */}
-      <div className="overflow-hidden rounded-md w-full">
+    <motion.article
+      className="cursor-pointer border dark:border-gray-700 p-4 rounded-md bg-gray-50 dark:bg-slate-900 dark:text-white shadow-sm transition-shadow group"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ duration: 0.2 }}
+    >
+      {/* Image */}
+      <div className="overflow-hidden rounded-md mb-3">
         <Skeleton
-          count={1}
+          height={160}
           width="100%"
-          height={200}
-          baseColor="var(--skeleton-base)"
-          highlightColor="var(--skeleton-highlight)"
-          className="w-full"
+          baseColor="var(--skeleton-base, #e2e8f0)"
+          highlightColor="var(--skeleton-highlight, #f1f5f9)"
         />
       </div>
 
-      {/* Meta info */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-2 text-slate-600 dark:text-gray-300 gap-2 sm:gap-0">
+      {/* Date */}
+      <div className="h-3 w-20 mb-1">
         <Skeleton
-          count={1}
-          width="70%"             // mobile
-          className="sm:w-[150px]" // desktop
-          height={20}
-          baseColor="var(--skeleton-base)"
-          highlightColor="var(--skeleton-highlight)"
-        />
-        <Skeleton
-          count={1}
-          width="30%"             // mobile
-          className="sm:w-[60px]" // desktop
-          height={20}
-          baseColor="var(--skeleton-base)"
-          highlightColor="var(--skeleton-highlight)"
+          height={12}
+          width="100%"
+          baseColor="var(--skeleton-base, #e2e8f0)"
+          highlightColor="var(--skeleton-highlight, #f1f5f9)"
         />
       </div>
 
-      {/* Title & description */}
-      <div className="space-y-2 pt-2">
-        <h1 className="font-montserrat line-clamp-1 font-bold text-lg">
-          <Skeleton
-            count={1}
-            width="100%"
-            height={20}
-            baseColor="var(--skeleton-base)"
-            highlightColor="var(--skeleton-highlight)"
-          />
-        </h1>
-        <p className="font-montserrat text-sm text-gray-700 dark:text-gray-300">
-          <Skeleton
-            count={5}
-            width="100%"
-            height={15}
-            baseColor="var(--skeleton-base)"
-            highlightColor="var(--skeleton-highlight)"
-          />
-        </p>
+      {/* Catégorie */}
+      <div className="mt-1 h-4 w-14">
+        <Skeleton
+          height={14}
+          width="100%"
+          baseColor="var(--skeleton-base, #e2e8f0)"
+          highlightColor="var(--skeleton-highlight, #f1f5f9)"
+        />
       </div>
-    </div>
+
+      {/* Titre */}
+      <div className="mt-2 h-8">
+        <Skeleton
+          height={20}
+          width="90%"
+          baseColor="var(--skeleton-base, #e2e8f0)"
+          highlightColor="var(--skeleton-highlight, #f1f5f9)"
+        />
+      </div>
+
+      {/* Extrait */}
+      <div className="mt-2 space-y-1">
+        <Skeleton
+          count={3}
+          height={12}
+          width="100%"
+          baseColor="var(--skeleton-base, #e2e8f0)"
+          highlightColor="var(--skeleton-highlight, #f1f5f9)"
+        />
+      </div>
+
+      {/* Lire plus */}
+      <div className="mt-3 h-4 w-20">
+        <Skeleton
+          height={14}
+          width="100%"
+          baseColor="var(--skeleton-base, #e2e8f0)"
+          highlightColor="var(--skeleton-highlight, #f1f5f9)"
+        />
+      </div>
+    </motion.article>
   );
 };
 

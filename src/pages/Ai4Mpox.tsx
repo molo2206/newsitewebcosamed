@@ -1,11 +1,11 @@
 import useAsync from "../hooks/useAsync";
 import { useTranslation } from "react-i18next";
-import BulletinLoad from "../components/blogs/BulletinLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import BlogCard from "../components/blogs/BlogCard";
 import Pagination from "../components/Pagination/Pagination";
 import CategoryServices from "../services/CategoryServices";
 import { useState } from "react";
+import Ai4MpoxSkeleton from "../components/hero/Ai4MpoxSkeleton";
 
 const Ai4Mpox = () => {
   const { t } = useTranslation();
@@ -75,7 +75,7 @@ const Ai4Mpox = () => {
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {Array.from({ length: postsPerPage }).map((_, i) => (
-                <BulletinLoad key={i} />
+                <Ai4MpoxSkeleton key={i} />
               ))}
             </div>
           ) : data.length > 0 ? (

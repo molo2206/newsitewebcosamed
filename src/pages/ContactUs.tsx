@@ -20,7 +20,7 @@ import SettingsServices from "../services/SettingsServices";
 import useAsync from "../hooks/useAsync";
 import { ApplyForm } from "../types";
 import DonateModal from "./modal/DonateModal";
-import BulletinLoad from "../components/blogs/BulletinLoad";
+import ContactLoad from "../components/hero/ContactLoad";
 
 const ContactUs = () => {
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const ContactUs = () => {
   const { data, loading } = useAsync(() => SettingsServices.getSettings());
   const { data: dataadress } = useAsync(() => SettingsServices.getAdresse());
   const [showDonate, setShowDonate] = useState(false);
-
+  
   usePageSEO({
     title: "Contact-nous",
     description: "Contact-nous",
@@ -82,7 +82,7 @@ const ContactUs = () => {
     return (
       <div className="max-w-7xl mx-auto px-6 py-12 space-y-6">
         {Array.from({ length: 8 }).map((_, i) => (
-          <BulletinLoad key={i} />
+          <ContactLoad key={i} />
         ))}
       </div>
     );

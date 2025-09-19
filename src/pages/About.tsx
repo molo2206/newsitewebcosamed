@@ -2,10 +2,10 @@ import SettingsServices from "../services/SettingsServices";
 import useAsync from "../hooks/useAsync";
 import { showingTranslateValue } from "../utils/heleprs";
 import { useTranslation } from "react-i18next";
-import BulletinLoad from "../components/blogs/BulletinLoad";
 import BreadCumb from "../components/navbar/BreadCumb";
 import usePageSEO from "../components/Seo/usePageSEO";
 import { useLanguageContext } from "../context/LanguageContext";
+import AboutLoad from "../components/hero/AboutLoad";
 
 const About = () => {
   const { data, loading } = useAsync(() => SettingsServices.getSettings());
@@ -28,7 +28,7 @@ const About = () => {
     return (
       <div className="max-w-7xl mx-auto px-6 py-12 space-y-6">
         {Array.from({ length: 8 }).map((_, i) => (
-          <BulletinLoad key={i} />
+          <AboutLoad key={i} />
         ))}
       </div>
     );

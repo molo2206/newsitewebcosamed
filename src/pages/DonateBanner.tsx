@@ -2,15 +2,24 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import DonateModal from "./modal/DonateModal";
+import DonateBannerLoad from "../components/hero/DonateBannerLoad";
+import ImageWithSkeleton from "../components/hero/DonateBannerImage";
 
 const DonateBanner = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [showDonate, setShowDonate] = useState(false);
 
+  // ⚠️ Exemple: simulateur de chargement
+  const loading = false; // <- tu mets ton vrai état de chargement ici
+
   const goToContact = () => {
     navigate("/contact");
   };
+
+  if (loading) {
+    return <DonateBannerLoad />; // ✅ skeleton ici
+  }
 
   return (
     <section className="bg-slate-100 dark:bg-slate-900 py-16">
@@ -52,10 +61,9 @@ const DonateBanner = () => {
 
           {/* Right Section */}
           <div className="flex-1 relative overflow-hidden">
-            <img
+            <ImageWithSkeleton
               src="https://apicosamed.cosamed.org/uploads/blogs/3b92d18aa7a6176dd37d372bc2f1eb71.png"
               alt="Happy child"
-              className="w-full h-full object-cover"
             />
           </div>
         </div>
